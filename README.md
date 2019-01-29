@@ -2,6 +2,13 @@
 
 This is a fork of the gread SwingX library. Its a pity it was not developed any further. 
 
+## Modifications
+
+* WebStart was completely removed
+* OpenJDK 8 buildable
+* SwingX - Demos integrated in main build
+* SwingX - Demos startable using main class
+
 ------------
 
 # Readme - SwingLabs SwingX Project - http://swingx.dev.java.net
