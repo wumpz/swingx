@@ -3,7 +3,7 @@
   <parent>
     <artifactId>swingx-project</artifactId>
     <groupId>org.swinglabs.swingx</groupId>
-    <version>1.6.5-1-SNAPSHOT</version>
+    <version>1.6.6-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>swingx-demos</artifactId>
@@ -52,4 +52,8 @@
   	<module>swingx-demos-swingxset</module>
   	<module>swingx-demos-content</module>
   </modules>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
 </project>

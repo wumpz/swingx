@@ -5,13 +5,12 @@
 package org.jdesktop.swingxset.util;
 
 import java.awt.Component;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.util.logging.Logger;
 
-import javax.jnlp.ClipboardService;
-import javax.jnlp.ServiceManager;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.Icon;
@@ -47,10 +46,8 @@ public class DemoUtils {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    ClipboardService cs = (ClipboardService)ServiceManager.lookup
-                        ("javax.jnlp.ClipboardService");
                     StringSelection transferable = new StringSelection(editor.getSelectedText());
-                    cs.setContents(transferable);
+                    Toolkit.getDefaultToolkit().getSystemClipboard().setContents(transferable, transferable);
                 } catch (Exception e1) {
                     // do nothing
                 }
