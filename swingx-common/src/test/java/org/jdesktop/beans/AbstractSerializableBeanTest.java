@@ -44,7 +44,7 @@ public class AbstractSerializableBeanTest {
     private static class ShoeSizeCap implements VetoableChangeListener, Serializable {
         @Override
         public void vetoableChange(PropertyChangeEvent event) throws PropertyVetoException {
-            if("size".equals(event.getPropertyName()) && ((Integer)event.getNewValue()).intValue() > 13) {
+            if("size".equals(event.getPropertyName()) && ((Integer)event.getNewValue()) > 13) {
                 throw new PropertyVetoException("Feet too big!", event);
             }
         }

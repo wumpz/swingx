@@ -16,7 +16,7 @@ public class SeparatorTest {
     
     @Before
     public void setUp() {
-        sep = new Separator<String>("", ",");
+        sep = new Separator<>("", ",");
         values = Arrays.asList("1", "2", "3");
     }
     

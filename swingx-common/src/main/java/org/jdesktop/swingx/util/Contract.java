@@ -59,8 +59,8 @@ public class Contract {
         if (input.getClass().isArray()) {
             if (!input.getClass().getComponentType().isPrimitive()) {
                 T[] array = (T[]) input;
-                for (int i = 0; i < array.length; i++) {
-                    asNotNull(array[i], message);
+                for (T array1 : array) {
+                    asNotNull(array1, message);
                 }
             }
         }
