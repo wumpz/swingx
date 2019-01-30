@@ -24,13 +24,6 @@
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
-	<dependency>
-		<groupId>org.swinglabs.swingx</groupId>
-		<artifactId>swingx-demos-content</artifactId>
-		<version>${project.version}</version>
-		<type>jar</type>
-		<scope>compile</scope>
-	</dependency>
   	<dependency>
   		<groupId>org.jdesktop.bsaf</groupId>
   		<artifactId>bsaf</artifactId>

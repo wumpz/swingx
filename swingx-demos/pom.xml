@@ -51,6 +51,7 @@
   <modules>
   	<module>swingx-demos-swingxset</module>
   	<module>swingx-demos-content</module>
+    <module>swingx-demos-run</module>
   </modules>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
