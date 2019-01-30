@@ -465,7 +465,7 @@ public class BasicStatusBarUI extends StatusBarUI {
         //This is in the UI delegate because the layout
         //manager takes into account spacing for the separators between components
         return new LayoutManager2() {
-            private Map<Component,Constraint> constraints = new HashMap<Component,Constraint>();
+            private Map<Component,Constraint> constraints = new HashMap<>();
             
             @Override
             public void addLayoutComponent(String name, Component comp) {addLayoutComponent(comp, null);}

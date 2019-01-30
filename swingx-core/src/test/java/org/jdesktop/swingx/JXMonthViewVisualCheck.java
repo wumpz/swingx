@@ -759,7 +759,7 @@ public class JXMonthViewVisualCheck extends InteractiveTestCase {
      */
     public void interactiveUpdateWeekOnSetTimeZone() {
         JComponent panel = Box.createVerticalBox();
-        List<TimeZone> zones = new ArrayList<TimeZone>();
+        List<TimeZone> zones = new ArrayList<>();
         for (int i = -14; i < 13; i++) {
             String id = "GMT" + i;
             if (i >= 0) {

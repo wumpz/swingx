@@ -123,6 +123,7 @@ public class DatePickerCellEditorVisualCheck extends InteractiveTestCase {
         installEditors(table);
         Action action = new AbstractAction("toggle terminate") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 table.setTerminateEditOnFocusLost(!table.isTerminateEditOnFocusLost());
                 
@@ -164,6 +165,7 @@ public class DatePickerCellEditorVisualCheck extends InteractiveTestCase {
         tree.setCellEditor(new DefaultXTreeCellEditor(tree, null, new DatePickerCellEditor()));
         Action action = new AbstractAction("toggle terminate") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 tree.setInvokesStopCellEditing(!tree.getInvokesStopCellEditing());
                 

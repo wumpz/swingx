@@ -161,6 +161,7 @@ public class IconBorder implements Border, Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Insets getBorderInsets(Component c) {
         int horizontalInset = icon.getIconWidth() + (2 * padding);
         int iconPosition = bidiDecodeLeadingTrailing(c.getComponentOrientation(), this.iconPosition);
@@ -187,6 +188,7 @@ public class IconBorder implements Border, Serializable {
      * 
      * @return always returns {@code false}
      */
+    @Override
     public boolean isBorderOpaque() {
         return false;
     }
@@ -194,6 +196,7 @@ public class IconBorder implements Border, Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void paintBorder(Component c, Graphics g, int x, int y, int width,
         int height) {
         int iconPosition = bidiDecodeLeadingTrailing(c.getComponentOrientation(), this.iconPosition);

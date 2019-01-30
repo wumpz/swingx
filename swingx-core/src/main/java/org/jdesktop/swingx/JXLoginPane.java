@@ -857,10 +857,10 @@ public class JXLoginPane extends JXPanel {
     public void setServers(List<String> servers) {
         //only at startup
         if (this.servers == null) {
-            this.servers = servers == null ? new ArrayList<String>() : servers;
+            this.servers = servers == null ? new ArrayList<>() : servers;
         } else if (this.servers != servers) {
             List<String> old = getServers();
-            this.servers = servers == null ? new ArrayList<String>() : servers;
+            this.servers = servers == null ? new ArrayList<>() : servers;
             recreateLoginPanel();
             firePropertyChange("servers", old, getServers());
         }

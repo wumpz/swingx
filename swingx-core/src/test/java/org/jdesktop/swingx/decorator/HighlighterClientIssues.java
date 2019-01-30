@@ -75,6 +75,7 @@ public class HighlighterClientIssues extends InteractiveTestCase {
         final JXFrame secondFrame = wrapWithScrollingInFrame(second, "dependent, don't close directly");
         Action close = new AbstractAction("close second") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 secondFrame.dispose();
                 setEnabled(false);
@@ -83,6 +84,7 @@ public class HighlighterClientIssues extends InteractiveTestCase {
         };
         Action open = new AbstractAction("open second") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 JXFrame newFrame = wrapWithScrollingInFrame(second, "newly created");
                 newFrame.setVisible(true);
@@ -91,6 +93,7 @@ public class HighlighterClientIssues extends InteractiveTestCase {
         };
         Action color = new AbstractAction("toggle color") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 shared.setBackground(Color.YELLOW);
                 

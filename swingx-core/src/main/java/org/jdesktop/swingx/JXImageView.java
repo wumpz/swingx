@@ -621,18 +621,17 @@ public class JXImageView extends JXPanel {
         @Override
         public boolean canImport(JComponent c, DataFlavor[] flavors) {
             //log.fine("canImport:" + c);
-            for (int i = 0; i < flavors.length; i++) {
+            for (DataFlavor flavor : flavors) {
                 //log.fine("testing: "+flavors[i]);
-                if (DataFlavor.javaFileListFlavor.equals(flavors[i])) {
+                if (DataFlavor.javaFileListFlavor.equals(flavor)) {
                     return true;
                 }
-                if (DataFlavor.imageFlavor.equals(flavors[i])) {
+                if (DataFlavor.imageFlavor.equals(flavor)) {
                     return true;
                 }
-                if (urlFlavor.match(flavors[i])) {
+                if (urlFlavor.match(flavor)) {
                     return true;
                 }
-                
             }
             return false;
         }
@@ -717,7 +716,7 @@ public class JXImageView extends JXPanel {
             }
             if(flavor == DataFlavor.javaFileListFlavor) {
                 if(files == null) {
-                    files = new ArrayList<File>();
+                    files = new ArrayList<>();
                     File file = File.createTempFile(exportName,"."+exportFormat);
                     //log.fine("writing to: " + file);
                     ImageIO.write(GraphicsUtilities.convertToBufferedImage(img),exportFormat,file);

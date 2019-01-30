@@ -179,8 +179,9 @@ public class RendererIssues extends InteractiveTestCase {
         table.setBackground(PaintUtils.setAlpha(Color.YELLOW, 100));
         table.setOpaque(false);
         table.addHighlighter(new RowHighlighter(new HighlightPredicate() {
+            @Override
             public boolean isHighlighted(Component renderer, ComponentAdapter adapter) {
-                return ((Boolean) adapter.getValue(4)).booleanValue();
+                return ((Boolean) adapter.getValue(4));
             }
         }));
         showWithScrollingInFrame(table, "boolean renderer and alpha background");
@@ -232,6 +233,7 @@ public class RendererIssues extends InteractiveTestCase {
         table.setAutoResizeMode(JXTable.AUTO_RESIZE_OFF);
         StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 if (value instanceof File) {
                     return FileSystemView.getFileSystemView().getSystemDisplayName((File) value)
@@ -245,6 +247,7 @@ public class RendererIssues extends InteractiveTestCase {
         };
         IconValue iv = new IconValue() {
 
+            @Override
             public Icon getIcon(Object value) {
                 if (value instanceof File) {
                     return  FileSystemView.getFileSystemView().getSystemIcon((File) value);
@@ -263,6 +266,7 @@ public class RendererIssues extends InteractiveTestCase {
         // install value based highlighter 
         HighlightPredicate valueBased = new HighlightPredicate() {
 
+            @Override
             public boolean isHighlighted(Component renderer,
                     ComponentAdapter adapter) {
                 if (!(adapter.getValue() instanceof File)) return false;
@@ -276,6 +280,7 @@ public class RendererIssues extends InteractiveTestCase {
         JXFrame frame =showWithScrollingInFrame(table, "TreeTable: performance bottleneck is FileSystemView");
         Action toggleBack = new AbstractAction("toggleBackHighlighter") {
             boolean hasBack;
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (hasBack) {
                     table.removeHighlighter(back);
@@ -290,6 +295,7 @@ public class RendererIssues extends InteractiveTestCase {
         addAction(frame, toggleBack);
         Action togglePattern = new AbstractAction("togglePatternHighlighter") {
             boolean hasBack;
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (hasBack) {
                     table.removeHighlighter(hl);
@@ -309,6 +315,7 @@ public class RendererIssues extends InteractiveTestCase {
         // of queries to the systemView
         final JLabel timeL = new JLabel("stop-watch");
         Action timer = new AbstractAction("start") {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 timeL.setText("started");
                 long time = System.currentTimeMillis();
@@ -363,9 +370,11 @@ public class RendererIssues extends InteractiveTestCase {
             wasEditable = context.isEditable();
         }
 
+        @Override
         public void doClick() {
         }
 
+        @Override
         public boolean isEnabled() {
             return wasEditable;
         }
@@ -378,10 +387,12 @@ public class RendererIssues extends InteractiveTestCase {
         // quick model for long values
         ListModel model = new AbstractListModel() {
 
+            @Override
             public Object getElementAt(int index) {
                 return table.getPathForRow(index).getLastPathComponent();
             }
 
+            @Override
             public int getSize() {
                 return table.getRowCount();
             }
@@ -585,12 +596,14 @@ public class RendererIssues extends InteractiveTestCase {
         }
 
 
+        @Override
         public void doClick() {
             // TODO Auto-generated method stub
             
         }
 
 
+        @Override
         public boolean isEnabled() {
             // TODO Auto-generated method stub
             return true;
@@ -633,6 +646,7 @@ public class RendererIssues extends InteractiveTestCase {
        final Icon custom = XTestUtils.loadDefaultIcon();
        IconValue iv = new IconValue() {
 
+        @Override
         public Icon getIcon(Object value) {
             // TODO Auto-generated method stub
             return custom;

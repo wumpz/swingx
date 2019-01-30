@@ -1303,13 +1303,7 @@ public class JXDatePickerVisualCheck extends InteractiveTestCase {
                 UIManager.setLookAndFeel(plaf);
                 SwingUtilities.updateComponentTreeUI(w);
                 w.pack();
-            } catch (ClassNotFoundException e1) {
-                e1.printStackTrace();
-            } catch (InstantiationException e1) {
-                e1.printStackTrace();
-            } catch (IllegalAccessException e1) {
-                e1.printStackTrace();
-            } catch (UnsupportedLookAndFeelException e1) {
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e1) {
                 e1.printStackTrace();
             }
         }

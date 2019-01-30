@@ -420,17 +420,17 @@ public class RendererVisualCheck extends InteractiveTestCase {
     private Object[] columnNames = {
             "Buy/Sell", "Type", "SubType", "Ccy1", "Amount1", "Ccy2", "Amount2", "DealId"};
         private Object[][] data = {
-            {"Buy&Sell", "Ccy Swap", "A1", "EUR", new Double(1000000.00), "USD", new Double(1439000.00), 50},
-            {"Buy&Sell", "Ccy Swap", "A3", "USD", new Double(1438900.00), "EUR", new Double(1000000.00), 50},
-            {"Buy&Sell", "Ccy Swap", "A1", "EUR", new Double(500000.00), "CHF", new Double(550000.00), 350},
-            {"Buy&Sell", "Ccy Swap", "A1", "CHF", new Double(549800.00), "EUR", new Double(500000.00), 350},
-            {"Sell&Buy", "Ccy Swap", "A3", "USD", new Double(1000000.00), "EUR", new Double(749000.00), 2250},
-            {"Sell&Buy", "Ccy Swap", "A1", "EUR", new Double(748900.00), "USD", new Double(1000000.00), 2250},
-            {"Buy&Sell", "Ccy Swap", "A1", "GBP", new Double(1000000.00), "USD", new Double(1638100.00), 400},
-            {"Buy&Sell", "Ccy Swap", "A3", "USD", new Double(1638200.00), "GBP", new Double(1000000.00), 400},
-            {"Sell", "Ccy Spot", "A1", "AUD", new Double(343575.0), "EUR", new Double(250000.0), 11990},
-            {"Buy", "Ccy Spot", "A1", "EUR", new Double(100000.00), "JPY", new Double(1099000.00), 259},
-            {"Sell", "Ccy Fwd", "A3", "DKK", new Double(74889.00), "EUR", new Double(10000.00), 115439},};
+            {"Buy&Sell", "Ccy Swap", "A1", "EUR", 1000000.00, "USD", 1439000.00, 50},
+            {"Buy&Sell", "Ccy Swap", "A3", "USD", 1438900.00, "EUR", 1000000.00, 50},
+            {"Buy&Sell", "Ccy Swap", "A1", "EUR", 500000.00, "CHF", 550000.00, 350},
+            {"Buy&Sell", "Ccy Swap", "A1", "CHF", 549800.00, "EUR", 500000.00, 350},
+            {"Sell&Buy", "Ccy Swap", "A3", "USD", 1000000.00, "EUR", 749000.00, 2250},
+            {"Sell&Buy", "Ccy Swap", "A1", "EUR", 748900.00, "USD", 1000000.00, 2250},
+            {"Buy&Sell", "Ccy Swap", "A1", "GBP", 1000000.00, "USD", 1638100.00, 400},
+            {"Buy&Sell", "Ccy Swap", "A3", "USD", 1638200.00, "GBP", 1000000.00, 400},
+            {"Sell", "Ccy Spot", "A1", "AUD", 343575.0, "EUR", 250000.0, 11990},
+            {"Buy", "Ccy Spot", "A1", "EUR", 100000.00, "JPY", 1099000.00, 259},
+            {"Sell", "Ccy Fwd", "A3", "DKK", 74889.00, "EUR", 10000.00, 115439},};
 
     public void interactiveAlternateRowGrouping() {
         JXTable table = new JXTable(data, columnNames);
@@ -501,7 +501,7 @@ public class RendererVisualCheck extends InteractiveTestCase {
 
     public void interactiveAlternateRowGroupingRob() {
         JTable table = new JTable(data, columnNames) {
-            private Map<Object, Color> rowColor = new HashMap<Object, Color>();
+            private Map<Object, Color> rowColor = new HashMap<>();
 
             private Color nextColor = Color.ORANGE;
 
@@ -1444,7 +1444,7 @@ public class RendererVisualCheck extends InteractiveTestCase {
     public void interactiveTestTableLinkRenderer() {
         EditorPaneLinkVisitor visitor = new EditorPaneLinkVisitor();
         JXTable table = new JXTable(createModelWithLinks());
-        LinkModelAction<LinkModel> action = new LinkModelAction<LinkModel>(visitor);
+        LinkModelAction<LinkModel> action = new LinkModelAction<>(visitor);
         ComponentProvider<JXHyperlink> controller = new HyperlinkProvider(action, LinkModel.class);
         table.setDefaultRenderer(LinkModel.class, new DefaultTableRenderer(controller));
         JXFrame frame = wrapWithScrollingInFrame(table, visitor.getOutputComponent(), "show link renderer in table");
@@ -1468,7 +1468,7 @@ public class RendererVisualCheck extends InteractiveTestCase {
         EditorPaneLinkVisitor visitor = new EditorPaneLinkVisitor();
         JXList list = new JXList(createListModelWithLinks(20));
         list.setRolloverEnabled(true);
-        LinkModelAction<LinkModel> action = new LinkModelAction<LinkModel>(visitor);
+        LinkModelAction<LinkModel> action = new LinkModelAction<>(visitor);
         ComponentProvider<JXHyperlink> context = new HyperlinkProvider(action, LinkModel.class);
         list.setCellRenderer(new DefaultListRenderer(context));
         JFrame frame = wrapWithScrollingInFrame(list, visitor.getOutputComponent(), "show link renderer in list");
@@ -1492,7 +1492,7 @@ public class RendererVisualCheck extends InteractiveTestCase {
         EditorPaneLinkVisitor visitor = new EditorPaneLinkVisitor();
         JXTree tree = new JXTree(createTreeModelWithLinks(20));
         tree.setRolloverEnabled(true);
-        LinkModelAction<LinkModel> action = new LinkModelAction<LinkModel>(visitor);
+        LinkModelAction<LinkModel> action = new LinkModelAction<>(visitor);
         ComponentProvider<JXHyperlink> context = new HyperlinkProvider(action, LinkModel.class);
         tree.setCellRenderer(new DefaultTreeRenderer(new WrappingProvider(context)));
         JFrame frame = wrapWithScrollingInFrame(tree, visitor.getOutputComponent(), "show link renderer in list");
@@ -1558,7 +1558,7 @@ public class RendererVisualCheck extends InteractiveTestCase {
      * @param table
      */
     private void configureList(final JXList list, final JXTable table, boolean useRollover) {
-        final List<Action> actions = new ArrayList<Action>();
+        final List<Action> actions = new ArrayList<>();
         // quick and dirty access to column visibility actions
         @SuppressWarnings("all")
         ColumnControlButton columnControl = new ColumnControlButton(table) {
@@ -2102,9 +2102,10 @@ public class RendererVisualCheck extends InteractiveTestCase {
 
         BeanInfo info = Introspector.getBeanInfo(beanClass);
         PropertyDescriptor[] descriptors = info.getPropertyDescriptors();
-        for (int i = 0; i < descriptors.length; i++) {
-            if (propertyName.equals(descriptors[i].getName()))
-                return descriptors[i];
+        for (PropertyDescriptor descriptor : descriptors) {
+            if (propertyName.equals(descriptor.getName())) {
+                return descriptor;
+            }
         }
         throw new IntrospectionException(
             "Property '" + propertyName + "' not found in bean " + beanClass);

@@ -36,34 +36,41 @@ public abstract class AbstractMultiThumbModel<E> implements MultiThumbModel<E> {
     protected float maximumValue = 1.0f;
     protected float minimumValue = 0.0f;
     
+    @Override
     public float getMaximumValue()    {
         return maximumValue;
     }
     
+    @Override
     public float getMinimumValue()    {
         return minimumValue;
     }
     
+    @Override
     public void setMaximumValue(float maximumValue) {
         this.maximumValue = maximumValue;
     }
     
+    @Override
     public void setMinimumValue(float minimumValue) {
         this.minimumValue = minimumValue;
     }
     
-    protected List<ThumbDataListener> thumbDataListeners = new ArrayList<ThumbDataListener>();
+    protected List<ThumbDataListener> thumbDataListeners = new ArrayList<>();
     
+    @Override
     public void addThumbDataListener(ThumbDataListener listener) {
         thumbDataListeners.add(listener);
     }
     
+    @Override
     public void removeThumbDataListener(ThumbDataListener listener) {
         thumbDataListeners.remove(listener);
     }
     
     
     
+    @Override
     public void thumbPositionChanged(Thumb<E> thumb) {
         fireThumbPositionChanged(thumb);
     }
@@ -76,6 +83,7 @@ public abstract class AbstractMultiThumbModel<E> implements MultiThumbModel<E> {
             }
         }
     }
+    @Override
     public void thumbValueChanged(Thumb<E> thumb) {
         fireThumbValueChanged(thumb);
     }

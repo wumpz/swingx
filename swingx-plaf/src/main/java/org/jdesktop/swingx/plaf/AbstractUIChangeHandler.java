@@ -9,7 +9,7 @@ import javax.swing.JComponent;
 @SuppressWarnings("nls")
 public abstract class AbstractUIChangeHandler implements PropertyChangeListener {
 	//prevent double installation.
-	private final Map<JComponent, Boolean> installed = new WeakHashMap<JComponent, Boolean>();
+	private final Map<JComponent, Boolean> installed = new WeakHashMap<>();
 	
 	public void install(JComponent c){
 		if(isInstalled(c)){

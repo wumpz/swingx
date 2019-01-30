@@ -101,7 +101,7 @@ public class JXTableIssues extends InteractiveTestCase {
             LOG.fine("cannot run test - headless environment");
             return;
         }
-        final List<Integer> set = new ArrayList<Integer>();
+        final List<Integer> set = new ArrayList<>();
         final JXTable table = new JXTable() {
 
             @Override
@@ -114,6 +114,7 @@ public class JXTableIssues extends InteractiveTestCase {
         showWithScrollingInFrame(table, "");
         table.setModel(new DefaultTableModel(100, 5));
         SwingUtilities.invokeAndWait(new Runnable() {
+            @Override
             public void run() {
                 // failing - one row off?
                 assertEquals(table.getColumnCount() * table.getVisibleRowCount(), set.size());
@@ -233,9 +234,9 @@ public class JXTableIssues extends InteractiveTestCase {
         table.setRolloverEnabled(false);
         ActionMap actionMap = table.getActionMap();
         Object[] keys = actionMap.keys();
-        for (int i = 0; i < keys.length; i++) {
-            if (actionMap.get(keys[i]) instanceof BoundAction) {
-                actionMap.remove(keys[i]);
+        for (Object key : keys) {
+            if (actionMap.get(key) instanceof BoundAction) {
+                actionMap.remove(key);
             }
         }
         SerializableSupport.serialize(table);
@@ -343,6 +344,7 @@ public class JXTableIssues extends InteractiveTestCase {
         // highlight complete row if first cell starts with a
         HighlightPredicate predicate = new HighlightPredicate() {
 
+            @Override
             public boolean isHighlighted(Component renderer,
                     ComponentAdapter adapter) {
                 return adapter.getString(0).startsWith("a");
@@ -379,11 +381,13 @@ public class JXTableIssues extends InteractiveTestCase {
         CellEditor editor = xTable.getDefaultEditor(Object.class);
         CellEditorListener l =  new CellEditorListener() {
 
+            @Override
             public void editingCanceled(ChangeEvent e) {
                 field.setText("canceled");
                 
             }
 
+            @Override
             public void editingStopped(ChangeEvent e) {
                 field.setText("stopped");
                 
@@ -420,6 +424,7 @@ public class JXTableIssues extends InteractiveTestCase {
         
         table.getColumnExt(0).addHighlighter(
                 new ColorHighlighter(new HighlightPredicate() {
+                    @Override
                     public boolean isHighlighted(Component renderer, ComponentAdapter adapter) {
                         return adapter.getValue().toString().contains("e");
                     }
@@ -468,7 +473,7 @@ public class JXTableIssues extends InteractiveTestCase {
     
      
     private void assertSelection(TableModel tableModel, ListSelectionModel selectionModel, Object[] expected) {
-        List<Object> selected = new ArrayList<Object>();
+        List<Object> selected = new ArrayList<>();
         for(int r = 0; r < tableModel.getRowCount(); r++) {
             if(selectionModel.isSelectedIndex(r)) selected.add(tableModel.getValueAt(r, 0));
         }
@@ -498,7 +503,7 @@ public class JXTableIssues extends InteractiveTestCase {
      * A one column table model where all the data is in an Object[] array.
      */
     static class ReallySimpleTableModel extends AbstractTableModel {
-        private List<Object> contents = new ArrayList<Object>();
+        private List<Object> contents = new ArrayList<>();
         
         public void setContents(List<Object> contents) {
             this.contents.clear();
@@ -512,12 +517,15 @@ public class JXTableIssues extends InteractiveTestCase {
             contents.remove(row);
             fireTableRowsDeleted(row, row);
         }
+        @Override
         public int getRowCount() {
             return contents.size();
         }
+        @Override
         public int getColumnCount() {
             return 1;
         }
+        @Override
         public Object getValueAt(int row, int column) {
             if(column != 0) throw new IllegalArgumentException();
             return contents.get(row);
@@ -547,7 +555,7 @@ public class JXTableIssues extends InteractiveTestCase {
         };
         int filledColumn = fillLast ? columnCount - 1 : 0;
         for (int i = 0; i < model.getRowCount(); i++) {
-            model.setValueAt(new Integer(startRow++), i, filledColumn);
+            model.setValueAt(startRow++, i, filledColumn);
         }
         return model;
     }
@@ -557,7 +565,7 @@ public class JXTableIssues extends InteractiveTestCase {
     private DefaultTableModel createAscendingModel(int startRow, int count) {
         DefaultTableModel model = new DefaultTableModel(count, 5);
         for (int i = 0; i < model.getRowCount(); i++) {
-            model.setValueAt(new Integer(startRow++), i, 0);
+            model.setValueAt(startRow++, i, 0);
         }
         return model;
     }

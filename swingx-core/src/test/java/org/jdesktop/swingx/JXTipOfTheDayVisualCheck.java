@@ -114,6 +114,7 @@ public class JXTipOfTheDayVisualCheck extends InteractiveTestCase {
         JMenu menu = new JMenu("Locales");
         menu.add(new AbstractAction("Change Locale") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (component.getLocale() == Locale.FRANCE) {
                     component.setLocale(Locale.ENGLISH);

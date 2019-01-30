@@ -255,6 +255,7 @@ public class LinkModel implements Comparable {
     }
 
     // Comparable interface for sorting.
+    @Override
     public int compareTo(Object obj) {
         if (obj == null) {
             return 1;

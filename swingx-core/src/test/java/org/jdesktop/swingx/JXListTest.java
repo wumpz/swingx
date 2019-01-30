@@ -277,12 +277,14 @@ public class JXListTest extends InteractiveTestCase {
         showWithScrollingInFrame(list, "");
         final Dimension size = list.getSize();
         SwingUtilities.invokeAndWait(new Runnable() {
+            @Override
             public void run() {
                 RowFilter<? super ListModel, ? super Integer> filter = RowFilters.regexFilter(Pattern.CASE_INSENSITIVE, "^b");
                 list.setRowFilter(filter);
             }
         });
         SwingUtilities.invokeAndWait(new Runnable() {
+            @Override
             public void run() {
                 // subtraction arbitrary number, don't want to depend on single pixels
                 assertTrue("height must be adjusted to reduced number of rows, " +
@@ -504,7 +506,7 @@ public class JXListTest extends InteractiveTestCase {
         list.setSortable(false);
         Collator comparator = Collator.getInstance();
         list.setComparator(comparator);
-        ListSortController<?> controller = new ListSortController<ListModel>(list.getModel());
+        ListSortController<?> controller = new ListSortController<>(list.getModel());
         list.setRowSorter(controller);
         assertEquals("sortable propagated", false, controller.isSortable(0));
         assertSame("comparator propagated", comparator, controller.getComparator(0));
@@ -573,17 +575,17 @@ public class JXListTest extends InteractiveTestCase {
     public void testConstructorAutoCreateSorter() {
         assertAutoCreateRowSorter(new JXList(), false);
         assertAutoCreateRowSorter(new JXList(new DefaultListModel()), false);
-        assertAutoCreateRowSorter(new JXList(new Vector<Object>()), false);
+        assertAutoCreateRowSorter(new JXList(new Vector<>()), false);
         assertAutoCreateRowSorter(new JXList(new Object[] { }), false);
         
         assertAutoCreateRowSorter(new JXList(false), false);
         assertAutoCreateRowSorter(new JXList(new DefaultListModel(), false), false);
-        assertAutoCreateRowSorter(new JXList(new Vector<Object>(), false), false);
+        assertAutoCreateRowSorter(new JXList(new Vector<>(), false), false);
         assertAutoCreateRowSorter(new JXList(new Object[] { }, false), false);
 
         assertAutoCreateRowSorter(new JXList(true), true);
         assertAutoCreateRowSorter(new JXList(new DefaultListModel(), true), true);
-        assertAutoCreateRowSorter(new JXList(new Vector<Object>(), true), true);
+        assertAutoCreateRowSorter(new JXList(new Vector<>(), true), true);
         assertAutoCreateRowSorter(new JXList(new Object[] { }, true), true);
     }
     
@@ -595,7 +597,7 @@ public class JXListTest extends InteractiveTestCase {
     @Test
     public void testRowSorterSet() {
         assertNull(list.getRowSorter());
-        ListSortController<ListModel> controller = new ListSortController<ListModel>(list.getModel());
+        ListSortController<ListModel> controller = new ListSortController<>(list.getModel());
         PropertyChangeReport report = new PropertyChangeReport(list);
         list.setRowSorter(controller);
         TestUtils.assertPropertyChangeEvent(report, list, "rowSorter", null, controller);
@@ -759,6 +761,7 @@ public class JXListTest extends InteractiveTestCase {
         JXList list = new JXList(AncientSwingTeam.createNamedColorListModel());
         StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 if (value instanceof Color) {
                     Color color = (Color) value;
@@ -919,9 +922,9 @@ public class JXListTest extends InteractiveTestCase {
 
     private PropertyChangeListener getLinkControllerAsPropertyChangeListener(JXList table, String propertyName) {
         PropertyChangeListener[] listeners = table.getPropertyChangeListeners(propertyName);
-        for (int i = 0; i < listeners.length; i++) {
-            if (listeners[i] instanceof ListRolloverController<?>) {
-                return (ListRolloverController<?>) listeners[i];
+        for (PropertyChangeListener listener : listeners) {
+            if (listener instanceof ListRolloverController<?>) {
+                return (ListRolloverController<?>) listener;
             }
         }
         return null;
@@ -936,7 +939,7 @@ public class JXListTest extends InteractiveTestCase {
     protected DefaultListModel createAscendingListModel(int startRow, int count) {
         DefaultListModel l = new DefaultListModel();
         for (int row = startRow; row < startRow  + count; row++) {
-            l.addElement(new Integer(row));
+            l.addElement(row);
         }
         return l;
     }
@@ -969,6 +972,7 @@ public class JXListTest extends InteractiveTestCase {
     private StringValue createColorStringValue() {
         StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 if (value instanceof Color) {
                     Color color = (Color) value;

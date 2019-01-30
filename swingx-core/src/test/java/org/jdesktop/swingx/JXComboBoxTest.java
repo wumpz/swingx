@@ -206,6 +206,7 @@ public class JXComboBoxTest {
     private StringValue createColorStringValue() {
         StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 if (value instanceof Color) {
                     Color color = (Color) value;

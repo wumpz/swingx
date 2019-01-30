@@ -249,7 +249,7 @@ public class HighlighterClientVisualCheck extends InteractiveTestCase {
         Highlighter shading = new ShadingColorHighlighter(
                 new HighlightPredicate.ColumnHighlightPredicate(0));
         // create and configure one JXList per column.
-        List<JXList> lists = new ArrayList<JXList>();
+        List<JXList> lists = new ArrayList<>();
         // first name
         JXList list0 = new JXList(createListModel(source, 0));
         list0.setHighlighters(simpleStriping);
@@ -355,7 +355,7 @@ public class HighlighterClientVisualCheck extends InteractiveTestCase {
      */
     public void interactiveRolloverRowGroup() {
         TableModel model = new AncientSwingTeam();
-       final List<Integer> rowSet = new ArrayList<Integer>();
+       final List<Integer> rowSet = new ArrayList<>();
        for (int i = 0; i < model.getRowCount(); i++) {
          if ((Integer)model.getValueAt(i, 3) > 10) {
              rowSet.add(i);
@@ -408,9 +408,9 @@ public class HighlighterClientVisualCheck extends InteractiveTestCase {
         Color[] colors = new Color[] { Color.YELLOW, Color.CYAN, Color.MAGENTA,
                 Color.GREEN };
         int rowsPerColor = (table.getRowCount() - 5) / colors.length;
-        Map<Color, HighlightPredicate> map = new HashMap<Color, HighlightPredicate>();
+        Map<Color, HighlightPredicate> map = new HashMap<>();
         for (int i = 0; i < colors.length; i++) {
-            List<Integer> values = new ArrayList<Integer>();
+            List<Integer> values = new ArrayList<>();
             for (int j = 0; j < rowsPerColor; j++) {
                 values.add((Integer) table.getValueAt(i * rowsPerColor + j, numberColumn));
             }
@@ -460,7 +460,7 @@ public class HighlighterClientVisualCheck extends InteractiveTestCase {
         // coloring
         final int numberColumn = 3;
         table.toggleSortOrder(numberColumn);
-        final Map<Integer, Color> lookup = new HashMap<Integer, Color>();
+        final Map<Integer, Color> lookup = new HashMap<>();
         Color[] colors = new Color[] { Color.YELLOW, Color.CYAN, Color.MAGENTA,
                 Color.GREEN };
         int rowsPerColor = (table.getRowCount() - 5) / colors.length;

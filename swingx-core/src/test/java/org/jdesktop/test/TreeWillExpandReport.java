@@ -25,9 +25,9 @@ public class TreeWillExpandReport implements TreeWillExpandListener {
     /**
      * Holds a list of all canceled events.
      */
-    protected List<TreeExpansionEvent> expandedEvents = Collections.synchronizedList(new LinkedList<TreeExpansionEvent>());
-    protected List<TreeExpansionEvent> collapsedEvents = Collections.synchronizedList(new LinkedList<TreeExpansionEvent>());
-    protected List<TreeExpansionEvent> allEvents = Collections.synchronizedList(new LinkedList<TreeExpansionEvent>());
+    protected List<TreeExpansionEvent> expandedEvents = Collections.synchronizedList(new LinkedList<>());
+    protected List<TreeExpansionEvent> collapsedEvents = Collections.synchronizedList(new LinkedList<>());
+    protected List<TreeExpansionEvent> allEvents = Collections.synchronizedList(new LinkedList<>());
     private boolean veto;
     
     public TreeWillExpandReport() {
@@ -44,6 +44,7 @@ public class TreeWillExpandReport implements TreeWillExpandListener {
 //------------------------ implement TreeWillExpandListener
 
     
+    @Override
     public void treeWillExpand(TreeExpansionEvent e) throws ExpandVetoException {
         expandedEvents.add(0, e);
         allEvents.add(0, e);
@@ -51,6 +52,7 @@ public class TreeWillExpandReport implements TreeWillExpandListener {
     }
     
     
+    @Override
     public void treeWillCollapse(TreeExpansionEvent e) throws ExpandVetoException {
         collapsedEvents.add(0, e);
         allEvents.add(0, e);

@@ -76,6 +76,7 @@ public class EyeDropperColorChooserPanel extends AbstractColorChooserPanel {
      */
     public static void main(String ... args) {
         SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 JColorChooser chooser = new JColorChooser();
                 chooser.addChooserPanel(new EyeDropperColorChooserPanel());
@@ -120,6 +121,7 @@ public class EyeDropperColorChooserPanel extends AbstractColorChooserPanel {
         }
         
         magPanel.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 Color color = new Color(((MagnifyingPanel)magPanel).activeColor);
                 activeColor.setBackground(color);

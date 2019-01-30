@@ -212,7 +212,7 @@ public class TableColumnExtTest extends TestCase {
     public void testClientPropertyNotification() {
         PropertyChangeReport report = new PropertyChangeReport();
         columnExt.addPropertyChangeListener(report);
-        Object value = new Integer(3);
+        Object value = 3;
         columnExt.putClientProperty("somevalue", value);
         assertTrue(report.hasEvents());
         assertEquals(1, report.getEventCount("somevalue"));

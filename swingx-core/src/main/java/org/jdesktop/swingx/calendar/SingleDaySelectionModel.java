@@ -69,8 +69,8 @@ public class SingleDaySelectionModel extends AbstractDateSelectionModel {
      */
     public SingleDaySelectionModel(Locale locale) {
         super(locale);
-        this.selectedDates = new TreeSet<Date>();
-        this.unselectableDates = new TreeSet<Date>();
+        this.selectedDates = new TreeSet<>();
+        this.unselectableDates = new TreeSet<>();
     }
 
     /**

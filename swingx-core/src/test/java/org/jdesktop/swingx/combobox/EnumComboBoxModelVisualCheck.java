@@ -22,7 +22,7 @@ public class EnumComboBoxModelVisualCheck extends EnumComboBoxModelUnitTest {
      * A visual example using default {@code toString} implementation.
      */
     public void interactiveSelectedItem() {
-        EnumComboBoxModel<MyEnum1> enumModel = new EnumComboBoxModel<MyEnum1>(
+        EnumComboBoxModel<MyEnum1> enumModel = new EnumComboBoxModel<>(
                 MyEnum1.class);
         JComboBox box = new JComboBox(enumModel);
         box.setEditable(true);
@@ -37,7 +37,7 @@ public class EnumComboBoxModelVisualCheck extends EnumComboBoxModelUnitTest {
      * A visual example using a custom {@code toString} implementation.
      */
     public void interactiveSelectedItemWithCustomToString() {
-        EnumComboBoxModel<MyEnum2> enumModel = new EnumComboBoxModel<MyEnum2>(
+        EnumComboBoxModel<MyEnum2> enumModel = new EnumComboBoxModel<>(
                 MyEnum2.class);
         JComboBox box = new JComboBox(enumModel);
         box.setEditable(true);

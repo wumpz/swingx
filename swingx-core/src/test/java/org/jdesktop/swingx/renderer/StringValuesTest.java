@@ -46,7 +46,7 @@ public class StringValuesTest extends TestCase {
 
     @Test
     public void testLocaleSVPrefixNotContained() {
-        Map<Object, String> lookup = new HashMap<Object, String>();
+        Map<Object, String> lookup = new HashMap<>();
         String value = "not contained";
         lookup.put(value, "unreasonableDummyKey");
 //        StringValue sv = new LocalizableStringValue(lookup, "prefix.", Locale.GERMANY);
@@ -57,7 +57,7 @@ public class StringValuesTest extends TestCase {
     
     @Test
     public void testLocaleSVPrefixContained() {
-        Map<Object, String> lookup = new HashMap<Object, String>();
+        Map<Object, String> lookup = new HashMap<>();
         lookup.put(PatternModel.MATCH_RULE_ENDSWITH, PatternModel.MATCH_RULE_ENDSWITH);
         StringValue sv = new LocalizableStringValue(lookup, PatternModel.SEARCH_PREFIX, Locale.GERMAN);
         assertEquals("endet mit", sv.getString(PatternModel.MATCH_RULE_ENDSWITH));
@@ -65,7 +65,7 @@ public class StringValuesTest extends TestCase {
     
     @Test
     public void testLocaleSVDirectContained() {
-        Map<Object, String> lookup = new HashMap<Object, String>();
+        Map<Object, String> lookup = new HashMap<>();
         lookup.put(PatternModel.MATCH_RULE_ENDSWITH, PatternModel.SEARCH_PREFIX + PatternModel.MATCH_RULE_ENDSWITH);
         StringValue sv = new LocalizableStringValue(lookup,  Locale.GERMAN);
         assertEquals("endet mit", sv.getString(PatternModel.MATCH_RULE_ENDSWITH));
@@ -73,7 +73,7 @@ public class StringValuesTest extends TestCase {
     
     @Test
     public void testLocaleSVNotContained() {
-        Map<Object, String> lookup = new HashMap<Object, String>();
+        Map<Object, String> lookup = new HashMap<>();
         String value = "not contained";
         lookup.put(value, "unreasonableDummyKey");
         StringValue sv = new LocalizableStringValue(lookup);
@@ -84,7 +84,7 @@ public class StringValuesTest extends TestCase {
     public void testLocaleSVDefaultLocale() {
         Locale old = Locale.getDefault();
         try {
-            LocalizableStringValue sv = new LocalizableStringValue(new HashMap<Object, String>());
+            LocalizableStringValue sv = new LocalizableStringValue(new HashMap<>());
             assertEquals(old, sv.getLocale());
             Locale other = Locale.CHINESE;
             if (old.equals(other)) {

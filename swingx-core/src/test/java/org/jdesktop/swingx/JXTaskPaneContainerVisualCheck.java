@@ -186,6 +186,7 @@ public class JXTaskPaneContainerVisualCheck extends InteractiveTestCase {
     private void fillTaskPane(JXTaskPane first) {
         first.add(new AbstractActionExt("some") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
 
@@ -195,6 +196,7 @@ public class JXTaskPaneContainerVisualCheck extends InteractiveTestCase {
 
         first.add(new AbstractActionExt("other") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
 
@@ -220,6 +222,7 @@ public class JXTaskPaneContainerVisualCheck extends InteractiveTestCase {
         
         JXFrame frame = wrapInFrame(container, "removal test");
         frame.add(new JButton(new AbstractAction("Remove Second") {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 container.remove(pane2);
             }
@@ -254,6 +257,7 @@ public class JXTaskPaneContainerVisualCheck extends InteractiveTestCase {
             /**
              * {@inheritDoc}
              */
+            @Override
             public void actionPerformed(ActionEvent e) {
                 //does nothing
             }
@@ -288,6 +292,7 @@ public class JXTaskPaneContainerVisualCheck extends InteractiveTestCase {
         JMenu menu = new JMenu("Locales");
         menu.add(new AbstractAction("Change Locale") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (component.getLocale() == Locale.FRANCE) {
                     component.setLocale(Locale.ENGLISH);

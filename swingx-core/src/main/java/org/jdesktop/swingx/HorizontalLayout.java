@@ -80,7 +80,7 @@ public class HorizontalLayout extends AbstractLayoutManager {
     @Override
     public Dimension preferredLayoutSize(Container parent) {
         Dimension pref = new Dimension(0, 0);
-        Separator<Integer> sep = new Separator<Integer>(0, gap);
+        Separator<Integer> sep = new Separator<>(0, gap);
 
         for (int i = 0, c = parent.getComponentCount(); i < c; i++) {
             Component m = parent.getComponent(i);

@@ -61,6 +61,7 @@ public class JXBusyLabelVisualCheck extends InteractiveTestCase {
         label.setText("hi there");
         f.add(label);
         f.add(new JButton(new AbstractAction("click me") {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 label.setBusy(!label.isBusy());
             }
@@ -85,9 +86,10 @@ public class JXBusyLabelVisualCheck extends InteractiveTestCase {
         JXBusyLabel bl = new JXBusyLabel();
         f.add(bl);
         bl.setBusy(true);
-    	final List<JDialog> l = new ArrayList<JDialog>();
+    	final List<JDialog> l = new ArrayList<>();
     	JPanel control = new JPanel();
         JButton b = new JButton(new AbstractAction("Start") {
+            @Override
             public void actionPerformed(ActionEvent e) {
             	System.gc();
             	System.out.println("Start mem(u):" + (Runtime.getRuntime().totalMemory() - 
@@ -104,6 +106,7 @@ public class JXBusyLabelVisualCheck extends InteractiveTestCase {
         });
         control.add(b);
         b = new JButton(new AbstractAction("Stop") {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 // just reset the model
             	for (int i = 0; i < 100; i++) {

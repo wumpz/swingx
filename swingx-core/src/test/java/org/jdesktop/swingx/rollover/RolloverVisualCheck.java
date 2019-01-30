@@ -201,6 +201,7 @@ public class RolloverVisualCheck extends InteractiveTestCase {
         JXFrame frame = wrapWithScrollingInFrame(table, "Table with rollover");
         Action toggleAction = new AbstractAction("toggle foreground/background") {
             boolean isBackground;
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (isBackground) {
                     compoundHighlighter.addHighlighter(foregroundHighlighter);
@@ -228,6 +229,7 @@ public class RolloverVisualCheck extends InteractiveTestCase {
         JXFrame frame = wrapWithScrollingInFrame(table, "List with rollover");
         Action toggleAction = new AbstractAction("toggle foreground/background") {
             boolean isBackground;
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (isBackground) {
                     compoundHighlighter.addHighlighter(foregroundHighlighter);
@@ -263,6 +265,7 @@ public class RolloverVisualCheck extends InteractiveTestCase {
         JXFrame frame = wrapWithScrollingInFrame(table, tree, "JXTree (at left) with rollover");
         Action toggleAction = new AbstractAction("toggle foreground/background") {
             boolean isBackground;
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (isBackground) {
                     compoundHighlighter.addHighlighter(foregroundHighlighter);
@@ -295,6 +298,7 @@ public class RolloverVisualCheck extends InteractiveTestCase {
         JXFrame frame = wrapWithScrollingInFrame(table, "TreeTable with rollover");
         Action toggleAction = new AbstractAction("toggle foreground/background") {
             boolean isBackground;
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (isBackground) {
                     compoundHighlighter.addHighlighter(foregroundHighlighter);
@@ -330,6 +334,7 @@ public class RolloverVisualCheck extends InteractiveTestCase {
         JXFrame frame = wrapWithScrollingInFrame(table, "TreeTable with rollover - effect hierarchical column");
         Action toggleAction = new AbstractAction("toggle foreground/background") {
             boolean isBackground;
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (isBackground) {
                     table.setHighlighters(foregroundHighlighter);
@@ -582,10 +587,12 @@ public class RolloverVisualCheck extends InteractiveTestCase {
         sortableTableModel = new AncientSwingTeam();
         listModel = new AbstractListModel() {
 
+            @Override
             public int getSize() {
                 return sortableTableModel.getRowCount();
             }
 
+            @Override
             public Object getElementAt(int index) {
                 return sortableTableModel.getValueAt(index, 0);
             }

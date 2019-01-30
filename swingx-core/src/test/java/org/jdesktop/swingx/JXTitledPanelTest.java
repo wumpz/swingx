@@ -168,6 +168,7 @@ public class JXTitledPanelTest extends InteractiveTestCase {
         Action toggleCO = new AbstractAction("toggle orientation") {
 
 
+                @Override
                 public void actionPerformed(ActionEvent e) {
                     ComponentOrientation current = panel.getComponentOrientation();
                     if (current == ComponentOrientation.LEFT_TO_RIGHT) {
@@ -211,6 +212,7 @@ public class JXTitledPanelTest extends InteractiveTestCase {
         final JXTitledPanel panel = new JXTitledPanel(title);
         panel.getContentContainer().setLayout(new BoxLayout(panel.getContentContainer(), BoxLayout.Y_AXIS));
         Action toggleLight = new AbstractAction("toggle lightBackground") {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 LOG.info("JXTitledPanelText must be updated to new api");
 
@@ -223,6 +225,7 @@ public class JXTitledPanelTest extends InteractiveTestCase {
         panel.getContentContainer().add(new JButton(toggleLight));
         panel.getContentContainer().setLayout(new BoxLayout(panel.getContentContainer(), BoxLayout.Y_AXIS));
         Action toggleDark = new AbstractAction("toggle darkbackground") {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 LOG.info("JXTitledPanelText must be updated to new api");
 //                Color oldFont = panel.getTitleDarkBackground();
@@ -234,6 +237,7 @@ public class JXTitledPanelTest extends InteractiveTestCase {
 
         panel.getContentContainer().add(new JButton(toggleDark));
         Action toggleForeground = new AbstractAction("toggle Foreground") {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 Color oldColor = panel.getTitleForeground();
                 panel.setTitleForeground(oldColor.darker());
@@ -244,6 +248,7 @@ public class JXTitledPanelTest extends InteractiveTestCase {
 
         panel.getContentContainer().add(new JButton(toggleForeground));
         Action toggleFont = new AbstractAction("toggle Font") {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 Font oldFont = panel.getTitleFont();
                 System.out.println("oldfont size: " + oldFont.getSize());
@@ -256,6 +261,7 @@ public class JXTitledPanelTest extends InteractiveTestCase {
         panel.getContentContainer().add(new JButton(toggleFont));
         Action toggleTitle = new AbstractAction("toggle title") {
             int count = 0;
+            @Override
             public void actionPerformed(ActionEvent e) {
                 panel.setTitle(" * " + count++ + " title");
                 
@@ -300,6 +306,7 @@ public class JXTitledPanelTest extends InteractiveTestCase {
             this.cornerRadius = cornerRadius;
         }
 
+        @Override
         public Insets getBorderInsets(Component c) {
             return getBorderInsets(c, new Insets(0,0,0,0));
         }
@@ -310,10 +317,12 @@ public class JXTitledPanelTest extends InteractiveTestCase {
             return insets;
         }
 
+        @Override
         public boolean isBorderOpaque() {
             return false;
         }
 
+        @Override
         public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
             Graphics2D g2 = (Graphics2D)g.create();
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 

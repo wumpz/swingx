@@ -318,13 +318,13 @@ public class ActionContainerFactory {
      */
     private ButtonGroup getGroup(String groupid, JComponent container) {
         if (groupMap == null) {
-            groupMap = new HashMap<Integer, ButtonGroup>();
+            groupMap = new HashMap<>();
         }
         int intCode = groupid.hashCode();
         if (container != null) {
             intCode ^= container.hashCode();
         }
-        Integer hashCode = new Integer(intCode);
+        Integer hashCode = intCode;
 
         ButtonGroup group = groupMap.get(hashCode);
         if (group == null) {

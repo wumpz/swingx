@@ -107,6 +107,7 @@ public class JXCollapsiblePaneVisualCheck extends InteractiveTestCase {
         final JXDialog dialog = new JXDialog(pane);
         PropertyChangeListener l = new PropertyChangeListener() {
 
+            @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if ("collapsed".equals(evt.getPropertyName())) {
                     dialog.pack();
@@ -133,6 +134,7 @@ public class JXCollapsiblePaneVisualCheck extends InteractiveTestCase {
         final JXDialog dialog = new JXDialog(pane);
         PropertyChangeListener l = new PropertyChangeListener() {
 
+            @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if ("collapsed".equals(evt.getPropertyName())) {
                     dialog.pack();
@@ -296,6 +298,7 @@ public class JXCollapsiblePaneVisualCheck extends InteractiveTestCase {
     	showInFrame(panel, "Scroll Rect To Visible Test");
     	
     	SwingUtilities.invokeLater(new Runnable() {
+            @Override
 			public void run() {
 				tree.expandAll();
 			}

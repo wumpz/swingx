@@ -52,7 +52,7 @@ public final class DefaultsList {
      * Creates a {@code DefaultsList}.
      */
     public DefaultsList() {
-        delegate = new ArrayList<Object>();
+        delegate = new ArrayList<>();
     }
 
     /**

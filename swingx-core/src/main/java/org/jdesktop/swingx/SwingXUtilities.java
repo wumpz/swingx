@@ -217,8 +217,8 @@ public final class SwingXUtilities {
         Component[] children = getChildren(c);
             
         if (children != null) {
-            for(int i = 0; i < children.length; i++) {
-                setComponentTreeEnabled(children[i], enabled);
+            for (Component children1 : children) {
+                setComponentTreeEnabled(children1, enabled);
             }
         }
     }
@@ -238,8 +238,8 @@ public final class SwingXUtilities {
         Component[] children = getChildren(c);
         
         if (children != null) {
-            for(int i = 0; i < children.length; i++) {
-                setComponentTreeLocale(children[i], locale);
+            for (Component children1 : children) {
+                setComponentTreeLocale(children1, locale);
             }
         }
     }
@@ -259,8 +259,8 @@ public final class SwingXUtilities {
         Component[] children = getChildren(c);
         
         if (children != null) {
-            for(int i = 0; i < children.length; i++) {
-                setComponentTreeBackground(children[i], color);
+            for (Component children1 : children) {
+                setComponentTreeBackground(children1, color);
             }
         }
     }
@@ -280,8 +280,8 @@ public final class SwingXUtilities {
         Component[] children = getChildren(c);
         
         if (children != null) {
-            for(int i = 0; i < children.length; i++) {
-                setComponentTreeForeground(children[i], color);
+            for (Component children1 : children) {
+                setComponentTreeForeground(children1, color);
             }
         }
     }
@@ -300,8 +300,8 @@ public final class SwingXUtilities {
         Component[] children = getChildren(c);
         
         if (children != null) {
-            for(int i = 0; i < children.length; i++) {
-                setComponentTreeFont(children[i], font);
+            for (Component children1 : children) {
+                setComponentTreeFont(children1, font);
             }
         }
     }
@@ -380,7 +380,7 @@ public final class SwingXUtilities {
      * @see Callable
      */
     public static <T> FutureTask<T> invokeLater(Callable<T> callable) {
-        FutureTask<T> task = new FutureTask<T>(callable);
+        FutureTask<T> task = new FutureTask<>(callable);
         
         SwingUtilities.invokeLater(task);
         
@@ -560,7 +560,7 @@ public final class SwingXUtilities {
             Object localObject = list
                     .getClientProperty("List.isFileList");
             if ((localObject instanceof Boolean)
-                    && (((Boolean) localObject).booleanValue())
+                    && (((Boolean) localObject))
     // PENDING JW: this isn't aware of sorting/filtering - fix!
                     && (!(pointIsInActualBounds(list, i, point)))) {
                 i = -1;

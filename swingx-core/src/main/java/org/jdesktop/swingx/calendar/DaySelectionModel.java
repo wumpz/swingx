@@ -59,8 +59,8 @@ public class DaySelectionModel extends AbstractDateSelectionModel {
         super(locale);
         this.listenerMap = new EventListenerMap();
         this.selectionMode = SelectionMode.SINGLE_SELECTION;
-        this.selectedDates = new TreeSet<Date>();
-        this.unselectableDates = new TreeSet<Date>();
+        this.selectedDates = new TreeSet<>();
+        this.unselectableDates = new TreeSet<>();
         
     }
     /**
@@ -163,7 +163,7 @@ public class DaySelectionModel extends AbstractDateSelectionModel {
         endDate = startOfDay(endDate);
         long startDateMs = startDate.getTime();
         long endDateMs = endDate.getTime();
-        ArrayList<Date> datesToRemove = new ArrayList<Date>();
+        ArrayList<Date> datesToRemove = new ArrayList<>();
         for (Date selectedDate : selectedDates) {
             long selectedDateMs = selectedDate.getTime();
             if (selectedDateMs >= startDateMs && selectedDateMs <= endDateMs) {

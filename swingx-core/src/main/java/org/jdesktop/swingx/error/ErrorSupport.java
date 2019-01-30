@@ -42,7 +42,7 @@ public class ErrorSupport {
      */
     public ErrorSupport(Object source) {
         this.source = source;
-        listeners = new ArrayList<ErrorListener>();
+        listeners = new ArrayList<>();
     }
     
     /**

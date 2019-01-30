@@ -169,6 +169,7 @@ public class JXLoginPaneVisualCheck extends InteractiveTestCase {
         frame.pack();
         frame.setVisible(true);
         SwingUtilities.invokeLater(new Runnable() {
+                        @Override
                         public void run() {
                                 evaluateChildren(frame.getContentPane().getComponents());
                         }});
@@ -201,6 +202,7 @@ public class JXLoginPaneVisualCheck extends InteractiveTestCase {
         frame.pack();
         frame.setVisible(true);
         SwingUtilities.invokeLater(new Runnable() {
+                        @Override
                         public void run() {
                                 evaluateChildren(frame.getContentPane().getComponents());
                         }});
@@ -231,6 +233,7 @@ public class JXLoginPaneVisualCheck extends InteractiveTestCase {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         SwingUtilities.invokeLater(new Runnable() {
+            @Override
 			public void run() {
 				evaluateChildren(frame.getContentPane().getComponents());
 			}});
@@ -286,6 +289,7 @@ public class JXLoginPaneVisualCheck extends InteractiveTestCase {
 
             private static final long serialVersionUID = 1L;
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (component.getLocale() == Locale.FRANCE) {
                     component.setLocale(Locale.ENGLISH);
@@ -304,11 +308,12 @@ public class JXLoginPaneVisualCheck extends InteractiveTestCase {
         // PENDING JW: removed while fixing #1186-swingx (no dependency on sun packages)
         // revisit: why do we do this at all? If really needed replace
 //        sun.awt.AppContext.getAppContext().put("JComponent.defaultLocale", Locale.FRANCE);
-        Map<String, char[]> aMap = new HashMap<String, char[]>();
+        Map<String, char[]> aMap = new HashMap<>();
         aMap.put("asdf", "asdf".toCharArray());
         JXLoginPane panel = new JXLoginPane(new SimpleLoginService(aMap));
         panel.setSaveMode(JXLoginPane.SaveMode.BOTH);
         panel.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
             public void propertyChange(
                     PropertyChangeEvent thePropertyChangeEvent) {
                 System.err.println(thePropertyChangeEvent.getPropertyName()

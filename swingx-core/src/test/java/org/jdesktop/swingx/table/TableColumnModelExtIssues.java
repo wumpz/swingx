@@ -57,6 +57,7 @@ public class TableColumnModelExtIssues extends TableColumnModelTest {
         JXFrame frame = wrapWithScrollingInFrame(source, target, "source --> target: copy column sequence");
         Action resetOrder = new AbstractActionExt("reset to initial") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 source.tableChanged(null);
                 target.tableChanged(null);
@@ -66,6 +67,7 @@ public class TableColumnModelExtIssues extends TableColumnModelTest {
         };
         Action copyOrder = new AbstractActionExt("copy source order to target") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 // source ...
                 // hidden columns, don't care about sequence

@@ -57,7 +57,7 @@ public class TipLoader {
    *           if a name is found without description
    */
   public static TipOfTheDayModel load(Properties props) {
-    List<TipOfTheDayModel.Tip> tips = new ArrayList<TipOfTheDayModel.Tip>();
+    List<TipOfTheDayModel.Tip> tips = new ArrayList<>();
 
     int count = 1;
     while (true) {

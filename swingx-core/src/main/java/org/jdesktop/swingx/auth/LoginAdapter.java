@@ -29,20 +29,24 @@ public abstract class LoginAdapter implements LoginListener {
     /**
      * @inheritDoc
      */
+    @Override
     public void loginSucceeded(LoginEvent source) {}
 
     /**
      * @inheritDoc
      */
+    @Override
     public void loginStarted(LoginEvent source) {}
 
     /**
      * @inheritDoc
      */
+    @Override
     public void loginFailed(LoginEvent source) {}
 
     /**
      * @inheritDoc
      */
+    @Override
     public void loginCanceled(LoginEvent source) {}
 }

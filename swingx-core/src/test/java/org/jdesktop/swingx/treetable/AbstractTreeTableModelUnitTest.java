@@ -42,22 +42,27 @@ public class AbstractTreeTableModelUnitTest extends TestCase {
         }
         
         //these methods are effectively no-ops
+        @Override
         public int getColumnCount() {
             return 0;
         }
 
+        @Override
         public Object getValueAt(Object node, int column) {
             return null;
         }
 
+        @Override
         public Object getChild(Object parent, int index) {
             return null;
         }
 
+        @Override
         public int getChildCount(Object parent) {
             return 0;
         }
 
+        @Override
         public int getIndexOfChild(Object parent, Object child) {
             return 0;
         }
@@ -70,18 +75,22 @@ public class AbstractTreeTableModelUnitTest extends TestCase {
     
     private static class FailingTreeModelListener implements TreeModelListener {
 
+        @Override
         public void treeNodesChanged(TreeModelEvent e) {
             fail(e.toString());
         }
 
+        @Override
         public void treeNodesInserted(TreeModelEvent e) {
             fail(e.toString());
         }
 
+        @Override
         public void treeNodesRemoved(TreeModelEvent e) {
             fail(e.toString());
         }
 
+        @Override
         public void treeStructureChanged(TreeModelEvent e) {
             fail(e.toString());
         }

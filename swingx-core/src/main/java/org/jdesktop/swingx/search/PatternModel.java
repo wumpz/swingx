@@ -385,7 +385,7 @@ public class PatternModel {
 
         private List<String> createAndInitRules() {
             if (!supportsRules()) return Collections.emptyList();
-            List<String> list = new ArrayList<String>();
+            List<String> list = new ArrayList<>();
             list.add(MATCH_RULE_CONTAINS);
             list.add(MATCH_RULE_EQUALS);
             list.add(MATCH_RULE_STARTSWITH);

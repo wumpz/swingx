@@ -71,6 +71,7 @@ public class JXDialogVisualCheck extends InteractiveTestCase {
         content.add(new JTextField("something to play with"));
         Action myExecuteAction = new AbstractActionExt("Execute") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 LOG.info("got an execute");
             }
@@ -79,6 +80,7 @@ public class JXDialogVisualCheck extends InteractiveTestCase {
         content.getActionMap().put(JXDialog.EXECUTE_ACTION_COMMAND, myExecuteAction);
         Action myCancelAction = new AbstractActionExt("Cancel") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 LOG.info("got a close");
                 Window window = SwingUtilities.windowForComponent(content);
@@ -95,6 +97,7 @@ public class JXDialogVisualCheck extends InteractiveTestCase {
         JComponent comp = new JXPanel();
         Action openDialog = new AbstractActionExt("open dialog") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 dialog.setVisible(true);
                 

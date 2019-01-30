@@ -141,6 +141,7 @@ public abstract class LoginService extends AbstractBean {
                                 server);
                         if (isCancelled()) {
                             EventQueue.invokeLater(new Runnable() {
+                                @Override
                                 public void run() {
                                     fireLoginCanceled(new LoginEvent(this));
                                 }
@@ -148,6 +149,7 @@ public abstract class LoginService extends AbstractBean {
                             return false;
                         }
                         EventQueue.invokeLater(new Runnable() {
+                            @Override
                             public void run() {
                                 if (result) {
                                     fireLoginSucceeded(new LoginEvent(
@@ -162,6 +164,7 @@ public abstract class LoginService extends AbstractBean {
                     } catch (final Throwable failed) {
                         if (!isCancelled()) {
                             SwingUtilities.invokeLater(new Runnable() {
+                                @Override
                                 public void run() {
                                     fireLoginFailed(new LoginEvent(
                                             LoginService.this, failed));
@@ -169,6 +172,7 @@ public abstract class LoginService extends AbstractBean {
                             });
                         } else {
                             EventQueue.invokeLater(new Runnable() {
+                                @Override
                                 public void run() {
                                     fireLoginCanceled(new LoginEvent(this));
                                 }

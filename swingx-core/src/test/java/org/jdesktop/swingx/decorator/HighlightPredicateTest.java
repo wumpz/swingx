@@ -299,7 +299,7 @@ public class HighlightPredicateTest extends InteractiveTestCase {
      */
     @Test
     public void testOrProperty() {
-        List<HighlightPredicate> inputPredicates = new ArrayList<HighlightPredicate>();
+        List<HighlightPredicate> inputPredicates = new ArrayList<>();
         inputPredicates.add(HighlightPredicate.NEVER);
         inputPredicates.add(new IdentifierHighlightPredicate("t"));
         OrHighlightPredicate predicate = new OrHighlightPredicate(inputPredicates);
@@ -329,7 +329,7 @@ public class HighlightPredicateTest extends InteractiveTestCase {
         ComponentAdapter adapter = createComponentAdapter(allColored, true);
         HighlightPredicate emptyArray = new OrHighlightPredicate();
         assertFalse(emptyArray.isHighlighted(allColored, adapter));
-        HighlightPredicate emptyList = new OrHighlightPredicate(new ArrayList<HighlightPredicate>());
+        HighlightPredicate emptyList = new OrHighlightPredicate(new ArrayList<>());
         assertFalse(emptyList.isHighlighted(allColored, adapter));
     }
     /**
@@ -358,23 +358,23 @@ public class HighlightPredicateTest extends InteractiveTestCase {
     @Test
     public void testOrCollectionConstructor() {
         ComponentAdapter adapter = createComponentAdapter(allColored, true);
-        List<HighlightPredicate> containsOneTrue = new ArrayList<HighlightPredicate>();
+        List<HighlightPredicate> containsOneTrue = new ArrayList<>();
         containsOneTrue.add(HighlightPredicate.ALWAYS);
         HighlightPredicate oneTrue = new OrHighlightPredicate(containsOneTrue);
         assertTrue(oneTrue.isHighlighted(allColored, adapter));
         
-        List<HighlightPredicate> containsOneFalse = new ArrayList<HighlightPredicate>();
+        List<HighlightPredicate> containsOneFalse = new ArrayList<>();
         containsOneFalse.add(HighlightPredicate.NEVER);
         HighlightPredicate oneFalse = new OrHighlightPredicate(containsOneFalse);
         assertFalse(oneFalse.isHighlighted(allColored, adapter));
         
-        List<HighlightPredicate> containsOneFalseOneTrue = new ArrayList<HighlightPredicate>();
+        List<HighlightPredicate> containsOneFalseOneTrue = new ArrayList<>();
         containsOneFalseOneTrue.add(HighlightPredicate.NEVER);
         containsOneFalseOneTrue.add(HighlightPredicate.ALWAYS);
         HighlightPredicate oneFalseOneTrue = new OrHighlightPredicate(containsOneFalseOneTrue);
         assertTrue(oneFalseOneTrue.isHighlighted(allColored, adapter));
 
-        List<HighlightPredicate> containsOneTrueOneFalse = new ArrayList<HighlightPredicate>();
+        List<HighlightPredicate> containsOneTrueOneFalse = new ArrayList<>();
         containsOneTrueOneFalse.add(HighlightPredicate.ALWAYS);
         containsOneTrueOneFalse.add(HighlightPredicate.NEVER);
         HighlightPredicate oneTrueOneFalse = new OrHighlightPredicate(containsOneTrueOneFalse);
@@ -485,7 +485,7 @@ public class HighlightPredicateTest extends InteractiveTestCase {
      */
     @Test
     public void testAndProperty() {
-        List<HighlightPredicate> inputPredicates = new ArrayList<HighlightPredicate>();
+        List<HighlightPredicate> inputPredicates = new ArrayList<>();
         inputPredicates.add(HighlightPredicate.NEVER);
         inputPredicates.add(new IdentifierHighlightPredicate("t"));
         AndHighlightPredicate predicate = new AndHighlightPredicate(inputPredicates);
@@ -515,7 +515,7 @@ public class HighlightPredicateTest extends InteractiveTestCase {
         ComponentAdapter adapter = createComponentAdapter(allColored, true);
         HighlightPredicate emptyArray = new AndHighlightPredicate();
         assertFalse(emptyArray.isHighlighted(allColored, adapter));
-        HighlightPredicate emptyList = new AndHighlightPredicate(new ArrayList<HighlightPredicate>());
+        HighlightPredicate emptyList = new AndHighlightPredicate(new ArrayList<>());
         assertFalse(emptyList.isHighlighted(allColored, adapter));
     }
 
@@ -545,23 +545,23 @@ public class HighlightPredicateTest extends InteractiveTestCase {
     @Test
     public void testAndCollectionConstructor() {
         ComponentAdapter adapter = createComponentAdapter(allColored, true);
-        List<HighlightPredicate> containsOneTrue = new ArrayList<HighlightPredicate>();
+        List<HighlightPredicate> containsOneTrue = new ArrayList<>();
         containsOneTrue.add(HighlightPredicate.ALWAYS);
         HighlightPredicate oneTrue = new AndHighlightPredicate(containsOneTrue);
         assertTrue(oneTrue.isHighlighted(allColored, adapter));
         
-        List<HighlightPredicate> containsOneFalse = new ArrayList<HighlightPredicate>();
+        List<HighlightPredicate> containsOneFalse = new ArrayList<>();
         containsOneFalse.add(HighlightPredicate.NEVER);
         HighlightPredicate oneFalse = new AndHighlightPredicate(containsOneFalse);
         assertFalse(oneFalse.isHighlighted(allColored, adapter));
         
-        List<HighlightPredicate> containsOneFalseOneTrue = new ArrayList<HighlightPredicate>();
+        List<HighlightPredicate> containsOneFalseOneTrue = new ArrayList<>();
         containsOneFalseOneTrue.add(HighlightPredicate.NEVER);
         containsOneFalseOneTrue.add(HighlightPredicate.ALWAYS);
         HighlightPredicate oneFalseOneTrue = new AndHighlightPredicate(containsOneFalseOneTrue);
         assertFalse(oneFalseOneTrue.isHighlighted(allColored, adapter));
         
-        List<HighlightPredicate> containsOneTrueOneFalse = new ArrayList<HighlightPredicate>();
+        List<HighlightPredicate> containsOneTrueOneFalse = new ArrayList<>();
         containsOneTrueOneFalse.add(HighlightPredicate.ALWAYS);
         containsOneTrueOneFalse.add(HighlightPredicate.NEVER);
         HighlightPredicate oneTrueOneFalse = new AndHighlightPredicate(containsOneTrueOneFalse);

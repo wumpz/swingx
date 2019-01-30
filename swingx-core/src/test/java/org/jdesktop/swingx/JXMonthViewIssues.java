@@ -174,6 +174,7 @@ public class JXMonthViewIssues extends InteractiveTestCase {
         });
         Action action = new AbstractActionExt("toggle minimal") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 int minimal = monthView.getSelectionModel().getMinimalDaysInFirstWeek();
                 monthView.getSelectionModel().setMinimalDaysInFirstWeek(minimal > 1 ? 1 : 4);
@@ -203,6 +204,7 @@ public class JXMonthViewIssues extends InteractiveTestCase {
         monthView.setShowingTrailingDays(true);
         Action action = new AbstractActionExt("toggle minimal") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 int minimal = monthView.getSelectionModel().getMinimalDaysInFirstWeek();
                 monthView.getSelectionModel().setMinimalDaysInFirstWeek(minimal > 1 ? 1 : 4);
@@ -216,6 +218,7 @@ public class JXMonthViewIssues extends InteractiveTestCase {
                 "Wednesday", "Thursday", "Friday", "Saturday"});
         dayOfWeekComboBox.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 int selected = dayOfWeekComboBox.getSelectedIndex();
                 monthView.setFirstDayOfWeek(selected + Calendar.SUNDAY);
@@ -246,6 +249,7 @@ public class JXMonthViewIssues extends InteractiveTestCase {
         monthView.setUpperBound(calendar.getTime());
         ActionListener l = new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 LOG.info("got action " + e);
                 
@@ -276,6 +280,7 @@ public class JXMonthViewIssues extends InteractiveTestCase {
         monthView.setUpperBound(calendar.getTime());
         ActionListener l = new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 LOG.info("got action " + e);
                 
@@ -304,6 +309,7 @@ public class JXMonthViewIssues extends InteractiveTestCase {
         monthView.setUpperBound(calendar.getTime());
         ActionListener l = new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 LOG.info("got action " + e);
                 
@@ -687,7 +693,7 @@ public class JXMonthViewIssues extends InteractiveTestCase {
 
    @SuppressWarnings("unused")
    private String[] getTimeZoneIDs() {
-       List<String> zoneIds = new ArrayList<String>();
+       List<String> zoneIds = new ArrayList<>();
        for (int i = -12; i <= 12; i++) {
            String sign = i < 0 ? "-" : "+";
            zoneIds.add("GMT" + sign + i);

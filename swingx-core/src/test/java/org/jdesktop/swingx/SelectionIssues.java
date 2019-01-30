@@ -83,6 +83,7 @@ public class SelectionIssues extends InteractiveTestCase {
         JXFrame frame = wrapInFrame(us, "first day of next month");
         Action nextMonthInterval = new AbstractActionExt("next month interval") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (us.isSelectionEmpty()) return;
                 today.setTime(us.getSelectionDate());
@@ -100,6 +101,7 @@ public class SelectionIssues extends InteractiveTestCase {
         addAction(frame, nextMonthInterval);
         Action next = new AbstractActionExt("next month") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (us.isSelectionEmpty()) return;
                 if (!CalendarUtils.isEndOfMonth(today)) {
@@ -132,11 +134,12 @@ public class SelectionIssues extends InteractiveTestCase {
         // add hoc model
         SortedSet<Date> dates = getDates();
         
-        final JXList us = new JXList(new ListComboBoxModel<Date>(new ArrayList<Date>(dates)));
+        final JXList us = new JXList(new ListComboBoxModel<>(new ArrayList<>(dates)));
         us.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         JXFrame frame = wrapWithScrollingInFrame(us, "list - autoscroll on selection");
         Action next = new AbstractActionExt("select last + 1") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 int last = us.getLastVisibleIndex();
                 us.setSelectedIndex(last + 1);
@@ -171,6 +174,7 @@ public class SelectionIssues extends InteractiveTestCase {
         JXFrame frame = wrapWithScrollingInFrame(us, "tree - autoscroll on selection");
         Action next = new AbstractActionExt("select last + 1") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 int last = us.getLeadSelectionRow();
                 us.setSelectionRow(last + 1);
@@ -205,6 +209,7 @@ public class SelectionIssues extends InteractiveTestCase {
         JXFrame frame = wrapWithScrollingInFrame(us, "table - autoscroll on selection");
         Action next = new AbstractActionExt("select last + 1") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 int last = us.getSelectedRow();
                 us.setRowSelectionInterval(last + 1, last + 1);

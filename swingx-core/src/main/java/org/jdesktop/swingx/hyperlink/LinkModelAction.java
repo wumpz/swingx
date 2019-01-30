@@ -126,12 +126,12 @@ public class LinkModelAction<T extends LinkModel> extends AbstractHyperlinkActio
         if (getTarget() != null) {
             putValue(Action.NAME, getTarget().getText());
             putValue(Action.SHORT_DESCRIPTION, getTarget().getURL().toString());
-            putValue(VISITED_KEY, new Boolean(getTarget().getVisited()));
+            putValue(VISITED_KEY, getTarget().getVisited());
         } else {
             Object[] keys = getKeys();
             if (keys == null) return;
-            for (int i = 0; i < keys.length; i++) {
-               putValue(keys[i].toString(), null); 
+            for (Object key : keys) {
+                putValue(key.toString(), null); 
             }
         }
     }

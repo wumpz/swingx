@@ -61,13 +61,13 @@ public class DefaultTableColumnModelExt extends DefaultTableColumnModel
      * contains a list of all columns, in the order in which were
      * added to the model.
      */
-    private List<TableColumn> initialColumns = new ArrayList<TableColumn>();
+    private List<TableColumn> initialColumns = new ArrayList<>();
     
     /**
      * contains a list of all column, in the order they would appear if
      * all were visible.
      */
-    private List<TableColumn> currentColumns = new ArrayList<TableColumn>();
+    private List<TableColumn> currentColumns = new ArrayList<>();
 
     /**
      * Listener attached to TableColumnExt instances to listen for changes
@@ -90,7 +90,7 @@ public class DefaultTableColumnModelExt extends DefaultTableColumnModel
     @Override
     public List<TableColumn> getColumns(boolean includeHidden) {
         if (includeHidden) {
-            return new ArrayList<TableColumn>(initialColumns);
+            return new ArrayList<>(initialColumns);
         } 
         return Collections.list(getColumns());
     }
@@ -111,8 +111,7 @@ public class DefaultTableColumnModelExt extends DefaultTableColumnModel
      */
     @Override
     public TableColumnExt getColumnExt(Object identifier) {
-        for (Iterator<TableColumn> iter = initialColumns.iterator(); iter.hasNext();) {
-            TableColumn column = iter.next();
+        for (TableColumn column : initialColumns) {
             if ((column instanceof TableColumnExt) && (identifier.equals(column.getIdentifier()))) {
                 return (TableColumnExt) column;
             }

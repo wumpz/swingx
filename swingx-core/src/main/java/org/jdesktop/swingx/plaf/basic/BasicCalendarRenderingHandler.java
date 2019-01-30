@@ -68,7 +68,7 @@ class BasicCalendarRenderingHandler implements CalendarRenderingHandler {
      * Creates and stores ComponentProviders for all DayStates.
      */
     private void installProviders() {
-        providers = new HashMap<CalendarState, ComponentProvider<?>>();
+        providers = new HashMap<>();
 
         StringValue sv = createDayStringValue(null);
         ComponentProvider<?> provider = new LabelProvider(sv, JLabel.RIGHT);

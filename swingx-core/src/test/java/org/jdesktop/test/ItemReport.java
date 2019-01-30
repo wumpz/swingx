@@ -24,15 +24,15 @@ public class ItemReport implements ItemListener {
     /**
      * Holds a list of all selected events.
      */
-    protected List<ItemEvent> selectedEvents = Collections.synchronizedList(new LinkedList<ItemEvent>());
+    protected List<ItemEvent> selectedEvents = Collections.synchronizedList(new LinkedList<>());
     /**
      * Holds a list of all deselected events.
      */
-    protected List<ItemEvent> deselectedEvents = Collections.synchronizedList(new LinkedList<ItemEvent>());
+    protected List<ItemEvent> deselectedEvents = Collections.synchronizedList(new LinkedList<>());
     /**
      * Holds a list of all events.
      */
-    protected List<ItemEvent> allEvents = Collections.synchronizedList(new LinkedList<ItemEvent>());
+    protected List<ItemEvent> allEvents = Collections.synchronizedList(new LinkedList<>());
     
     /**
      * Instantiates a report.
@@ -55,6 +55,7 @@ public class ItemReport implements ItemListener {
     
 //------------------------ implement CellEditorListener
 
+    @Override
     public void itemStateChanged(ItemEvent e) {
         allEvents.add(e);
         if (ItemEvent.SELECTED == e.getStateChange()) {

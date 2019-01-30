@@ -49,7 +49,7 @@ class ToggleActionPropertyChangeListener implements PropertyChangeListener {
     
     public ToggleActionPropertyChangeListener(Action action, AbstractButton button) {
         if (shouldAddListener(action, button)) {
-            this.buttonRef = new WeakReference<AbstractButton>(button);
+            this.buttonRef = new WeakReference<>(button);
             action.addPropertyChangeListener(this);
         }
     }
@@ -101,7 +101,7 @@ class ToggleActionPropertyChangeListener implements PropertyChangeListener {
 
         if (propertyName.equals("selected")) {
             Boolean selected = (Boolean)evt.getNewValue();
-            button.setSelected(selected.booleanValue());
+            button.setSelected(selected);
         }
     }
 

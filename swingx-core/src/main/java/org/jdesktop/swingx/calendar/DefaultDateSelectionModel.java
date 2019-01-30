@@ -54,8 +54,8 @@ public class DefaultDateSelectionModel extends AbstractDateSelectionModel {
     public DefaultDateSelectionModel(Locale locale) {
         super(locale);
         this.selectionMode = SelectionMode.SINGLE_SELECTION;
-        this.selectedDates = new TreeSet<Date>();
-        this.unselectableDates = new TreeSet<Date>();
+        this.selectedDates = new TreeSet<>();
+        this.unselectableDates = new TreeSet<>();
     }
     /**
      * {@inheritDoc}
@@ -150,7 +150,7 @@ public class DefaultDateSelectionModel extends AbstractDateSelectionModel {
 
         long startDateMs = startDate.getTime();
         long endDateMs = endDate.getTime();
-        ArrayList<Date> datesToRemove = new ArrayList<Date>();
+        ArrayList<Date> datesToRemove = new ArrayList<>();
         for (Date selectedDate : selectedDates) {
             long selectedDateMs = selectedDate.getTime();
             if (selectedDateMs >= startDateMs && selectedDateMs <= endDateMs) {

@@ -540,12 +540,12 @@ public class ColumnControlButtonTest extends InteractiveTestCase {
        assertNotNull("popup menu not null", columnControl.popup);
        int columnMenuItems = 0;
        Component[] items = ((DefaultColumnControlPopup) columnControl.getColumnControlPopup()).getPopupMenu().getComponents();
-       for (int i = 0; i < items.length; i++) {
-           if (!(items[i] instanceof JMenuItem)) {
-               break;
-           }
-           columnMenuItems++;
-       }
+        for (Component item : items) {
+            if (!(item instanceof JMenuItem)) {
+                break;
+            }
+            columnMenuItems++;
+        }
        // wrong assumption - has separator and actions!
        assertEquals("menu items must be equal to columns", totalColumnCount, 
                columnMenuItems);

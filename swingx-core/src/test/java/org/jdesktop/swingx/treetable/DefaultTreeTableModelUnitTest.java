@@ -57,10 +57,12 @@ public class DefaultTreeTableModelUnitTest extends TestCase {
         grandchild5 = new DefaultMutableTreeTableNode("grandchild5");
         child2.add(grandchild5);
         grandchild6 = new AbstractMutableTreeTableNode("grandchild6") {
+            @Override
             public int getColumnCount() {
                 return 0;
             }
 
+            @Override
             public Object getValueAt(int column) {
                 return getUserObject();
             }
@@ -78,7 +80,7 @@ public class DefaultTreeTableModelUnitTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        Vector<String> names = new Vector<String>();
+        Vector<String> names = new Vector<>();
         names.add("A");
         
         model = new DefaultTreeTableModel(createTree(), names);

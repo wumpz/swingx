@@ -171,6 +171,7 @@ public class JXDatePickerIssues extends InteractiveTestCase {
         box.add(field);
         PropertyChangeListener l = new PropertyChangeListener() {
 
+            @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 LOG.info(evt.getPropertyName() + evt.getSource().getClass().getSimpleName() + evt.getNewValue());
                 
@@ -244,6 +245,7 @@ public class JXDatePickerIssues extends InteractiveTestCase {
         final Action original = picker.getActionMap().get(JXDatePicker.COMMIT_KEY);
         Action wrapper = new AbstractAction() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 original.actionPerformed(e);
                 
@@ -265,6 +267,7 @@ public class JXDatePickerIssues extends InteractiveTestCase {
         JTextField simple = new JTextField(calendar.getTime().toString());
         ActionListener l = new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 LOG.info("action from fields: " + e.getSource().getClass());
                 
@@ -280,6 +283,7 @@ public class JXDatePickerIssues extends InteractiveTestCase {
         content.add(simple);
         Action open =  new AbstractAction("open") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 JXDialog dialog = new JXDialog(content);
                 dialog.pack();
@@ -374,6 +378,7 @@ public class JXDatePickerIssues extends InteractiveTestCase {
         final JXDatePicker picker = new JXDatePicker();
         ActionListener l = new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 LOG.info("received: " + e + 
                         "\n adjusting must be false: " 
@@ -386,6 +391,7 @@ public class JXDatePickerIssues extends InteractiveTestCase {
         JXFrame frame = showInFrame(picker, "double-click on linkpanel must commit");
         Action nextDate = new AbstractAction("change linkdate") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 setLinkDateNextMonth(picker);
                 
@@ -408,6 +414,7 @@ public class JXDatePickerIssues extends InteractiveTestCase {
         setLinkDateNextMonth(picker);
         Action action = new AbstractAction("next linkdate month") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 setLinkDateNextMonth(picker);
             }
@@ -441,6 +448,7 @@ public class JXDatePickerIssues extends InteractiveTestCase {
         box.setEditable(true);
         ActionListener l = new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 LOG.info("received: " + e + 
                         "\n and not adjusting: " 
@@ -515,6 +523,7 @@ public class JXDatePickerIssues extends InteractiveTestCase {
         JXFrame frame = wrapInFrame(picker, "sanity - monthview shows selected");
         Action toggleWrapper = new AbstractAction("open popup") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 Action togglePopup = picker.getActionMap().get("TOGGLE_POPUP");
                 togglePopup.actionPerformed(null);

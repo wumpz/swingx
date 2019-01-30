@@ -119,8 +119,10 @@ public class JXHeaderVisualCheck extends InteractiveTestCase {
 		JButton changeFont = new JButton("Font");
 		f.add(changeFont, BorderLayout.SOUTH);
 		changeFont.addActionListener(new ActionListener() {
+            @Override
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.invokeLater(new Runnable() {
+                    @Override
 					public void run() {
 						header.setFont(new Font("Tahoma", Font.PLAIN, 18));
 					}
@@ -261,6 +263,7 @@ public class JXHeaderVisualCheck extends InteractiveTestCase {
         JXFrame frame = wrapInFrame(p, "Titlefont lost on updateUI / word wrapping JXHeader");
         Action action = new AbstractAction("updateUI") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 header.updateUI();
                 
@@ -268,6 +271,7 @@ public class JXHeaderVisualCheck extends InteractiveTestCase {
         addAction(frame, action);
         Action tree = new AbstractAction("updateComponentTree") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 SwingUtilities.updateComponentTreeUI(header);
                 

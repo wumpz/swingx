@@ -210,6 +210,7 @@ public class BasicMonthViewVisualCheck extends InteractiveTestCase {
         addComponentOrientationToggle(frame);
         Action toggleTraversable = new AbstractAction("toggle zoomable") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 monthView.setZoomable(!monthView.isZoomable());
                 
@@ -223,6 +224,7 @@ public class BasicMonthViewVisualCheck extends InteractiveTestCase {
         picker.getMonthView().setZoomable(true);
         Action toggleShowingWeekNumbers = new AbstractAction("toggle weekNumbers") {
             
+            @Override
             public void actionPerformed(ActionEvent e) {
                 monthView.setShowingWeekNumber(!monthView.isShowingWeekNumber());
                 picker.getMonthView().setShowingWeekNumber(monthView.isShowingWeekNumber());
@@ -232,6 +234,7 @@ public class BasicMonthViewVisualCheck extends InteractiveTestCase {
         addAction(frame, toggleShowingWeekNumbers);
         picker.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getActionCommand().equals(JXDatePicker.CANCEL_KEY)) return;
                 if (picker.getDate() == null) return;
@@ -242,6 +245,7 @@ public class BasicMonthViewVisualCheck extends InteractiveTestCase {
         final JXDatePicker unselectable = new JXDatePicker();
         unselectable.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getActionCommand().equals(JXDatePicker.CANCEL_KEY)) return;
                 if (unselectable.getDate() == null) return;
@@ -255,6 +259,7 @@ public class BasicMonthViewVisualCheck extends InteractiveTestCase {
 
         // Set the monthView's time zone based on the selected time zone.
         zoneSelector.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent event) {
                 Locale zone = (Locale) zoneSelector.getSelectedItem();
                 SwingXUtilities.setComponentTreeLocale(frame, zone);
@@ -317,6 +322,7 @@ public class BasicMonthViewVisualCheck extends InteractiveTestCase {
         });
         Action action = new AbstractActionExt("toggle minimal") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 int minimal = monthView.getSelectionModel().getMinimalDaysInFirstWeek();
                 monthView.getSelectionModel().setMinimalDaysInFirstWeek(minimal > 1 ? 1 : 4);
@@ -349,6 +355,7 @@ public class BasicMonthViewVisualCheck extends InteractiveTestCase {
         monthView.setSelectionMode(SelectionMode.SINGLE_INTERVAL_SELECTION);
         Action action = new AbstractActionExt("toggle minimal") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 int minimal = monthView.getSelectionModel().getMinimalDaysInFirstWeek();
                 monthView.getSelectionModel().setMinimalDaysInFirstWeek(minimal > 1 ? 1 : 4);
@@ -362,6 +369,7 @@ public class BasicMonthViewVisualCheck extends InteractiveTestCase {
                 "Wednesday", "Thursday", "Friday", "Saturday"});
         dayOfWeekComboBox.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 int selected = dayOfWeekComboBox.getSelectedIndex();
                 monthView.setFirstDayOfWeek(selected + Calendar.SUNDAY);

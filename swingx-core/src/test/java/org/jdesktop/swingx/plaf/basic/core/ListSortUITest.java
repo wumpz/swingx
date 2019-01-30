@@ -179,7 +179,7 @@ public class ListSortUITest extends InteractiveTestCase {
         assertEquals("second row must be selected", 1, list.getSelectedIndex());
         // add row in model coordinates
         // insert high value
-        Object row = new Integer(100);
+        Object row = 100;
         ascendingListModel.addElement(row);
         assertEquals(row, list.getElementAt(0));
         // selection must be moved one below
@@ -221,6 +221,7 @@ public class ListSortUITest extends InteractiveTestCase {
         list.setSelectedIndex(modelRow);
         ListSelectionListener l = new ListSelectionListener() {
 
+            @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (e.getValueIsAdjusting()) return;
                 int viewRow = list.getSelectedIndex(); 
@@ -388,7 +389,7 @@ public class ListSortUITest extends InteractiveTestCase {
     protected DefaultListModelF createAscendingListModel(int startRow, int count) {
         DefaultListModelF l = new DefaultListModelF();
         for (int row = startRow; row < startRow  + count; row++) {
-            l.addElement(new Integer(row));
+            l.addElement(row);
         }
         return l;
     }
@@ -418,7 +419,7 @@ public class ListSortUITest extends InteractiveTestCase {
         super.setUp();
         ascendingListModel = createAscendingListModel(0, 20);
         list = new JXList(ascendingListModel, true);
-        controller = new ListSortController<ListModel>(list.getModel());
+        controller = new ListSortController<>(list.getModel());
         list.setComparator(TableSortController.COMPARABLE_COMPARATOR);
         list.setRowSorter(controller);
         testRow = 2;

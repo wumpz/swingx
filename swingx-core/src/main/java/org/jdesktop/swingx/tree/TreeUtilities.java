@@ -62,7 +62,7 @@ public class TreeUtilities {
          */
         public PreorderModelEnumeration(TreeModel model, Object node) {
             this.model = model;
-            stack = new ArrayDeque<Enumeration>();
+            stack = new ArrayDeque<>();
             pushNodeAsEnumeration(node);
         }
 
@@ -158,7 +158,7 @@ public class TreeUtilities {
             // Vector is just used for getting an Enumeration easily
             Vector v = new Vector(1);
             v.addElement(node);    
-            queue = new ArrayDeque<Enumeration>();
+            queue = new ArrayDeque<>();
             queue.offer(v.elements());
         }
         
@@ -242,9 +242,9 @@ public class TreeUtilities {
 
         public PreorderNodeEnumeration(M rootNode) {
             // Vector is just used for getting an Enumeration easily
-            Vector<M> v = new Vector<M>(1);
+            Vector<M> v = new Vector<>(1);
             v.addElement(rootNode);     
-            stack = new ArrayDeque<Enumeration<M>>();
+            stack = new ArrayDeque<>();
             stack.push(v.elements());
         }
 
@@ -319,7 +319,7 @@ public class TreeUtilities {
          * @return the PostorderEnumeration on the given node
          */
         protected PostorderNodeEnumeration<M> createSubTree(M node) {
-            return new PostorderNodeEnumeration<M>(node);
+            return new PostorderNodeEnumeration<>(node);
         }
         
         /**
@@ -343,9 +343,9 @@ public class TreeUtilities {
         
         public BreadthFirstNodeEnumeration(M rootNode) {
             // Vector is just used for getting an Enumeration easily
-            Vector<M> v = new Vector<M>(1);
+            Vector<M> v = new Vector<>(1);
             v.addElement(rootNode);    
-            queue = new ArrayDeque<Enumeration<M>>();
+            queue = new ArrayDeque<>();
             queue.offer(v.elements());
         }
         

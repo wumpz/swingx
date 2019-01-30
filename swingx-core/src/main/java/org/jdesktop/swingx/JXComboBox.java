@@ -400,7 +400,7 @@ public class JXComboBox extends JComboBox {
         @Override
         public void updateUI() {
             Long l = (Long) UIManager.get("ComboBox.timeFactor");
-            timeFactor = l == null ? 1000L : l.longValue();
+            timeFactor = l == null ? 1000L : l;
         }
     }
 
@@ -476,7 +476,7 @@ public class JXComboBox extends JComboBox {
     }
 
     private void init() {
-        pendingEvents = new ArrayList<KeyEvent>();
+        pendingEvents = new ArrayList<>();
         
         if (keySelectionManager == null || keySelectionManager instanceof UIResource) {
             setKeySelectionManager(createDefaultKeySelectionManager());

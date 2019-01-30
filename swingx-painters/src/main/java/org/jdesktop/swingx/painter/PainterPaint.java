@@ -99,7 +99,7 @@ public class PainterPaint<T> implements Paint {
     private final PainterPaintContext<T> context;
     
     public PainterPaint(Painter<T> painter, T object) {
-        context = new PainterPaintContext<T>(painter, object);
+        context = new PainterPaintContext<>(painter, object);
     }
     
     /**

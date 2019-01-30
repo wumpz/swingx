@@ -41,10 +41,10 @@ public class TableModelReport implements TableModelListener {
     private static final Logger LOG = Logger.getLogger(TableModelReport.class
             .getName());
     
-    List<TableModelEvent> allEvents = Collections.synchronizedList(new LinkedList<TableModelEvent>());
-    List<TableModelEvent> updateEvents = Collections.synchronizedList(new LinkedList<TableModelEvent>());
-    List<TableModelEvent> insertEvents = Collections.synchronizedList(new LinkedList<TableModelEvent>());
-    List<TableModelEvent> deleteEvents = Collections.synchronizedList(new LinkedList<TableModelEvent>());
+    List<TableModelEvent> allEvents = Collections.synchronizedList(new LinkedList<>());
+    List<TableModelEvent> updateEvents = Collections.synchronizedList(new LinkedList<>());
+    List<TableModelEvent> insertEvents = Collections.synchronizedList(new LinkedList<>());
+    List<TableModelEvent> deleteEvents = Collections.synchronizedList(new LinkedList<>());
     private boolean verbose;
     
     /**
@@ -77,6 +77,7 @@ public class TableModelReport implements TableModelListener {
     }
     
 //------------------- TableModelListener    
+    @Override
     public void tableChanged(TableModelEvent e) {
         if (verbose) {
            LOG.info(printEvent(e)); 

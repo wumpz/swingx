@@ -399,9 +399,9 @@ public class AutoCompleteDocument implements Document {
     private LookupResult lookupOneItem(Object item, String pattern, Comparator<String> comparator) {
         String[] possibleStrings = stringConverter.getPossibleStringsForItem(item);
         if (possibleStrings != null) {
-            for (int j = 0; j < possibleStrings.length; j++) {
-                if (comparator.compare(possibleStrings[j], pattern) == 0) {
-                    return new LookupResult(item, possibleStrings[j]);
+            for (String possibleString : possibleStrings) {
+                if (comparator.compare(possibleString, pattern) == 0) {
+                    return new LookupResult(item, possibleString);
                 }
             }
         }

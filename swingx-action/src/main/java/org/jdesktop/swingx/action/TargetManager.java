@@ -121,7 +121,7 @@ public class TargetManager {
      */
     public void addTarget(Targetable target, boolean prepend) {
         if (targetList == null) {
-            targetList = new ArrayList<Targetable>();
+            targetList = new ArrayList<>();
         }
         if (prepend) {
             targetList.add(0, target);
@@ -275,8 +275,8 @@ public class TargetManager {
         target = null;
 
         PropertyChangeListener[] listeners = propertySupport.getPropertyChangeListeners();
-        for (int i = 0; i < listeners.length; i++) {
-            propertySupport.removePropertyChangeListener(listeners[i]);
+        for (PropertyChangeListener listener : listeners) {
+            propertySupport.removePropertyChangeListener(listener);
         }
         INSTANCE = null;
     }

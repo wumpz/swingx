@@ -176,7 +176,7 @@ public class DatePickerFormatter extends
      * @return the localized default formats.
      */
     protected DateFormat[] createDefaultFormats(Locale locale) {
-        List<DateFormat> f = new ArrayList<DateFormat>();
+        List<DateFormat> f = new ArrayList<>();
         addFormat(f, "JXDatePicker.longFormat", locale);
         addFormat(f, "JXDatePicker.mediumFormat", locale);
         addFormat(f, "JXDatePicker.shortFormat", locale);

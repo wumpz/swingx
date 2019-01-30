@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class DefaultMultiThumbModel<E> extends AbstractMultiThumbModel<E> {
     
-    protected List<Thumb<E>>thumbs = new ArrayList<Thumb<E>>();
+    protected List<Thumb<E>>thumbs = new ArrayList<>();
     
     /** Creates a new instance of DefaultMultiThumbModel */
     public DefaultMultiThumbModel() {
@@ -44,7 +44,7 @@ public class DefaultMultiThumbModel<E> extends AbstractMultiThumbModel<E> {
     // returns the index of the newly added thumb
     @Override
     public int addThumb(float value, E obj) {
-        Thumb<E> thumb = new Thumb<E>(this);
+        Thumb<E> thumb = new Thumb<>(this);
         thumb.setPosition(value);
         thumb.setObject(obj);
         thumbs.add(thumb);
@@ -58,7 +58,7 @@ public class DefaultMultiThumbModel<E> extends AbstractMultiThumbModel<E> {
 
     @Override
     public void insertThumb(float value, E obj, int index) {
-        Thumb<E> thumb = new Thumb<E>(this);
+        Thumb<E> thumb = new Thumb<>(this);
         thumb.setPosition(value);
         thumb.setObject(obj);
         thumbs.add(index,thumb);
@@ -89,7 +89,7 @@ public class DefaultMultiThumbModel<E> extends AbstractMultiThumbModel<E> {
 
     @Override
     public List<Thumb<E>> getSortedThumbs() {
-        List<Thumb<E>> list = new ArrayList<Thumb<E>>();
+        List<Thumb<E>> list = new ArrayList<>();
         list.addAll(thumbs);
         Collections.sort(list, new Comparator<Thumb<E>>() {
             @Override

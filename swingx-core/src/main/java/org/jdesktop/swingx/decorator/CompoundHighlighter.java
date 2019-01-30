@@ -73,7 +73,7 @@ public class CompoundHighlighter extends AbstractHighlighter
      */
     public CompoundHighlighter(HighlightPredicate predicate, Highlighter... inList) {
         super(predicate);
-        highlighters = new ArrayList<Highlighter>();
+        highlighters = new ArrayList<>();
         setHighlighters(inList);
     }
 

@@ -77,7 +77,7 @@ public class DefaultRowSorterIssues extends InteractiveTestCase {
     @Test
     public void testShareSorterRemoveLastRow() {
         DefaultTableModel model = new DefaultTableModel(10, 1);
-        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(model);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
         int last = model.getRowCount() - 1;
         JTable table = new JTable(model);
         table.setRowSorter(sorter);
@@ -96,7 +96,7 @@ public class DefaultRowSorterIssues extends InteractiveTestCase {
     @Test
     public void testShareSorterRemoveFirstRow() {
         DefaultTableModel model = new DefaultTableModel(10, 1);
-        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(model);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
         int last = model.getRowCount() - 1;
         JTable table = new JTable(model);
         table.setRowSorter(sorter);
@@ -499,7 +499,7 @@ public class DefaultRowSorterIssues extends InteractiveTestCase {
         super.setUp();
         rows = 10;
         model = createAscendingTableModel(rows);
-        sorter = new TableRowSorter<TableModel>(model);
+        sorter = new TableRowSorter<>(model);
     }
 
     

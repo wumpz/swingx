@@ -78,10 +78,10 @@ public class PainterIssues extends InteractiveTestCase {
         final JXLabel foreground = new JXLabel(
                 "setup: compound - default and overlay ");
         ShapePainter shapePainter = new ShapePainter();
-        AlphaPainter<?> alpha = new AlphaPainter<Object>();
+        AlphaPainter<?> alpha = new AlphaPainter<>();
         alpha.setAlpha(0.2f);
         alpha.setPainters(shapePainter);
-        CompoundPainter<?> compound = new CompoundPainter<Object>(alpha, foreground
+        CompoundPainter<?> compound = new CompoundPainter<>(alpha, foreground
                 .getForegroundPainter());
         foreground.setForegroundPainter(compound);
         box.add(foreground);
@@ -101,6 +101,7 @@ public class PainterIssues extends InteractiveTestCase {
         Border redLine = BorderFactory.createLineBorder(Color.RED, 3);
         final Painter<JComponent> permanentTranslate = new Painter<JComponent>() {
 
+            @Override
             public void paint(Graphics2D g, JComponent object, int width, int height) {
                 g.translate(50, 0); 
             }
@@ -183,6 +184,7 @@ public class PainterIssues extends InteractiveTestCase {
         box.add(label2);
         Action action = new AbstractActionExt("toggle painter visible") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 styleNone.setVisible(!styleNone.isVisible());
                 painter.setVisible(!painter.isVisible());

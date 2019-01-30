@@ -137,6 +137,7 @@ public class TreeTableModelTest extends InteractiveTestCase {
         JXFrame frame = wrapWithScrollingInFrame(tree, "remove and large");
         Action remove = new AbstractAction("remove selected") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 model.clear();
                 setEnabled(false);

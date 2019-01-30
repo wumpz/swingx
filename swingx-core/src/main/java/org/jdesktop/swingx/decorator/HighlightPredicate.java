@@ -431,7 +431,7 @@ public interface HighlightPredicate {
          * @throws NullPointerException if the collection is null
          */
         public AndHighlightPredicate(Collection<HighlightPredicate> list) {
-            this.predicate = new ArrayList<HighlightPredicate>(Contract.asNotNull(list, "predicate list must not be null"));
+            this.predicate = new ArrayList<>(Contract.asNotNull(list, "predicate list must not be null"));
         }
 
         /**
@@ -480,7 +480,7 @@ public interface HighlightPredicate {
          * @throws NullPointerException if the collection is null
          */
         public OrHighlightPredicate(Collection<HighlightPredicate> list) {
-            this.predicate = new ArrayList<HighlightPredicate>(Contract.asNotNull(list, "predicate list must not be null"));
+            this.predicate = new ArrayList<>(Contract.asNotNull(list, "predicate list must not be null"));
         }
 
         /**
@@ -559,7 +559,7 @@ public interface HighlightPredicate {
          * @param columns the columns to highlight in model coordinates.
          */
         public ColumnHighlightPredicate(int... columns) {
-            columnList = new ArrayList<Integer>();
+            columnList = new ArrayList<>();
             for (int i = 0; i < columns.length; i++) {
                 columnList.add(columns[i]);
             }
@@ -605,9 +605,9 @@ public interface HighlightPredicate {
          * @param columns the identitiers of the columns to highlight.
          */
         public IdentifierHighlightPredicate(Object... columns) {
-            columnList = new ArrayList<Object>();
-            for (int i = 0; i < columns.length; i++) {
-                columnList.add(columns[i]);
+            columnList = new ArrayList<>();
+            for (Object column : columns) {
+                columnList.add(column);
             }
         }
         
@@ -652,7 +652,7 @@ public interface HighlightPredicate {
          * @param depths the depths to highlight
          */
         public DepthHighlightPredicate(int... depths) {
-            depthList = new ArrayList<Integer>();
+            depthList = new ArrayList<>();
             for (int i = 0; i < depths.length; i++) {
                 depthList.add(depths[i]);
             }

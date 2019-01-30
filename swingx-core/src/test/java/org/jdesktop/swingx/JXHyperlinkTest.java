@@ -265,6 +265,7 @@ public class JXHyperlinkTest extends TestCase {
     protected AbstractHyperlinkAction<Object> createEmptyLinkAction() {
         AbstractHyperlinkAction<Object> linkAction = new AbstractHyperlinkAction<Object>(null) {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
                 

@@ -70,14 +70,17 @@ public class JXLabelVisualTest extends InteractiveTestCase {
                   " sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt" +
                   " mollit anim id est laborum.");
       Icon icon = new Icon(){
+        @Override
         public int getIconHeight()
         {
           return 40;
         }
+        @Override
         public int getIconWidth()
         {
           return 80;
         }
+        @Override
         public void paintIcon(Component c, Graphics g, int x, int y)
         {
           g.setColor(Color.GREEN);

@@ -194,6 +194,7 @@ public class JXTreeVisualCheck extends JXTreeUnitTest {
               LOG.info("height " + tree.getRowHeight());
 //              tree.setRowHeight(-1);
               SwingUtilities.invokeLater(new Runnable() {
+                  @Override
                   public void run() {
                       tree.invalidateCellSizeCache();
                   }
@@ -257,6 +258,7 @@ public class JXTreeVisualCheck extends JXTreeUnitTest {
         final Color uiForeground = tree.getSelectionForeground();
         Action toggleSelectionColors = new AbstractAction("toggle selection colors") {
             
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (tree.getSelectionBackground() == uiBackground) {
                     tree.setSelectionBackground(Color.BLUE);
@@ -286,6 +288,7 @@ public class JXTreeVisualCheck extends JXTreeUnitTest {
         final Color uiForeground = tree.getSelectionForeground();
         Action toggleSelectionColors = new AbstractAction("toggle selection colors") {
             
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (tree.getSelectionBackground() == uiBackground) {
                     tree.setSelectionBackground(Color.BLUE);
@@ -312,6 +315,7 @@ public class JXTreeVisualCheck extends JXTreeUnitTest {
         JXTree tree = new JXTree(model);
         StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 if ((value instanceof TreeTableNode) 
                         && ((TreeTableNode) value).getColumnCount() > 0) {
@@ -366,6 +370,7 @@ public class JXTreeVisualCheck extends JXTreeUnitTest {
         int depthOffset = getDepthOffset(tree);
         HighlightPredicate evenChild = new HighlightPredicate() {
 
+            @Override
             public boolean isHighlighted(Component renderer,
                     ComponentAdapter adapter) {
                 if (!(adapter.getComponent() instanceof JTree)) return false;
@@ -377,6 +382,7 @@ public class JXTreeVisualCheck extends JXTreeUnitTest {
         };
         HighlightPredicate oddChild = new HighlightPredicate() {
 
+            @Override
             public boolean isHighlighted(Component renderer,
                     ComponentAdapter adapter) {
                 if (!(adapter.getComponent() instanceof JTree)) return false;
@@ -399,6 +405,7 @@ public class JXTreeVisualCheck extends JXTreeUnitTest {
         final JXFrame frame = wrapWithScrollingInFrame(tree, "tree-wide cell renderer");
         Action rootVisible = new AbstractActionExt("toggle root visible") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 tree.setRootVisible(!tree.isRootVisible());
                 extendToWidthHighlighter.setDepthOffset(getDepthOffset(tree));
@@ -408,6 +415,7 @@ public class JXTreeVisualCheck extends JXTreeUnitTest {
         addAction(frame, rootVisible);
         Action handleVisible = new AbstractActionExt("toggle handles") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 tree.setShowsRootHandles(!tree.getShowsRootHandles());
                 extendToWidthHighlighter.setDepthOffset(getDepthOffset(tree));
@@ -505,6 +513,7 @@ public class JXTreeVisualCheck extends JXTreeUnitTest {
                 "JXTree: toggle invokesStopEditing ");
         Action toggleTerminate = new AbstractAction("toggleInvokesStop") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 table.setInvokesStopCellEditing(!table.getInvokesStopCellEditing());
                 
@@ -647,6 +656,7 @@ public class JXTreeVisualCheck extends JXTreeUnitTest {
         final TreeCellRenderer delegate = new DefaultTreeCellRenderer();
         TreeCellRenderer renderer = new TreeCellRenderer() {
 
+            @Override
             public Component getTreeCellRendererComponent(JTree tree, Object value, 
                     boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
                 Component result = delegate.getTreeCellRendererComponent(tree, value, 
@@ -677,6 +687,7 @@ public class JXTreeVisualCheck extends JXTreeUnitTest {
         final JXTree treeTable = new JXTree(treeTableModel);
         Action toggleHandles = new AbstractAction("Toggle Handles") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 treeTable.setShowsRootHandles(!treeTable.getShowsRootHandles());
                 
@@ -685,6 +696,7 @@ public class JXTreeVisualCheck extends JXTreeUnitTest {
         };
         Action toggleRoot = new AbstractAction("Toggle Root") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 treeTable.setRootVisible(!treeTable.isRootVisible());
                 
@@ -714,6 +726,7 @@ public class JXTreeVisualCheck extends JXTreeUnitTest {
         Action addChild = new AbstractAction("Add Root Child") {
             private int counter = 0;
             
+            @Override
             public void actionPerformed(ActionEvent e) {
                 root.add(new DefaultMutableTreeNode("Child " + (counter + 1)));
                 model.nodesWereInserted(root, new int[]{counter});

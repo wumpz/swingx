@@ -54,6 +54,7 @@ public class JXStatusBarVisualCheck extends InteractiveTestCase {
         final JXFrame frame = wrapWithScrollingInFrame(table, "toggle laf decoration");
         Action toggleDecoration = new AbstractAction("toggleDecoration") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 boolean wasDecoratedByLAF = frame.isUndecorated();
                 frame.setVisible(false);
@@ -135,6 +136,7 @@ public class JXStatusBarVisualCheck extends InteractiveTestCase {
         statusBar.add(new JLabel("Building workspace ..."));
         Action action = new AbstractActionExt("toggle insertLabel") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 insertLabel.setVisible(!insertLabel.isVisible());
                 

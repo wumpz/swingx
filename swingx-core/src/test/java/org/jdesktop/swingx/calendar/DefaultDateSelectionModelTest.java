@@ -476,7 +476,7 @@ public class DefaultDateSelectionModelTest extends AbstractTestDateSelectionMode
         assertTrue(today.equals(selection.first()));
         assertTrue(tPlus4.equals(selection.last()));
 
-        unselectableDates = new TreeSet<Date>();
+        unselectableDates = new TreeSet<>();
         unselectableDates.add(tPlus1);
         unselectableDates.add(tPlus3);
         model.setUnselectableDates(unselectableDates);

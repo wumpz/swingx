@@ -478,14 +478,14 @@ public class BasicHyperlinkUI extends BasicButtonUI {
             public StyleSheet getStyleSheet() {
                 if (defaultStyles == null) {
                 defaultStyles = new StyleSheet();
-                StringReader r = new StringReader(styleChanges);
-                try {
-                    defaultStyles.loadRules(r, null);
-                } catch (Throwable e) {
-                    // don't want to die in static initialization... 
-                    // just display things wrong.
+                try (StringReader r = new StringReader(styleChanges)) {
+                    try {
+                        defaultStyles.loadRules(r, null);
+                    } catch (Throwable e) {
+                        // don't want to die in static initialization...
+                        // just display things wrong.
+                    }
                 }
-                r.close();
                 defaultStyles.addStyleSheet(super.getStyleSheet());
             }
             return defaultStyles;

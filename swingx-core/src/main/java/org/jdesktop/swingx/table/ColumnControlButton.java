@@ -817,7 +817,7 @@ public class ColumnControlButton extends JButton {
      */
     protected List<ColumnVisibilityAction> getColumnVisibilityActions() {
         if (columnVisibilityActions == null) {
-            columnVisibilityActions = new ArrayList<ColumnVisibilityAction>();
+            columnVisibilityActions = new ArrayList<>();
         }
         return columnVisibilityActions;
     }
@@ -832,7 +832,7 @@ public class ColumnControlButton extends JButton {
      */
     protected List<Action> getAdditionalActions() {
         List<?> actionKeys = getColumnControlActionKeys();
-        List<Action> actions = new ArrayList<Action>();
+        List<Action> actions = new ArrayList<>();
         for (Object key : actionKeys) {
           actions.add(table.getActionMap().get(key));
         }
@@ -853,9 +853,9 @@ public class ColumnControlButton extends JButton {
     protected List getColumnControlActionKeys() {
         Object[] allKeys = table.getActionMap().allKeys();
         List columnKeys = new ArrayList();
-        for (int i = 0; i < allKeys.length; i++) {
-            if (isColumnControlActionKey(allKeys[i])) {
-                columnKeys.add(allKeys[i]);
+        for (Object allKey : allKeys) {
+            if (isColumnControlActionKey(allKey)) {
+                columnKeys.add(allKey);
             }
         }
         // JW: this will blow for non-String keys!

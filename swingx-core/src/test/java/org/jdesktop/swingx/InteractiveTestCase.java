@@ -94,14 +94,12 @@ public abstract class InteractiveTestCase extends junit.framework.TestCase {
         Class<?> testClass = getClass();
         Method methods[] = testClass.getMethods();
 
-        for (int i = 0; i < methods.length; i++) {
-            if (methods[i].getName().matches(regexPattern)) {
+        for (Method method : methods) {
+            if (method.getName().matches(regexPattern)) {
                 try {
-                    methods[i].invoke(this);
-                }
-                catch (Exception e) {
-                    System.out.println("could not run interactive test: " +
-                                       methods[i].getName());
+                    method.invoke(this);
+                } catch (Exception e) {
+                    System.out.println("could not run interactive test: " + method.getName());
                     e.printStackTrace();
                 }
             }

@@ -94,6 +94,7 @@ public class TreeRendererIssues extends InteractiveTestCase {
         tree.setEditable(true);
         StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 if (value instanceof Component) {
                     return ((Component) value).getName();
@@ -118,6 +119,7 @@ public class TreeRendererIssues extends InteractiveTestCase {
         ((JComponent) tree.getParent().getParent()).setOpaque(false);
         Action edit = new AbstractActionExt("edit") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (tree.isSelectionEmpty()) return;
                 TreePath path = tree.getSelectionPath();

@@ -54,6 +54,7 @@ public class CompoundFocusListenerIssues extends CompoundFocusListenerTest {
         LOG.info("after custom? ");
         picker.requestFocusInWindow();
         SwingUtilities.invokeAndWait(new Runnable() {
+            @Override
             public void run() {
                 try {
                     assertEquals(1, report.getEventCount("focused"));

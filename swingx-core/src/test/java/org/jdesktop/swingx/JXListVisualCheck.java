@@ -332,6 +332,7 @@ public class JXListVisualCheck extends InteractiveTestCase { //JXListTest {
             @Override
             public void valueChanged(final ListSelectionEvent e) {
                 SwingUtilities.invokeLater(new Runnable() {
+                    @Override
                     public void run() {
                         list.invalidateCellSizeCache();
                     }
@@ -490,7 +491,7 @@ public class JXListVisualCheck extends InteractiveTestCase { //JXListTest {
     public void interactiveTestRolloverHighlightAndLink() {
         JXList list = new JXList(createListModelWithLinks());
         EditorPaneLinkVisitor editorPaneLinkVisitor = new EditorPaneLinkVisitor();
-        LinkModelAction<?> action = new LinkModelAction<LinkModel>(editorPaneLinkVisitor);
+        LinkModelAction<?> action = new LinkModelAction<>(editorPaneLinkVisitor);
         HyperlinkProvider h = new HyperlinkProvider(action, LinkModel.class);
         list.setCellRenderer(new DefaultListRenderer(h));
         list.setRolloverEnabled(true);
@@ -509,7 +510,7 @@ public class JXListVisualCheck extends InteractiveTestCase { //JXListTest {
     protected DefaultListModel createAscendingListModel(int startRow, int count) {
         DefaultListModel l = new DefaultListModel();
         for (int row = startRow; row < startRow  + count; row++) {
-            l.addElement(new Integer(row));
+            l.addElement(row);
         }
         return l;
     }

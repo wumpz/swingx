@@ -26,10 +26,10 @@ public class ListDataReport implements ListDataListener {
     /**
      * Holds a list of all canceled events.
      */
-    protected List<ListDataEvent> changedEvents = Collections.synchronizedList(new LinkedList<ListDataEvent>());
-    protected List<ListDataEvent> addedEvents = Collections.synchronizedList(new LinkedList<ListDataEvent>());
-    protected List<ListDataEvent> removedEvents = Collections.synchronizedList(new LinkedList<ListDataEvent>());
-    protected List<ListDataEvent> allEvents = Collections.synchronizedList(new LinkedList<ListDataEvent>());
+    protected List<ListDataEvent> changedEvents = Collections.synchronizedList(new LinkedList<>());
+    protected List<ListDataEvent> addedEvents = Collections.synchronizedList(new LinkedList<>());
+    protected List<ListDataEvent> removedEvents = Collections.synchronizedList(new LinkedList<>());
+    protected List<ListDataEvent> allEvents = Collections.synchronizedList(new LinkedList<>());
 
     /**
      * Instantiates a ListDataReport.
@@ -49,18 +49,21 @@ public class ListDataReport implements ListDataListener {
     
     //  ------------------ implement ListDataListener    
 
+    @Override
     public void contentsChanged(ListDataEvent e) {
         changedEvents.add(0, e);
         allEvents.add(0, e);
     }
 
 
+    @Override
     public void intervalAdded(ListDataEvent e) {
         addedEvents.add(e);
         allEvents.add(0, e);
     }
 
 
+    @Override
     public void intervalRemoved(ListDataEvent e) {
         removedEvents.add(e);
         allEvents.add(0, e);

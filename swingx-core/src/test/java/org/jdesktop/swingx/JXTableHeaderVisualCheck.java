@@ -222,7 +222,7 @@ public class JXTableHeaderVisualCheck extends InteractiveTestCase {
     public void interactiveHeaderCoreRowSorter() {
         JXTable table = new JXTable(30, 5);
         table.setAutoCreateRowSorter(false);
-        table.setRowSorter(new TableRowSorter<TableModel>(table.getModel()));
+        table.setRowSorter(new TableRowSorter<>(table.getModel()));
         showWithScrollingInFrame(table, "core resize columns with mouse");
     }
     /**

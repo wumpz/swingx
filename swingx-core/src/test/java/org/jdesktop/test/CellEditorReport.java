@@ -24,20 +24,22 @@ public class CellEditorReport implements CellEditorListener {
     /**
      * Holds a list of all canceled events.
      */
-    protected List<ChangeEvent> canceledEvents = Collections.synchronizedList(new LinkedList<ChangeEvent>());
-    protected List<ChangeEvent> stoppedEvents = Collections.synchronizedList(new LinkedList<ChangeEvent>());
-    protected List<ChangeEvent> allEvents = Collections.synchronizedList(new LinkedList<ChangeEvent>());
+    protected List<ChangeEvent> canceledEvents = Collections.synchronizedList(new LinkedList<>());
+    protected List<ChangeEvent> stoppedEvents = Collections.synchronizedList(new LinkedList<>());
+    protected List<ChangeEvent> allEvents = Collections.synchronizedList(new LinkedList<>());
     
     
 //------------------------ implement CellEditorListener
 
     
+    @Override
     public void editingCanceled(ChangeEvent e) {
         canceledEvents.add(0, e);
         allEvents.add(0, e);
     }
     
     
+    @Override
     public void editingStopped(ChangeEvent e) {
         stoppedEvents.add(0, e);
         allEvents.add(0, e);

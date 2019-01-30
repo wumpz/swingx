@@ -72,7 +72,7 @@ public abstract class AbstractMutableTreeTableNode implements
      * @return a list; this list is guaranteed to be non-{@code null}
      */
     protected List<MutableTreeTableNode> createChildrenList() {
-        return new ArrayList<MutableTreeTableNode>();
+        return new ArrayList<>();
     }
     
     public void add(MutableTreeTableNode child) {

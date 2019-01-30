@@ -230,7 +230,7 @@ public class AbstractTestDateSelectionModel extends TestCase {
         if (model.getTimeZone().equals(tz)) {
             tz = TimeZone.getTimeZone("GMT+5");
         }
-        TreeSet<Date> treeSet = new TreeSet<Date>();
+        TreeSet<Date> treeSet = new TreeSet<>();
         treeSet.add(yesterday);
         model.setUnselectableDates(treeSet);
         model.setTimeZone(tz);
@@ -708,7 +708,7 @@ public class AbstractTestDateSelectionModel extends TestCase {
      */
     @Test
     public void testUnselectableDates() {
-        SortedSet<Date> unselectableDates = new TreeSet<Date>();
+        SortedSet<Date> unselectableDates = new TreeSet<>();
         unselectableDates.add(today);
         model.setUnselectableDates(unselectableDates);
         model.setSelectionInterval(today, today);

@@ -367,7 +367,7 @@ public class JXTableUnitTest extends InteractiveTestCase {
         TableColumnExt columnExt = table.getColumnExt(0);
         columnExt.setVisible(false);
         List<TableColumn> allColumns = table.getColumns(true);
-        List<Object> identifiers = new ArrayList<Object>();
+        List<Object> identifiers = new ArrayList<>();
         for (TableColumn tableColumn : allColumns) {
             identifiers.add(tableColumn.getIdentifier());
         }
@@ -441,7 +441,7 @@ public class JXTableUnitTest extends InteractiveTestCase {
     @Test
     public void testHasSortController() {
         assertTrue(table.hasSortController());
-        table.setRowSorter(new TableRowSorter<TableModel>());
+        table.setRowSorter(new TableRowSorter<>());
         assertFalse(table.hasSortController());
     }
 
@@ -486,7 +486,7 @@ public class JXTableUnitTest extends InteractiveTestCase {
         table.setSortsOnUpdates(!table.getSortsOnUpdates());
         table.setSortable(!table.isSortable());
         if (setSorter) {
-            table.setRowSorter(new TableSortController<TableModel>(table.getModel()));
+            table.setRowSorter(new TableSortController<>(table.getModel()));
             assertFalse("StringValueProvider propagated to controller", 
                     table.getStringValueRegistry().equals(getSortController(table).getStringValueProvider()));
         }
@@ -507,7 +507,7 @@ public class JXTableUnitTest extends InteractiveTestCase {
         table.setSortsOnUpdates(!table.getSortsOnUpdates());
         table.setSortable(!table.isSortable());
         if (setSorter) {
-            table.setRowSorter(new TableSortController<TableModel>(table.getModel()));
+            table.setRowSorter(new TableSortController<>(table.getModel()));
         }
         assertEquals("sortsOnUpdates propagated to controller", 
                 table.getSortsOnUpdates(), getSortController(table).getSortsOnUpdates());
@@ -813,7 +813,7 @@ public class JXTableUnitTest extends InteractiveTestCase {
         JXTable table = new JXTable(new AncientSwingTeam());
         TableColumnExt columnX = table.getColumnExt(0);
         columnX.setComparator(Collator.getInstance());
-        table.setRowSorter(new TableSortController<TableModel>(table.getModel()));
+        table.setRowSorter(new TableSortController<>(table.getModel()));
         assertSame(columnX.getComparator(), getSortController(table).getComparator(columnX.getModelIndex()));
     }
 
@@ -1327,7 +1327,7 @@ public class JXTableUnitTest extends InteractiveTestCase {
     public static class JXRTable extends JXTable {
         @Override
         protected RowSorter<? extends TableModel> createDefaultRowSorter() {
-            XTableRowSorter<TableModel> sorter = new XTableRowSorter<TableModel>();
+            XTableRowSorter<TableModel> sorter = new XTableRowSorter<>();
             sorter.setModel(getModel());
             return sorter;
         }
@@ -3316,9 +3316,9 @@ public class JXTableUnitTest extends InteractiveTestCase {
     
     private PropertyChangeListener getLinkControllerAsPropertyChangeListener(JXTable table, String propertyName) {
         PropertyChangeListener[] listeners = table.getPropertyChangeListeners(propertyName);
-        for (int i = 0; i < listeners.length; i++) {
-            if (listeners[i] instanceof TableRolloverController<?>) {
-                return (TableRolloverController<?>) listeners[i];
+        for (PropertyChangeListener listener : listeners) {
+            if (listener instanceof TableRolloverController<?>) {
+                return (TableRolloverController<?>) listener;
             }
         }
         return null;
@@ -3476,7 +3476,7 @@ public class JXTableUnitTest extends InteractiveTestCase {
     public void testMixedComparableTypes() {
         
         Object[][] rowData = new Object[][] {
-                new Object[] { Boolean.TRUE, new Integer(2) },
+                new Object[] { Boolean.TRUE, 2},
                 new Object[] { Boolean.TRUE, "BC" } };
         String[] columnNames = new String[] { "Critical", "Task" };
         DefaultTableModel model =  new DefaultTableModel(rowData, columnNames);
@@ -3493,7 +3493,7 @@ public class JXTableUnitTest extends InteractiveTestCase {
     public void testMixedComparableTypesWithNonComparable() {
         
         Object[][] rowData = new Object[][] {
-                new Object[] { Boolean.TRUE, new Integer(2) },
+                new Object[] { Boolean.TRUE, 2},
                 new Object[] { Boolean.TRUE, new Object() } };
         String[] columnNames = new String[] { "Critical", "Task" };
         DefaultTableModel model =  new DefaultTableModel(rowData, columnNames);
@@ -3619,7 +3619,7 @@ public class JXTableUnitTest extends InteractiveTestCase {
             }
         };
         for (int i = 0; i < model.getRowCount(); i++) {
-            model.setValueAt(new Integer(startRow++), i, 0);
+            model.setValueAt(startRow++, i, 0);
         }
         return model;
     }
@@ -3648,7 +3648,7 @@ public class JXTableUnitTest extends InteractiveTestCase {
         };
         int filledColumn = fillLast ? columnCount - 1 : 0;
         for (int i = 0; i < model.getRowCount(); i++) {
-            model.setValueAt(new Integer(startRow++), i, filledColumn);
+            model.setValueAt(startRow++, i, filledColumn);
         }
         return model;
     }
@@ -3764,31 +3764,31 @@ public class JXTableUnitTest extends InteractiveTestCase {
             }
 
             columnSamples = new Object[12];
-            columnSamples[0] = new Integer(0);
+            columnSamples[0] = 0;
             columnSamples[1] = "Simple String Value";
-            columnSamples[2] = new Integer(1000);
+            columnSamples[2] = 1000;
             columnSamples[3] = Boolean.TRUE;
             columnSamples[4] = new Date(100);
             columnSamples[5] = new Float(1.5);
             columnSamples[IDX_COL_LINK] = new LinkModel("Sun Micro", "_blank", linkURL);
-            columnSamples[7] = new Integer(3023);
+            columnSamples[7] = 3023;
             columnSamples[8] = "John Doh";
             columnSamples[9] = "23434 Testcase St";
-            columnSamples[10] = new Integer(33333);
+            columnSamples[10] = 33333;
             columnSamples[11] = Boolean.FALSE;
 
             columnSamples2 = new Object[12];
-            columnSamples2[0] = new Integer(0);
+            columnSamples2[0] = 0;
             columnSamples2[1] = "Another String Value";
-            columnSamples2[2] = new Integer(999);
+            columnSamples2[2] = 999;
             columnSamples2[3] = Boolean.FALSE;
             columnSamples2[4] = new Date(333);
             columnSamples2[5] = new Float(22.22);
             columnSamples2[IDX_COL_LINK] = new LinkModel("Sun Web", "new_frame", linkURL);
-            columnSamples[7] = new Integer(5503);
+            columnSamples[7] = 5503;
             columnSamples[8] = "Jane Smith";
             columnSamples[9] = "2343 Table Blvd.";
-            columnSamples[10] = new Integer(2);
+            columnSamples[10] = 2;
             columnSamples[11] = Boolean.TRUE;
 
         }
@@ -3862,7 +3862,7 @@ public class JXTableUnitTest extends InteractiveTestCase {
     @Test
     public void testColumnHighlighting() {
         JXTable table = new JXTable(tableModel);
-        List<Highlighter> events = new ArrayList<Highlighter>();
+        List<Highlighter> events = new ArrayList<>();
         
         Highlighter tableHighlighter = new TestingHighlighter(events);
         Highlighter columnHighlighter = new TestingHighlighter(events);

@@ -136,15 +136,13 @@ public abstract class LookAndFeelAddons {
      * @see UIManager#setLookAndFeel
      */
     public void initialize() {
-        for (Iterator<ComponentAddon> iter = contributedComponents.iterator(); iter.hasNext();) {
-            ComponentAddon addon = iter.next();
+        for (ComponentAddon addon : contributedComponents) {
             addon.initialize(this);
         }
     }
 
     public void uninitialize() {
-        for (Iterator<ComponentAddon> iter = contributedComponents.iterator(); iter.hasNext();) {
-            ComponentAddon addon = iter.next();
+        for (ComponentAddon addon : contributedComponents) {
             addon.uninitialize(this);
         }
     }
@@ -429,7 +427,7 @@ public abstract class LookAndFeelAddons {
                     + " with UIClassID " + component.getUIClassID());
             if (logger.isLoggable(Level.FINE)) {
                 logger.fine("Existing UI defaults keys: "
-                        + new ArrayList<Object>(UIManager.getDefaults().keySet()));
+                        + new ArrayList<>(UIManager.getDefaults().keySet()));
             }
             // really ugly hack. Should be removed as soon as we figure out what is causing the
             // issue

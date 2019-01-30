@@ -382,7 +382,7 @@ public class JXTableVisualCheck extends JXTableUnitTest {
 
             @Override
             public String getString(Object value) {
-                return Integer.toHexString(((Integer) value).intValue());
+                return Integer.toHexString(((Integer) value));
             }
             
         };
@@ -527,7 +527,7 @@ public class JXTableVisualCheck extends JXTableUnitTest {
         table.setVisibleRowCount(model.getRowCount());
         JXFrame frame = wrapWithScrollingInFrame(table, "multi-column-sort");
         final DefaultSortController<?> rowSorter = (DefaultSortController<?>) table.getRowSorter();
-        final List<SortKey> sortKeys = new ArrayList<SortKey>();
+        final List<SortKey> sortKeys = new ArrayList<>();
         for (int i = 0; i < rowSorter.getMaxSortKeys(); i++) {
             sortKeys.add(new SortKey(i, SortOrder.ASCENDING));
         }
@@ -1377,18 +1377,18 @@ public class JXTableVisualCheck extends JXTableUnitTest {
             columns[i] = new TableColumnExt(i);
             table.addColumn(columns[i]);
         }
-        columns[0].setPrototypeValue(new Integer(0));
+        columns[0].setPrototypeValue(0);
         columns[1].setPrototypeValue("Simple String Value");
-        columns[2].setPrototypeValue(new Integer(1000));
+        columns[2].setPrototypeValue(1000);
         columns[3].setPrototypeValue(Boolean.TRUE);
         columns[4].setPrototypeValue(new Date(100));
         columns[5].setPrototypeValue(new Float(1.5));
         columns[6].setPrototypeValue(new LinkModel("Sun Micro", "_blank",
                                               tableModel.linkURL));
-        columns[7].setPrototypeValue(new Integer(3023));
+        columns[7].setPrototypeValue(3023);
         columns[8].setPrototypeValue("John Doh");
         columns[9].setPrototypeValue("23434 Testcase St");
-        columns[10].setPrototypeValue(new Integer(33333));
+        columns[10].setPrototypeValue(33333);
         columns[11].setPrototypeValue(Boolean.FALSE);
 
         table.setVisibleRowCount(12);
@@ -1436,7 +1436,7 @@ public class JXTableVisualCheck extends JXTableUnitTest {
         columns[4].setHeaderValue("String Value");
         columns[4].setPrototypeValue("Simple String Value");
         columns[3].setHeaderValue("Int Value");
-        columns[3].setPrototypeValue(new Integer(1000));
+        columns[3].setPrototypeValue(1000);
         columns[2].setHeaderValue("Bool");
         columns[2].setPrototypeValue(Boolean.FALSE);
         //columns[2].setSortable(false);

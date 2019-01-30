@@ -49,7 +49,7 @@ public class ListComboBoxModelVisualCheck extends InteractiveTestCase {
      * @return a list of integers from 1 to 10
      */
     protected ListComboBoxModel<Integer> createComboBoxModel() {
-        return new ListComboBoxModel<Integer>(Arrays.asList(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}));
+        return new ListComboBoxModel<>(Arrays.asList(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}));
     }
     
     /**
@@ -61,6 +61,7 @@ public class ListComboBoxModelVisualCheck extends InteractiveTestCase {
         final ComboBoxModel model = createComboBoxModel();
         JXFrame frame = wrapInFrame(new JComboBox(model), "programatically select item");
         addAction(frame, new AbstractAction("Select 9") {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 model.setSelectedItem(9);
             }

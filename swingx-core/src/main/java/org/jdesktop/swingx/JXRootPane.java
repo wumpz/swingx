@@ -333,8 +333,8 @@ public class JXRootPane extends JRootPane {
         }
         if (comp instanceof Container) {
             Component[] comps = ((Container) comp).getComponents();
-            for (int i = 0; i < comps.length; i++) {
-                registerStatusBar(comps[i]);
+            for (Component comp1 : comps) {
+                registerStatusBar(comp1);
             }
         }
     }
@@ -345,8 +345,8 @@ public class JXRootPane extends JRootPane {
         }
         if (comp instanceof Container) {
             Component[] comps = ((Container) comp).getComponents();
-            for (int i = 0; i < comps.length; i++) {
-                unregisterStatusBar(comps[i]);
+            for (Component comp1 : comps) {
+                unregisterStatusBar(comp1);
             }
         }
     }
@@ -364,12 +364,11 @@ public class JXRootPane extends JRootPane {
         this.statusBar = statusBar;
 
         Component[] comps = getContentPane().getComponents();
-        for (int i = 0; i < comps.length; i++) {
+        for (Component comp : comps) {
             // Unregister the old status bar.
-            unregisterStatusBar(comps[i]);
-
+            unregisterStatusBar(comp);
             // register the new status bar.
-            registerStatusBar(comps[i]);
+            registerStatusBar(comp);
         }
         if (oldStatusBar != null) {
             remove(oldStatusBar);

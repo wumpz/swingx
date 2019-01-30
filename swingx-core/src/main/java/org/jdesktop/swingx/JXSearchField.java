@@ -758,7 +758,7 @@ public class JXSearchField extends JXTextField {
 	public void customSetUIProperty(String propertyName, Object value, boolean override) {
 		if (propertyName == "useSeperatePopupButton") {
 			if (!useSeperatePopupButtonSet || override) {
-				setUseSeperatePopupButton(((Boolean) value).booleanValue());
+				setUseSeperatePopupButton(((Boolean) value));
 				useSeperatePopupButtonSet = false;
 			}
 		} else if (propertyName == "layoutStyle") {

@@ -357,8 +357,8 @@ public class CompoundHighlighterTest extends InteractiveTestCase {
 
         hls = pipeline.getHighlighters();
         assertTrue(hls.length == 3);
-        for (int i = 0; i < hls.length; i++) {
-            assertTrue(hls[i] != hl);
+        for (Highlighter hl1 : hls) {
+            assertTrue(hl1 != hl);
         }
 
         // remove another highligher
@@ -366,8 +366,8 @@ public class CompoundHighlighterTest extends InteractiveTestCase {
 
         hls = pipeline.getHighlighters();
         assertTrue(hls.length == 2);
-        for (int i = 0; i < hls.length; i++) {
-            assertTrue(hls[i] != hl2);
+        for (Highlighter hl1 : hls) {
+            assertTrue(hl1 != hl2);
         }
     }
 

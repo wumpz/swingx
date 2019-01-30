@@ -126,7 +126,7 @@ public abstract class DefaultSortController<M> extends DefaultRowSorter<M, Integ
         // nothing to toggle through
         if (firstInCycle == null)
             return;
-        List<SortKey> keys = new ArrayList<SortKey>(getSortKeys());
+        List<SortKey> keys = new ArrayList<>(getSortKeys());
         SortKey sortKey = SortUtils.getFirstSortKeyForColumn(keys, column);
         if (keys.indexOf(sortKey) == 0)  {
             //  primary key: in this case we'll use next sortorder in cylce
@@ -190,7 +190,7 @@ public abstract class DefaultSortController<M> extends DefaultRowSorter<M, Integ
     public void setSortOrder(int column, SortOrder sortOrder) {
         if (!isSortable(column)) return;
         SortKey replace = new SortKey(column, sortOrder);
-        List<SortKey> keys = new ArrayList<SortKey>(getSortKeys());
+        List<SortKey> keys = new ArrayList<>(getSortKeys());
         SortUtils.removeFirstSortKeyForColumn(keys, column);
         keys.add(0, replace);
         // PENDING max sort keys, respect here?
@@ -214,7 +214,7 @@ public abstract class DefaultSortController<M> extends DefaultRowSorter<M, Integ
     @Override
     public void resetSortOrders() {
         if (!isSortable()) return;
-        List<SortKey> keys = new ArrayList<SortKey>(getSortKeys());
+        List<SortKey> keys = new ArrayList<>(getSortKeys());
         for (int i = keys.size() -1; i >= 0; i--) {
             SortKey sortKey = keys.get(i);
             if (isSortable(sortKey.getColumn())) {

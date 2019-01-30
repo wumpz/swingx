@@ -796,6 +796,7 @@ public class NumberEditorExtTest extends InteractiveTestCase {
         target.setColumns(10);
         field.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 target.setValue(field.getValue());
                 LOG.info("value: " + field.getValue());

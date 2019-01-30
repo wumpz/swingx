@@ -171,6 +171,7 @@ public class IconBorderTest extends InteractiveTestCase {
         Border lineBorder = BorderFactory.createLineBorder(Color.RED, 2);
         label.setBorder(BorderFactory.createCompoundBorder(lineBorder, border));
         Action setIcon = new AbstractActionExt("null icon") {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 border.setIcon(null);
                 label.repaint();
@@ -180,6 +181,7 @@ public class IconBorderTest extends InteractiveTestCase {
         };
         Action setPadding = new AbstractActionExt("set padding") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 border.setPadding(border.getPadding() + 10);
                 label.repaint();
@@ -190,6 +192,7 @@ public class IconBorderTest extends InteractiveTestCase {
         final JXFrame frame = wrapInFrame(label, "IconBorder");
         Action toggleComponentOrientation = new AbstractActionExt("toggle orientation") {
             
+            @Override
             public void actionPerformed(ActionEvent e) {
                 ComponentOrientation current = frame.getComponentOrientation();
                 if (current == ComponentOrientation.LEFT_TO_RIGHT) {

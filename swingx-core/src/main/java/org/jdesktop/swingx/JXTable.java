@@ -730,7 +730,7 @@ public class JXTable extends JTable implements TableColumnModelExtListener {
      * @see org.jdesktop.swingx.rollover.RolloverController
      */
     protected TableRolloverController<JXTable> createLinkController() {
-        return new TableRolloverController<JXTable>();
+        return new TableRolloverController<>();
     }
 
     /**
@@ -1829,7 +1829,7 @@ public class JXTable extends JTable implements TableColumnModelExtListener {
      */
     protected RowSorter<? extends TableModel> createDefaultRowSorter() {
 //        return new TableRowSorter<TableModel>(getModel());
-        return new TableSortController<TableModel>(getModel());
+        return new TableSortController<>(getModel());
     }
 
 
@@ -2252,9 +2252,7 @@ public class JXTable extends JTable implements TableColumnModelExtListener {
             if (sortKey != null) {
                 int sorterColumn = sortKey.getColumn();
                 List<TableColumn> columns = getColumns(true);
-                for (Iterator<TableColumn> iter = columns.iterator(); iter
-                        .hasNext();) {
-                    TableColumn column = iter.next();
+                for (TableColumn column : columns) {
                     if (column.getModelIndex() == sorterColumn) {
                         return column;
                     }
@@ -2532,22 +2530,20 @@ public class JXTable extends JTable implements TableColumnModelExtListener {
          * JW: not properly tested (not in all in fact) ...
          */
         List<TableColumn> columns = getColumns(true);
-        Map<Object, TableColumn> map = new HashMap<Object, TableColumn>();
-        for (Iterator<TableColumn> iter = columns.iterator(); iter.hasNext();) {
+        Map<Object, TableColumn> map = new HashMap<>();
+        for (TableColumn column : columns) {
             // PENDING: handle duplicate identifiers ...
-            TableColumn column = iter.next();
             map.put(column.getIdentifier(), column);
             getColumnModel().removeColumn(column);
         }
-        for (int i = 0; i < identifiers.length; i++) {
-            TableColumn column = map.get(identifiers[i]);
+        for (Object identifier : identifiers) {
+            TableColumn column = map.get(identifier);
             if (column != null) {
                 getColumnModel().addColumn(column);
                 columns.remove(column);
             }
         }
-        for (Iterator<TableColumn> iter = columns.iterator(); iter.hasNext();) {
-            TableColumn column = (TableColumn) iter.next();
+        for (TableColumn column : columns) {
             getColumnModel().addColumn(column);
         }
     }
@@ -3198,9 +3194,7 @@ public class JXTable extends JTable implements TableColumnModelExtListener {
                         + getColumnCount() + " was: " + modelColumn);
             }
             List<TableColumn> columns = table.getColumns(true);
-            for (Iterator<TableColumn> iter = columns.iterator(); iter
-                    .hasNext();) {
-                TableColumn column = iter.next();
+            for (TableColumn column : columns) {
                 if (column.getModelIndex() == modelColumn) {
                     return column;
                 }

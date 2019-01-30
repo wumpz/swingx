@@ -110,7 +110,7 @@ class JXImagePanel extends JXPanel {
     /**
      * The image to draw
      */
-    private SoftReference<Image> img = new SoftReference<Image>(null);
+    private SoftReference<Image> img = new SoftReference<>(null);
 
     /**
      * If true, then the image can be changed. Perhaps a better name is
@@ -161,7 +161,7 @@ class JXImagePanel extends JXPanel {
     public void setImage(Image image) {
         if (image != img.get()) {
             Image oldImage = img.get();
-            img = new SoftReference<Image>(image);
+            img = new SoftReference<>(image);
             firePropertyChange("image", oldImage, img);
             invalidate();
             repaint();
@@ -178,7 +178,7 @@ class JXImagePanel extends JXPanel {
         if (image == null && imageLoader != null) {
             try {
                 image = imageLoader.call();
-                img = new SoftReference<Image>(image);
+                img = new SoftReference<>(image);
             } catch (Exception e) {
                 LOG.log(Level.WARNING, "", e);
             }

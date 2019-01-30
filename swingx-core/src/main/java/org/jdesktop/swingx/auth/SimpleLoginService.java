@@ -44,7 +44,7 @@ public final class SimpleLoginService extends LoginService {
      */
     public SimpleLoginService(Map<String,char[]> passwordMap) {
         if (passwordMap == null) {
-            passwordMap = new HashMap<String,char[]>();
+            passwordMap = new HashMap<>();
         }
         this.passwordMap = passwordMap;
     }

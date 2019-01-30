@@ -86,7 +86,7 @@ public class CompositeAction extends AbstractActionExt {
     public void addAction(String id) {
         List<String> list = (List<String>) getValue(LIST_IDS);
         if (list == null) {
-            list = new ArrayList<String>();
+            list = new ArrayList<>();
             putValue(LIST_IDS, list);
         }
         list.add(id);

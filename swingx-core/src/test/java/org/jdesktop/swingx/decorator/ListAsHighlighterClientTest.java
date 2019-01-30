@@ -41,30 +41,37 @@ public class ListAsHighlighterClientTest extends AbstractTestHighlighterClient {
     private HighlighterClient createHighlighterClient(final JXList table) {
         HighlighterClient client = new HighlighterClient() {
 
+            @Override
             public void addHighlighter(Highlighter highlighter) {
                 table.addHighlighter(highlighter);
             }
 
+            @Override
             public void addPropertyChangeListener(PropertyChangeListener l) {
                 table.addPropertyChangeListener(l);
             }
 
+            @Override
             public Highlighter[] getHighlighters() {
                 return table.getHighlighters();
             }
 
+            @Override
             public void removeHighlighter(Highlighter highlighter) {
                 table.removeHighlighter(highlighter);
             }
 
+            @Override
             public void removePropertyChangeListener(PropertyChangeListener l) {
                 table.removePropertyChangeListener(l);
             }
 
+            @Override
             public void setHighlighters(Highlighter... highlighters) {
                 table.setHighlighters(highlighters);
             }
 
+            @Override
             public void updateUI() {
                 table.updateUI();
             }

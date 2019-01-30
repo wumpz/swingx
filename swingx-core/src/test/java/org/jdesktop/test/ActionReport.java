@@ -25,11 +25,12 @@ public class ActionReport implements ActionListener {
     /**
      * Holds a list of all received PropertyChangeEvents.
      */
-    protected List<ActionEvent> events = Collections.synchronizedList(new LinkedList<ActionEvent>());
-    protected Map<Object, ActionEvent> eventMap = Collections.synchronizedMap(new HashMap<Object, ActionEvent>());
+    protected List<ActionEvent> events = Collections.synchronizedList(new LinkedList<>());
+    protected Map<Object, ActionEvent> eventMap = Collections.synchronizedMap(new HashMap<>());
     
 //------------------------ implement PropertyChangeListener
     
+    @Override
     public void actionPerformed(ActionEvent evt) {
         events.add(0, evt);
         if (evt != null && evt.getSource() != null) {

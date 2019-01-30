@@ -464,7 +464,7 @@ public class DefaultSortControllerTest extends InteractiveTestCase {
         super.setUp();
         rows = 10;
         model = createAscendingTableModel(rows);
-        sorter = new TableSortController<TableModel>(model);
+        sorter = new TableSortController<>(model);
     }
 
     

@@ -145,6 +145,7 @@ public class JXMonthViewTest extends InteractiveTestCase {
         final JXFrame frame = new JXFrame();
         frame.add(monthView);
         SwingUtilities.invokeAndWait(new Runnable() {
+            @Override
             public void run() {
                 frame.dispose();
                 
@@ -1247,7 +1248,7 @@ public class JXMonthViewTest extends InteractiveTestCase {
         // guard against accidental startofday
         calendar.set(Calendar.HOUR_OF_DAY, 5);
         Date date = calendar.getTime();
-        SortedSet<Date> unselectables = new TreeSet<Date>();
+        SortedSet<Date> unselectables = new TreeSet<>();
         unselectables.add(date);
         monthView.getSelectionModel().setUnselectableDates(unselectables);
         assertTrue(monthView.getSelectionModel().isUnselectableDate(date));
@@ -1337,6 +1338,7 @@ public class JXMonthViewTest extends InteractiveTestCase {
         today.add(Calendar.DAY_OF_MONTH, 2);
         us.setSelectionDate(today.getTime());
         SwingUtilities.invokeAndWait(new Runnable() {
+            @Override
             public void run() {
                 us.revalidate();
                 // need to validate frame - why?
@@ -1550,6 +1552,7 @@ public class JXMonthViewTest extends InteractiveTestCase {
         final JXFrame frame = wrapInFrame(monthView, "");
         frame.setVisible(true);
         SwingUtilities.invokeAndWait(new Runnable() {
+            @Override
             public void run() {
                 Date uiLast = monthView.getUI().getLastDisplayedDay();
                 Date viewLast = monthView.getLastDisplayedDay();
@@ -1584,6 +1587,7 @@ public class JXMonthViewTest extends InteractiveTestCase {
         frame.invalidate();
         frame.validate();
         SwingUtilities.invokeAndWait(new Runnable() {
+            @Override
             public void run() {
                 Date uiLast = monthView.getUI().getLastDisplayedDay();
                 Date viewLast = monthView.getLastDisplayedDay();
@@ -1619,6 +1623,7 @@ public class JXMonthViewTest extends InteractiveTestCase {
         frame.invalidate();
         frame.validate();
         SwingUtilities.invokeAndWait(new Runnable() {
+            @Override
             public void run() {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(monthView.getFirstDisplayedDay());
@@ -2800,7 +2805,7 @@ lastRule=java.util.SimpleTimeZone[id=US/Pacific,offset=-28800000,dstSavings=3600
     public void testFlaggedDateGet() {
         JXMonthView monthView = new JXMonthView();
         Date date = new Date();
-        SortedSet<Date> set = new TreeSet<Date>();
+        SortedSet<Date> set = new TreeSet<>();
         set.add(monthView.getSelectionModel().getNormalizedDate(date));
         monthView.setFlaggedDates(date);
         assertEquals(set, monthView.getFlaggedDates());

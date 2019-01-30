@@ -235,6 +235,7 @@ public class FindVisualCheck extends InteractiveTestCase {
                 final JXFindPanel panel = super.createFindPanel();
                 Action customClose = new AbstractAction() {
 
+                    @Override
                     public void actionPerformed(ActionEvent e) {
                         LOG.info("my action");
                         // this is nasty ... 
@@ -253,6 +254,7 @@ public class FindVisualCheck extends InteractiveTestCase {
         final JXTable table = new JXTable(new AncientSwingTeam());
         Action customFind = new AbstractAction() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 custom.showFindDialog(table, table.getSearchable());
                 
@@ -284,6 +286,7 @@ public class FindVisualCheck extends InteractiveTestCase {
         comp.add(new JScrollPane(table));
         Action action = new AbstractActionExt("open find dialog") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 SearchFactory.getInstance().showFindDialog(table, table.getSearchable());
                 

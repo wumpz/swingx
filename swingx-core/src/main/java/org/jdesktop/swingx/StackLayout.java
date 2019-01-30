@@ -63,7 +63,7 @@ public class StackLayout implements LayoutManager2 {
 
     // removing components does not happen often compared to adding components
     // hence we choose a linked list to make insertion at the bottom faster
-    private List<Component> components = new LinkedList<Component>();
+    private List<Component> components = new LinkedList<>();
 
     /**
      * {@inheritDoc}

@@ -193,6 +193,7 @@ public class JXMultiSplitPaneVisualIssues extends InteractiveTestCase {
        JXFrame frame = wrapInFrame(splitPane, "replace upper right and revalidate"); 
        Action action = new AbstractAction("replace uppder right") {
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             JComponent comp = getComponentByConstraint(splitPane.getMultiSplitLayout(), "demo");
             splitPane.remove(comp);
@@ -248,6 +249,7 @@ public class JXMultiSplitPaneVisualIssues extends InteractiveTestCase {
        JXFrame frame = wrapInFrame(splitPane, "replace upper right and layoutByWeight"); 
        Action action = new AbstractAction("replace demo") {
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             JComponent comp = getComponentByConstraint(splitPane.getMultiSplitLayout(), "demo");
             splitPane.remove(comp);
@@ -304,6 +306,7 @@ public class JXMultiSplitPaneVisualIssues extends InteractiveTestCase {
         f.add(p);
         JButton b = new JButton(new AbstractAction("Reset") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 // just reset the model
                 msp.setModel(MultiSplitLayout.parseModel("(ROW (COLUMN weight=0.5 left.top left.bottom)" + 

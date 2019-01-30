@@ -253,6 +253,7 @@ public class JXRootPaneTest extends InteractiveTestCase {
     public void interactiveDefaultCancelButton() {
         Action cancel = new AbstractActionExt("cancel") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 LOG.info("performed: cancel action");
                 
@@ -287,6 +288,7 @@ public class JXRootPaneTest extends InteractiveTestCase {
         final JXFrame frame = wrapWithScrollingInFrame(table, "Statusbar");
         Action action = new AbstractAction("toggle StatusBar") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 JXStatusBar bar = frame.getRootPaneExt().getStatusBar();
                 frame.getRootPaneExt().setStatusBar(bar != null ? null : new JXStatusBar());

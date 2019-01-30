@@ -103,6 +103,7 @@ public class GradientTrackRenderer extends JComponent implements TrackRenderer {
         g.translate(-thumb_width / 2, -12);
     }
 
+    @Override
     public JComponent getRendererComponent(JXMultiThumbSlider slider) {
         this.slider = slider;
         return this;

@@ -157,7 +157,7 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
     @Test
     public void testFakeSetRowSorter() {
         JXTreeTable table = new FakeSortableTreeTable();
-        TableSortController<TableModel> controller = new TableSortController<TableModel>(table.getModel());
+        TableSortController<TableModel> controller = new TableSortController<>(table.getModel());
         table.setRowSorter(controller);
         assertEquals("table sorter must be set", controller, table.getRowSorter());
     }
@@ -327,7 +327,7 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
     @Test
     public void testRowSorterNotSettable() {
         JXTreeTable table = new JXTreeTable();
-        table.setRowSorter(new TableRowSorter<TableModel>());
+        table.setRowSorter(new TableRowSorter<>());
         assertNull("rowsorter not settable, was: " + table.getRowSorter(), 
                 table.getRowSorter());
     }
@@ -963,7 +963,7 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         root.add(a);
         root.add(b);
         
-        Vector<String> columnNames = new Vector<String>();
+        Vector<String> columnNames = new Vector<>();
         columnNames.add("A");
         
         TreeTableModel model = new DefaultTreeTableModel(root, columnNames) {

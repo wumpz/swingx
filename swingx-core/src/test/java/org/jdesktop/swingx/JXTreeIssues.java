@@ -278,10 +278,12 @@ public class JXTreeIssues extends JXTreeUnitTest {
         final Locale[] locales = Locale.getAvailableLocales();
         ListModel model = new AbstractListModel() {
 
+            @Override
             public Object getElementAt(int index) {
                 return locales[index];
             }
 
+            @Override
             public int getSize() {
                 return locales.length;
             }
@@ -330,6 +332,7 @@ public class JXTreeIssues extends JXTreeUnitTest {
         final Icon upIcon = XTestUtils.loadDefaultIcon("welltop.gif");
         Action toggleClosedIcon = new AbstractAction("Toggle closed icon") {
             boolean down;
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (down) {
                     tree.setClosedIcon(downIcon);
@@ -362,6 +365,7 @@ public class JXTreeIssues extends JXTreeUnitTest {
         final StringValue sv = StringValues.FILE_NAME;
         IconValue iv = new IconValue() {
 
+            @Override
             public Icon getIcon(Object value) {
                 if (sv.getString(value).startsWith("A")) {
                     return downIcon;
@@ -387,6 +391,7 @@ public class JXTreeIssues extends JXTreeUnitTest {
         final JXTree tree = new JXTree(treeTableModel);
         final StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 if (value instanceof File) {
                     return ((File) value).getName();

@@ -80,7 +80,7 @@ public class MapComboBoxModel<K, V> extends ListComboBoxModel<K> {
      * @return a list containing the map keys
      */
     private static <E> List<E> buildIndex(Map<E, ?> map) {
-        return new ArrayList<E>(map.keySet());
+        return new ArrayList<>(map.keySet());
     }
     
     /**
@@ -104,7 +104,7 @@ public class MapComboBoxModel<K, V> extends ListComboBoxModel<K> {
             data.addAll(keys);
             
             //remove dead keys
-            List<K> copy = new ArrayList<K>(data);
+            List<K> copy = new ArrayList<>(data);
             keys = map_data.keySet();
             copy.removeAll(keys);
             data.removeAll(copy);

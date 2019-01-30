@@ -54,6 +54,7 @@ public class BoundActionIssues {
         f.getContentPane().add(bar, "North");
         JButton brefresh = new JButton("Refresh");
         brefresh.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 refreshToolBar();
             }

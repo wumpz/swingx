@@ -86,6 +86,7 @@ public class SynthCheckBoxPainterTest extends JFrame
   public static void main(String[] args)
   {
     EventQueue.invokeLater(new Runnable(){
+      @Override
       public void run()
       {
         try
@@ -158,13 +159,13 @@ public class SynthCheckBoxPainterTest extends JFrame
     public MyTableModel(int rows)
     {
       this.rows = rows;
-      this.data = new ArrayList<Object[]>();
+      this.data = new ArrayList<>();
       for (int i = 0; i < rows; i++)
       {
         Object[] row = new Object[this.cols];
         this.data.add(row);
         row[0] = "cell " + i + ":" + 0;
-        row[1] = new Boolean(i % 2 == 0);
+        row[1] = i % 2 == 0;
         row[2] = createIcon();
       }
       // for debugging: solid background in row with striping color
@@ -177,16 +178,19 @@ public class SynthCheckBoxPainterTest extends JFrame
       {
         private Color color = new Color(new Random().nextInt(0xFFFFFF));
 
+        @Override
         public int getIconHeight()
         {
           return 16;
         }
 
+        @Override
         public int getIconWidth()
         {
           return 16;
         }
 
+        @Override
         public void paintIcon(Component c, Graphics g, int x, int y)
         {
           g.setColor(color);
@@ -201,16 +205,19 @@ public class SynthCheckBoxPainterTest extends JFrame
       return this.columns[columnIndex];
     }
 
+    @Override
     public int getColumnCount()
     {
       return this.cols;
     }
 
+    @Override
     public int getRowCount()
     {
       return this.rows;
     }
 
+    @Override
     public Object getValueAt(int row, int col)
     {
       return this.data.get(row)[col];

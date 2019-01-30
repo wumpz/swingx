@@ -204,9 +204,9 @@ public abstract class AbstractTestSortController<SC extends DefaultSortControlle
     public void testToggleSortOrder() {
         // PENDING JW: use custom cycle to really test
         SortOrder[] cycle = controller.getSortOrderCycle();
-        for (int i = 0; i < cycle.length; i++) {
+        for (SortOrder cycle1 : cycle) {
             controller.toggleSortOrder(0);
-            assertEquals(cycle[i], controller.getSortOrder(0));
+            assertEquals(cycle1, controller.getSortOrder(0));
         }
     }
     
@@ -299,6 +299,7 @@ public abstract class AbstractTestSortController<SC extends DefaultSortControlle
     private StringValue createColorStringValue() {
         StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 if (value instanceof Color) {
                     Color color = (Color) value;

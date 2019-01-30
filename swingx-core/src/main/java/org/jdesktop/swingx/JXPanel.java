@@ -563,6 +563,7 @@ public class JXPanel extends JPanel implements AlphaPaintable, BackgroundPaintab
     }
     
     //support for Java 7 painting improvements
+    @Override
     protected boolean isPaintingOrigin() {
         return getAlpha() < 1f;
     }

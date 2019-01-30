@@ -100,6 +100,7 @@ public class JRendererLabel extends JLabel implements PainterAware, IconAware {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setPainter(Painter painter) {
         Painter old = getPainter();
         this.painter = painter;
@@ -109,6 +110,7 @@ public class JRendererLabel extends JLabel implements PainterAware, IconAware {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Painter getPainter() {
         return painter;
     }

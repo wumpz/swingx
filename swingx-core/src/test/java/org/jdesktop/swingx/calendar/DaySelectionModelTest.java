@@ -116,7 +116,7 @@ public class DaySelectionModelTest extends AbstractTestDateSelectionModel {
      */
     @Test
     public void testUnselectableDatesCompleteDay() {
-        SortedSet<Date> unselectableDates = new TreeSet<Date>();
+        SortedSet<Date> unselectableDates = new TreeSet<>();
         unselectableDates.add(today);
         model.setUnselectableDates(unselectableDates);
         // all dates in today must be rejected
@@ -127,7 +127,7 @@ public class DaySelectionModelTest extends AbstractTestDateSelectionModel {
         assertTrue("end of today must be unselectable", 
                 model.isUnselectableDate(endOfDay(today)));
         // remove the unselectable 
-        model.setUnselectableDates(new TreeSet<Date>());
+        model.setUnselectableDates(new TreeSet<>());
         assertFalse(model.isUnselectableDate(today));
         assertFalse(model.isUnselectableDate(startOfDay(today)));
         assertFalse(model.isUnselectableDate(endOfDay(today)));

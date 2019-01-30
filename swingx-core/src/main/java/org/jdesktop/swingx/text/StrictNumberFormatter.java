@@ -142,22 +142,22 @@ public class StrictNumberFormatter extends NumberFormatter {
     private Object convertValueToValueClass(Object value, Class<?> valueClass) {
         if (valueClass != null && (value instanceof Number)) {
             if (valueClass == Integer.class) {
-                return new Integer(((Number)value).intValue());
+                return ((Number)value).intValue();
             }
             else if (valueClass == Long.class) {
-                return new Long(((Number)value).longValue());
+                return ((Number)value).longValue();
             }
             else if (valueClass == Float.class) {
-                return new Float(((Number)value).floatValue());
+                return ((Number)value).floatValue();
             }
             else if (valueClass == Double.class) {
-                return new Double(((Number)value).doubleValue());
+                return ((Number)value).doubleValue();
             }
             else if (valueClass == Byte.class) {
-                return new Byte(((Number)value).byteValue());
+                return ((Number)value).byteValue();
             }
             else if (valueClass == Short.class) {
-                return new Short(((Number)value).shortValue());
+                return ((Number)value).shortValue();
             }
         }
         return value;

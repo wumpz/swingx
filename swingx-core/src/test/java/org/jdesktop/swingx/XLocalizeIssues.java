@@ -136,6 +136,7 @@ public class XLocalizeIssues extends InteractiveTestCase {
                 "ErrorPane and default locale?");
         Action toggleLocale = new AbstractActionExt("toggleLocale") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 Locale old = Locale.getDefault();
                 Locale.setDefault(old == A_LOCALE ? OTHER_LOCALE
@@ -156,6 +157,7 @@ public class XLocalizeIssues extends InteractiveTestCase {
         errorPane.setErrorInfo(new ErrorInfo("title", "xxxx-yyy", null, null, null, null, null));
         Action open = new AbstractActionExt("open error") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 // we are fine if the chooser is re-created in each call
                 // _and_ the JComponent.defaultLocale is kept in synch with
@@ -207,6 +209,7 @@ public class XLocalizeIssues extends InteractiveTestCase {
                 "FileChooser and default locale?");
         Action toggleLocale = new AbstractActionExt("toggleLocale") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 Locale old = Locale.getDefault();
                 Locale.setDefault(old == A_LOCALE ? OTHER_LOCALE
@@ -228,6 +231,7 @@ public class XLocalizeIssues extends InteractiveTestCase {
         final JFileChooser chooser = new JFileChooser();
         Action open = new AbstractActionExt("open") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 // we are fine if the chooser is re-created in each call
                 // _and_ the JComponent.defaultLocale is kept in synch with
@@ -270,6 +274,7 @@ public class XLocalizeIssues extends InteractiveTestCase {
                 "JOptionPane and default locale?");
         Action toggleLocale = new AbstractActionExt("toggleLocale") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 Locale old = Locale.getDefault();
                 Locale.setDefault(old == A_LOCALE ? OTHER_LOCALE
@@ -286,6 +291,7 @@ public class XLocalizeIssues extends InteractiveTestCase {
         };
         Action open = new AbstractActionExt("open") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 // title not localized ...
                 JOptionPane.showConfirmDialog(frame, "abcdefghijklmnopqrstxyz - 123456789");

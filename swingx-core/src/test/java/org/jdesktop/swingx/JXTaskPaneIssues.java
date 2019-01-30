@@ -84,6 +84,7 @@ public class JXTaskPaneIssues extends InteractiveTestCase {
         JXPanel pane = new JXPanel(new BorderLayout());
         Action action = new AbstractActionExt("something to click - F3 to show log message") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 LOG.info("got me");
             }
@@ -97,6 +98,7 @@ public class JXTaskPaneIssues extends InteractiveTestCase {
         
         Action hide = new AbstractActionExt("hide other, then press F3 - no log message") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 hidable.setVisible(!hidable.isVisible());
             }

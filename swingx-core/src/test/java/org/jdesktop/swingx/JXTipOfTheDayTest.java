@@ -156,7 +156,9 @@ public class JXTipOfTheDayTest extends TestCase {
     @Test
   public void testChoice() throws Exception {
     JXTipOfTheDay.ShowOnStartupChoice noshow = new JXTipOfTheDay.ShowOnStartupChoice() {
+      @Override
       public boolean isShowingOnStartup() { return false; }
+      @Override
       public void setShowingOnStartup(boolean showOnStartup) { }
     };
     

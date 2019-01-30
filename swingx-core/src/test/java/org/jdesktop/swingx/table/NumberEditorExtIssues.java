@@ -94,7 +94,7 @@ public class NumberEditorExtIssues extends InteractiveTestCase {
 //    @Test
     public void interactiveMixedColumnEditors() {
         // mixed types in column
-        Object[] values = new Object[] {new Integer(10), new Double(10.5), new Date(),
+        Object[] values = new Object[] {10, 10.5, new Date(),
                 new JLabel("dummy"),
                 new Point(4, 6)};
         DefaultTableModel model = new DefaultTableModel(10, 2) {

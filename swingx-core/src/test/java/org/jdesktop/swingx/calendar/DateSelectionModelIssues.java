@@ -101,7 +101,7 @@ public class DateSelectionModelIssues extends InteractiveTestCase {
      */
     private void assertUnselectableDatesSelectedWhileHasValidSelection(
             DateSelectionModel model) {
-        SortedSet<Date> unselectableDates = new TreeSet<Date>();
+        SortedSet<Date> unselectableDates = new TreeSet<>();
         unselectableDates.add(tomorrow);
         model.setUnselectableDates(unselectableDates);
         // valid selection
@@ -157,7 +157,7 @@ public class DateSelectionModelIssues extends InteractiveTestCase {
      */
     @Test
     public void testSortedSetContainsNull() {
-        SortedSet<Date> dates = new TreeSet<Date>();
+        SortedSet<Date> dates = new TreeSet<>();
         dates.contains(null); 
         dates.add(new Date());
         dates.contains(null);

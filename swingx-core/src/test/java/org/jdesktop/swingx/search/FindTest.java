@@ -766,9 +766,12 @@ public class FindTest extends InteractiveTestCase {
         public static String[] data = { "One", "Two", "Three",
                                          "Four", "Five" };
 
+        @Override
         public int getRowCount() { return 100; }
+        @Override
         public int getColumnCount() { return data.length; }
 
+        @Override
         public Object getValueAt(int row, int column) {
             checkCoordinates(row, column);
             StringBuffer buffer = new StringBuffer(data[column]);
@@ -787,10 +790,12 @@ public class FindTest extends InteractiveTestCase {
 
     public static class TestListModel extends AbstractListModel {
 
+        @Override
         public int getSize() {
             return 100;
         }
 
+        @Override
         public Object getElementAt(int index) {
             int dataPos = index % TestTableModel.data.length;
             return TestTableModel.data[dataPos] + index;
@@ -815,25 +820,31 @@ public class FindTest extends InteractiveTestCase {
             this.succeed = succeed;
         }
 
+        @Override
         public int search(String searchString) {
             return search(searchString, -1);
         }
         
+        @Override
         public int search(String searchString, int startIndex) {
             return succeed ? 100 : -1;
         }
 
+        @Override
         public int search(String searchString, int startIndex, boolean backward) {
             return succeed ? 100 : -1;
         }
+        @Override
         public int search(Pattern pattern) {
             return search(pattern, -1);
         }
 
+        @Override
         public int search(Pattern pattern, int startIndex) {
             return succeed ? 100 : -1;
         }
 
+        @Override
         public int search(Pattern pattern, int startIndex, boolean backwards) {
             return succeed ? 100 : -1;
         }

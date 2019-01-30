@@ -195,7 +195,7 @@ public class JXSearchPanel extends AbstractPatternPanel {
 
     private List<PatternMatcher> getPatternMatchers() {
         if (patternMatchers == null) {
-            patternMatchers = new ArrayList<PatternMatcher>();
+            patternMatchers = new ArrayList<>();
         }
         return patternMatchers;
     }
@@ -233,7 +233,7 @@ public class JXSearchPanel extends AbstractPatternPanel {
     
     private StringValue createStringValue(Locale locale) {
         // TODO Auto-generated method stub
-        Map<Object, String> keys = new HashMap<Object, String>();
+        Map<Object, String> keys = new HashMap<>();
         keys.put(PatternModel.MATCH_RULE_CONTAINS, 
                 PatternModel.MATCH_RULE_CONTAINS);
         keys.put(PatternModel.MATCH_RULE_ENDSWITH, 

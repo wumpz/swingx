@@ -21,7 +21,7 @@ public class TreeTableUtils {
     }
     
     public static DefaultTreeTableModel convertDefaultTreeModel(DefaultTreeModel model) {
-    	Vector<String> v = new Vector<String>();
+    	Vector<String> v = new Vector<>();
     	v.add("A");
         DefaultTreeTableModel ttModel = new DefaultTreeTableModel(null, v);
         

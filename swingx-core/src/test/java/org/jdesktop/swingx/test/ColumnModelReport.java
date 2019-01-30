@@ -30,12 +30,12 @@ public class ColumnModelReport implements TableColumnModelExtListener {
     /**
      * Holds a list of all received ValueChangeEvents.
      */
-    private List<TableColumnModelEvent> removedEvents = Collections.synchronizedList(new LinkedList<TableColumnModelEvent>());
-    private List<TableColumnModelEvent> addedEvents = Collections.synchronizedList(new LinkedList<TableColumnModelEvent>());
-    private List<TableColumnModelEvent> movedEvents = Collections.synchronizedList(new LinkedList<TableColumnModelEvent>());
+    private List<TableColumnModelEvent> removedEvents = Collections.synchronizedList(new LinkedList<>());
+    private List<TableColumnModelEvent> addedEvents = Collections.synchronizedList(new LinkedList<>());
+    private List<TableColumnModelEvent> movedEvents = Collections.synchronizedList(new LinkedList<>());
     
-    private List<ListSelectionEvent> selectionEvents = Collections.synchronizedList(new LinkedList<ListSelectionEvent>());
-    private List<ChangeEvent> changeEvents = Collections.synchronizedList(new LinkedList<ChangeEvent>());
+    private List<ListSelectionEvent> selectionEvents = Collections.synchronizedList(new LinkedList<>());
+    private List<ChangeEvent> changeEvents = Collections.synchronizedList(new LinkedList<>());
     
 //    private List<PropertyChangeEvent> columnPropertyEvents = new LinkedList<PropertyChangeEvent>();
 
@@ -52,22 +52,27 @@ public class ColumnModelReport implements TableColumnModelExtListener {
     }
     
 //------------------------ implement TableColumnModelListener    
+    @Override
     public void columnAdded(TableColumnModelEvent e) {
         addedEvents.add(0, e);
 
     }
+    @Override
     public void columnMarginChanged(ChangeEvent e) {
         changeEvents.add(0, e);
 
     }
+    @Override
     public void columnMoved(TableColumnModelEvent e) {
         movedEvents.add(0, e);
 
     }
+    @Override
     public void columnRemoved(TableColumnModelEvent e) {
         removedEvents.add(0, e);
 
     }
+    @Override
     public void columnSelectionChanged(ListSelectionEvent e) {
         selectionEvents.add(0, e);
 
@@ -75,6 +80,7 @@ public class ColumnModelReport implements TableColumnModelExtListener {
     //---------------------- implement TableColumnModelExtListener
 
 
+    @Override
     public void columnPropertyChange(PropertyChangeEvent e) {
         propertyReport.propertyChange(e);
         

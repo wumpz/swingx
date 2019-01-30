@@ -264,6 +264,7 @@ public class TreeRendererTest extends InteractiveTestCase {
         JTree tree = new JTree(model);
         StringValue converter = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 if (value instanceof Component) {
                     return "Name: " + ((Component) value).getName();
@@ -325,6 +326,7 @@ public class TreeRendererTest extends InteractiveTestCase {
         Action toggleComponentOrientation = new AbstractAction(
                 "toggle orientation") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 ComponentOrientation current = frame.getComponentOrientation();
                 if (current == ComponentOrientation.LEFT_TO_RIGHT) {
@@ -349,6 +351,7 @@ public class TreeRendererTest extends InteractiveTestCase {
         JTree xtree = new JTree(createComponentHierarchyModel());
         StringValue componentFormat = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 if (value instanceof Component) {
                     return ((Component) value).getName();
@@ -360,6 +363,7 @@ public class TreeRendererTest extends InteractiveTestCase {
         JTree tree = new JTree(new FileSystemModel());
         StringValue format = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 if (value instanceof File) {
                     return ((File) value).getName();
@@ -399,6 +403,7 @@ public class TreeRendererTest extends InteractiveTestCase {
     private CheckBoxProvider createButtonProvider() {
         StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 if (value instanceof Action) {
                     return (String) ((Action) value).getValue(Action.NAME);
@@ -409,6 +414,7 @@ public class TreeRendererTest extends InteractiveTestCase {
         };
         BooleanValue bv = new BooleanValue() {
 
+            @Override
             public boolean getBoolean(Object value) {
                 if (value instanceof AbstractActionExt) {
                     return ((AbstractActionExt) value).isSelected();

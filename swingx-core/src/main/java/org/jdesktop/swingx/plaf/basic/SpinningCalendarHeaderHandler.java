@@ -275,7 +275,7 @@ public class SpinningCalendarHeaderHandler extends CalendarHeaderHandler {
      * @return a boolean indicating if a change actually happened.
      */
     private boolean setYear(Object value) {
-        int year = ((Integer) value).intValue();
+        int year = ((Integer) value);
         Calendar cal = monthView.getCalendar();
         if (cal.get(Calendar.YEAR) == year)
             return false;

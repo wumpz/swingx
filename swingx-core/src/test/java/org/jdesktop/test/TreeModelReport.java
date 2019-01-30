@@ -37,11 +37,11 @@ import javax.swing.tree.TreeModel;
  */
 public class TreeModelReport implements TreeModelListener {
 
-    List<TreeModelEvent> allEvents = Collections.synchronizedList(new LinkedList<TreeModelEvent>());
-    List<TreeModelEvent> updateEvents = Collections.synchronizedList(new LinkedList<TreeModelEvent>());
-    List<TreeModelEvent> insertEvents = Collections.synchronizedList(new LinkedList<TreeModelEvent>());
-    List<TreeModelEvent> deleteEvents = Collections.synchronizedList(new LinkedList<TreeModelEvent>());
-    List<TreeModelEvent> structureEvents = Collections.synchronizedList(new LinkedList<TreeModelEvent>());
+    List<TreeModelEvent> allEvents = Collections.synchronizedList(new LinkedList<>());
+    List<TreeModelEvent> updateEvents = Collections.synchronizedList(new LinkedList<>());
+    List<TreeModelEvent> insertEvents = Collections.synchronizedList(new LinkedList<>());
+    List<TreeModelEvent> deleteEvents = Collections.synchronizedList(new LinkedList<>());
+    List<TreeModelEvent> structureEvents = Collections.synchronizedList(new LinkedList<>());
     
     /**
      * Instantiates a report.
@@ -66,22 +66,26 @@ public class TreeModelReport implements TreeModelListener {
 
 
 //------------------- TableModelListener    
+    @Override
     public void treeNodesChanged(TreeModelEvent e) {
         allEvents.add(0, e);
         updateEvents.add(0, e);
         
     }
 
+    @Override
     public void treeNodesInserted(TreeModelEvent e) {
         allEvents.add(0, e);
         insertEvents.add(0, e);
     }
 
+    @Override
     public void treeNodesRemoved(TreeModelEvent e) {
         allEvents.add(0, e);
         deleteEvents.add(0, e);
     }
 
+    @Override
     public void treeStructureChanged(TreeModelEvent e) {
         allEvents.add(0, e);
         structureEvents.add(0, e);
@@ -153,7 +157,7 @@ public class TreeModelReport implements TreeModelListener {
      */
     public List<TreeModelEvent> getInsertEvents() {
         if (!hasInsertEvents()) return Collections.emptyList();
-        List<TreeModelEvent> inserted = new ArrayList<TreeModelEvent>();
+        List<TreeModelEvent> inserted = new ArrayList<>();
         for (TreeModelEvent treeModelEvent : insertEvents) {
            inserted.add(0, treeModelEvent);  
         }

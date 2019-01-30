@@ -140,7 +140,7 @@ public class ActionManager extends ActionMap {
             return null;
         }
 
-        return new HashSet<Object>(Arrays.asList(keys));
+        return new HashSet<>(Arrays.asList(keys));
     }
 
     public Action addAction(Action action) {
@@ -315,9 +315,8 @@ public class ActionManager extends ActionMap {
         if (action instanceof AbstractAction) {
             Object[] keys = ((AbstractAction)action).getKeys();
 
-            for (int i = 0; i < keys.length; i++) {
-                stream.println("\tkey: " + keys[i] + "\tvalue: " +
-                               action.getValue((String)keys[i]));
+            for (Object key : keys) {
+                stream.println("\tkey: " + key + "\tvalue: " + action.getValue((String) key));
             }
         }
     }

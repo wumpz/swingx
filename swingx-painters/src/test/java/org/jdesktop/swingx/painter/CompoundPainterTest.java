@@ -92,7 +92,7 @@ public class CompoundPainterTest extends AbstractPainterTest {
      */
     @Test
     public void testSetNullPainters() {
-        CompoundPainter<Object> painter = new CompoundPainter<Object>();
+        CompoundPainter<Object> painter = new CompoundPainter<>();
         // changed to cast to Painter, since uncasted it is equivalent to
         // Painter[], which is checked in the next test
         painter.setPainters((Painter<?>) null);
@@ -104,7 +104,7 @@ public class CompoundPainterTest extends AbstractPainterTest {
      */
     @Test
     public void testSetEmptyPainters() {
-        CompoundPainter<Object> painter = new CompoundPainter<Object>();
+        CompoundPainter<Object> painter = new CompoundPainter<>();
         // okay
         painter.setPainters();
         // fails

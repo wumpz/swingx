@@ -80,6 +80,7 @@ public class JXTableHeaderIssues extends JXTableHeaderTest {
         table.setColumnControlVisible(true);
         Action toggleAction = new AbstractAction("Toggle Enabled") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 table.setEnabled(!table.isEnabled());
                 
@@ -213,6 +214,7 @@ public class JXTableHeaderIssues extends JXTableHeaderTest {
         JXFrame frame = wrapWithScrollingInFrame(table, "update header");
         Action action = new AbstractAction("update headervalue") {
             boolean first;
+            @Override
             public void actionPerformed(ActionEvent e) {
                 table.getColumn(1).setHeaderValue(first ? alternate[0] : alternate[1]);
                 first = !first;
@@ -245,6 +247,7 @@ public class JXTableHeaderIssues extends JXTableHeaderTest {
         final Border emptyBorder = BorderFactory.createEmptyBorder(0, 0, 0, 20);
         TableCellRenderer wrapper = new TableCellRenderer() {
 
+            @Override
             public Component getTableCellRendererComponent(JTable mtable,
                     Object value, boolean isSelected, boolean hasFocus,
                     int row, int column) {
@@ -262,6 +265,7 @@ public class JXTableHeaderIssues extends JXTableHeaderTest {
         other.getTableHeader().setDefaultRenderer(wrapper);
         Action action = new AbstractActionExt("toggle sorter order") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (table.getSortedColumn() == null) {
                     table.toggleSortOrder(0);

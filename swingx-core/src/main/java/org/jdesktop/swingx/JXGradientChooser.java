@@ -244,7 +244,7 @@ public class JXGradientChooser extends JXPanel {
         JLabel jLabel1, jLabel5, jLabel2, jLabel6, jLabel4, jLabel7, jLabel8, jLabel9;
         ButtonGroup typeGroup;
         // pre-init stuff
-        slider = new JXMultiThumbSlider<Color>();
+        slider = new JXMultiThumbSlider<>();
         gradientPreview = new GradientPreviewPanel();
         gradientPreview.setMultiThumbModel(slider.getModel());
         

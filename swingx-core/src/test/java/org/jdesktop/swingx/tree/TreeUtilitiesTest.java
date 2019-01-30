@@ -47,14 +47,14 @@ public class TreeUtilitiesTest extends InteractiveTestCase {
     @Test
     public void testBreadthFirstNode() {
         Enumeration<?> coreEnum = root.breadthFirstEnumeration();
-        Enumeration<?> xEnum = new BreadthFirstNodeEnumeration<DefaultMutableTreeNode>(root);
+        Enumeration<?> xEnum = new BreadthFirstNodeEnumeration<>(root);
         assertSameEnumeration("BreadthFirstNode", coreEnum, xEnum);
     }
     
     @Test
     public void testPostorderNode() {
         Enumeration<?> coreEnum = root.postorderEnumeration();
-        Enumeration<?> xEnum = new PostorderNodeEnumeration<DefaultMutableTreeNode>(root);
+        Enumeration<?> xEnum = new PostorderNodeEnumeration<>(root);
         assertSameEnumeration("PostOrderNode", coreEnum, xEnum);
     }
     

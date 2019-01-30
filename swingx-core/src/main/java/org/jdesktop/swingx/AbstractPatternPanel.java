@@ -303,16 +303,16 @@ public abstract class AbstractPatternPanel extends JXPanel {
                     refreshDocumentFromModel();
                 } else if ("caseSensitive".equals(property)){
                     getAction(PatternModel.MATCH_CASE_ACTION_COMMAND).
-                        setSelected(((Boolean) evt.getNewValue()).booleanValue());
+                        setSelected(((Boolean) evt.getNewValue()));
                 } else if ("wrapping".equals(property)) {
                     getAction(PatternModel.MATCH_WRAP_ACTION_COMMAND).
-                    setSelected(((Boolean) evt.getNewValue()).booleanValue());
+                    setSelected(((Boolean) evt.getNewValue()));
                 } else if ("backwards".equals(property)) {
                     getAction(PatternModel.MATCH_BACKWARDS_ACTION_COMMAND).
-                    setSelected(((Boolean) evt.getNewValue()).booleanValue());
+                    setSelected(((Boolean) evt.getNewValue()));
                 } else if ("incremental".equals(property)) {
                     getAction(PatternModel.MATCH_INCREMENTAL_ACTION_COMMAND).
-                    setSelected(((Boolean) evt.getNewValue()).booleanValue());
+                    setSelected(((Boolean) evt.getNewValue()));
 
                 } else if ("empty".equals(property)) {
                     refreshEmptyFromModel();

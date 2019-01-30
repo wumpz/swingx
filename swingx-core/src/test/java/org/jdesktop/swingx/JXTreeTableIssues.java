@@ -864,7 +864,7 @@ public class JXTreeTableIssues extends InteractiveTestCase {
         root.insert(node, 0);
         root.insert(createLongNode("another really, maybe really really long text -  "
                 + "with nothing but junk. wrappit .... where needed"), 0);
-        Vector<String> ids = new Vector<String>();
+        Vector<String> ids = new Vector<>();
         ids.add("long text");
         ids.add("dummy");
         return new DefaultTreeTableModel(root, ids);

@@ -236,8 +236,8 @@ public class BoundAction extends AbstractActionExt {
     public void actionPerformed(ActionEvent evt) {
         ActionListener[] alist = getActionListeners();
         if (alist != null) {
-            for (int i = 0 ; i < alist.length; i++) {
-                alist[i].actionPerformed(evt);
+            for (ActionListener alist1 : alist) {
+                alist1.actionPerformed(evt);
             }
         }
     }
@@ -259,8 +259,8 @@ public class BoundAction extends AbstractActionExt {
             // Forward the event to the delgate for handling.
             ItemListener[] ilist = getItemListeners();
             if (ilist != null) {
-                for (int i = 0; i < ilist.length; i++) {
-                    ilist[i].itemStateChanged(evt);
+                for (ItemListener ilist1 : ilist) {
+                    ilist1.itemStateChanged(evt);
                 }
             }
         }

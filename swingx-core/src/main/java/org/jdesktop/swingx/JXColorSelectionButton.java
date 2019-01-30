@@ -91,6 +91,7 @@ public class JXColorSelectionButton extends JButton {
         }
         
         this.addPropertyChangeListener("background",new PropertyChangeListener() {
+            @Override
             public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
                 getChooser().setColor(getBackground());
             }
@@ -107,6 +108,7 @@ public class JXColorSelectionButton extends JButton {
         public ColorChangeListener(JXColorSelectionButton button) {
             this.button = button;
         }
+        @Override
         public void stateChanged(ChangeEvent changeEvent) {
             button.setBackground(button.getChooser().getColor());
         }
@@ -184,6 +186,7 @@ public class JXColorSelectionButton extends JButton {
             dialog = JColorChooser.createDialog(JXColorSelectionButton.this,
                     "Choose a color", true, getChooser(),
                     new ActionListener() {
+                @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     Color color = getChooser().getColor();
                     if (color != null) {
@@ -192,6 +195,7 @@ public class JXColorSelectionButton extends JButton {
                 }
             },
             new ActionListener() {
+                @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     setBackground(initialColor);
                 }
@@ -252,6 +256,7 @@ public class JXColorSelectionButton extends JButton {
      */
     private class ActionHandler implements ActionListener {
         
+        @Override
         public void actionPerformed(ActionEvent actionEvent) {
             showDialog();
         }

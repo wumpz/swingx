@@ -293,6 +293,7 @@ public class HighlighterIssues extends org.jdesktop.swingx.InteractiveTestCase {
         String[] columnNames = { "text only", "Link editable", "Link not-editable", "Bool editable", "Bool not-editable" };
         
         DefaultTableModel model = new DefaultTableModel(columnNames, 0) {
+            @Override
             public Class<?> getColumnClass(int column) {
                 return getValueAt(0, column).getClass();
             }

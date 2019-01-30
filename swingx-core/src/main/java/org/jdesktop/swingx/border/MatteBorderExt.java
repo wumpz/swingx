@@ -287,14 +287,17 @@ public class MatteBorderExt extends MatteBorder {
                 private int width = 3;
                 private int height = 3;
 
+                @Override
                 public int getIconWidth() {
                     return width;
                 }
 
+                @Override
                 public int getIconHeight() {
                     return height;
                 }
 
+                @Override
                 public void paintIcon(Component c, Graphics g, int x, int y) {
                     g.setColor(c.getBackground().darker().darker());
                     //g.translate(x, y);

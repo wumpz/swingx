@@ -42,6 +42,7 @@ public class JXRendererHyperlink extends JXHyperlink implements PainterAware {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setPainter(Painter painter) {
         Painter old = getPainter();
         this.painter = painter;
@@ -57,6 +58,7 @@ public class JXRendererHyperlink extends JXHyperlink implements PainterAware {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Painter getPainter() {
         return painter;
     }

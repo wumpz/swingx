@@ -128,10 +128,12 @@ public class TargetManagerTest extends TestCase {
 
         public String FOO_ACTION = "foo";
 
+        @Override
         public boolean doCommand(Object command, Object value) {
             return hasCommand(command);
         }
 
+        @Override
         public boolean hasCommand(Object command) {
             if (command.equals(FOO_ACTION)) {
                 return true;
@@ -139,6 +141,7 @@ public class TargetManagerTest extends TestCase {
             return false;
         }
 
+        @Override
         public Object[] getCommands() {
             return new Object[] { FOO_ACTION };
         }
@@ -147,10 +150,12 @@ public class TargetManagerTest extends TestCase {
     private class BarTarget implements Targetable {
         public String BAR_ACTION = "bar";
 
+        @Override
         public boolean doCommand(Object command, Object value) {
             return hasCommand(command);
         }
 
+        @Override
         public boolean hasCommand(Object command) {
             if (command.equals(BAR_ACTION)) {
                 return true;
@@ -158,6 +163,7 @@ public class TargetManagerTest extends TestCase {
             return false;
         }
 
+        @Override
         public Object[] getCommands() {
             return new Object[] { BAR_ACTION };
         }

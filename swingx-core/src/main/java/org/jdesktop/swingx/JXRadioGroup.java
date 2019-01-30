@@ -82,7 +82,7 @@ public class JXRadioGroup<T> extends JPanel {
 
     private ButtonGroup buttonGroup;
 
-    private final List<T> values = new ArrayList<T>();
+    private final List<T> values = new ArrayList<>();
 
     private ActionSelectionListener actionHandler;
 
@@ -101,8 +101,8 @@ public class JXRadioGroup<T> extends JPanel {
      */
     public JXRadioGroup(T[] radioValues) {
         this();
-        for (int i = 0; i < radioValues.length; i++) {
-            add(radioValues[i]);
+        for (T radioValue : radioValues) {
+            add(radioValue);
         }
     }
     
@@ -114,7 +114,7 @@ public class JXRadioGroup<T> extends JPanel {
      */
     public static <T> JXRadioGroup<T> create(T[] radioValues)
     {
-        return new JXRadioGroup<T>(radioValues);
+        return new JXRadioGroup<>(radioValues);
     }
 
     /**
@@ -136,8 +136,8 @@ public class JXRadioGroup<T> extends JPanel {
      */
     public void setValues(T[] radioValues) {
         clearAll();
-        for (int i = 0; i < radioValues.length; i++) {
-            add(radioValues[i]);
+        for (T radioValue : radioValues) {
+            add(radioValue);
         }
     }
 
@@ -199,8 +199,7 @@ public class JXRadioGroup<T> extends JPanel {
     public AbstractButton getSelectedButton() {
         final ButtonModel selectedModel = buttonGroup.getSelection();
         final AbstractButton children[] = getButtonComponents();
-        for (int i = 0; i < children.length; i++) {
-            AbstractButton button = children[i];
+        for (AbstractButton button : children) {
             if (button.getModel() == selectedModel) {
                 return button;
             }
@@ -210,10 +209,10 @@ public class JXRadioGroup<T> extends JPanel {
 
     private AbstractButton[] getButtonComponents() {
         final Component[] children = getComponents();
-        final List<AbstractButton> buttons = new ArrayList<AbstractButton>();
-        for (int i = 0; i < children.length; i++) {
-            if (children[i] instanceof AbstractButton) {
-                buttons.add((AbstractButton) children[i]);
+        final List<AbstractButton> buttons = new ArrayList<>();
+        for (Component children1 : children) {
+            if (children1 instanceof AbstractButton) {
+                buttons.add((AbstractButton) children1);
             }
         }
         return buttons.toArray(new AbstractButton[buttons.size()]);

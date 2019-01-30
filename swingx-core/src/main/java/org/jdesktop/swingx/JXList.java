@@ -524,7 +524,7 @@ public class JXList extends JList {
      * @see org.jdesktop.swingx.rollover.RolloverController
      */
     protected ListRolloverController<JXList> createLinkController() {
-        return new ListRolloverController<JXList>();
+        return new ListRolloverController<>();
     }
 
 
@@ -641,7 +641,7 @@ public class JXList extends JList {
      * @return the default RowSorter.
      */
     protected RowSorter<? extends ListModel> createDefaultRowSorter() {
-        return new ListSortController<ListModel>(getModel());
+        return new ListSortController<>(getModel());
     }
     /**
      * Returns the object responsible for sorting.

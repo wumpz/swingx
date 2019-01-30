@@ -64,8 +64,8 @@ public class TargetableSupport {
 
     public boolean hasCommand(Object command) {
         Object[] commands = getCommands();
-        for (int i = 0; i < commands.length; i++) {
-            if (commands[i].equals(command)) {
+        for (Object command1 : commands) {
+            if (command1.equals(command)) {
                 return true;
             }
         }

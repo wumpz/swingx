@@ -140,6 +140,7 @@ public class DNDRendererVisualCheck extends InteractiveTestCase {
         installTransferHandler(xTable);
         TableCellRenderer renderer = new TableCellRenderer() {
             JLabel label = new JLabel();
+            @Override
             public Component getTableCellRendererComponent(JTable table,
                     Object value, boolean isSelected, boolean hasFocus,
                     int row, int column) {

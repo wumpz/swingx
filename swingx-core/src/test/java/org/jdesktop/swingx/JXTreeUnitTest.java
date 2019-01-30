@@ -388,6 +388,7 @@ public class JXTreeUnitTest extends InteractiveTestCase {
         tree.expandAll();
         StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 if (value instanceof Color) {
                     Color color = (Color) value;
@@ -414,6 +415,7 @@ public class JXTreeUnitTest extends InteractiveTestCase {
         tree.expandAll();
         StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 if (value instanceof Color) {
                     Color color = (Color) value;
@@ -761,8 +763,8 @@ public class JXTreeUnitTest extends InteractiveTestCase {
     public void testInitInConstructors() {
         assertXTreeInit(new JXTree());
         assertXTreeInit(new JXTree(new Object[] {}));
-        assertXTreeInit(new JXTree(new Vector<Object>()));
-        assertXTreeInit(new JXTree(new Hashtable<Object, Object>()));
+        assertXTreeInit(new JXTree(new Vector<>()));
+        assertXTreeInit(new JXTree(new Hashtable<>()));
         assertXTreeInit(new JXTree(new DefaultMutableTreeNode("dummy"), false));
         assertXTreeInit(new JXTree(new DefaultMutableTreeNode("dummy")));
         assertXTreeInit(new JXTree(new DefaultTreeModel(new DefaultMutableTreeNode("dummy"))));
@@ -805,6 +807,7 @@ public class JXTreeUnitTest extends InteractiveTestCase {
     private StringValue createColorStringValue() {
         StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 if (value instanceof Color) {
                     Color color = (Color) value;

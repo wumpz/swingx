@@ -96,41 +96,49 @@ public class LazyActionMap extends ActionMapUIResource {
         put(action.getValue(Action.NAME), action);
     }
 
+    @Override
     public void put(Object key, Action action) {
         loadIfNecessary();
         super.put(key, action);
     }
 
+    @Override
     public Action get(Object key) {
         loadIfNecessary();
         return super.get(key);
     }
 
+    @Override
     public void remove(Object key) {
         loadIfNecessary();
         super.remove(key);
     }
 
+    @Override
     public void clear() {
         loadIfNecessary();
         super.clear();
     }
 
+    @Override
     public Object[] keys() {
         loadIfNecessary();
         return super.keys();
     }
 
+    @Override
     public int size() {
         loadIfNecessary();
         return super.size();
     }
 
+    @Override
     public Object[] allKeys() {
         loadIfNecessary();
         return super.allKeys();
     }
 
+    @Override
     public void setParent(ActionMap map) {
         loadIfNecessary();
         super.setParent(map);
@@ -149,13 +157,7 @@ public class LazyActionMap extends ActionMapUIResource {
             } catch (NoSuchMethodException nsme) {
                 assert false : "LazyActionMap unable to load actions " +
                         klass;
-            } catch (IllegalAccessException iae) {
-                assert false : "LazyActionMap unable to load actions " +
-                        iae;
-            } catch (InvocationTargetException ite) {
-                assert false : "LazyActionMap unable to load actions " +
-                        ite;
-            } catch (IllegalArgumentException iae) {
+            } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException iae) {
                 assert false : "LazyActionMap unable to load actions " +
                         iae;
             }

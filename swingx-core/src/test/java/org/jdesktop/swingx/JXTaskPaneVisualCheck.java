@@ -116,6 +116,7 @@ public class JXTaskPaneVisualCheck extends InteractiveTestCase {
                 final JXTaskPane pane = (JXTaskPane) evt.getSource();
                 if (!pane.isCollapsed() && pane.isScrollOnExpand()) {
                     SwingUtilities.invokeLater(new Runnable() {
+                        @Override
                         public void run() {
                             pane.scrollRectToVisible(pane.getBounds());
 
@@ -216,6 +217,7 @@ public class JXTaskPaneVisualCheck extends InteractiveTestCase {
         JMenu menu = new JMenu("Locales");
         menu.add(new AbstractAction("Change Locale") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (component.getLocale() == Locale.FRANCE) {
                     component.setLocale(Locale.ENGLISH);
@@ -240,6 +242,7 @@ public class JXTaskPaneVisualCheck extends InteractiveTestCase {
       private boolean collapsedEventReceived;
       private int animationStart;
       
+      @Override
       public void propertyChange(java.beans.PropertyChangeEvent evt) {
         if ("expanded".equals(evt.getNewValue())) {
           expandedEventReceived = true;

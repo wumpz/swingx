@@ -37,6 +37,7 @@ public class ActionIssues {
     public void testFireSelected() {
         AbstractActionExt action = new AbstractActionExt("dummy") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 // nothing to do
                 
@@ -51,6 +52,7 @@ public class ActionIssues {
         };
         PropertyChangeListener l = new PropertyChangeListener() {
 
+            @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if ("selected".equals(evt.getPropertyName())) {
                     assertEquals(evt.getNewValue(), ((AbstractActionExt) evt.getSource()).isSelected());
@@ -126,8 +128,8 @@ public class ActionIssues {
         //create test object
         Object testObject = new Object();
         // create queue and weak reference
-        ReferenceQueue<Object> queue = new ReferenceQueue<Object>();
-        WeakReference<Object> ref = new WeakReference<Object>(testObject, queue);
+        ReferenceQueue<Object> queue = new ReferenceQueue<>();
+        WeakReference<Object> ref = new WeakReference<>(testObject, queue);
         // set hard reference to null
         testObject = null;
 //        force garbage collection

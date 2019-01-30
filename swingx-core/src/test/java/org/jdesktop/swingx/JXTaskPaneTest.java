@@ -135,6 +135,7 @@ public class JXTaskPaneTest extends TestCase {
   public void testActions() throws Exception {
     JXTaskPane taskPane = new JXTaskPane();
     Action action = new AbstractAction() {
+      @Override
       public void actionPerformed(java.awt.event.ActionEvent e) {}
     };
     assertEquals(0, taskPane.getContentPane().getComponentCount());

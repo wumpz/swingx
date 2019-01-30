@@ -113,7 +113,7 @@ public class EnumComboBoxModel<E extends Enum<E>> extends ListComboBoxModel<E> {
         super(new ArrayList<E>(EnumSet.allOf(en)));
         
         //we could size these, probably not worth it; enums are usually small 
-        valueMap = new HashMap<String, E>();
+        valueMap = new HashMap<>();
         enumClass = en;
         
         Iterator<E> iter = data.iterator();

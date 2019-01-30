@@ -209,6 +209,7 @@ public class RenderingTest extends InteractiveTestCase {
     public void testHyperlinkStringValue() {
         AbstractHyperlinkAction<?> linkAction = new AbstractHyperlinkAction<Object>() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 // nothing
             }
@@ -269,6 +270,7 @@ public class RenderingTest extends InteractiveTestCase {
     public void testWrappingProviderUserObjectUnwrapRespectString() {
         StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 if (value instanceof Point) {
                     return "x of Point: " + ((Point) value).x;
@@ -294,6 +296,7 @@ public class RenderingTest extends InteractiveTestCase {
     public void testWrappingProviderUserObjectUnwrapRespectRenderer() {
         StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 if (value instanceof Point) {
                     return "x of Point: " + ((Point) value).x;
@@ -349,6 +352,7 @@ public class RenderingTest extends InteractiveTestCase {
     public void testToolTipManagerHyperlinkProvider() {
         AbstractHyperlinkAction<?> linkAction = new AbstractHyperlinkAction<Object>() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 // do nothing
             }
@@ -482,6 +486,7 @@ public class RenderingTest extends InteractiveTestCase {
     public void testLabelProviderGetString() {
         StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 return "funnyconstant ... haha";
             }
@@ -502,6 +507,7 @@ public class RenderingTest extends InteractiveTestCase {
     public void testButtonProviderGetString() {
         StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 return "funnyconstant ... haha";
             }
@@ -522,6 +528,7 @@ public class RenderingTest extends InteractiveTestCase {
     public void testWrappingProviderGetString() {
         StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 return "funnyconstant ... haha";
             }
@@ -543,6 +550,7 @@ public class RenderingTest extends InteractiveTestCase {
     public void testWrappingProviderGetStringFromNode() {
         StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 if (value instanceof Point) {
                     return "x of Point: " + ((Point) value).x;
@@ -566,6 +574,7 @@ public class RenderingTest extends InteractiveTestCase {
     public void testWrappingProviderGetStringNotNullValue() {
         StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 return String.valueOf(value) + "added ... ";
             }
@@ -598,7 +607,7 @@ public class RenderingTest extends InteractiveTestCase {
      */
     @Test
     public void testResetPreferredSize() {
-        DefaultVisuals<JComponent> visuals = new DefaultVisuals<JComponent>();
+        DefaultVisuals<JComponent> visuals = new DefaultVisuals<>();
         JComponent label = new  JLabel("somevalue");
         visuals.configureVisuals(label, new TableCellContext());
         Dimension prefSize = label.getPreferredSize();
@@ -678,6 +687,7 @@ public class RenderingTest extends InteractiveTestCase {
     public void testWrappingProviderIcon() {
         final Icon icon = XTestUtils.loadDefaultIcon();
         IconValue iv = new IconValue() {
+            @Override
             public Icon getIcon(Object value) {
                 return icon;
             }};
@@ -696,6 +706,7 @@ public class RenderingTest extends InteractiveTestCase {
     public void testWrappingProviderIconAndContent() {
         final Icon icon = XTestUtils.loadDefaultIcon();
         IconValue iv = new IconValue() {
+            @Override
             public Icon getIcon(Object value) {
                 return icon;
             }};
@@ -800,6 +811,7 @@ public class RenderingTest extends InteractiveTestCase {
         column.setTitle(identifier);
         BooleanValue bv = new BooleanValue(){
 
+            @Override
             public boolean getBoolean(Object value) {
                 return column.isVisible();
             }
@@ -807,6 +819,7 @@ public class RenderingTest extends InteractiveTestCase {
         };
         StringValue sv = new StringValue() {
 
+            @Override
             public String getString(Object value) {
                 return column.getTitle();
             }
@@ -1016,7 +1029,7 @@ public class RenderingTest extends InteractiveTestCase {
      */
     @Test
     public void testResetTooltip() {
-        DefaultVisuals<JComponent> visuals = new DefaultVisuals<JComponent>();
+        DefaultVisuals<JComponent> visuals = new DefaultVisuals<>();
         JComponent label = new  JLabel("somevalue");
         label.setToolTipText("tooltip");
         visuals.configureVisuals(label, new TableCellContext());
@@ -1203,7 +1216,7 @@ public class RenderingTest extends InteractiveTestCase {
      */
     @Test
     public void testConfigureVisualsNullContext() {
-        DefaultVisuals<JLabel> controller = new DefaultVisuals<JLabel>();
+        DefaultVisuals<JLabel> controller = new DefaultVisuals<>();
         try {
             controller.configureVisuals(new JLabel(), null);
             fail("renderer controller must throw NPE on null context");
@@ -1220,7 +1233,7 @@ public class RenderingTest extends InteractiveTestCase {
      */
     @Test
     public void testConfigureVisualsNullComponent() {
-        DefaultVisuals<JLabel> controller = new DefaultVisuals<JLabel>();
+        DefaultVisuals<JLabel> controller = new DefaultVisuals<>();
         try {
             controller.configureVisuals(null, new TableCellContext());
             fail("renderer controller must throw NPE on null component");

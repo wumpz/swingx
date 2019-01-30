@@ -81,8 +81,8 @@ public class RawNimbusIssues extends InteractiveTestCase {
     @Test
     public void testColorInCompleteFireChange() throws Exception {
         setLookAndFeel("Metal");
-        final List<Color> colors = new ArrayList<Color>();
-        final List<Integer> rgb = new ArrayList<Integer>();
+        final List<Color> colors = new ArrayList<>();
+        final List<Integer> rgb = new ArrayList<>();
         final PropertyChangeReport report = new PropertyChangeReport();
         PropertyChangeListener l = new PropertyChangeListener() {
             
@@ -124,8 +124,8 @@ public class RawNimbusIssues extends InteractiveTestCase {
     @Test
     public void testColorCompleteInstalled() throws Exception {
         setLookAndFeel("Metal");
-        final List<Color> colors = new ArrayList<Color>();
-        final List<Integer> rgb = new ArrayList<Integer>();
+        final List<Color> colors = new ArrayList<>();
+        final List<Integer> rgb = new ArrayList<>();
         final PropertyChangeReport report = new PropertyChangeReport();
         PropertyChangeListener l = new PropertyChangeListener() {
             

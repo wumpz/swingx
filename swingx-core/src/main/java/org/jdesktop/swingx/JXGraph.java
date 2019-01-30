@@ -514,7 +514,7 @@ public class JXGraph extends JXPanel {
         this.setMajorY(this.defaultMajorY = majorY);
         this.setMinorCountY(minorCountY);
         
-        this.plots = new LinkedList<DrawablePlot>();
+        this.plots = new LinkedList<>();
         
         this.mainFormatter = NumberFormat.getInstance();
         this.mainFormatter.setMaximumFractionDigits(2);

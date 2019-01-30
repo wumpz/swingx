@@ -424,7 +424,7 @@ public abstract class AbstractPainter<T> extends AbstractBean implements Painter
 
                 //only save the temporary image as the cacheable if I'm caching
                 if (shouldUseCache()) {
-                    cachedImage = new SoftReference<BufferedImage>(cache);
+                    cachedImage = new SoftReference<>(cache);
                     cacheCleared = false;
                 }
             }

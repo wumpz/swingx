@@ -62,6 +62,7 @@ public class JXSearchFieldTest {
         final JPopupMenu popupMenu = new JPopupMenu();
         searchField.addPropertyChangeListener("findPopupMenu",
                 new PropertyChangeListener() {
+                    @Override
                     public void propertyChange(PropertyChangeEvent evt) {
                         assertNull(evt.getOldValue());
                         assertSame(evt.getNewValue(), popupMenu);
@@ -77,6 +78,7 @@ public class JXSearchFieldTest {
     public void testCancelAction() throws Exception {
         assertSame(ClearAction.class, searchField.getCancelAction().getClass());
         ActionListener a = new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 eventReceived = true;
             }
@@ -95,6 +97,7 @@ public class JXSearchFieldTest {
     public void testFindAction() throws Exception {
         assertSame(FindAction.class, searchField.getFindAction().getClass());
         ActionListener a = new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 eventReceived = true;
             }
@@ -112,11 +115,13 @@ public class JXSearchFieldTest {
     @Test
     public void testCancelActionPropertyChange() throws Exception {
         final ActionListener action = new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
             }
         };
         searchField.addPropertyChangeListener("cancelAction",
                 new PropertyChangeListener() {
+                    @Override
                     public void propertyChange(PropertyChangeEvent evt) {
                         assertSame(evt.getOldValue().getClass(),
                                 ClearAction.class);
@@ -133,11 +138,13 @@ public class JXSearchFieldTest {
     @Test
     public void testFindActionPropertyChange() throws Exception {
         final ActionListener action = new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
             }
         };
         searchField.addPropertyChangeListener("findAction",
                 new PropertyChangeListener() {
+                    @Override
                     public void propertyChange(PropertyChangeEvent evt) {
                         assertSame(evt.getOldValue().getClass(),
                                 FindAction.class);
@@ -170,6 +177,7 @@ public class JXSearchFieldTest {
     @Test
     public void testFireAction() throws Exception {
         searchField.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 System.err.println(e);
                 eventReceived = true;
@@ -190,6 +198,7 @@ public class JXSearchFieldTest {
     @Test
     public void testInstantSearchDelay() throws Exception {
         searchField.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 System.err.println(e);
                 eventReceived = true;
@@ -240,6 +249,7 @@ public class JXSearchFieldTest {
     @Test
     public void testSearchMode() throws Exception {
         searchField.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 System.err.println(e);
                 eventReceived = true;
@@ -409,6 +419,7 @@ public class JXSearchFieldTest {
         assertFalse(searchField.isUseSeperatePopupButton());
         searchField.addPropertyChangeListener("useSeperatePopupButton",
                 new PropertyChangeListener() {
+                    @Override
                     public void propertyChange(PropertyChangeEvent evt) {
                         eventReceived = true;
                     }
@@ -426,6 +437,7 @@ public class JXSearchFieldTest {
     @Test
     public void testSearchOnClick() throws Exception {
         searchField.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 eventReceived = true;
             }
@@ -541,6 +553,7 @@ public class JXSearchFieldTest {
 
         searchField.addPropertyChangeListener("recentSearchesSaveKey",
                 new PropertyChangeListener() {
+                    @Override
                     public void propertyChange(PropertyChangeEvent evt) {
                         eventReceived = true;
                     }
@@ -593,14 +606,17 @@ public class JXSearchFieldTest {
             this.name = name;
         }
 
+        @Override
         public int getIconHeight() {
             return 0;
         }
 
+        @Override
         public int getIconWidth() {
             return 0;
         }
 
+        @Override
         public void paintIcon(Component c, Graphics g, int x, int y) {
         }
 

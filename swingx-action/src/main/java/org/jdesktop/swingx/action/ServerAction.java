@@ -121,7 +121,7 @@ public class ServerAction extends AbstractAction {
     public void addParam(String name, String value) {
         Map<String, String> params = getParams();
         if (params == null) {
-            params = new HashMap<String, String>();
+            params = new HashMap<>();
             setParams(params);
         }
         params.put(name, value);
@@ -160,7 +160,7 @@ public class ServerAction extends AbstractAction {
     public void addHeader(String name, String value) {
         Map<String, String> map = getHeaders();
         if (map == null) {
-            map = new HashMap<String, String>();
+            map = new HashMap<>();
             setHeaders(map);
         }
         map.put(name, value);

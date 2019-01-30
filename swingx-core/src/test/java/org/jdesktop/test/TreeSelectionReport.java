@@ -25,10 +25,11 @@ public class TreeSelectionReport implements TreeSelectionListener {
     /**
      * Holds a list of all received PropertyChangeEvents.
      */
-    protected List<TreeSelectionEvent> events = Collections.synchronizedList(new LinkedList<TreeSelectionEvent>());
+    protected List<TreeSelectionEvent> events = Collections.synchronizedList(new LinkedList<>());
     
 //------------------------ implement ListSelectionListener
     
+    @Override
     public void valueChanged(TreeSelectionEvent e) {
         events.add(0, e);
         

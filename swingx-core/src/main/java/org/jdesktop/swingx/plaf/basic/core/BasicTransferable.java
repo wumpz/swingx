@@ -75,6 +75,7 @@ public class BasicTransferable implements Transferable, UIResource {
      * for providing the data (from most richly descriptive to least descriptive).
      * @return an array of data flavors in which this data can be transferred
      */
+    @Override
     public DataFlavor[] getTransferDataFlavors() {
         DataFlavor[] richerFlavors = getRicherFlavors();
         int nRicher = (richerFlavors != null) ? richerFlavors.length : 0;
@@ -111,10 +112,11 @@ public class BasicTransferable implements Transferable, UIResource {
      * @param flavor the requested flavor for the data
      * @return boolean indicating whether or not the data flavor is supported
      */
+    @Override
     public boolean isDataFlavorSupported(DataFlavor flavor) {
         DataFlavor[] flavors = getTransferDataFlavors();
-        for (int i = 0; i < flavors.length; i++) {
-            if (flavors[i].equals(flavor)) {
+        for (DataFlavor flavor1 : flavors) {
+            if (flavor1.equals(flavor)) {
                 return true;
             }
         }
@@ -132,6 +134,7 @@ public class BasicTransferable implements Transferable, UIResource {
      * @exception UnsupportedFlavorException if the requested data flavor is
      *              not supported.
      */
+    @Override
     public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
         DataFlavor[] richerFlavors = getRicherFlavors();
         if (isRicherFlavor(flavor)) {
@@ -203,8 +206,8 @@ public class BasicTransferable implements Transferable, UIResource {
      */
     protected boolean isHTMLFlavor(DataFlavor flavor) {
         DataFlavor[] flavors = htmlFlavors;
-        for (int i = 0; i < flavors.length; i++) {
-            if (flavors[i].equals(flavor)) {
+        for (DataFlavor flavor1 : flavors) {
+            if (flavor1.equals(flavor)) {
                 return true;
             }
         }
@@ -236,8 +239,8 @@ public class BasicTransferable implements Transferable, UIResource {
      */
     protected boolean isPlainFlavor(DataFlavor flavor) {
         DataFlavor[] flavors = plainFlavors;
-        for (int i = 0; i < flavors.length; i++) {
-            if (flavors[i].equals(flavor)) {
+        for (DataFlavor flavor1 : flavors) {
+            if (flavor1.equals(flavor)) {
                 return true;
             }
         }
@@ -269,8 +272,8 @@ public class BasicTransferable implements Transferable, UIResource {
      */
     protected boolean isStringFlavor(DataFlavor flavor) {
         DataFlavor[] flavors = stringFlavors;
-        for (int i = 0; i < flavors.length; i++) {
-            if (flavors[i].equals(flavor)) {
+        for (DataFlavor flavor1 : flavors) {
+            if (flavor1.equals(flavor)) {
                 return true;
             }
         }

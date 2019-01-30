@@ -121,6 +121,7 @@ public class TableColumnModelTest extends InteractiveTestCase {
         // can't use report: the isRemovedToInvisible is valid during notification only
         TableColumnModelListener report = new TableColumnModelListener() {
 
+            @Override
             public void columnAdded(TableColumnModelEvent e) {
                 int fromIndex = e.getToIndex();
                 assertEquals("old column really removed", true, 
@@ -128,9 +129,13 @@ public class TableColumnModelTest extends InteractiveTestCase {
                 // note: the toIndex here is always the last
                 // following are moves to position before hiding
             }
+            @Override
             public void columnRemoved(TableColumnModelEvent e) {}
+            @Override
             public void columnMarginChanged(ChangeEvent e) {  }
+            @Override
             public void columnMoved(TableColumnModelEvent e) {}
+            @Override
             public void columnSelectionChanged(ListSelectionEvent e) {}
             
         };
@@ -196,6 +201,7 @@ public class TableColumnModelTest extends InteractiveTestCase {
         TableColumnModelListener report = new TableColumnModelListener() {
 
 
+            @Override
             public void columnRemoved(TableColumnModelEvent e) {
                 int fromIndex = e.getFromIndex();
                 assertEquals("old visible index of removed", index, fromIndex);
@@ -203,9 +209,13 @@ public class TableColumnModelTest extends InteractiveTestCase {
                         columnModel.isRemovedToInvisibleEvent(fromIndex));
                 
             }
+            @Override
             public void columnAdded(TableColumnModelEvent e) {}
+            @Override
             public void columnMarginChanged(ChangeEvent e) {  }
+            @Override
             public void columnMoved(TableColumnModelEvent e) {}
+            @Override
             public void columnSelectionChanged(ListSelectionEvent e) {}
             
         };
@@ -432,26 +442,31 @@ public class TableColumnModelTest extends InteractiveTestCase {
          TableColumnModel model = createColumnModel(COLUMN_COUNT);
          TableColumnModelListener l = new TableColumnModelListener() {
 
+            @Override
             public void columnAdded(TableColumnModelEvent e) {
                 assertTrue("toIndex must be positive", e.getToIndex() >= 0);
                 ((TableColumnModel) e.getSource()).getColumn(e.getToIndex());
             }
 
+            @Override
             public void columnRemoved(TableColumnModelEvent e) {
                 // TODO Auto-generated method stub
                 
             }
 
+            @Override
             public void columnMoved(TableColumnModelEvent e) {
                 // TODO Auto-generated method stub
                 
             }
 
+            @Override
             public void columnMarginChanged(ChangeEvent e) {
                 // TODO Auto-generated method stub
                 
             }
 
+            @Override
             public void columnSelectionChanged(ListSelectionEvent e) {
                 // TODO Auto-generated method stub
                 

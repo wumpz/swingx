@@ -121,7 +121,7 @@ public class ErrorInfo {
         this.category = category;
         this.errorException = errorException;
         this.errorLevel = errorLevel == null ? Level.SEVERE : errorLevel;
-        this.state = new HashMap<String,String>();
+        this.state = new HashMap<>();
         
         //first add all the System properties
         try {
@@ -255,6 +255,6 @@ public class ErrorInfo {
      * @return a copy of the application state. This will never be null.
      */
     public Map<String,String> getState() {
-        return new HashMap<String,String>(state);
+        return new HashMap<>(state);
     }
 }

@@ -327,6 +327,7 @@ public class AbstractActionExtTest {
     protected AbstractActionExt createStateAction() {
         AbstractActionExt extAction = new AbstractActionExt("dummy") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
             }
             
@@ -345,8 +346,8 @@ public class AbstractActionExtTest {
     protected void assertCountAsItemListener(AbstractButton checkBoxItem, ItemListener extAction, int expectedCount) {
         int count = 0;
         ItemListener[] itemListeners = checkBoxItem.getItemListeners();
-        for (int j = 0; j < itemListeners.length; j++) {
-            if (extAction == itemListeners[j]) {
+        for (ItemListener itemListener : itemListeners) {
+            if (extAction == itemListener) {
                 count++;
             }
         }
@@ -373,6 +374,7 @@ public class AbstractActionExtTest {
     public void testFireEnabled() {
         Action action = new AbstractAction("dummy") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 // nothing to do
                 
@@ -381,6 +383,7 @@ public class AbstractActionExtTest {
         };
         PropertyChangeListener l = new PropertyChangeListener() {
 
+            @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if ("enabled".equals(evt.getPropertyName())) {
                     assertEquals(evt.getNewValue(), ((Action) evt.getSource()).isEnabled());

@@ -402,9 +402,7 @@ public class JXErrorPane extends JComponent {
         if (!SwingUtilities.isEventDispatchThread()) {
             try {
                 SwingUtilities.invokeAndWait(r);
-            } catch (InvocationTargetException ex) {
-                ex.printStackTrace();
-            } catch (InterruptedException ex) {
+            } catch (InvocationTargetException | InterruptedException ex) {
                 ex.printStackTrace();
             }
         } else {
@@ -508,9 +506,7 @@ public class JXErrorPane extends JComponent {
         if (!SwingUtilities.isEventDispatchThread()) {
             try {
                 SwingUtilities.invokeAndWait(r);
-            } catch (InvocationTargetException ex) {
-                ex.printStackTrace();
-            } catch (InterruptedException ex) {
+            } catch (InvocationTargetException | InterruptedException ex) {
                 ex.printStackTrace();
             }
         } else {
@@ -614,9 +610,7 @@ public class JXErrorPane extends JComponent {
         if (!SwingUtilities.isEventDispatchThread()) {
             try {
                 SwingUtilities.invokeAndWait(r);
-            } catch (InvocationTargetException ex) {
-                ex.printStackTrace();
-            } catch (InterruptedException ex) {
+            } catch (InvocationTargetException | InterruptedException ex) {
                 ex.printStackTrace();
             }
         } else {

@@ -596,7 +596,7 @@ public class JTableIssues extends InteractiveTestCase {
           JTable table = new JTable(new AncientSwingTeam());
           PropertyChangeReport report = new PropertyChangeReport();
           table.addPropertyChangeListener(report);
-          table.setRowSorter(new TableRowSorter<TableModel>(table.getModel()));
+          table.setRowSorter(new TableRowSorter<>(table.getModel()));
           TestUtils.assertPropertyChangeEvent(report, "rowSorter", null, table.getRowSorter());
       }
       
@@ -1299,6 +1299,7 @@ public class JTableIssues extends InteractiveTestCase {
         boolean isAuto = Boolean.TRUE.equals(table.getClientProperty(autoKey));
         Action autoStart = new AbstractActionExt(autoStartName + isAuto) {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 boolean isAuto = Boolean.TRUE.equals(table.getClientProperty(autoKey));
                 table.putClientProperty(autoKey, isAuto ? Boolean.FALSE : Boolean.TRUE);
@@ -1378,6 +1379,7 @@ public class JTableIssues extends InteractiveTestCase {
         table.setAutoscrolls(true);
         Action action = new AbstractAction("select last row: scrolling?") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 
                 int selected = table.getRowCount() - 1;
@@ -1402,6 +1404,7 @@ public class JTableIssues extends InteractiveTestCase {
         final JTable table = new JTable(model);
         Action action = new AbstractAction("insertRow") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 
                 int selected = table.getSelectedRow();
@@ -1454,6 +1457,7 @@ public class JTableIssues extends InteractiveTestCase {
         JXFrame frame = wrapWithScrollingInFrame(table, "auto-lead - force in table subclass");
         Action toggleAction = new AbstractAction("Toggle TableModel") {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (table.getRowCount() > 0) {
                     table.setModel(new DefaultTableModel());
@@ -1666,6 +1670,7 @@ public class JTableIssues extends InteractiveTestCase {
 
         table.requestFocus();
         SwingUtilities.invokeAndWait(new Runnable() {
+            @Override
             public void run() {
                 assertTrue("table is focused ", table.hasFocus());
                 assertEquals("anchor must be 0", 0, table.getSelectionModel().getAnchorSelectionIndex());

@@ -58,9 +58,11 @@ public class FindIssues extends FindTest {
     public void testFindPanelFirstRowBackwards() {
         JXList list = new JXList( new AbstractListModel() {
             private String[] data = { "a", "b", "c" };
+            @Override
             public Object getElementAt(int index) {
                 return data[ index ];
             }
+            @Override
             public int getSize() {
                 return data.length;
             }

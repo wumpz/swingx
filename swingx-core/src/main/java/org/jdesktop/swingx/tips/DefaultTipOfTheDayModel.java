@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class DefaultTipOfTheDayModel implements TipOfTheDayModel {
 
-    private List<Tip> tips = new ArrayList<Tip>();
+    private List<Tip> tips = new ArrayList<>();
 
     public DefaultTipOfTheDayModel() {
     }

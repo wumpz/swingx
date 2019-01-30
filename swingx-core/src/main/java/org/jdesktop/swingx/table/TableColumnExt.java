@@ -341,9 +341,7 @@ public class TableColumnExt extends TableColumn implements UIDependent {
     public void setEditable(boolean editable) {
         boolean oldEditable = this.editable;
         this.editable = editable;
-        firePropertyChange("editable",
-                           Boolean.valueOf(oldEditable),
-                           Boolean.valueOf(editable));
+        firePropertyChange("editable", oldEditable, editable);
     }
 
     /**
@@ -609,7 +607,7 @@ public class TableColumnExt extends TableColumn implements UIDependent {
 
     private Hashtable<Object, Object> getClientProperties() {
         if (clientProperties == null) {
-            clientProperties = new Hashtable<Object, Object>();
+            clientProperties = new Hashtable<>();
         }
         return clientProperties;
     }
@@ -682,8 +680,8 @@ public class TableColumnExt extends TableColumn implements UIDependent {
                      propertyName,
                      oldValue, newValue);
 
-                 for (int i = 0; i < pcl.length; i++) {
-                     pcl[i].propertyChange(pce);
+                 for (PropertyChangeListener pcl1 : pcl) {
+                     pcl1.propertyChange(pce);
                  }
              }
          }

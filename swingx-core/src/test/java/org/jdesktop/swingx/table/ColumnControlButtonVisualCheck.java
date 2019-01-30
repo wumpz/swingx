@@ -82,9 +82,9 @@ public class ColumnControlButtonVisualCheck extends InteractiveTestCase {
         
         @Override
         public <A extends Action> List<List<A>> group(List<A> actions) {
-            List<List<A>> result = new ArrayList<List<A>>();
-            List<Object> keys = new ArrayList<Object>();
-            List<A> noKey = new ArrayList<A>();
+            List<List<A>> result = new ArrayList<>();
+            List<Object> keys = new ArrayList<>();
+            List<A> noKey = new ArrayList<>();
             for (A action : actions) {
                 Object groupKey = action.getValue(GROUP_KEY);
                 if (groupKey != null) {
@@ -92,7 +92,7 @@ public class ColumnControlButtonVisualCheck extends InteractiveTestCase {
                     if (index < 0) {
                         keys.add(groupKey);
                         index = keys.size() - 1;
-                        result.add(new ArrayList<A>());
+                        result.add(new ArrayList<>());
                     }
                     result.get(index).add(action);
                 } else {

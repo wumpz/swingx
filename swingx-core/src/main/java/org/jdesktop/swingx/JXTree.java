@@ -840,7 +840,7 @@ public class JXTree extends JTree {
      * @see org.jdesktop.swingx.rollover.RolloverController
      */
     protected TreeRolloverController<JXTree> createLinkController() {
-        return new TreeRolloverController<JXTree>();
+        return new TreeRolloverController<>();
     }
 
     /**

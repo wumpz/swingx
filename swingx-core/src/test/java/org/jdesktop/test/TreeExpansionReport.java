@@ -27,9 +27,9 @@ public class TreeExpansionReport implements TreeExpansionListener {
     /**
      * Holds a list of all canceled events.
      */
-    protected List<TreeExpansionEvent> expandedEvents = Collections.synchronizedList(new LinkedList<TreeExpansionEvent>());
-    protected List<TreeExpansionEvent> collapsedEvents = Collections.synchronizedList(new LinkedList<TreeExpansionEvent>());
-    protected List<TreeExpansionEvent> allEvents = Collections.synchronizedList(new LinkedList<TreeExpansionEvent>());
+    protected List<TreeExpansionEvent> expandedEvents = Collections.synchronizedList(new LinkedList<>());
+    protected List<TreeExpansionEvent> collapsedEvents = Collections.synchronizedList(new LinkedList<>());
+    protected List<TreeExpansionEvent> allEvents = Collections.synchronizedList(new LinkedList<>());
     
     public TreeExpansionReport() {
         this((JTree) null);
@@ -49,12 +49,14 @@ public class TreeExpansionReport implements TreeExpansionListener {
 //------------------------ implement CellEditorListener
 
     
+    @Override
     public void treeExpanded(TreeExpansionEvent e) {
         expandedEvents.add(0, e);
         allEvents.add(0, e);
     }
     
     
+    @Override
     public void treeCollapsed(TreeExpansionEvent e) {
         collapsedEvents.add(0, e);
         allEvents.add(0, e);

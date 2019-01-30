@@ -52,7 +52,7 @@ public class EnumComboBoxModelUnitTest extends InteractiveTestCase {
      */
     @Test
     public void testSetSelectedItem() {
-        EnumComboBoxModel<MyEnum1> model1 = new EnumComboBoxModel<MyEnum1>(
+        EnumComboBoxModel<MyEnum1> model1 = new EnumComboBoxModel<>(
                 MyEnum1.class);
         // always starts by selecting the first value
         assertEquals(model1.getSelectedItem(), MyEnum1.GoodStuff);
@@ -71,7 +71,7 @@ public class EnumComboBoxModelUnitTest extends InteractiveTestCase {
         assertEquals(model1.getSelectedItem(), MyEnum1.GoodStuff);
 
         // ensure that custom strings map correctly
-        EnumComboBoxModel<MyEnum2> model2 = new EnumComboBoxModel<MyEnum2>(
+        EnumComboBoxModel<MyEnum2> model2 = new EnumComboBoxModel<>(
                 MyEnum2.class);
 
         // always starts by selecting the first value
@@ -94,7 +94,7 @@ public class EnumComboBoxModelUnitTest extends InteractiveTestCase {
     @Test
     public void testNonUniqueToString() {
         try {
-            new EnumComboBoxModel<MyEnum3>(MyEnum3.class);
+            new EnumComboBoxModel<>(MyEnum3.class);
             fail("expected IllegalArgumentException");
         } catch (IllegalArgumentException e) {
             // success

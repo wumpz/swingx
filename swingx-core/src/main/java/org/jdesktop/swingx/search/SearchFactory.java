@@ -84,7 +84,7 @@ public class SearchFactory implements UIDependent {
         private final WeakReference<SearchFactory> ref;
         
         public LaFListener(SearchFactory sf) {
-            this.ref = new WeakReference<SearchFactory>(sf);
+            this.ref = new WeakReference<>(sf);
         }
 
         /**
@@ -518,7 +518,7 @@ public class SearchFactory implements UIDependent {
         
         private Set<Container> getTargets() {
             if (targets == null) {
-                targets = new HashSet<Container>();
+                targets = new HashSet<>();
             }
             return targets;
         }
@@ -536,8 +536,7 @@ public class SearchFactory implements UIDependent {
 
             Component c = focusManager.getPermanentFocusOwner();
             if (c == null) return;
-            for (Iterator<Container> iter = getTargets().iterator(); iter.hasNext();) {
-                Container element = iter.next();
+            for (Container element : getTargets()) {
                 if ((element == c) || (SwingUtilities.isDescendingFrom(c, element))) {
                     return;
                 }

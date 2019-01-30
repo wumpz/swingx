@@ -61,7 +61,7 @@ public class ListSortControllerTest extends AbstractTestSortController<ListSortC
     @Override
     protected ListSortController<ListModel> createDefaultSortController(
             ListModel model) {
-        return new ListSortController<ListModel>(model);
+        return new ListSortController<>(model);
     }
 
     @Override
