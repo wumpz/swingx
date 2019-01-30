@@ -1,6 +1,6 @@
 # SwingX - Library
 
-This is a fork of the gread SwingX library. Its a pity it was not developed any further. 
+This is a fork of the great SwingX library. Its a pity it was not developed any further. 
 
 ## Modifications
 
