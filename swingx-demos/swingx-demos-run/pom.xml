@@ -19,5 +19,18 @@
             <artifactId>swingx-demos-content</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>swingx-demos-content</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+            <classifier>sources</classifier>
+        </dependency>
+		<dependency>
+			<groupId>com.jhlabs</groupId>
+			<artifactId>filters</artifactId>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
     </dependencies>
 </project>
