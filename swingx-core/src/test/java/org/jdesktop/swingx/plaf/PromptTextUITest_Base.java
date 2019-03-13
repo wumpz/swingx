@@ -17,7 +17,6 @@ import javax.swing.BorderFactory;
 import javax.swing.text.JTextComponent;
 
 import org.jdesktop.swingx.prompt.PromptSupport;
-import org.jdesktop.swingx.util.JVM;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,11 +36,7 @@ public abstract class PromptTextUITest_Base {
     @Test
     public void testGetBaseLine() {
     	int baseline = ui.getBaseline(textComponent, textComponent.getWidth(), textComponent.getHeight());
-		if(JVM.current().isOrLater(JVM.JDK1_6)){
-    		assertNotSame(-2, baseline);
-    	}else{
-    		assertSame(-2, baseline);
-    	}
+        assertNotSame(-2, baseline);
     }
 
     @Test
