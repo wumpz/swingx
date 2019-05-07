@@ -28,7 +28,7 @@ import javax.swing.UIManager;
  * Provides methods related to the runtime environment.
  */
 @SuppressWarnings("nls")
-public class OS {
+public final class OS {
 
   private static final boolean osIsMacOsX;
   private static final boolean osIsWindows;
