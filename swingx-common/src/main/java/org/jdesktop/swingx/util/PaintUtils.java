@@ -42,7 +42,7 @@ import java.lang.reflect.Method;
  * @author Karl George Schaefer
  */
 @SuppressWarnings("nls")
-public class PaintUtils {
+public final class PaintUtils {
     public static final GradientPaint BLUE_EXPERIENCE = new GradientPaint(
             new Point2D.Double(0, 0),
             new Color(168, 204, 241),

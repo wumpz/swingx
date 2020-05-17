@@ -54,7 +54,7 @@ import javax.swing.SwingUtilities;
  *
  * @author apple
  */
-public class Utilities {
+public final class Utilities {
     private Utilities() {
     }
     

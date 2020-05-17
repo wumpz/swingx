@@ -26,7 +26,7 @@ package org.jdesktop.swingx.util;
  * 
  * @author Jeanette Winzenburg
  */
-public class Contract {
+public final class Contract {
 
     private Contract() {
         

@@ -91,7 +91,7 @@ import javax.swing.JComponent;
  * @author Karl Schaefer
  */
 @SuppressWarnings("nls")
-public class GraphicsUtilities {
+public final class GraphicsUtilities {
     private GraphicsUtilities() {
     }
 
