@@ -9,7 +9,7 @@ import java.beans.PropertyDescriptor;
 
 import org.mockito.ArgumentMatcher;
 
-class EquivalentMatcher<T> extends ArgumentMatcher<T> {
+class EquivalentMatcher<T> implements ArgumentMatcher<T> {
     private final T object;
     
     public EquivalentMatcher(T object) {
@@ -17,7 +17,7 @@ class EquivalentMatcher<T> extends ArgumentMatcher<T> {
     }
     
     @Override
-    public boolean matches(Object argument) {
+    public boolean matches(T argument) {
         if (equalTo(object).matches(argument)) {
             //short circuit: equal is always equivalent
             return true;

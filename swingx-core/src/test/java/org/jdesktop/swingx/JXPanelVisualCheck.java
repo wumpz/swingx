@@ -40,7 +40,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.Painter;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 
@@ -49,8 +49,6 @@ import org.jdesktop.swingx.painter.ImagePainter;
 import org.jdesktop.swingx.painter.MattePainter;
 import org.jdesktop.swingx.test.XTestUtils;
 import org.jdesktop.swingx.util.PaintUtils;
-
-import com.sun.java.swing.Painter;
 
 /**
  * Contains methods to visually test JXPanel.

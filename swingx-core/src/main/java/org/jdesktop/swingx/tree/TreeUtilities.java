@@ -270,8 +270,7 @@ public class TreeUtilities {
         }
 
         protected Enumeration<M> getChildren(M node) {
-            Enumeration<M> children = node.children();
-            return children;
+            return (Enumeration<M>)node.children();
         }
 
     }  // End of class PreorderEnumeration
@@ -328,7 +327,7 @@ public class TreeUtilities {
          * @return
          */
         protected Enumeration<M> getChildren(M node) {
-            return node.children();
+            return (Enumeration<M>)node.children();
         }
         
 
@@ -374,8 +373,7 @@ public class TreeUtilities {
         }
 
         protected Enumeration<M> getChildren(M node) {
-            Enumeration<M> children = node.children();
-            return children;
+            return (Enumeration<M>)node.children();
         }
         
         

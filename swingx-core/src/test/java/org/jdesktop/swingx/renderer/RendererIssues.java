@@ -21,7 +21,6 @@
  */
 package org.jdesktop.swingx.renderer;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -47,9 +46,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListModel;
@@ -61,6 +58,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.plaf.basic.BasicTreeUI;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
@@ -78,11 +76,8 @@ import org.jdesktop.swingx.decorator.ColorHighlighter;
 import org.jdesktop.swingx.decorator.ComponentAdapter;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.Highlighter;
-import org.jdesktop.swingx.decorator.HighlighterFactory;
 import org.jdesktop.swingx.decorator.PainterHighlighter;
 import org.jdesktop.swingx.decorator.PatternPredicate;
-import org.jdesktop.swingx.painter.BusyPainter;
-import org.jdesktop.swingx.painter.ImagePainter;
 import org.jdesktop.swingx.painter.MattePainter;
 import org.jdesktop.swingx.rollover.RolloverProducer;
 import org.jdesktop.swingx.rollover.RolloverRenderer;
@@ -92,8 +87,6 @@ import org.jdesktop.swingx.treetable.FileSystemModel;
 import org.jdesktop.swingx.treetable.TreeTableModel;
 import org.jdesktop.swingx.util.PaintUtils;
 import org.jdesktop.test.AncientSwingTeam;
-
-import com.sun.java.swing.plaf.motif.MotifLookAndFeel;
 
 /**
  * Test around known issues of SwingX renderers. <p>
@@ -668,7 +661,7 @@ public class RendererIssues extends InteractiveTestCase {
     public void testListFocusBorder() throws UnsupportedLookAndFeelException {
         LookAndFeel lf = UIManager.getLookAndFeel();
         try {
-            UIManager.setLookAndFeel(new MotifLookAndFeel());
+            UIManager.setLookAndFeel(new MetalLookAndFeel());
             JList list = new JList(new Object[] {1, 2, 3});
             ListCellRenderer coreListRenderer = new DefaultListCellRenderer();
             ListCellRenderer xListRenderer = new DefaultListRenderer();

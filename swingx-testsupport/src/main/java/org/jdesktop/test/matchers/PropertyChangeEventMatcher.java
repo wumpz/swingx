@@ -8,7 +8,7 @@ import org.hamcrest.Description;
 import org.mockito.ArgumentMatcher;
 
 @SuppressWarnings("nls")
-class PropertyChangeEventMatcher extends ArgumentMatcher<PropertyChangeEvent> {
+class PropertyChangeEventMatcher implements ArgumentMatcher<PropertyChangeEvent> {
     private final String propertyName;
     private final Object oldValue;
     private final Object newValue;
@@ -20,7 +20,7 @@ class PropertyChangeEventMatcher extends ArgumentMatcher<PropertyChangeEvent> {
     }
     
     @Override
-    public boolean matches(Object argument) {
+    public boolean matches(PropertyChangeEvent argument) {
         if (argument instanceof PropertyChangeEvent) {
             PropertyChangeEvent pce = (PropertyChangeEvent) argument;
             
@@ -38,8 +38,7 @@ class PropertyChangeEventMatcher extends ArgumentMatcher<PropertyChangeEvent> {
      * {@inheritDoc}
      */
     @Override
-    public void describeTo(Description description) {
-        super.describeTo(description);
-        description.appendText(" " + propertyName);
-    }
+    public String toString() {
+        return " " + propertyName;
+		}
 }

@@ -41,7 +41,7 @@ public interface MutableTreeTableNode extends TreeTableNode {
      * @return an enumeration of {@code TreeTableNode}s
      */
     @Override
-    Enumeration<? extends MutableTreeTableNode> children();
+    Enumeration<MutableTreeTableNode> children();
     
     /**
      * Adds the {@code child} to this node at the specified {@code index}. This

@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
 
 import org.jdesktop.swingx.treetable.DefaultMutableTreeTableNode;
 import org.jdesktop.swingx.treetable.DefaultTreeTableModel;
@@ -34,10 +35,10 @@ public class TreeTableUtils {
     private static DefaultMutableTreeTableNode convertDefaultMutableTreeNode(DefaultMutableTreeNode node) {
         DefaultMutableTreeTableNode ttNode = new DefaultMutableTreeTableNode(node.getUserObject());
         
-        Enumeration<DefaultMutableTreeNode> children = node.children();
+        Enumeration<TreeNode> children = node.children();
         
         while (children.hasMoreElements()) {
-            ttNode.add(convertDefaultMutableTreeNode(children.nextElement()));
+            ttNode.add(convertDefaultMutableTreeNode((DefaultMutableTreeNode)children.nextElement()));
         }
         
         return ttNode;

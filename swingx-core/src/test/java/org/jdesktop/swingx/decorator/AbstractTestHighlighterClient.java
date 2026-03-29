@@ -23,7 +23,6 @@ package org.jdesktop.swingx.decorator;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.jdesktop.test.matchers.Matchers.property;
-import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -38,6 +37,7 @@ import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import static org.mockito.ArgumentMatchers.argThat;
 
 /**
  * Contains tests around Highlighter client api for collection components.
@@ -124,7 +124,7 @@ public abstract class AbstractTestHighlighterClient extends TestCase {
         Highlighter[] old = client.getHighlighters();
         client.setHighlighters(new ColorHighlighter());
         
-        verify(pcl).propertyChange(argThat(is(property("highlighters", old, client.getHighlighters()))));
+        verify(pcl).propertyChange(argThat(property("highlighters", old, client.getHighlighters())));
     }
 
     /**
@@ -238,7 +238,7 @@ public abstract class AbstractTestHighlighterClient extends TestCase {
         Highlighter[] old = table.getHighlighters();
         table.removeHighlighter(highlighter);
         
-        verify(pcl).propertyChange(argThat(is(property("highlighters", old, table.getHighlighters()))));
+        verify(pcl).propertyChange(argThat(property("highlighters", old, table.getHighlighters())));
     }
 
     /**
@@ -276,7 +276,7 @@ public abstract class AbstractTestHighlighterClient extends TestCase {
         Highlighter[] old = table.getHighlighters();
         table.addHighlighter(new ColorHighlighter());
         
-        verify(pcl).propertyChange(argThat(is(property("highlighters", old, table.getHighlighters()))));
+        verify(pcl).propertyChange(argThat(property("highlighters", old, table.getHighlighters())));
     }
 
     /**

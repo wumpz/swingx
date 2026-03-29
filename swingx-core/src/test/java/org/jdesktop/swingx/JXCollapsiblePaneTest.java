@@ -22,9 +22,7 @@
 package org.jdesktop.swingx;
 
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.jdesktop.test.matchers.Matchers.property;
-import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -35,6 +33,7 @@ import javax.swing.JLabel;
 import org.jdesktop.test.EDTRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import static org.mockito.ArgumentMatchers.argThat;
 
 /**
  * Unit test for <code>JXCollapsiblePane</code>.
@@ -61,6 +60,6 @@ public class JXCollapsiblePaneTest {
         
         // this fails if we animate because the property change
         // will enqueue on the EDT after this check
-        verify(pcl).propertyChange(argThat(is(property("collapsed", false, true))));
+        verify(pcl).propertyChange(argThat(property("collapsed", false, true)));
     }
  }

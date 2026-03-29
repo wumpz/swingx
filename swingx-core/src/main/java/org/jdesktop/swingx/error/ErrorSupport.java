@@ -68,7 +68,7 @@ public class ErrorSupport {
      * added.
      */
     public ErrorListener[] getErrorListeners() {
-        return listeners.toArray(null);
+        return listeners.toArray(ErrorListener[]::new);
     }
 
     /**

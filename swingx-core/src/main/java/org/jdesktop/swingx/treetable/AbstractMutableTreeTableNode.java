@@ -194,7 +194,7 @@ public abstract class AbstractMutableTreeTableNode implements
      * {@inheritDoc}
      */
     @Override
-    public Enumeration<? extends MutableTreeTableNode> children() {
+    public Enumeration<MutableTreeTableNode> children() {
         return Collections.enumeration(children);
     }
 

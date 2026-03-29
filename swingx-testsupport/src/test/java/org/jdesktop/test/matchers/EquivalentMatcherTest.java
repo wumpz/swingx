@@ -4,12 +4,13 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.jdesktop.test.SerializableSupport.serialize;
-import static org.jdesktop.test.matchers.Matchers.equivalentTo;
-import static org.junit.Assert.assertThat;
 
 import javax.swing.JButton;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.jdesktop.test.EDTRunner;
+import static org.jdesktop.test.matchers.Matchers.equivalentTo;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -18,7 +19,7 @@ public class EquivalentMatcherTest {
     @Test
     public void ensureEqualIsEquivalent() {
         assertThat(1, is(equalTo(1)));
-        assertThat(1, is(equivalentTo(1)));
+        assertTrue(equivalentTo(1).matches(1));
     }
     
     @Test
@@ -27,7 +28,7 @@ public class EquivalentMatcherTest {
         JButton button2 = new JButton();
         
         assertThat(button1, is(not(equalTo(button2))));
-        assertThat(button1, is(equivalentTo(button2)));
+        assertTrue(equivalentTo(button2).matches(button1));
     }
     
     @Test
@@ -36,6 +37,6 @@ public class EquivalentMatcherTest {
         JButton button2 = serialize(button1);
         
         assertThat(button1, is(not(equalTo(button2))));
-        assertThat(button1, is(equivalentTo(button2)));
+        assertTrue(equivalentTo(button2).matches(button1));
     }
 }

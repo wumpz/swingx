@@ -54,7 +54,6 @@ import javax.swing.UIManager;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.UIResource;
 
-import org.hamcrest.CoreMatchers;
 import org.jdesktop.swingx.JXCollapsiblePane.CollapsiblePaneContainer;
 import org.jdesktop.swingx.plaf.basic.BasicDatePickerUI;
 import org.jdesktop.test.EDTRunner;
@@ -63,7 +62,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.mockito.Matchers;
 
 
 /**
