@@ -14,6 +14,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
+import org.jdesktop.swingx.treetable.DefaultMutableTreeTableNode;
 
 import org.jdesktop.swingx.treetable.MutableTreeTableNode;
 import org.jdesktop.swingx.treetable.TreeTableModel;
@@ -176,7 +177,7 @@ public class TreeTableHelper {
 //                    = random.nextInt((depth / 2 + 1)
 //                    * Math.round(ROWS / 20f)) + 1; 
                 --i >= 0;)
-                node.insert((MutableTreeNode) createTreeTableNode(depth),
+                node.insert(createTreeTableNode(depth),
                         node.getChildCount());
         return node;
 
@@ -233,7 +234,7 @@ public class TreeTableHelper {
         
 }
 
-    public static class Node extends DefaultMutableTreeNode implements MutableTreeTableNode {
+    public static class Node extends DefaultMutableTreeTableNode {
 
         Node(Object[] d) {
             super(d);
@@ -241,22 +242,6 @@ public class TreeTableHelper {
         }
 
         Object[] data;
-
-        @Override
-        public void insert(MutableTreeTableNode child, int index) {
-            super.insert((MutableTreeNode) child, index);
-        }
-
-        @Override
-        public void remove(MutableTreeTableNode node) {
-            super.remove((MutableTreeNode) node);
-
-        }
-
-        @Override
-        public void setParent(MutableTreeTableNode newParent) {
-            super.setParent((MutableTreeNode) newParent);
-        }
 
         @Override
         public int getColumnCount() {
@@ -287,10 +272,5 @@ public class TreeTableHelper {
         public Node getChildAt(int index) {
             return (Node) super.getChildAt(index);
         }
-
-		@Override
-		public Enumeration<MutableTreeTableNode> children() {
-			throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-		}
     }
 }
