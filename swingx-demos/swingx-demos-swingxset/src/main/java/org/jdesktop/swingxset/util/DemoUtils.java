@@ -57,14 +57,14 @@ public class DemoUtils {
     }
     
     private static boolean isRestricted() {
-        SecurityManager manager = System.getSecurityManager();
-        if (manager == null) return false;
-        try {
-            manager.checkSystemClipboardAccess();
-            return false;
-        } catch (SecurityException e) {
-            // nothing to do - not allowed to access
-        }
+//        SecurityManager manager = System.getSecurityManager();
+//        if (manager == null) return false;
+//        try {
+//            manager.checkSystemClipboardAccess();
+//            return false;
+//        } catch (SecurityException e) {
+//            // nothing to do - not allowed to access
+//        }
         return true;
     }
 //--------------- Application-related convenience methods

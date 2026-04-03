@@ -6,8 +6,6 @@ import static org.jdesktop.test.matchers.Matchers.equivalentTo;
 import static org.jdesktop.test.matchers.Matchers.property;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
-import static org.mockito.Matchers.argThat;
-import static org.mockito.Mockito.RETURNS_MOCKS;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
@@ -31,6 +29,8 @@ import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.RETURNS_MOCKS;
 import org.mockito.exceptions.verification.NoInteractionsWanted;
 
 @SuppressWarnings("nls")
@@ -87,7 +87,7 @@ public abstract class AbstractBeanInfoTest<T> {
                 descriptor.getWriteMethod().invoke(instance, newValue);
                 
                 PropertyChangeListener pcl = (PropertyChangeListener) listeners.get(PropertyChangeListener.class);
-                verify(pcl).propertyChange(argThat(is(property(descriptor.getName(), defaultValue, newValue))));
+                verify(pcl).propertyChange(argThat(property(descriptor.getName(), defaultValue, newValue)));
                 reset(pcl);
             }
         }
