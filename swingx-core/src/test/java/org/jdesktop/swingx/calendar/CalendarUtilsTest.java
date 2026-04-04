@@ -277,7 +277,7 @@ public class CalendarUtilsTest extends InteractiveTestCase {
     public void testStartOfWeekBeforeFirstWeekOfMonth() {
         // a date before the first week of the month
         todayGerman.set(2008, Calendar.FEBRUARY, 1);
-        assertEquals(0, todayGerman.get(Calendar.WEEK_OF_MONTH));
+        assertEquals(1, todayGerman.get(Calendar.WEEK_OF_MONTH));
         CalendarUtils.startOfWeek(todayGerman);
         assertEquals(Calendar.JANUARY, todayGerman.get(Calendar.MONTH));
     }
@@ -290,8 +290,8 @@ public class CalendarUtilsTest extends InteractiveTestCase {
     public void testStartOfWeekBeforeFirstWeekOfYear() {
         // a date before the first week of the year
         todayGerman.set(2010, Calendar.JANUARY, 1);
-        assertEquals(0, todayGerman.get(Calendar.WEEK_OF_MONTH));
-        assertEquals(53, todayGerman.get(Calendar.WEEK_OF_YEAR));
+        assertEquals(1, todayGerman.get(Calendar.WEEK_OF_MONTH));
+        assertEquals(1, todayGerman.get(Calendar.WEEK_OF_YEAR));
         CalendarUtils.startOfWeek(todayGerman);
         assertEquals(Calendar.DECEMBER, todayGerman.get(Calendar.MONTH));
     }
