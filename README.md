@@ -2,7 +2,14 @@
 
 This is a fork of the great SwingX library. Its a pity it was not developed any further. 
 
-## Modifications
+## Modifications version 2.0.0
+
+* minimum JDK 17
+* upgraded plugins
+* upgrade Mockito to version 5
+* use of JApplet removed
+
+## Modifications version 1.6.6
 
 * WebStart was completely removed
 * OpenJDK 8 buildable

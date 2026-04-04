@@ -124,7 +124,7 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
      */
     @Test
     public void testWeekNumbersWrapBack() {
-        assertWeekNumbers(Locale.GERMAN, 2011, Calendar.JANUARY, Calendar.SATURDAY, 52, 6);
+        assertWeekNumbers(Locale.GERMAN, 2011, Calendar.JANUARY, Calendar.SATURDAY, 1, 6);
     }
     
     /**
@@ -176,7 +176,7 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
      */
     @Test
     public void testWeekNumbersFull6() {
-        assertWeekNumbers(Locale.GERMAN, 2012, Calendar.APRIL, Calendar.SUNDAY, 13, 6);
+        assertWeekNumbers(Locale.GERMAN, 2012, Calendar.APRIL, Calendar.SUNDAY, 14, 5);
     }
 
     /**
@@ -186,7 +186,7 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
      */
     @Test
     public void testWeekNumbersMinimum4() {
-        assertWeekNumbers(Locale.GERMAN, 2010, Calendar.FEBRUARY, Calendar.MONDAY, 5, 4);
+        assertWeekNumbers(Locale.GERMAN, 2010, Calendar.FEBRUARY, Calendar.MONDAY, 6, 5);
     }
     
 
