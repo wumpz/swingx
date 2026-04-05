@@ -21,6 +21,8 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.util.logging.Logger;
 
 import javax.swing.AbstractButton;
@@ -30,9 +32,7 @@ import javax.swing.tree.TreeCellRenderer;
 import org.jdesktop.swingx.calendar.DatePickerFormatter;
 import org.jdesktop.swingx.renderer.DefaultTreeRenderer;
 import org.jdesktop.test.SerializableSupport;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -40,7 +40,6 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class SerializableTest extends InteractiveTestCase {
     @SuppressWarnings("unused")
     private static final Logger LOG = Logger

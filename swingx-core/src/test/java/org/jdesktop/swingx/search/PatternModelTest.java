@@ -6,16 +6,14 @@
  */
 package org.jdesktop.swingx.search;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.List;
 
-import junit.framework.TestCase;
-
 import org.jdesktop.test.PropertyChangeReport;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -23,8 +21,7 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
-public class PatternModelTest extends TestCase {
+public class PatternModelTest {
 
     final static String startAnchor = "^";
     final static String endAnchor = "$";
@@ -33,14 +30,13 @@ public class PatternModelTest extends TestCase {
     private PropertyChangeReport propertyReport;
 
 
-    @Before
+    @BeforeEach
     public void setUpJ4() throws Exception {
         setUp();
     }
     
-    @After
+    @AfterEach
     public void tearDownJ4() throws Exception {
-        tearDown();
     }
     
     /**
@@ -51,14 +47,14 @@ public class PatternModelTest extends TestCase {
     public void testFoundIndexAutoAdjustBackward() {
         PatternModel model = new PatternModel();
         model.setBackwards(true);
-        assertTrue("is autoAdjust by default", model.isAutoAdjustFoundIndex());
+        assertTrue(model.isAutoAdjustFoundIndex(), "is autoAdjust by default");
         model.addPropertyChangeListener(propertyReport);
         int foundIndex = 10;
         model.setFoundIndex(foundIndex);
         // assert changed value
-        assertEquals("foundIndex must be set", foundIndex -1, model.getFoundIndex());
-        assertTrue("changing foundIndex must have fired foundIndex property", 
-                propertyReport.hasEvents("foundIndex"));
+        assertEquals(foundIndex -1, model.getFoundIndex(), "foundIndex must be set");
+        assertTrue(propertyReport.hasEvents("foundIndex"), 
+                "changing foundIndex must have fired foundIndex property");
     }
 
     /**
@@ -68,12 +64,12 @@ public class PatternModelTest extends TestCase {
     @Test
     public void testFoundIndexAutoAdjustNotFound() {
         PatternModel model = new PatternModel();
-        assertTrue("is autoAdjust by default", model.isAutoAdjustFoundIndex());
+        assertTrue(model.isAutoAdjustFoundIndex(), "is autoAdjust by default");
         model.addPropertyChangeListener(propertyReport);
         int foundIndex = -1;
         model.setFoundIndex(foundIndex);
         // assert changed value
-        assertEquals("foundIndex must be set", foundIndex, model.getFoundIndex());
+        assertEquals(foundIndex, model.getFoundIndex(), "foundIndex must be set");
     }
 
 
@@ -84,14 +80,14 @@ public class PatternModelTest extends TestCase {
     @Test
     public void testFoundIndexAutoAdjustForward() {
         PatternModel model = new PatternModel();
-        assertTrue("is autoAdjust by default", model.isAutoAdjustFoundIndex());
+        assertTrue(model.isAutoAdjustFoundIndex(), "is autoAdjust by default");
         model.addPropertyChangeListener(propertyReport);
         int foundIndex = 10;
         model.setFoundIndex(foundIndex);
         // assert changed value
-        assertEquals("foundIndex must be set", foundIndex + 1, model.getFoundIndex());
-        assertTrue("changing foundIndex must have fired foundIndex property", 
-                propertyReport.hasEvents("foundIndex"));
+        assertEquals(foundIndex + 1, model.getFoundIndex(), "foundIndex must be set");
+        assertTrue(propertyReport.hasEvents("foundIndex"), 
+                "changing foundIndex must have fired foundIndex property");
     }
 
     /**
@@ -103,34 +99,34 @@ public class PatternModelTest extends TestCase {
         PatternModel model = new PatternModel();
         model.setIncremental(true);
         // assert initial value
-        assertEquals("not found on start", -1, model.getFoundIndex());
+        assertEquals(-1, model.getFoundIndex(), "not found on start");
         model.addPropertyChangeListener(propertyReport);
         model.setFoundIndex(10);
         // assert changed value
-        assertEquals("foundIndex must be set", 10, model.getFoundIndex());
-        assertTrue("changing foundIndex must have fired foundIndex property", 
-                propertyReport.hasEvents("foundIndex"));
+        assertEquals(10, model.getFoundIndex(), "foundIndex must be set");
+        assertTrue(propertyReport.hasEvents("foundIndex"), 
+                "changing foundIndex must have fired foundIndex property");
     }
     
     @Test
     public void testCaseSensitive() {
         PatternModel model = new PatternModel();
         model.setRawText("tab");
-        assertTrue("must find not case sensitive by default", 
-                model.getPattern().matcher("JTABLE").find());
+        assertTrue(model.getPattern().matcher("JTABLE").find(), 
+                "must find not case sensitive by default");
         model.addPropertyChangeListener(propertyReport);
         model.setCaseSensitive(true);
-        assertTrue("changing case sensitive must fire casesensitive property", 
-                propertyReport.hasEvents("caseSensitive"));
-        assertTrue("changing case sensitive must fire pattern property", 
-                propertyReport.hasEvents("pattern"));
+        assertTrue(propertyReport.hasEvents("caseSensitive"), 
+                "changing case sensitive must fire casesensitive property");
+        assertTrue(propertyReport.hasEvents("pattern"), 
+                "changing case sensitive must fire pattern property");
         
     }
     @Test
     public void testAvailableMatchRules() {
         PatternModel model = new PatternModel();
         List<?> rules = model.getMatchRules();
-        assertNotNull("rules must not be null", rules);
+        assertNotNull(rules, "rules must not be null");
     }
     
     @Test
@@ -138,7 +134,7 @@ public class PatternModelTest extends TestCase {
         PatternModel model = new PatternModel();
         model.addPropertyChangeListener(propertyReport);
         model.setRegexCreatorKey(PatternModel.REGEX_UNCHANGED);
-        assertEquals("search string mode must be", PatternModel.REGEX_UNCHANGED, model.getRegexCreatorKey());
+        assertEquals(PatternModel.REGEX_UNCHANGED, model.getRegexCreatorKey(), "search string mode must be");
         assertTrue(propertyReport.hasEvents("regexCreatorKey"));
         
 //        model.setSearchStringMode(PatternModel.SEARCH_STRING_ANCHORED);
@@ -151,14 +147,14 @@ public class PatternModelTest extends TestCase {
         PatternModel model = new PatternModel();
         model.addPropertyChangeListener(propertyReport);
         // default searchStringMode
-        assertEquals("search string mode must be", 
-                PatternModel.REGEX_MATCH_RULES, model.getRegexCreatorKey());
+        assertEquals(PatternModel.REGEX_MATCH_RULES, 
+                model.getRegexCreatorKey(), "search string mode must be");
         // default searchCategory
-        assertEquals("search category must be ", 
-                PatternModel.MATCH_RULE_CONTAINS, model.getMatchRule());
+        assertEquals(PatternModel.MATCH_RULE_CONTAINS, 
+                model.getMatchRule(), "search category must be ");
         // change category and test if property change is fired
         model.setMatchRule(PatternModel.MATCH_RULE_EQUALS);
-        assertTrue("model must have fired " + "matchRule ", propertyReport.hasEvents("matchRule"));
+        assertTrue(propertyReport.hasEvents("matchRule"), "model must have fired " + "matchRule ");
     }
     
     @Test
@@ -167,17 +163,17 @@ public class PatternModelTest extends TestCase {
         String contained = "t";
         model.setRawText(contained);
         String match = "x" + contained + "x";
-        assertTrue("pattern must find " + match, model.getPattern().matcher(match).find());
+        assertTrue(model.getPattern().matcher(match).find(), "pattern must find " + match);
         model.addPropertyChangeListener(propertyReport);
         model.setMatchRule(PatternModel.MATCH_RULE_EQUALS);
-        assertTrue("model must have fire pattern change", propertyReport.hasEvents("pattern"));
-        assertFalse("pattern must reject " + match, model.getPattern().matcher(match).find());
+        assertTrue(propertyReport.hasEvents("pattern"), "model must have fire pattern change");
+        assertFalse(model.getPattern().matcher(match).find(), "pattern must reject " + match);
         model.setMatchRule(PatternModel.MATCH_RULE_STARTSWITH);
         match = "txx";
-        assertTrue("pattern must find " + match, model.getPattern().matcher(match).find());
+        assertTrue(model.getPattern().matcher(match).find(), "pattern must find " + match);
         model.setMatchRule(PatternModel.MATCH_RULE_ENDSWITH);
         match = "xxt";
-        assertTrue("pattern must find " + match, model.getPattern().matcher(match).find());
+        assertTrue(model.getPattern().matcher(match).find(), "pattern must find " + match);
     }
     
     /**
@@ -189,10 +185,10 @@ public class PatternModelTest extends TestCase {
         PatternModel patternModel = new PatternModel();
         patternModel.setRawText(startAnchor);
         String literalAnchor = "some" + startAnchor +"one";
-        assertTrue("must find literal containing startAnchor " + literalAnchor, patternModel.getPattern().matcher(literalAnchor).find());
+        assertTrue(patternModel.getPattern().matcher(literalAnchor).find(), "must find literal containing startAnchor " + literalAnchor);
         String literal = "someone";
-        assertFalse("must reject literal not containing startAnchor " + literal, 
-                patternModel.getPattern().matcher(literal).find());
+        assertFalse(patternModel.getPattern().matcher(literal).find(), 
+                "must reject literal not containing startAnchor " + literal);
     }
     
     /**
@@ -205,14 +201,14 @@ public class PatternModelTest extends TestCase {
         String anchored = startAnchor + "hap";
         patternModel.setRawText(anchored);
         String literalAnchor = startAnchor + "happy";
-        assertTrue("must find literal containing startAnchor " + literalAnchor, patternModel.getPattern().matcher(literalAnchor).find());
+        assertTrue(patternModel.getPattern().matcher(literalAnchor).find(), "must find literal containing startAnchor " + literalAnchor);
         String literal = "happy";
-        assertFalse("must reject literal not containing startAnchor " + literal, 
-                patternModel.getPattern().matcher(literal).find());
+        assertFalse(patternModel.getPattern().matcher(literal).find(), 
+                "must reject literal not containing startAnchor " + literal);
     }
 
-    @Override
-    protected void setUp()  {
+    @BeforeEach
+    public void setUp()  {
         propertyReport = new PropertyChangeReport();
     }
     

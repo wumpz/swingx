@@ -41,8 +41,6 @@ import org.jdesktop.swingx.renderer.StringValues;
 import org.jdesktop.swingx.test.XTestUtils;
 import org.jdesktop.swingx.treetable.FileSystemModel;
 import org.jdesktop.test.AncientSwingTeam;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
 
 /**
@@ -50,7 +48,6 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class HighlighterClientVisualCheck extends InteractiveTestCase  {
     
     public static void main(String[] args) {

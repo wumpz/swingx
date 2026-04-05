@@ -4,6 +4,8 @@
  */
 package org.jdesktop.swingx.event;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
 import java.util.Date;
@@ -21,17 +23,14 @@ import javax.swing.KeyStroke;
 
 import org.jdesktop.swingx.InteractiveTestCase;
 import org.jdesktop.swingx.JXDatePicker;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit and visual test for KeyBindingDispatcher.
  * 
  * @author Jeanette Winzenburg, Berlin
  */
-@RunWith(JUnit4.class)
 public class KeyBindingDispatcherTest extends InteractiveTestCase {
     
     
@@ -116,7 +115,7 @@ public class KeyBindingDispatcherTest extends InteractiveTestCase {
     public void testBindKeyStrokeActionAutoKey() {
         dispatcher.bind(enter, action);
         Object key = dispatcher.get(enter);
-        assertNotNull("auto-key must be created", key);
+        assertNotNull(key, "auto-key must be created");
         assertEquals(action, dispatcher.get(key));
     }
     
@@ -131,17 +130,17 @@ public class KeyBindingDispatcherTest extends InteractiveTestCase {
         dispatcher.bind(enter, action);
         KeyStroke f1 = KeyStroke.getKeyStroke("F1");
         dispatcher.bind(f1 , dummy);
-        assertFalse("auto-keys must be unique " + dispatcher.get(f1) + dispatcher.get(enter), 
-                dispatcher.get(f1).equals(dispatcher.get(enter)));
+        assertFalse(dispatcher.get(f1).equals(dispatcher.get(enter)), 
+                "auto-keys must be unique " + dispatcher.get(f1) + dispatcher.get(enter));
     }
     
-    @Test(expected= NullPointerException.class)
+    @Test
     public void testBindKeyStrokeActionNullKey() {
-        dispatcher.bind(enter,  action, null);
+        assertThrows(NullPointerException.class, () ->
+            dispatcher.bind(enter, action, null));
     }
     
-    @Override
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         dispatcher = new KeyBindingDispatcher();
         enter = KeyStroke.getKeyStroke("ENTER");

@@ -83,6 +83,7 @@ import org.jdesktop.swingx.test.XTestUtils;
 import org.jdesktop.swingx.treetable.FileSystemModel;
 import org.jdesktop.swingx.util.PaintUtils;
 import org.jdesktop.test.AncientSwingTeam;
+import org.junit.jupiter.api.Test;
 
 /**
  * Experiments with highlighters using painters.<p>
@@ -751,6 +752,7 @@ public class PainterVisualCheck extends InteractiveTestCase {
      * test fixtures to run.
      *
      */
+    @Test
     public void testDummy() {
         
     }

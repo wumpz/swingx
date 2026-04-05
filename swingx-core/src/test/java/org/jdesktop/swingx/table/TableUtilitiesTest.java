@@ -12,6 +12,9 @@ import static org.jdesktop.swingx.table.TableUtilities.isUpdate;
 import static org.jdesktop.swingx.table.TableUtilities.ordinalsOf;
 
 import javax.swing.JTable;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -19,11 +22,9 @@ import javax.swing.table.TableModel;
 
 import org.jdesktop.swingx.InteractiveTestCase;
 import org.jdesktop.swingx.JXTable;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
-@RunWith(JUnit4.class)
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 public class TableUtilitiesTest extends InteractiveTestCase {
     
     @Test
@@ -88,10 +89,12 @@ public class TableUtilitiesTest extends InteractiveTestCase {
         THIRD
     }
     
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testPrefRowHeightInvalidRow() {
-        JTable table = new JTable(10, 3);
-        assertEquals(table.getRowHeight(), TableUtilities.getPreferredRowHeight(table, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            JTable table = new JTable(10, 3);
+            assertEquals(table.getRowHeight(), TableUtilities.getPreferredRowHeight(table, -1));
+        });
     }
     
     @Test
@@ -100,9 +103,10 @@ public class TableUtilitiesTest extends InteractiveTestCase {
         assertEquals(table.getRowHeight(), TableUtilities.getPreferredRowHeight(table, -1));
     }
     
-    @Test (expected = NullPointerException.class)
+    @Test
     public void testPrefRowHeightMustBarkOnNull() {
-        TableUtilities.getPreferredRowHeight(null, -1);
+        assertThrows(NullPointerException.class, () ->
+            TableUtilities.getPreferredRowHeight(null, -1));
     }
     
     
@@ -182,8 +186,7 @@ public class TableUtilitiesTest extends InteractiveTestCase {
         return new DefaultTableModel();
     }
 
-    @Override
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
     }
     

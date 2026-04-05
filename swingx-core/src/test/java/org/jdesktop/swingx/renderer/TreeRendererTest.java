@@ -21,6 +21,8 @@
  */
 package org.jdesktop.swingx.renderer;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
@@ -63,9 +65,8 @@ import org.jdesktop.swingx.hyperlink.LinkModel;
 import org.jdesktop.swingx.test.ActionMapTreeTableModel;
 import org.jdesktop.swingx.test.ComponentTreeTableModel;
 import org.jdesktop.swingx.treetable.FileSystemModel;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -75,7 +76,6 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class TreeRendererTest extends InteractiveTestCase {
     @SuppressWarnings("all")
     private static final Logger LOG = Logger.getLogger(TreeRendererTest.class
@@ -84,9 +84,9 @@ public class TreeRendererTest extends InteractiveTestCase {
     private DefaultTreeCellRenderer coreTreeRenderer;
     private DefaultTreeRenderer xTreeRenderer;
 
-    
-    @Override
-    protected void setUp() throws Exception {
+
+    @BeforeEach
+    public void setUp() throws Exception {
 //        setSystemLF(true);
 //        LOG.info("LF: " + UIManager.getLookAndFeel());
 //        LOG.info("Theme: " + ((MetalLookAndFeel) UIManager.getLookAndFeel()).getCurrentTheme());
@@ -142,7 +142,7 @@ public class TreeRendererTest extends InteractiveTestCase {
         Color foreground = context.rendererComponent.getForeground();
         tree.setCellRenderer(new DefaultTreeRenderer(new WrappingProvider(context)));
         tree.getCellRenderer().getTreeCellRendererComponent(tree, "something", false, false, false, -1, false);
-        assertEquals("hyperlink color must be preserved", foreground, context.rendererComponent.getForeground());
+        assertEquals(foreground, context.rendererComponent.getForeground(), "hyperlink color must be preserved");
     }
     
     /**

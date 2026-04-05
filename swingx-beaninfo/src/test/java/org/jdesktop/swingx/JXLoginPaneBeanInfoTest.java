@@ -1,8 +1,8 @@
 package org.jdesktop.swingx;
 
 import org.jdesktop.beans.AbstractBeanInfoTest;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 public class JXLoginPaneBeanInfoTest extends AbstractBeanInfoTest<JXLoginPane> {
     @Override
@@ -15,7 +15,7 @@ public class JXLoginPaneBeanInfoTest extends AbstractBeanInfoTest<JXLoginPane> {
      */
     @Test
     @Override
-    @Ignore("serialization fails")
+    @Disabled("serialization fails")
     public void testSerialization() {
         super.testSerialization();
     }

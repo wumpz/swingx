@@ -18,6 +18,8 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -78,6 +80,8 @@ import org.jdesktop.swingx.calendar.SingleDaySelectionModel;
 import org.jdesktop.swingx.calendar.DateSelectionModel.SelectionMode;
 import org.jdesktop.swingx.plaf.LookAndFeelAddons;
 import org.jdesktop.test.VerticalLayoutPref;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Simple tests to ensure that the {@code JXDatePicker} can be instantiated and
@@ -95,10 +99,6 @@ public class JXDatePickerVisualCheck extends InteractiveTestCase {
     private Calendar calendar;
     /** flag to decide if the menubar should be created */
     private boolean showMenu;
-
-    public JXDatePickerVisualCheck() {
-        super("JXDatePicker Test");
-    }
 
     public static void main(String[] args) throws Exception {
        UIManager.put("JXDatePicker.forceZoomable", Boolean.TRUE);
@@ -1268,11 +1268,10 @@ public class JXDatePickerVisualCheck extends InteractiveTestCase {
         JXDatePicker datePicker = new JXDatePicker();
         showInFrame(datePicker, "show date picker");
     }
-    
 
-    
-    @Override
-    protected void setUp() throws Exception {
+
+    @BeforeEach
+    public void setUp() throws Exception {
         calendar = Calendar.getInstance();
     }
 
@@ -1331,7 +1330,6 @@ public class JXDatePickerVisualCheck extends InteractiveTestCase {
         }
         return frame;
     }
-    
 
 
     /**
@@ -1339,6 +1337,7 @@ public class JXDatePickerVisualCheck extends InteractiveTestCase {
      * (would output a warning without a test fixture).
      *
      */
+    @Test
     public void testDummy() {
         
     }

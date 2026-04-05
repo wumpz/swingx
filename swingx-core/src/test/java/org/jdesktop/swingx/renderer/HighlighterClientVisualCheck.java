@@ -82,6 +82,8 @@ import org.jdesktop.swingx.search.PatternMatcher;
 import org.jdesktop.swingx.treetable.FileSystemModel;
 import org.jdesktop.swingx.util.PaintUtils;
 import org.jdesktop.test.AncientSwingTeam;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * visual checks of highlighter clients. Mostly by example of JXTable.
@@ -951,10 +953,9 @@ public class HighlighterClientVisualCheck extends InteractiveTestCase {
         showWithScrollingInFrame(table, "Alternate white/gray striping");
     }
 
-    
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+
+    @BeforeEach
+    public void setUp() throws Exception {
          tableModel = new AncientSwingTeam();
      }
 
@@ -963,6 +964,7 @@ public class HighlighterClientVisualCheck extends InteractiveTestCase {
      * (would output a warning without a test fixture).
      *
      */
+    @Test
     public void testDummy() {
         
     }

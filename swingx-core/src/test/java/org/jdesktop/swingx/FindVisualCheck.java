@@ -38,6 +38,8 @@ import org.jdesktop.swingx.search.FindTest.TestListModel;
 import org.jdesktop.swingx.search.FindTest.TestTableModel;
 import org.jdesktop.swingx.treetable.FileSystemModel;
 import org.jdesktop.test.AncientSwingTeam;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class FindVisualCheck extends InteractiveTestCase {
     @SuppressWarnings("unused")
@@ -56,17 +58,14 @@ public class FindVisualCheck extends InteractiveTestCase {
           e.printStackTrace();
       }
   }
-    @Override
-    protected void setUp() {
+
+    @BeforeEach
+    public void setUp() {
         editorURL = FindVisualCheck.class.getResource("resources/test.txt");
     }
     
 
     private URL editorURL;
-
-    public FindVisualCheck() {
-        super("Find Action Test");
-    }
 
     public void interactiveTableSearchColumn() {
         JXTable table = new JXTable();
@@ -392,12 +391,11 @@ public class FindVisualCheck extends InteractiveTestCase {
         showComponent(component, null, title);
     }
 
-    
-    
 
     /**
      * Do nothing, keep testRunner happy.
      */
+    @Test
     public void testDummy() {
         
     }

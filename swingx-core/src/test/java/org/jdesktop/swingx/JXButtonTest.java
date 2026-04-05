@@ -25,8 +25,8 @@ package org.jdesktop.swingx;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assume.assumeThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.junit.MatcherAssume.assumeThat;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -34,9 +34,9 @@ import java.awt.GraphicsEnvironment;
 
 import org.jdesktop.swingx.painter.MattePainter;
 import org.jdesktop.test.EDTRunner;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * Unit test for <code>JXButton</code>.
@@ -48,11 +48,11 @@ import org.junit.runner.RunWith;
  * @author Karl Schaefer
  */
 @SuppressWarnings("nls")
-@RunWith(EDTRunner.class)
+@ExtendWith(EDTRunner.class)
 public class JXButtonTest {
     private JXButton button;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         assumeThat(GraphicsEnvironment.isHeadless(), is(false));
         button = new JXButton();

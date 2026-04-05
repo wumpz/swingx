@@ -1,11 +1,10 @@
 package org.jdesktop.test.matchers;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 import org.mockito.ArgumentMatcher;
 

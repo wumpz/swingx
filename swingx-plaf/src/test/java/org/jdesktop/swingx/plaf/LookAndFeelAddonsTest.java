@@ -8,9 +8,9 @@ package org.jdesktop.swingx.plaf;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Color;
 import java.util.logging.Logger;
@@ -31,10 +31,10 @@ import org.jdesktop.swingx.painter.MattePainter;
 import org.jdesktop.swingx.painter.Painter;
 import org.jdesktop.swingx.plaf.metal.MetalLookAndFeelAddons;
 import org.jdesktop.test.EDTRunner;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@RunWith(EDTRunner.class)
+@ExtendWith(EDTRunner.class)
 @SuppressWarnings("nls")
 public class LookAndFeelAddonsTest {
     
@@ -58,25 +58,28 @@ public class LookAndFeelAddonsTest {
      * Ensure that an exception is thrown when a component is passed in that does
      * not contain get/setBackgroundPainter.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testInstallBackgroundPainterWithoutPainterCapable() {
-        LookAndFeelAddons.installBackgroundPainter(new JPanel(), null);
+        assertThrows(IllegalArgumentException.class, () ->
+            LookAndFeelAddons.installBackgroundPainter(new JPanel(), null));
     }
     
     /**
      * Ensure that an exception is thrown when a {@code null} key is passed in.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testInstallBackgroundPainterWithNullComponent() {
-        LookAndFeelAddons.installBackgroundPainter(null, "test.painter");
+        assertThrows(NullPointerException.class, () ->
+            LookAndFeelAddons.installBackgroundPainter(null, "test.painter"));
     }
     
     /**
      * Ensure that an exception is thrown when a {@code null} key is passed in.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testInstallBackgroundPainterWithNullPainterKey() {
-        LookAndFeelAddons.installBackgroundPainter(new BackgroundPainterTestingComponent(), null);
+        assertThrows(NullPointerException.class, () ->
+            LookAndFeelAddons.installBackgroundPainter(new BackgroundPainterTestingComponent(), null));
     }
 
     /**

@@ -7,23 +7,22 @@
 
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 
 /**
  *
  * @author rbair
  */
-@RunWith(JUnit4.class)
-public class JXStatusBarTest extends junit.framework.TestCase {
+public class JXStatusBarTest {
     
     /**
      * This test ensures that after the LAF is switched, the Border and

@@ -7,6 +7,8 @@
 
 package org.jdesktop.swingx.decorator;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
@@ -39,10 +41,8 @@ import org.jdesktop.swingx.renderer.WrappingIconPanel;
 import org.jdesktop.swingx.test.XTestUtils;
 import org.jdesktop.test.ChangeReport;
 import org.jdesktop.test.PropertyChangeReport;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -51,7 +51,6 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class HighlighterTest extends InteractiveTestCase {
     private static final Logger LOG = Logger.getLogger(HighlighterTest.class
             .getName());
@@ -85,8 +84,7 @@ public class HighlighterTest extends InteractiveTestCase {
     protected boolean defaultToSystemLF;
 
     protected Font tableFont;
-    @Override
-    @Before
+    @BeforeEach
        public void setUp() {
         backgroundNull = new JLabel("test");
         backgroundNull.setForeground(foreground);
@@ -499,20 +497,26 @@ public class HighlighterTest extends InteractiveTestCase {
     }
     
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testAlignmentHighlighterSetAlignmentInvalid() {
-        AlignmentHighlighter hl = new AlignmentHighlighter();
-        hl.setHorizontalAlignment(SwingConstants.TOP);
+        assertThrows(IllegalArgumentException.class, () -> {
+            AlignmentHighlighter hl = new AlignmentHighlighter();
+            hl.setHorizontalAlignment(SwingConstants.TOP);
+        });
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testAlignmentHighlighterConstructorAlignmentInvalid() {
-        new AlignmentHighlighter(SwingConstants.TOP);
+        assertThrows(IllegalArgumentException.class, () -> {
+            new AlignmentHighlighter(SwingConstants.TOP);
+        });
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testAlignmentHighlighterConstructorAlignmentInvalid2() {
-        new AlignmentHighlighter(null, SwingConstants.TOP);
+        assertThrows(IllegalArgumentException.class, () -> {
+            new AlignmentHighlighter(null, SwingConstants.TOP);
+        });
     }
     
     
@@ -664,16 +668,16 @@ public class HighlighterTest extends InteractiveTestCase {
         hl.addChangeListener(report);
         Border padding = BorderFactory.createLineBorder(Color.RED, 3);
         hl.setBorder(padding);
-        assertEquals("sanity: border set", padding, hl.getBorder());
-        assertEquals("must fire on setting border", 1, report.getEventCount());
+        assertEquals(padding, hl.getBorder(), "sanity: border set");
+        assertEquals(1, report.getEventCount(), "must fire on setting border");
         report.clear();
         hl.setBorder(padding);
-        assertEquals("must not fire on setting the same border", 0, report.getEventCount());
+        assertEquals(0, report.getEventCount(), "must not fire on setting the same border");
         hl.setBorder(null);
-        assertEquals("must fire on setting border null", 1, report.getEventCount());
+        assertEquals(1, report.getEventCount(), "must fire on setting border null");
         report.clear();
         hl.setBorder(null);
-        assertEquals("must not fire setting same null border", 0, report.getEventCount());
+        assertEquals(0, report.getEventCount(), "must not fire setting same null border");
     }
     
     
@@ -682,8 +686,8 @@ public class HighlighterTest extends InteractiveTestCase {
         BorderHighlighter empty = new BorderHighlighter();
         Border border = allColored.getBorder();
         empty.highlight(allColored, createComponentAdapter(allColored));
-        assertEquals("borderHighlighter without padding must not change the component", 
-                border, allColored.getBorder());
+        assertEquals(border, 
+                allColored.getBorder(), "borderHighlighter without padding must not change the component");
     }
 
     @Test
@@ -695,10 +699,10 @@ public class HighlighterTest extends InteractiveTestCase {
         empty.highlight(allColored, createComponentAdapter(allColored));
         Border compound = allColored.getBorder();
         assertTrue(compound instanceof CompoundBorder);
-        assertEquals("borderHighlighter with padding and outer compound must have outside", 
-                border, ((CompoundBorder) compound).getOutsideBorder());
-        assertEquals("borderHighlighter with padding and outer compound must have inside", 
-                padding, ((CompoundBorder) compound).getInsideBorder());
+        assertEquals(border, 
+                ((CompoundBorder) compound).getOutsideBorder(), "borderHighlighter with padding and outer compound must have outside");
+        assertEquals(padding, 
+                ((CompoundBorder) compound).getInsideBorder(), "borderHighlighter with padding and outer compound must have inside");
     }
 
     @Test
@@ -709,10 +713,10 @@ public class HighlighterTest extends InteractiveTestCase {
         empty.highlight(allColored, createComponentAdapter(allColored));
         Border compound = allColored.getBorder();
         assertTrue(compound instanceof CompoundBorder);
-        assertEquals("borderHighlighter with padding and outer compound must have outside", 
-                padding, ((CompoundBorder) compound).getOutsideBorder());
-        assertEquals("borderHighlighter with padding and outer compound must have inside", 
-                border, ((CompoundBorder) compound).getInsideBorder());
+        assertEquals(padding, 
+                ((CompoundBorder) compound).getOutsideBorder(), "borderHighlighter with padding and outer compound must have outside");
+        assertEquals(border, 
+                ((CompoundBorder) compound).getInsideBorder(), "borderHighlighter with padding and outer compound must have inside");
     }
     
     @Test
@@ -720,8 +724,8 @@ public class HighlighterTest extends InteractiveTestCase {
         Border padding = BorderFactory.createLineBorder(Color.RED, 3);
         BorderHighlighter empty = new BorderHighlighter(null, padding, false);
         empty.highlight(allColored, createComponentAdapter(allColored));
-        assertEquals("borderHighlighter padding and not-compound must replace", 
-                padding, allColored.getBorder());
+        assertEquals(padding, 
+                allColored.getBorder(), "borderHighlighter padding and not-compound must replace");
     }
     
     @Test
@@ -730,8 +734,8 @@ public class HighlighterTest extends InteractiveTestCase {
         BorderHighlighter empty = new BorderHighlighter(padding);
         allColored.setBorder(null);
         empty.highlight(allColored, createComponentAdapter(allColored));
-        assertEquals("borderHighlighter padding and null component border must set", 
-                padding, allColored.getBorder());
+        assertEquals(padding, 
+                allColored.getBorder(), "borderHighlighter padding and null component border must set");
     }
     @Test
     public void testBorderConstructors() {
@@ -798,11 +802,11 @@ public class HighlighterTest extends InteractiveTestCase {
     
     private void assertColorsAndPredicate(ColorHighlighter highlighter, HighlightPredicate predicate, Color background,
             Color foreground, Color  selectedBackground, Color selectedForeground) {
-        assertEquals("background", background, highlighter.getBackground());
-        assertEquals("foreground", foreground, highlighter.getForeground());
-        assertEquals("selectedbackground", selectedBackground, highlighter.getSelectedBackground());
-        assertEquals("selectedForeground", selectedForeground, highlighter.getSelectedForeground());
-        assertEquals("predicate", predicate, highlighter.getHighlightPredicate());
+        assertEquals(background, highlighter.getBackground(), "background");
+        assertEquals(foreground, highlighter.getForeground(), "foreground");
+        assertEquals(selectedBackground, highlighter.getSelectedBackground(), "selectedbackground");
+        assertEquals(selectedForeground, highlighter.getSelectedForeground(), "selectedForeground");
+        assertEquals(predicate, highlighter.getHighlightPredicate(), "predicate");
     }
 //----------------- testing change notification ColorHighlighter
 
@@ -834,7 +838,7 @@ public class HighlighterTest extends InteractiveTestCase {
         assertNotSame(color.getRGB(), h.getBackground().getRGB());
         // can be generic grey as well (as per HighLighterFactory treatment of cases with no LAF defined)
         boolean found = h.getBackground().equals( uiColor) || h.getBackground().equals(HighlighterFactory.GENERIC_GRAY);
-        assertTrue("Found " + h.getBackground() + " while expected " + uiColor, found);
+        assertTrue(found, "Found " + h.getBackground() + " while expected " + uiColor);
     }
 
     
@@ -856,19 +860,19 @@ public class HighlighterTest extends InteractiveTestCase {
         ChangeReport changeReport = new ChangeReport();
         highlighter.addChangeListener(changeReport);
         highlighter.setBackground(Color.red);
-        assertEquals("event count ", count,  changeReport.getEventCount() );
+        assertEquals(count, changeReport.getEventCount(),  "event count " );
         changeReport.clear();
         highlighter.setForeground(Color.red);
-        assertEquals("event count ", count,  changeReport.getEventCount() );
+        assertEquals(count, changeReport.getEventCount(),  "event count " );
         changeReport.clear();
         highlighter.setSelectedBackground(Color.red);
-        assertEquals("event count ", count,  changeReport.getEventCount() );
+        assertEquals(count, changeReport.getEventCount(),  "event count " );
         changeReport.clear();
         highlighter.setSelectedForeground(Color.red);
-        assertEquals("event count ", count,  changeReport.getEventCount() );
+        assertEquals(count, changeReport.getEventCount(),  "event count " );
         changeReport.clear();
         highlighter.setHighlightPredicate(HighlightPredicate.NEVER);
-        assertEquals("event count ", count, changeReport.getEventCount());
+        assertEquals(count, changeReport.getEventCount(), "event count ");
     }
     
     /**
@@ -889,22 +893,22 @@ public class HighlighterTest extends InteractiveTestCase {
         ChangeReport report = new ChangeReport();
         hl.addChangeListener(report);
         hl.setHighlightPredicate(HighlightPredicate.ALWAYS);
-        assertEquals("must not fire on setting same predicate", 0, report.getEventCount());
+        assertEquals(0, report.getEventCount(), "must not fire on setting same predicate");
         report.clear();
         hl.setHighlightPredicate(null);
-        assertEquals("must not fire on setting same predicate", 0, report.getEventCount());
+        assertEquals(0, report.getEventCount(), "must not fire on setting same predicate");
         
     }
 //---------------------- exposing highlighter probs with null component color
     
     @Test
     public void testLabelSanity() {
-        assertNull("foreground must be null", foregroundNull.getForeground());
-        assertNotNull("background must not be null", foregroundNull.getBackground());
-        assertNull("background must be null", backgroundNull.getBackground());
-        assertNotNull("foreground must not be null", backgroundNull.getForeground());
-        assertNull("foreground must be null", allNull.getForeground());
-        assertNull("background must be null", allNull.getBackground());
+        assertNull(foregroundNull.getForeground(), "foreground must be null");
+        assertNotNull(foregroundNull.getBackground(), "background must not be null");
+        assertNull(backgroundNull.getBackground(), "background must be null");
+        assertNotNull(backgroundNull.getForeground(), "foreground must not be null");
+        assertNull(allNull.getForeground(), "foreground must be null");
+        assertNull(allNull.getBackground(), "background must be null");
         assertEquals(background, allColored.getBackground());
         assertEquals(foreground, allColored.getForeground());
     }
@@ -1006,25 +1010,25 @@ public class HighlighterTest extends InteractiveTestCase {
         highlighter.highlight(label, adapter);
         if (!adapter.isSelected()) {
             if (highlighter.getBackground() == null) {
-                assertEquals("unselected: background must not be changed", labelBackground, label.getBackground());
+                assertEquals(labelBackground, label.getBackground(), "unselected: background must not be changed");
             } else {
-                assertEquals("unselected: background must be changed", highlighter.getBackground(), label.getBackground());
+                assertEquals(highlighter.getBackground(), label.getBackground(), "unselected: background must be changed");
             }
             if (highlighter.getForeground() == null) {
-                assertEquals("unselected: forground must not be changed", labelForeground, label.getForeground());
+                assertEquals(labelForeground, label.getForeground(), "unselected: forground must not be changed");
             } else {
-                assertEquals("unselected: forground must be changed", highlighter.getForeground(), label.getForeground());
+                assertEquals(highlighter.getForeground(), label.getForeground(), "unselected: forground must be changed");
             }
         } else {
             if (highlighter.getSelectedBackground() == null) {
-                assertEquals("selected: background must not be changed", labelBackground, label.getBackground());
+                assertEquals(labelBackground, label.getBackground(), "selected: background must not be changed");
             } else {
-                assertEquals("selected: background must be changed", highlighter.getSelectedBackground(), label.getBackground());
+                assertEquals(highlighter.getSelectedBackground(), label.getBackground(), "selected: background must be changed");
             }
             if (highlighter.getSelectedForeground() == null) {
-                assertEquals("selected: forground must not be changed", labelForeground, label.getForeground());
+                assertEquals(labelForeground, label.getForeground(), "selected: forground must not be changed");
             } else {
-                assertEquals("selected: forground must be changed", highlighter.getSelectedForeground(), label.getForeground());
+                assertEquals(highlighter.getSelectedForeground(), label.getForeground(), "selected: forground must be changed");
             }
             
         }

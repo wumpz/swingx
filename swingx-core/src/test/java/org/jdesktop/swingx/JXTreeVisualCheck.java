@@ -20,6 +20,9 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;

@@ -3,51 +3,40 @@
  */
 package org.jdesktop.test;
 
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.swing.SwingUtilities;
 
-import org.junit.runner.notification.Failure;
-import org.junit.runner.notification.RunNotifier;
-import org.junit.runners.BlockJUnit4ClassRunner;
-import org.junit.runners.model.InitializationError;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.InvocationInterceptor;
+import org.junit.jupiter.api.extension.ReflectiveInvocationContext;
+import org.mockito.invocation.Invocation;
  
 /**
  * A test runner for JUnit that ensures that all tests are run on the EDT.
+ * 
+ * This one is an example of junit 5 documentation.
  */
-public class EDTRunner extends BlockJUnit4ClassRunner {
-    /**
-     * Creates a test runner for the specified test class.
-     * 
-     * @param klass
-     *            the class to test
-     * @throws InitializationError
-     *             if a problem occurs during object construction
-     */
-    public EDTRunner(Class<?> klass) throws InitializationError {
-        super(klass);
-    }
- 
-    /**
-     * {@inheritDoc}
-     */
+public class EDTRunner implements InvocationInterceptor {
     @Override
-    public void run(final RunNotifier notifier) {
-        if (SwingUtilities.isEventDispatchThread()) {
-            super.run(notifier);
-        } else {
+    public void interceptTestMethod(Invocation<Void> invocation,
+            ReflectiveInvocationContext<Method> invocationContext,
+            ExtensionContext extensionContext) throws Throwable {
+
+        AtomicReference<Throwable> throwable = new AtomicReference<>();
+
+        SwingUtilities.invokeAndWait(() -> {
             try {
-                SwingUtilities.invokeAndWait(new Runnable() {
-                    @Override
-                    public void run() {
-                        EDTRunner.super.run(notifier);
-                    }
-                });
-            } catch (InterruptedException e) {
-                notifier.fireTestFailure(new Failure(getDescription(), e));
-            } catch (InvocationTargetException e) {
-                notifier.fireTestFailure(new Failure(getDescription(), e.getCause()));
+                invocation.proceed();
             }
+            catch (Throwable t) {
+                throwable.set(t);
+            }
+        });
+        Throwable t = throwable.get();
+        if (t != null) {
+            throw t;
         }
     }
 }

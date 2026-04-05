@@ -46,6 +46,7 @@ import org.jdesktop.swingx.image.FastBlurFilter;
 import org.jdesktop.swingx.painter.MattePainter;
 import org.jdesktop.swingx.painter.Painter;
 import org.jdesktop.swingx.util.PaintUtils;
+import org.junit.jupiter.api.Test;
 
 /**
  * Visual tests of JXButton issues.
@@ -264,6 +265,7 @@ public class JXButtonVisualCheck extends InteractiveTestCase {
     /**
      * do nothing test - keep the testrunner happy.
      */
+    @Test
     public void testDummy() {
     }
 

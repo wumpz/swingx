@@ -21,16 +21,16 @@
  */
 package org.jdesktop.swingx.decorator;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.util.logging.Logger;
 
 import javax.swing.UIManager;
 
 import org.jdesktop.swingx.InteractiveTestCase;
 import org.jdesktop.swingx.JXTable;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 /**
  * Contains UIColorHighlighter/Addon tests (related to Nimbus, sigh).
@@ -38,7 +38,6 @@ import org.junit.runners.JUnit4;
  * PENDING JW: can't really test - addon is a static context: once contributed,
  * no way to uncontribute.
  */
-@RunWith(JUnit4.class)
 public class UIColorHighlighterTest extends InteractiveTestCase {
     
     @SuppressWarnings("unused")
@@ -62,11 +61,11 @@ public class UIColorHighlighterTest extends InteractiveTestCase {
             return;
         }
         setLookAndFeel("Metal");
-        assertNull("alternateRowColor is null", UIManager.getColor(ALTERNATE_COLOR));
+        assertNull(UIManager.getColor(ALTERNATE_COLOR), "alternateRowColor is null");
         setLookAndFeel("Nimbus");
-        assertNotNull("Nimbus without addon has alternate", UIManager.getColor(ALTERNATE_COLOR));
+        assertNotNull(UIManager.getColor(ALTERNATE_COLOR), "Nimbus without addon has alternate");
         setLookAndFeel("Metal");
-        assertNull("alternateRowColor is null", UIManager.getColor(ALTERNATE_COLOR));
+        assertNull(UIManager.getColor(ALTERNATE_COLOR), "alternateRowColor is null");
     }
 
     /**
@@ -100,17 +99,9 @@ public class UIColorHighlighterTest extends InteractiveTestCase {
             return;
         }
         setLookAndFeel("Nimbus");
-        assertNotNull("Nimbus without addon has alternate", UIManager.getColor(ALTERNATE_COLOR));
+        assertNotNull(UIManager.getColor(ALTERNATE_COLOR), "Nimbus without addon has alternate");
         new JXTable();
-        assertNull("Nimbus with addon has alternate removed but was: \n " 
-                + UIManager.getColor(ALTERNATE_COLOR), UIManager.getColor(ALTERNATE_COLOR));
+        assertNull(UIManager.getColor(ALTERNATE_COLOR), "Nimbus with addon has alternate removed but was: \n " 
+                + UIManager.getColor(ALTERNATE_COLOR));
     }
-
-    @Override
-    @Before
-    public void setUp() throws Exception {
-        super.setUp();
-    }
-    
-    
 }

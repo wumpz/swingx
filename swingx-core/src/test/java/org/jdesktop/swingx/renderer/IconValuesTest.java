@@ -21,20 +21,18 @@
  */
 package org.jdesktop.swingx.renderer;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+
 import java.io.File;
 
-import junit.framework.TestCase;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 /**
  *
  * @author Karl George Schaefer
  */
-@RunWith(JUnit4.class)
-public class IconValuesTest extends TestCase {
+public class IconValuesTest {
     @Test
     public void testFileIconWithNonFile() {
         Object o = new Object();

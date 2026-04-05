@@ -21,28 +21,25 @@
  */
 package org.jdesktop.swingx.renderer;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.io.File;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import junit.framework.TestCase;
-
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.renderer.StringValues.StringValueUIResource;
 import org.jdesktop.swingx.search.PatternModel;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  *
  * @author Karl George Schaefer
  */
-@RunWith(JUnit4.class)
-public class StringValuesTest extends TestCase {
+public class StringValuesTest {
 
     @Test
     public void testLocaleSVPrefixNotContained() {
@@ -97,9 +94,11 @@ public class StringValuesTest extends TestCase {
         }
     }
     
-    @Test (expected = NullPointerException.class)
+    @Test
     public void testLocaleStringValueConstructor() {
-        new LocalizableStringValue(null);
+        assertThrows(NullPointerException.class, () -> {
+            new LocalizableStringValue(null);
+        });
     }
     
     @Test
@@ -117,9 +116,11 @@ public class StringValuesTest extends TestCase {
         assertEquals(constant, wrapper.getString("whatever"));
     }
     
-    @Test (expected = NullPointerException.class)
+    @Test
     public void testUIResourceConstructor() {
-        new StringValueUIResource(null);
+        assertThrows(NullPointerException.class, () -> {
+            new StringValueUIResource(null);
+        });
     }
     
     /**
@@ -135,10 +136,10 @@ public class StringValuesTest extends TestCase {
             number.set(Calendar.MONTH, Calendar.DECEMBER);
             Locale.setDefault(Locale.GERMAN);
             String german = StringValues.DATE_TO_STRING.getString(number.getTime());
-            assertTrue("formatted German " + german, german.indexOf(".") >= 0);
+            assertTrue(german.indexOf(".") >= 0, "formatted German " + german);
             Locale.setDefault(Locale.US);
             String us = StringValues.DATE_TO_STRING.getString(number.getTime());
-            assertTrue("formatted us " + us, us.indexOf("Dec") >= 0);
+            assertTrue(us.indexOf("Dec") >= 0, "formatted us " + us);
         } finally {
             Locale.setDefault(locale);
         }
@@ -155,10 +156,10 @@ public class StringValuesTest extends TestCase {
             float number = 10.5f;
             Locale.setDefault(Locale.US);
             String us = StringValues.NUMBER_TO_STRING.getString(number);
-            assertTrue("formatted us " + us, us.indexOf(".") > 0);
+            assertTrue(us.indexOf(".") > 0, "formatted us " + us);
             Locale.setDefault(Locale.GERMAN);
             String german = StringValues.NUMBER_TO_STRING.getString(number);
-            assertTrue("formatted German " + german, german.indexOf(",") > 0);
+            assertTrue(german.indexOf(",") > 0, "formatted German " + german);
         } finally {
             Locale.setDefault(locale);
         }
@@ -203,7 +204,7 @@ public class StringValuesTest extends TestCase {
                 StringValues.FILE_TYPE.getString(f));
     }
     
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         // force loading of resource files
         new JXTable();

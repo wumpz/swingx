@@ -25,18 +25,17 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.logging.Logger;
 
-import junit.framework.TestCase;
-
 import org.jdesktop.swingx.JXDatePicker;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for <code>DatePickerFormatter</code>.
  * 
  * @author Jeanette Winzenburg
  */
-public class DatePickerFormatterIssues extends TestCase {
+public class DatePickerFormatterIssues {
     @SuppressWarnings("unused")
     private static final Logger LOG = Logger
             .getLogger(DatePickerFormatterIssues.class.getName());
@@ -45,10 +44,7 @@ public class DatePickerFormatterIssues extends TestCase {
     private Calendar cal;
     private Locale originalLocale;
 
-    
-
-    @Override
-    @Before
+    @BeforeEach
     public void setUp() {
         originalLocale = Locale.getDefault();
         cal = Calendar.getInstance();
@@ -56,15 +52,15 @@ public class DatePickerFormatterIssues extends TestCase {
         new JXDatePicker();
     }
 
-    @Override
-    @After
+    @AfterEach
     public void tearDown() {
         Locale.setDefault(originalLocale);
     }
-    
+
     /**
      * Dummy method to keep the testRunner happy ...
      */
+    @Test
     public void testDummy() {
         
     }

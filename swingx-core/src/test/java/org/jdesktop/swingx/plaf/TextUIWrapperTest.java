@@ -1,21 +1,21 @@
 package org.jdesktop.swingx.plaf;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicTextFieldUI;
 
 import org.jdesktop.swingx.JXSearchField;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 public class TextUIWrapperTest {
 	private JTextField txt;
 	private TextUIWrapper<? extends PromptTextUI> wrapper;
 
-	@Before
+	@BeforeEach
     public void setup() {
         txt = new JTextField();
         wrapper = TextUIWrapper.getDefaultWrapper();

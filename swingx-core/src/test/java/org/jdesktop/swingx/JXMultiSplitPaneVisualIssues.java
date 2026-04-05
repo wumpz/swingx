@@ -30,6 +30,7 @@ import org.jdesktop.swingx.MultiSplitLayout.Node;
 import org.jdesktop.swingx.MultiSplitLayout.Split;
 import org.jdesktop.swingx.decorator.HighlighterFactory;
 import org.jdesktop.test.AncientSwingTeam;
+import org.junit.jupiter.api.Test;
 
 public class JXMultiSplitPaneVisualIssues extends InteractiveTestCase {
     
@@ -342,9 +343,11 @@ public class JXMultiSplitPaneVisualIssues extends InteractiveTestCase {
               e.printStackTrace();
           } 
     }
+
     /**
      * do nothing test - keep the testrunner happy.
      */
+    @Test
     public void testDummy() {
     }
 

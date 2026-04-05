@@ -22,6 +22,8 @@
 package org.jdesktop.swingx.calendar;
 
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -29,11 +31,9 @@ import java.util.TimeZone;
 import java.util.logging.Logger;
 
 import org.jdesktop.swingx.InteractiveTestCase;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -41,7 +41,6 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class CalendarUtilsTest extends InteractiveTestCase {
     @SuppressWarnings("unused")
     private static final Logger LOG = Logger.getLogger(CalendarUtilsTest.class
@@ -172,7 +171,7 @@ public class CalendarUtilsTest extends InteractiveTestCase {
         CalendarUtils.startOfDecade(todayGerman);
         Date start = todayGerman.getTime();
         assertTrue(CalendarUtils.isSame(todayGerman, now, CalendarUtils.DECADE));
-        assertEquals("Calendar unchanged by same decade query", start, todayGerman.getTime());
+        assertEquals(start, todayGerman.getTime(), "Calendar unchanged by same decade query");
         todayGerman.add(Calendar.YEAR, -1);
         assertFalse(CalendarUtils.isSame(todayGerman, now, CalendarUtils.DECADE));
     }
@@ -224,8 +223,8 @@ public class CalendarUtilsTest extends InteractiveTestCase {
         Date startOf10YearsFuture = CalendarUtils.startOfYear(todayGerman, midJune.getTime());
         CalendarUtils.startOfYear(midJune);
         assertTrue(CalendarUtils.isStartOfMonth(todayGerman));
-        assertEquals("start of year with return must be same as changing start-of-year", 
-                startOf10YearsFuture, midJune.getTime());
+        assertEquals(startOf10YearsFuture, 
+                midJune.getTime(), "start of year with return must be same as changing start-of-year");
     }
     
     @Test
@@ -235,7 +234,7 @@ public class CalendarUtilsTest extends InteractiveTestCase {
         midJune.add(Calendar.MILLISECOND, -1);
         Date changed = midJune.getTime();
         assertFalse(CalendarUtils.isStartOfYear(midJune));
-        assertEquals("calendar must be unchanged", changed, midJune.getTime());
+        assertEquals(changed, midJune.getTime(), "calendar must be unchanged");
     }
     
     @Test
@@ -247,9 +246,9 @@ public class CalendarUtilsTest extends InteractiveTestCase {
         assertTrue(CalendarUtils.isStartOfMonth(todayGerman));
         Date startOfFirstOfFeb = todayGerman.getTime();
         CalendarUtils.startOfWeek(todayGerman);
-        assertTrue("expected calendar before firstOfFeb " 
-                + todayGerman.getTime() + " / " + startOfFirstOfFeb , 
-                todayGerman.getTime().before(startOfFirstOfFeb));
+        assertTrue(todayGerman.getTime().before(startOfFirstOfFeb), 
+                "expected calendar before firstOfFeb " 
+                + todayGerman.getTime() + " / " + startOfFirstOfFeb);
     }
     
     /**
@@ -325,7 +324,7 @@ public class CalendarUtilsTest extends InteractiveTestCase {
         midJune.add(Calendar.MILLISECOND, -1);
         Date date = midJune.getTime();
         assertFalse(CalendarUtils.isStartOfWeek(midJune));
-        assertEquals("calendar must be unchanged", date, midJune.getTime());
+        assertEquals(date, midJune.getTime(), "calendar must be unchanged");
     }
  
     /**
@@ -337,7 +336,7 @@ public class CalendarUtilsTest extends InteractiveTestCase {
         midJune.add(Calendar.MILLISECOND, 1);
         Date date = midJune.getTime();
         assertFalse(CalendarUtils.isEndOfWeek(midJune));
-        assertEquals("calendar must be unchanged", date, midJune.getTime());
+        assertEquals(date, midJune.getTime(), "calendar must be unchanged");
     }
 
     /**
@@ -641,11 +640,12 @@ public class CalendarUtilsTest extends InteractiveTestCase {
      * @param todayGerman2
      */
     private void assertFlushed(Calendar calendar) {
-        assertTrue("must be flushed but was: " + calendar, CalendarUtils.isFlushed(calendar));
+        assertTrue(CalendarUtils.isFlushed(calendar), "must be flushed but was: " + calendar);
         
     }
-    @Override
-    protected void setUp() throws Exception {
+
+    @BeforeEach
+    public void setUp() throws Exception {
         todayGerman = Calendar.getInstance(Locale.GERMAN);
         todayUS = Calendar.getInstance(Locale.US);
         midJune = Calendar.getInstance(Locale.GERMAN);
@@ -654,14 +654,13 @@ public class CalendarUtilsTest extends InteractiveTestCase {
         midJune.getTimeInMillis();
     }
  
-    @Before
+    @BeforeEach
     public void setUpJ4() throws Exception {
         setUp();
     }
     
-    @After
+    @AfterEach
     public void tearDownJ4() throws Exception {
-        tearDown();
     }
 
 }

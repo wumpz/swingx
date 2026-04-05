@@ -21,6 +21,8 @@
  */
 package org.jdesktop.swingx.renderer;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.io.Serializable;
@@ -44,11 +46,9 @@ import org.jdesktop.swingx.InteractiveTestCase;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.test.XTestUtils;
 import org.jdesktop.test.SerializableSupport;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -57,7 +57,6 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class TableRendererTest extends InteractiveTestCase {
 
     private static final Logger LOG = Logger.getLogger(TableRendererTest.class
@@ -70,14 +69,13 @@ public class TableRendererTest extends InteractiveTestCase {
     private DefaultTableRenderer xTableRenderer;
 
     
-    @Before
+    @BeforeEach
     public void setUpJ4() throws Exception {
         setUp();
     }
     
-    @After
+    @AfterEach
     public void tearDownJ4() throws Exception {
-        tearDown();
     }
     
     /**
@@ -136,9 +134,9 @@ public class TableRendererTest extends InteractiveTestCase {
     public void testUIPropertyHandleAlternateRowColor() {
         assertNull(UIManager.get(TableCellContext.HANDLE_ALTERNATE_ROW_BACKGROUND));
     }
-    
-    @Override
-    protected void setUp() throws Exception {
+
+    @BeforeEach
+    public void setUp() throws Exception {
         // setup table
         table = new JTable(10, 2);
         coreColumn = 0; 
@@ -157,10 +155,10 @@ public class TableRendererTest extends InteractiveTestCase {
     public void testCellContextDropOn() {
         TableCellContext cellContext = new TableCellContext();
         cellContext.installContext(null, "whatever", 0, 0, false, true, false, false);
-        assertFalse("context must cope with null component", cellContext.isDropOn());
+        assertFalse(cellContext.isDropOn(), "context must cope with null component");
         // fake ... and test internals
         cellContext.dropOn = true;
-        assertTrue("context must use dropOn flag ... dooh", cellContext.isDropOn());
+        assertTrue(cellContext.isDropOn(), "context must use dropOn flag ... dooh");
     }
     /**
      * Issue #484-swingx: dnd on color not showing.
@@ -187,13 +185,13 @@ public class TableRendererTest extends InteractiveTestCase {
     public void testCellContextEditable() {
         TableCellContext cellContext = new TableCellContext();
         cellContext.installContext(null, "whatever", 0, 0, false, true, false, false);
-        assertFalse("context must cope with null component", cellContext.isEditable());
+        assertFalse(cellContext.isEditable(), "context must cope with null component");
         JXTable table = new JXTable();
         cellContext.installContext(table, "whatever", 0, 0, false, true, false, false);
         // KEEP commented lines is real-world example that'll blow
 //        DefaultVisuals visuals = new DefaultVisuals();
 //        visuals.configureVisuals(new JLabel(), cellContext);
-        assertFalse("context must cope with invalid coordinates", cellContext.isEditable());
+        assertFalse(cellContext.isEditable(), "context must cope with invalid coordinates");
     }
     
     /**

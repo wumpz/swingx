@@ -1,8 +1,8 @@
 package org.jdesktop.swingx;
 
 import org.jdesktop.beans.AbstractBeanInfoTest;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 @Deprecated
 public class JXImagePanelBeanInfoTest extends AbstractBeanInfoTest<JXImagePanel> {
@@ -16,7 +16,7 @@ public class JXImagePanelBeanInfoTest extends AbstractBeanInfoTest<JXImagePanel>
      */
     @Test
     @Override
-    @Ignore("serialization fails")
+    @Disabled("serialization fails")
     public void testSerialization() {
         super.testSerialization();
     }

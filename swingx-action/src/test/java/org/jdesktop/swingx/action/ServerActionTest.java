@@ -6,14 +6,9 @@
  */
 package org.jdesktop.swingx.action;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
-
-@RunWith(JUnit4.class)
-public class ServerActionTest extends TestCase {
+public class ServerActionTest {
 
     /**
      * Issue #206-swingx: NPE in addHeader.

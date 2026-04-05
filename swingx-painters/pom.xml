@@ -31,6 +31,16 @@
   		<type>jar</type>
   		<scope>test</scope>
   	</dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
   	<dependency>
   		<groupId>${project.groupId}</groupId>
   		<artifactId>swingx-testsupport</artifactId>

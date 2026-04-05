@@ -4,6 +4,8 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -13,11 +15,8 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.util.logging.Logger;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
-@RunWith(JUnit4.class)
 public class JXFrameTest extends InteractiveTestCase {
     @SuppressWarnings("unused")
     private static final Logger LOG = Logger.getLogger(JXFrameTest.class

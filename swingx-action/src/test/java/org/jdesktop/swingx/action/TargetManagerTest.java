@@ -7,34 +7,30 @@
 
 package org.jdesktop.swingx.action;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests registration and command execution of the target manager.
  *
  * @author Mark Davidson
  */
-@RunWith(JUnit4.class)
-public class TargetManagerTest extends TestCase {
+public class TargetManagerTest {
 
-    @Before
+    @BeforeEach
     public void setUpJ4() throws Exception {
-        setUp();
     }
     
-    @After
+    @AfterEach
     public void tearDownJ4() throws Exception {
         tearDown();
     }
-    
-    @Override
-    protected void tearDown() {
+
+    @AfterEach
+    public void tearDown() {
         TargetManager manager = TargetManager.getInstance();
         manager.reset();
     }

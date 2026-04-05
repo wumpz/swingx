@@ -1,7 +1,7 @@
 package org.jdesktop.test.matchers;
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 
-@Ignore
+@Disabled
 public class PropertyChangeEventMatcherTest {
 }

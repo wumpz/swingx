@@ -6,6 +6,8 @@
  */
 package org.jdesktop.swingx.table;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.io.IOException;
 import java.text.Collator;
 import java.util.Comparator;
@@ -13,8 +15,6 @@ import java.util.Date;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JTextField;
-
-import junit.framework.TestCase;
 
 import org.jdesktop.swingx.decorator.ColorHighlighter;
 import org.jdesktop.swingx.decorator.CompoundHighlighter;
@@ -24,10 +24,8 @@ import org.jdesktop.swingx.renderer.DefaultTableRenderer;
 import org.jdesktop.test.PropertyChangeReport;
 import org.jdesktop.test.SerializableSupport;
 import org.jdesktop.test.TestUtils;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -35,8 +33,7 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
-public class TableColumnExtTest extends TestCase {
+public class TableColumnExtTest {
     
     private TableColumnExt columnExt;
 
@@ -46,11 +43,11 @@ public class TableColumnExtTest extends TestCase {
         PropertyChangeReport report = new PropertyChangeReport();
         columnExt.addPropertyChangeListener(report);
         columnExt.setHideable(false);
-        assertTrue("visibility must be forced to true", columnExt.isVisible());
+        assertTrue(columnExt.isVisible(), "visibility must be forced to true");
         assertEquals(1, report.getEventCount("visible"));
         report.clear();
         columnExt.setHideable(true);
-        assertFalse("real visibility value must be returned if hideable", columnExt.isVisible());
+        assertFalse(columnExt.isVisible(), "real visibility value must be returned if hideable");
         assertEquals(1, report.getEventCount("visible"));
     }
     
@@ -107,9 +104,10 @@ public class TableColumnExtTest extends TestCase {
      * test doc'ed exceptions in putClientProperty.
      *
      */
-    @Test(expected= IllegalArgumentException.class)
+    @Test
     public void testPutClientPropertyExc() {
-        columnExt.putClientProperty(null, "somevalue");
+        assertThrows(IllegalArgumentException.class, () ->
+            columnExt.putClientProperty(null, "somevalue"));
     }
     /**
      * Sanity test Serializable.
@@ -139,17 +137,17 @@ public class TableColumnExtTest extends TestCase {
     @Test
     public void testHeaderTooltip() {
         columnExt.setTitle("mytitle");
-        assertNull("tooltip is null initially", columnExt.getToolTipText());
+        assertNull(columnExt.getToolTipText(), "tooltip is null initially");
         String toolTip = "some column text";
         PropertyChangeReport report = new PropertyChangeReport();
         columnExt.addPropertyChangeListener(report);
         columnExt.setToolTipText(toolTip);
         assertEquals(toolTip, columnExt.getToolTipText());
-        assertEquals("must have fired one propertyChangeEvent for toolTipText ", 
-                1, report.getEventCount("toolTipText"));
+        assertEquals(1, 
+                report.getEventCount("toolTipText"), "must have fired one propertyChangeEvent for toolTipText ");
         TableColumnExt copy = new TableColumnExt(columnExt);
-        assertEquals("tooltip property must be cloned", columnExt.getToolTipText(),
-                copy.getToolTipText());
+        assertEquals(columnExt.getToolTipText(), copy.getToolTipText(),
+                "tooltip property must be cloned");
     }
     
     /**
@@ -160,17 +158,17 @@ public class TableColumnExtTest extends TestCase {
     @Test
     public void testSortable() {
         boolean sortable = columnExt.isSortable();
-        assertTrue("columnExt isSortable by default", sortable);
+        assertTrue(sortable, "columnExt isSortable by default");
         PropertyChangeReport report = new PropertyChangeReport();
         columnExt.addPropertyChangeListener(report);
         columnExt.setSortable(!sortable);
         // sanity assert: the change was taken
         assertEquals(sortable, !columnExt.isSortable());
-        assertEquals("must have fired one propertyChangeEvent for sortable ", 
-                1, report.getEventCount("sortable"));
+        assertEquals(1, 
+                report.getEventCount("sortable"), "must have fired one propertyChangeEvent for sortable ");
         TableColumnExt copy = new TableColumnExt(columnExt);
-        assertEquals("sortable property must be cloned", columnExt.isSortable(),
-                copy.isSortable());
+        assertEquals(columnExt.isSortable(), copy.isSortable(),
+                "sortable property must be cloned");
     }
     
     /**
@@ -235,19 +233,19 @@ public class TableColumnExtTest extends TestCase {
     @Test
     public void testResizable() {
         //sanity assert
-        assertTrue("min < max", columnExt.getMinWidth() < columnExt.getMaxWidth());
+        assertTrue(columnExt.getMinWidth() < columnExt.getMaxWidth(), "min < max");
         // sanity assert
-        assertTrue("resizable default", columnExt.getResizable());
+        assertTrue(columnExt.getResizable(), "resizable default");
         columnExt.setMinWidth(columnExt.getMaxWidth());
-        assertFalse("must not be resizable with equal min-max", columnExt.getResizable());
+        assertFalse(columnExt.getResizable(), "must not be resizable with equal min-max");
         TableColumnExt copy = new TableColumnExt(columnExt);
         // sanity
-        assertEquals("min-max of clone", copy.getMinWidth(), copy.getMaxWidth());
-        assertFalse("must not be resizable with equal min-max", copy.getResizable());
+        assertEquals(copy.getMinWidth(), copy.getMaxWidth(), "min-max of clone");
+        assertFalse(copy.getResizable(), "must not be resizable with equal min-max");
         copy.setMinWidth(0);
         //sanity assert
-        assertTrue("min < max", copy.getMinWidth() < copy.getMaxWidth());
-        assertTrue("cloned base resizable", copy.getResizable());
+        assertTrue(copy.getMinWidth() < copy.getMaxWidth(), "min < max");
+        assertTrue(copy.getResizable(), "cloned base resizable");
     }
 
     /**
@@ -261,15 +259,15 @@ public class TableColumnExtTest extends TestCase {
         Object value = new Object();
         columnExt.putClientProperty(key, value);
         TableColumnExt copy = new TableColumnExt(columnExt);
-        assertEquals("client property must be in cloned", value, copy.getClientProperty(key));
+        assertEquals(value, copy.getClientProperty(key), "client property must be in cloned");
         
         key = "single";
         columnExt.putClientProperty(key, value);
         //sanity check
         assertSame(value, columnExt.getClientProperty(key));
         
-        assertNull("cloned client properties must be in independant",
-                copy.getClientProperty(key));
+        assertNull(copy.getClientProperty(key),
+                "cloned client properties must be in independant");
     }
     //begin SwingX Issue #770 checks
     // PENDING JW: consider to remove the  "HighlighterClient"
@@ -439,8 +437,7 @@ public class TableColumnExtTest extends TestCase {
     /** 
      * @inherited <p>
      */
-    @Before
-    @Override
+    @BeforeEach
     public void setUp() throws Exception {
         columnExt = new TableColumnExt();
     }

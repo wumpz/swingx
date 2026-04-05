@@ -1,17 +1,16 @@
 package org.jdesktop.beans;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.jdesktop.test.SerializableSupport.serialize;
 import static org.jdesktop.test.matchers.Matchers.equivalentTo;
 import static org.jdesktop.test.matchers.Matchers.property;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import java.awt.Insets;
+
+import static org.junit.jupiter.api.Assertions.fail;
 import java.beans.BeanInfo;
 import java.beans.EventSetDescriptor;
 import java.beans.Introspector;
@@ -26,9 +25,11 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.RETURNS_MOCKS;
 import org.mockito.exceptions.verification.NoInteractionsWanted;
@@ -40,7 +41,7 @@ public abstract class AbstractBeanInfoTest<T> {
     private BeanInfo beanInfo;
     private Map<Class<?>, Object> listeners;
     
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         instance = createInstance();
         beanInfo = Introspector.getBeanInfo(instance.getClass());
@@ -157,10 +158,10 @@ public abstract class AbstractBeanInfoTest<T> {
         
         T serialized = serialize(instance);
         
-        assertThat(serialized, is(equivalentTo(instance)));
+        assertTrue(equivalentTo(instance).matches(instance));
     }
     
-    @After
+    @AfterEach
     public void tearDown() {
         for (Object listener : listeners.values()) {
             try {

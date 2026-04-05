@@ -6,6 +6,8 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -36,11 +38,9 @@ import javax.swing.border.LineBorder;
 import org.jdesktop.swingx.painter.MattePainter;
 import org.jdesktop.swingx.util.PaintUtils;
 import org.jdesktop.test.PropertyChangeReport;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-@RunWith(JUnit4.class)
 public class JXTitledPanelTest extends InteractiveTestCase {
     private static final Logger LOG = Logger.getLogger(JXTitledPanelTest.class
             .getName());
@@ -48,16 +48,11 @@ public class JXTitledPanelTest extends InteractiveTestCase {
     // flag used in setup to explicitly choose LF
     private boolean defaultToSystemLF;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @BeforeEach
+    public void setUp() throws Exception {
         // make sure we have the same default for each test
         defaultToSystemLF = false;
         setSystemLF(defaultToSystemLF);
-    }
-
-    public JXTitledPanelTest() {
-        super("JXTitledPane interactive test");
     }
 
     /**
@@ -69,9 +64,9 @@ public class JXTitledPanelTest extends InteractiveTestCase {
         JXTitledPanel titledPanel = new JXTitledPanel();
         boolean opaque = titledPanel.isOpaque(); 
         titledPanel.setOpaque(!opaque);
-        assertEquals("sanity: opaqueness toggled: ", !opaque, titledPanel.isOpaque());
+        assertEquals(!opaque, titledPanel.isOpaque(), "sanity: opaqueness toggled: ");
         titledPanel.updateUI();
-        assertEquals("ui must not overwrite custom setting: ", !opaque, titledPanel.isOpaque());
+        assertEquals(!opaque, titledPanel.isOpaque(), "ui must not overwrite custom setting: ");
     }
     /**
      * Issue #1063-swingx: JXTitledPanel must not overwrite custom border
@@ -79,13 +74,13 @@ public class JXTitledPanelTest extends InteractiveTestCase {
     @Test
     public void testBorderOnLFChange() {
         JXTitledPanel titledPanel = new JXTitledPanel();
-        assertTrue("sanity: titledPanels default border must be ui-installable " + titledPanel.getBorder(), 
-                SwingXUtilities.isUIInstallable(titledPanel.getBorder()));
+        assertTrue(SwingXUtilities.isUIInstallable(titledPanel.getBorder()), 
+                "sanity: titledPanels default border must be ui-installable " + titledPanel.getBorder());
         LineBorder border = new LineBorder(titledPanel.getBackground());
         titledPanel.setBorder(border);
-        assertEquals("sanity: border set", border, titledPanel.getBorder());
+        assertEquals(border, titledPanel.getBorder(), "sanity: border set");
         titledPanel.updateUI();
-        assertEquals("border untouched ", border, titledPanel.getBorder());
+        assertEquals(border, titledPanel.getBorder(), "border untouched ");
     }
     
     @Test
@@ -114,9 +109,9 @@ public class JXTitledPanelTest extends InteractiveTestCase {
         PropertyChangeReport report = new PropertyChangeReport();
         panel.addPropertyChangeListener( "title", report);
         panel.setTitle(null);
-        assertTrue("panel must have fired propertyChange", report.hasEvents());
-        assertEquals("new property value must be equal to getTitle", panel.getTitle(),
-                report.getLastNewValue("title"));
+        assertTrue(report.hasEvents(), "panel must have fired propertyChange");
+        assertEquals(panel.getTitle(), report.getLastNewValue("title"),
+                "new property value must be equal to getTitle");
         
     }
 

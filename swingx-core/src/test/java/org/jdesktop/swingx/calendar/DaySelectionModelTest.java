@@ -21,16 +21,16 @@
  */
 package org.jdesktop.swingx.calendar;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.Date;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.jdesktop.swingx.calendar.DateSelectionModel.SelectionMode;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -38,18 +38,16 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class DaySelectionModelTest extends AbstractTestDateSelectionModel {
 
 
-    @Before
+    @BeforeEach
     public void setUpJ4() throws Exception {
         setUp();
     }
     
-    @After
+    @AfterEach
     public void tearDownJ4() throws Exception {
-        tearDown();
     }
     
     /**
@@ -120,12 +118,12 @@ public class DaySelectionModelTest extends AbstractTestDateSelectionModel {
         unselectableDates.add(today);
         model.setUnselectableDates(unselectableDates);
         // all dates in today must be rejected
-        assertTrue("raw today must be unselectable", 
-                model.isUnselectableDate(today));
-        assertTrue("start of today must be unselectable", 
-                model.isUnselectableDate(startOfDay(today)));
-        assertTrue("end of today must be unselectable", 
-                model.isUnselectableDate(endOfDay(today)));
+        assertTrue(model.isUnselectableDate(today), 
+                "raw today must be unselectable");
+        assertTrue(model.isUnselectableDate(startOfDay(today)), 
+                "start of today must be unselectable");
+        assertTrue(model.isUnselectableDate(endOfDay(today)), 
+                "end of today must be unselectable");
         // remove the unselectable 
         model.setUnselectableDates(new TreeSet<>());
         assertFalse(model.isUnselectableDate(today));
@@ -141,7 +139,7 @@ public class DaySelectionModelTest extends AbstractTestDateSelectionModel {
     public void testCleanupCopyDate() {
         Date copy = new Date(today.getTime());
         model.setSelectionInterval(today, today);
-        assertEquals("the date used for selection must be unchanged", copy, today);
+        assertEquals(copy, today, "the date used for selection must be unchanged");
     }
    
     @Test
@@ -208,8 +206,8 @@ public class DaySelectionModelTest extends AbstractTestDateSelectionModel {
         
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() throws Exception {
         setUpCalendar();
         model = new DaySelectionModel();
     }

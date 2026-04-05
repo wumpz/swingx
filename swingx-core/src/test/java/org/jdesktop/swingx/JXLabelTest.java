@@ -21,20 +21,19 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.logging.Logger;
 
 import org.jdesktop.swingx.painter.AbstractPainter;
 import org.jdesktop.swingx.painter.Painter;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 /**
  * Base test class for JXLabel related code and issues.
  * 
  * @author rah003
  */
-@RunWith(JUnit4.class)
 public class JXLabelTest extends InteractiveTestCase {
     
     static Logger log = Logger.getAnonymousLogger();
@@ -46,7 +45,7 @@ public class JXLabelTest extends InteractiveTestCase {
     public void testDefaultForegroundNotAntialiasing() {
         JXLabel label = new JXLabel();
         AbstractPainter<?> painter = (AbstractPainter<?>) label.getForegroundPainter();
-        assertFalse("foreground painter must not be antialiasing", painter.isAntialiasing());
+        assertFalse(painter.isAntialiasing(), "foreground painter must not be antialiasing");
     }
     
     /**

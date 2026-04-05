@@ -6,11 +6,15 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import javax.swing.AbstractListModel;
 
 import org.jdesktop.swingx.search.FindTest;
 import org.jdesktop.swingx.search.PatternModel;
 import org.jdesktop.swingx.search.Searchable;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -33,12 +37,13 @@ public class FindIssues extends FindTest {
             e.printStackTrace();
         }
     }
-    
+
 
     /**
      * Issue #487-swingx: NPE if setting a not-null Searchable before 
      * showing. Hack around ...
      */
+    @Test
     public void testFindBarNPEComponents() {
         Searchable searchable = new JXTable().getSearchable();
         JXFindBar findBar = new JXFindBar();
@@ -55,6 +60,7 @@ public class FindIssues extends FindTest {
      * in backwards search that's -1 which is interpreted as "not-found"
      * 
      */
+    @Test
     public void testFindPanelFirstRowBackwards() {
         JXList list = new JXList( new AbstractListModel() {
             private String[] data = { "a", "b", "c" };
@@ -74,7 +80,7 @@ public class FindIssues extends FindTest {
         patternModel.setRawText("a");
         int matchIndex = list.getSearchable().search(patternModel.getPattern(),
                 patternModel.getFoundIndex(), patternModel.isBackwards());
-        assertEquals("found match", matchIndex, findPanel.doSearch());
+        assertEquals(matchIndex, findPanel.doSearch(), "found match");
     }
 
     // -------------------- interactive tests

@@ -9,34 +9,37 @@
 
 package org.jdesktop.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 
-import junit.framework.Assert;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * Extends assert to get all the ease-of-use assert methods
  * @author rbair
  */
-public final class TestUtils extends Assert {
+public final class TestUtils extends Assertions {
     private static final Logger LOG = Logger.getLogger(TestUtils.class
             .getName());
     private TestUtils() {}
     
     public static void assertContainsType(Object[] objects, Class<?> clazz, int count) {
         if (objects.length == 0 && count == 0) return;
-        assertTrue("not enough elements: expected == " + count 
-                +" but was == " + objects.length, count <= objects.length);
+        assertTrue(count <= objects.length, "not enough elements: expected == " + count 
+                +" but was == " + objects.length);
         int found = 0;
         for (Object object : objects) {
             if (clazz.isAssignableFrom(object.getClass())) {
                 found++;
             }
         };
-        assertEquals("unexpected number of elements of type " + clazz, count, found);
+        assertEquals(count, found, "unexpected number of elements of type " + clazz);
     }
     
     /**
@@ -52,7 +55,7 @@ public final class TestUtils extends Assert {
     public static void assertPropertyChangeEvent(PropertyChangeReport report, 
             Object source, String property, Object oldValue, Object newValue) {
         assertPropertyChangeEvent(report, property, oldValue, newValue);
-        assertEquals("event source", source, report.getLastSource());
+        assertEquals(source, report.getLastSource(), "event source");
     }
 
     /**
@@ -68,10 +71,10 @@ public final class TestUtils extends Assert {
         if (report.getEventCount() > 1) {
             LOG.info("events: " + report.getEventNames());
         }
-        assertEquals("exactly one event", 1, report.getEventCount());
-        assertEquals("property", property, report.getLastProperty());
-        assertEquals("last old value", oldValue, report.getLastOldValue());
-        assertEquals("last new value", newValue, report.getLastNewValue());
+        assertEquals(1, report.getEventCount(), "exactly one event");
+        assertEquals(property, report.getLastProperty(), "property");
+        assertEquals(oldValue, report.getLastOldValue(), "last old value");
+        assertEquals(newValue, report.getLastNewValue(), "last new value");
     }
 
     /**
@@ -90,14 +93,14 @@ public final class TestUtils extends Assert {
             LOG.info("events: " + report.getEventNames());
         }
         if (single) {
-            assertEquals("exactly one event", 1, report.getEventCount());
-            assertEquals("property", property, report.getLastProperty());
-            assertEquals("last old value", oldValue, report.getLastOldValue());
-            assertEquals("last new value", newValue, report.getLastNewValue());
+            assertEquals(1, report.getEventCount(), "exactly one event");
+            assertEquals(property, report.getLastProperty(), "property");
+            assertEquals(oldValue, report.getLastOldValue(), "last old value");
+            assertEquals(newValue, report.getLastNewValue(), "last new value");
         } else {
-            assertEquals("one event of property " + property, 1, report.getEventCount(property));
-            assertEquals("old property", oldValue, report.getLastOldValue(property));
-            assertEquals("new property", newValue, report.getLastNewValue(property));
+            assertEquals(1, report.getEventCount(property), "one event of property " + property);
+            assertEquals(oldValue, report.getLastOldValue(property), "old property");
+            assertEquals(newValue, report.getLastNewValue(property), "new property");
         }
     }
 
@@ -118,44 +121,44 @@ public final class TestUtils extends Assert {
             LOG.info("events: " + report.getEventNames());
         }
         if (single) {
-            assertEquals("exactly one event", 1, report.getEventCount());
-            assertEquals("property", property, report.getLastProperty());
+            assertEquals(1, report.getEventCount(), "exactly one event");
+            assertEquals(property, report.getLastProperty(), "property");
             if (verifyArrayItems && oldValue != null && oldValue.getClass().isArray()) {
                 List l1 = Arrays.asList((Object[]) oldValue);
                 List l2 = Arrays.asList((Object[]) report.getLastOldValue());
-                assertEquals("last old value", l1.size(), l2.size());
+                assertEquals(l1.size(), l2.size(), "last old value");
                 for (int i = 0; i < l1.size();i++) {
-                    assertEquals("last old value", l1.get(i), l2.get(i));
+                    assertEquals(l1.get(i), l2.get(i), "last old value");
                 }
             } else {
-                assertEquals("last old value", oldValue, report.getLastOldValue());
+                assertEquals(oldValue, report.getLastOldValue(), "last old value");
             }
             if (verifyArrayItems && newValue != null && newValue.getClass().isArray()) {
                 List l1 = Arrays.asList(newValue);
                 List l2 = Arrays.asList(report.getLastNewValue());
-                assertEquals("last new value", l1.size(), l2.size());
+                assertEquals(l1.size(), l2.size(), "last new value");
                 for (int i = 0; i < l1.size();i++) {
-                    assertEquals("last new value", l1.get(i), l2.get(i));
+                    assertEquals(l1.get(i), l2.get(i), "last new value");
                 }
             } else {
-                assertEquals("last new value", newValue, report.getLastNewValue());
+                assertEquals(newValue, report.getLastNewValue(), "last new value");
             }
         } else {
-            assertEquals("one event of property " + property, 1, report.getEventCount(property));
+            assertEquals(1, report.getEventCount(property), "one event of property " + property);
             if (verifyArrayItems && oldValue != null && oldValue.getClass().isArray()) {
                 List l1 = Arrays.asList((Object[]) oldValue);
                 List l2 = Arrays.asList((Object[]) report.getLastOldValue(property));
-                assertEquals("old value", l1.size(), l2.size());
+                assertEquals(l1.size(), l2.size(), "old value");
                 for (int i = 0; i < l1.size();i++) {
-                    assertEquals("old value", l1.get(i), l2.get(i));
+                    assertEquals(l1.get(i), l2.get(i), "old value");
                 }
             } else {
-                assertEquals("old property " + property, oldValue, report.getLastOldValue(property));
+                assertEquals(oldValue, report.getLastOldValue(property), "old property " + property);
             }
             if (verifyArrayItems && newValue != null && newValue.getClass().isArray()) {
                 Collection l1 = newValue instanceof Collection ? (Collection) newValue : Arrays.asList((Object[])newValue);
                 Collection l2 = report.getLastNewValue(property) instanceof Collection ? (Collection) report.getLastNewValue(property) : Arrays.asList((Object[]) report.getLastNewValue(property));
-                assertEquals("new value of property " + property, l1.size(), l2.size());
+                assertEquals(l1.size(), l2.size(), "new value of property " + property);
                 int index = 0;
                 for (Iterator i1 = l1.iterator(), i2 = l2.iterator(); i1.hasNext() && i2.hasNext(); ) {
                     Object o1 = i1.next(); 
@@ -164,10 +167,10 @@ public final class TestUtils extends Assert {
 //                        o1 = ((Date) o1).getTime();
 //                        o2 = ((Date) o2).getTime();
 //                    }
-                    assertEquals("new value [" + index++ + "] of property " + property, o1, o2);
+                    assertEquals(o1, o2, "new value [" + index++ + "] of property " + property);
                 }
             } else {
-                assertEquals("new value of property " + property, newValue, report.getLastNewValue(property));
+                assertEquals(newValue, report.getLastNewValue(property), "new value of property " + property);
             }
         }
     }
@@ -185,9 +188,9 @@ public final class TestUtils extends Assert {
         if (report.getEventCount() > 1) {
             LOG.info("events: " + report.getEventNames());
         }
-        assertEquals("exactly one event", 1, report.getEventCount());
-        assertEquals("property", property, report.getLastProperty());
-        assertTrue("last old array value", Arrays.equals(oldValue, (Object[]) report.getLastOldValue()));
-        assertTrue("last new array value", Arrays.equals(newValue, (Object[])report.getLastNewValue()));
+        assertEquals(1, report.getEventCount(), "exactly one event");
+        assertEquals(property, report.getLastProperty(), "property");
+        assertTrue(Arrays.equals(oldValue, (Object[]) report.getLastOldValue()), "last old array value");
+        assertTrue(Arrays.equals(newValue, (Object[])report.getLastNewValue()), "last new array value");
     }
 }

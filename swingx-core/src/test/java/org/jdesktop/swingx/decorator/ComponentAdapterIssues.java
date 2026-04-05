@@ -34,6 +34,8 @@ import org.jdesktop.swingx.search.SearchFactory;
 import org.jdesktop.swingx.test.ComponentTreeTableModel;
 import org.jdesktop.swingx.treetable.TreeTableModel;
 import org.jdesktop.test.AncientSwingTeam;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test to exposed known issues of <code>ComponentAdapter</code>.
@@ -155,11 +157,12 @@ public class ComponentAdapterIssues extends InteractiveTestCase {
         return sv;
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() throws Exception {
         sv = createColorStringValue();
     }
 
+    @Test
     public void testDummy() {
         
     }

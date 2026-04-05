@@ -23,7 +23,7 @@ package org.jdesktop.swingx.painter;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
@@ -33,8 +33,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import org.hamcrest.CoreMatchers;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
 
@@ -119,7 +119,7 @@ public class CompoundPainterTest extends AbstractPainterTest {
     }
     
     @Test
-    @Ignore("not sure this is the right thing to do")
+    @Disabled("not sure this is the right thing to do")
     public void testSettingMoreThanOnePainterEnablesCache() {
         ((CompoundPainter) p).setPainters(mock(Painter.class), mock(Painter.class));
         

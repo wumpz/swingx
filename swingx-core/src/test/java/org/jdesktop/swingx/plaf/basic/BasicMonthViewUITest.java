@@ -21,6 +21,8 @@
  */
 package org.jdesktop.swingx.plaf.basic;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Container;
@@ -44,10 +46,8 @@ import org.jdesktop.swingx.InteractiveTestCase;
 import org.jdesktop.swingx.JXFrame;
 import org.jdesktop.swingx.JXMonthView;
 import org.jdesktop.swingx.calendar.CalendarUtils;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -55,7 +55,6 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class BasicMonthViewUITest extends InteractiveTestCase {
     @SuppressWarnings("all")
     private static final Logger LOG = Logger
@@ -83,8 +82,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         
         String[] monthNames = DateFormatSymbols.getInstance(monthView.getLocale()).getMonths();
         String title = ((JLabel) component).getText();
-        assertTrue("name must be taken from Locale, expected: " + monthNames[month] + " was: " + title, 
-                title.startsWith(monthNames[month]));
+        assertTrue(title.startsWith(monthNames[month]), 
+                "name must be taken from Locale, expected: " + monthNames[month] + " was: " + title);
         
     }
 
@@ -163,11 +162,11 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         JXMonthView monthView = new JXMonthView(locale);
         Calendar calendar = monthView.getCalendar();
         calendar.set(year, month, 1);
-        assertEquals("sanity - day", expectedDay, calendar.get(Calendar.DAY_OF_WEEK));
-        assertEquals("sanity - weekOfYear", expectedWeek, calendar.get(Calendar.WEEK_OF_YEAR));
+        assertEquals(expectedDay, calendar.get(Calendar.DAY_OF_WEEK), "sanity - day");
+        assertEquals(expectedWeek, calendar.get(Calendar.WEEK_OF_YEAR), "sanity - weekOfYear");
         monthView.setFirstDisplayedDay(calendar.getTime());
-        assertEquals("number of weeks in month", expectedWeekNumber, 
-                ((BasicMonthViewUI) monthView.getUI()).getWeeks(monthView.getCalendar()));
+        assertEquals(expectedWeekNumber, ((BasicMonthViewUI) monthView.getUI()).getWeeks(monthView.getCalendar()), 
+                "number of weeks in month");
     }
     /**
      * Issue #1068-swingx: week numbering broken for some years and locales
@@ -234,7 +233,7 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
             header = (Container) monthView.getComponent(1);
         }
         try {
-            assertTrue("expected SpinningCalendarHeader but was " + header.getClass(), header instanceof SpinningCalendarHeaderHandler.SpinningCalendarHeader);
+            assertTrue(header instanceof SpinningCalendarHeaderHandler.SpinningCalendarHeader, "expected SpinningCalendarHeader but was " + header.getClass());
         } finally {
             UIManager.put(CalendarHeaderHandler.uiControllerID, null);
         }
@@ -261,7 +260,7 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         if (header instanceof CellRendererPane) {
             header = (Container) monthView.getComponent(1);
         }
-        assertTrue("expected BasicCalendarHeader but was " + header.getClass(), header instanceof BasicCalendarHeaderHandler.BasicCalendarHeader);
+        assertTrue(header instanceof BasicCalendarHeaderHandler.BasicCalendarHeader, "expected BasicCalendarHeader but was " + header.getClass());
     }
     
     /**
@@ -278,7 +277,7 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         if (header instanceof CellRendererPane) {
             header = (Container) monthView.getComponent(1);
         }
-        assertTrue("expected BasicCalendarHeader but was " + header.getClass(), header instanceof BasicCalendarHeaderHandler.BasicCalendarHeader);
+        assertTrue(header instanceof BasicCalendarHeaderHandler.BasicCalendarHeader, "expected BasicCalendarHeader but was " + header.getClass());
     }
 
     /**
@@ -294,8 +293,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         BasicMonthViewUI ui = getRealizedMonthViewUI(ComponentOrientation.LEFT_TO_RIGHT);
         // get a date in the first month
         Date month = ui.getMonth(1, 0);
-        assertEquals("header grid position must return null date", null, ui.getDayInMonth(month, 
-                BasicMonthViewUI.DAY_HEADER_ROW, BasicMonthViewUI.LAST_DAY_COLUMN));
+        assertEquals(null, ui.getDayInMonth(month, 
+                BasicMonthViewUI.DAY_HEADER_ROW, BasicMonthViewUI.LAST_DAY_COLUMN), "header grid position must return null date");
      }
 
     /**
@@ -311,8 +310,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         BasicMonthViewUI ui = getRealizedMonthViewUI(ComponentOrientation.LEFT_TO_RIGHT, true);
         // get a date in the first month
         Date month = ui.getMonth(0, 0);
-        assertEquals("header grid position must return null date", null, ui.getDayInMonth(month, 
-                BasicMonthViewUI.FIRST_WEEK_ROW + 3, BasicMonthViewUI.WEEK_HEADER_COLUMN));
+        assertEquals(null, ui.getDayInMonth(month, 
+                BasicMonthViewUI.FIRST_WEEK_ROW + 3, BasicMonthViewUI.WEEK_HEADER_COLUMN), "header grid position must return null date");
      }
 
     /**
@@ -329,8 +328,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         BasicMonthViewUI ui = getRealizedMonthViewUI(ComponentOrientation.LEFT_TO_RIGHT);
         // get a date in the first month
         Date month = ui.getMonth(0, 0);
-        assertEquals("leading date grid position must return null date", null, 
-                ui.getDayInMonth(month, BasicMonthViewUI.FIRST_WEEK_ROW, BasicMonthViewUI.FIRST_DAY_COLUMN));
+        assertEquals(null, ui.getDayInMonth(month, BasicMonthViewUI.FIRST_WEEK_ROW, BasicMonthViewUI.FIRST_DAY_COLUMN), 
+                "leading date grid position must return null date");
      }
     
     /**
@@ -348,8 +347,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         // get a date in the first month
         Date month = ui.getMonth(1, 0);
         // this fails because 
-        assertEquals("leading date grid position must return null date", null, 
-                ui.getDayInMonth(month, BasicMonthViewUI.FIRST_WEEK_ROW, BasicMonthViewUI.FIRST_DAY_COLUMN));
+        assertEquals(null, ui.getDayInMonth(month, BasicMonthViewUI.FIRST_WEEK_ROW, BasicMonthViewUI.FIRST_DAY_COLUMN), 
+                "leading date grid position must return null date");
      }
     
     /**
@@ -410,8 +409,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         // second month - Mar 2008 has leading dates
         Rectangle monthBounds = ui.getMonthBoundsAtLocation(20 + ui.getMonthSize().width, 20);
         int firstDay = monthBounds.y + ui.getMonthHeaderHeight() + ui.getDaySize().height + 2;
-        assertEquals("hit detection in leading date must return null", null, 
-                ui.getDayAtLocation(monthBounds.x + 2, firstDay));
+        assertEquals(null, ui.getDayAtLocation(monthBounds.x + 2, firstDay), 
+                "hit detection in leading date must return null");
     }
 
     /**
@@ -429,8 +428,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         // first month - Feb 2008 has leading dates
         Rectangle monthBounds = ui.getMonthBoundsAtLocation(20, 20);
         int firstDayY = monthBounds.y + ui.getMonthHeaderHeight() + ui.getDaySize().height + 2;
-        assertEquals("hit detection in leading date must return null", null, 
-                ui.getDayAtLocation(monthBounds.x + 2, firstDayY));
+        assertEquals(null, ui.getDayAtLocation(monthBounds.x + 2, firstDayY), 
+                "hit detection in leading date must return null");
     }
 
     /**
@@ -633,9 +632,9 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         Calendar uiCalendar = ui.getCalendar();
         int month = uiCalendar.get(Calendar.MONTH);
         CalendarUtils.startOfWeek(uiCalendar);
-        assertFalse("sanity - we have leading dates in the month", month == uiCalendar.get(Calendar.MONTH));
-        assertEquals("leading dates must return null bounds", 
-                null, ui.getMonthBounds(uiCalendar.getTime()));
+        assertFalse(month == uiCalendar.get(Calendar.MONTH), "sanity - we have leading dates in the month");
+        assertEquals(null, 
+                ui.getMonthBounds(uiCalendar.getTime()), "leading dates must return null bounds");
     }
 
     /**
@@ -672,9 +671,9 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         Calendar uiCalendar = ui.getCalendar();
         int month = uiCalendar.get(Calendar.MONTH);
         CalendarUtils.startOfWeek(uiCalendar);
-        assertFalse("sanity - we have leading dates in the month", month == uiCalendar.get(Calendar.MONTH));
-        assertEquals("leading dates must return null bounds", 
-                null, ui.getDayBounds(uiCalendar.getTime()));
+        assertFalse(month == uiCalendar.get(Calendar.MONTH), "sanity - we have leading dates in the month");
+        assertEquals(null, 
+                ui.getDayBounds(uiCalendar.getTime()), "leading dates must return null bounds");
     }
 
     /**
@@ -774,7 +773,7 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         BasicMonthViewUI ui = getRealizedMonthViewUI(ComponentOrientation.LEFT_TO_RIGHT);
         Rectangle monthBounds = ui.getMonthBoundsAtLocation(20, 20);
         assertEquals(monthBounds.getLocation(), ui.calendarGrid.getLocation());
-        assertNull("no hit - bounds must be null", ui.getMonthBoundsAtLocation(19, 20));
+        assertNull(ui.getMonthBoundsAtLocation(19, 20), "no hit - bounds must be null");
     }
  
     
@@ -796,7 +795,7 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         Calendar uiCalendar = ui.getCalendar();
         uiCalendar.add(Calendar.WEEK_OF_YEAR, 1);
         CalendarUtils.startOfWeek(uiCalendar);
-        assertEquals("first logical column in LToR", uiCalendar.getTime(), date);
+        assertEquals(uiCalendar.getTime(), date, "first logical column in LToR");
      }
 
     /**
@@ -817,7 +816,7 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         Calendar uiCalendar = ui.getCalendar(ui.getMonthAtLocation(20, 20));
         uiCalendar.add(Calendar.WEEK_OF_YEAR, 1);
         CalendarUtils.endOfWeek(uiCalendar);
-        assertEquals("first day in first week", uiCalendar.getTime(), endOfWeek); 
+        assertEquals(uiCalendar.getTime(), endOfWeek, "first day in first week"); 
      }
 
 
@@ -837,11 +836,11 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         Date date = ui.getDayAtLocation(
                 monthBounds.x + 2, 
                 monthBounds.y + ui.getMonthHeaderHeight() + 2); 
-        assertNull("hitting days-of-week must return null calendar", date);
+        assertNull(date, "hitting days-of-week must return null calendar");
      }
     
     @Test
-    @Ignore("Math.ceil use seems to result in 1-pixel difference")
+    @Disabled("Math.ceil use seems to result in 1-pixel difference")
     public void testDayBounds() {
         // This test will not work in a headless configuration.
         if (GraphicsEnvironment.isHeadless()) {
@@ -851,16 +850,16 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         BasicMonthViewUI uiRToL = getRealizedMonthViewUI(ComponentOrientation.RIGHT_TO_LEFT);
         BasicMonthViewUI uiLToR = getRealizedMonthViewUI(ComponentOrientation.LEFT_TO_RIGHT);
         Rectangle monthBounds = uiRToL.getMonthBoundsAtLocation(20, 20);
-        assertNull("hit in header must return null bounds", 
-                uiRToL.getDayBoundsAtLocation(monthBounds.x + 2, monthBounds.y + 2));
+        assertNull(uiRToL.getDayBoundsAtLocation(monthBounds.x + 2, monthBounds.y + 2), 
+                "hit in header must return null bounds");
         // first column first row
         Rectangle dayBoundsRToL = uiRToL.getDayBoundsAtLocation(
                 monthBounds.x + 2, monthBounds.y + uiRToL.getMonthHeaderHeight()); 
         // same for LToR
         Rectangle dayBoundsLToR = uiLToR.getDayBoundsAtLocation(
                 monthBounds.x + 2, monthBounds.y + uiLToR.getMonthHeaderHeight()); 
-        assertEquals("day bounds must be independent of orientation", 
-                dayBoundsLToR, dayBoundsRToL);
+        assertEquals(dayBoundsLToR, 
+                dayBoundsRToL, "day bounds must be independent of orientation");
         assertEquals(monthBounds.x, dayBoundsLToR.x);
         assertEquals(monthBounds.y + uiLToR.getMonthHeaderHeight(), dayBoundsLToR.y);
     }
@@ -884,8 +883,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
             Point location = getLocationInRow(ui, row);
             // first row below month header == days of week header 
             Point dayGridPosition = ui.getDayGridPositionAtLocation(location.x, location.y); 
-            assertEquals("calendarRow at absolute row " + row, 
-                    calendarRow, dayGridPosition.y);
+            assertEquals(calendarRow, 
+                    dayGridPosition.y, "calendarRow at absolute row " + row);
             calendarRow++;
         }
      }
@@ -907,8 +906,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
             Point location = getLocationInColumn(ui, column);
             // first row below month header == days of week header 
             Point dayGridPosition = ui.getDayGridPositionAtLocation(location.x, location.y); 
-            assertEquals("calendarColumn at absolute column " + column, 
-                    calendarColumn, dayGridPosition.x);
+            assertEquals(calendarColumn, 
+                    dayGridPosition.x, "calendarColumn at absolute column " + column);
             calendarColumn++;
         }
      }
@@ -929,8 +928,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
             Point location = getLocationInColumn(ui, column);
             // first row below month header == days of week header 
             Point dayGridPosition = ui.getDayGridPositionAtLocation(location.x, location.y); 
-            assertEquals("calendarColumn at absolute column " + column, 
-                    calendarColumn, dayGridPosition.x);
+            assertEquals(calendarColumn, 
+                    dayGridPosition.x, "calendarColumn at absolute column " + column);
             calendarColumn++;
         }
      }
@@ -951,8 +950,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
             Point location = getLocationInColumn(ui, column);
             // first row below month header == days of week header 
             Point dayGridPosition = ui.getDayGridPositionAtLocation(location.x, location.y); 
-            assertEquals("calendarColumn at absolute column " + column, 
-                    calendarColumn, dayGridPosition.x);
+            assertEquals(calendarColumn, 
+                    dayGridPosition.x, "calendarColumn at absolute column " + column);
             calendarColumn--;
         }
      }
@@ -973,8 +972,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
             Point location = getLocationInColumn(ui, column);
             // first row below month header == days of week header 
             Point dayGridPosition = ui.getDayGridPositionAtLocation(location.x, location.y); 
-            assertEquals("calendarColumn at absolute column " + column, 
-                    calendarColumn, dayGridPosition.x);
+            assertEquals(calendarColumn, 
+                    dayGridPosition.x, "calendarColumn at absolute column " + column);
             calendarColumn--;
         }
      }
@@ -996,8 +995,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         Point location = getLocationInRow(ui, 0);
         // first row below month header == days of week header 
         Point dayGridPosition = ui.getDayGridPositionAtLocation(location.x, location.y); 
-        assertEquals("first row below header must be day column header", 
-                BasicMonthViewUI.DAY_HEADER_ROW, dayGridPosition.y);
+        assertEquals(BasicMonthViewUI.DAY_HEADER_ROW, 
+                dayGridPosition.y, "first row below header must be day column header");
      }
 
     /**
@@ -1016,7 +1015,7 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         Point location = getLocationInRow(ui, 1);
         Point dayInGrid = ui.getDayGridPositionAtLocation(location.x, location.y); 
        
-        assertEquals("first row", BasicMonthViewUI.FIRST_WEEK_ROW, dayInGrid.y);
+        assertEquals(BasicMonthViewUI.FIRST_WEEK_ROW, dayInGrid.y, "first row");
      }
  
     /**
@@ -1034,7 +1033,7 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         Point location = getLocationInRow(ui, BasicMonthViewUI.WEEKS_IN_MONTH); 
         Point dayInGrid = ui.getDayGridPositionAtLocation(location.x, location.y);
        
-        assertEquals("first row", BasicMonthViewUI.LAST_WEEK_ROW, dayInGrid.y);
+        assertEquals(BasicMonthViewUI.LAST_WEEK_ROW, dayInGrid.y, "first row");
      }
 
     
@@ -1052,8 +1051,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         BasicMonthViewUI ui = getRealizedMonthViewUI(ComponentOrientation.RIGHT_TO_LEFT);
         Point location = getLocationInColumn(ui, 0);
         Point dayGridPosition = ui.getDayGridPositionAtLocation(location.x, location.y); 
-        assertEquals("last logical column in RToL", BasicMonthViewUI.LAST_DAY_COLUMN, 
-                dayGridPosition.x);
+        assertEquals(BasicMonthViewUI.LAST_DAY_COLUMN, dayGridPosition.x, 
+                "last logical column in RToL");
      }
 
     /**
@@ -1070,8 +1069,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         BasicMonthViewUI ui = getRealizedMonthViewUI(ComponentOrientation.RIGHT_TO_LEFT);
         Point location = getLocationInColumn(ui, BasicMonthViewUI.DAYS_IN_WEEK - 1);
         Point dayGridPosition = ui.getDayGridPositionAtLocation(location.x, location.y); 
-        assertEquals("last logical column in RToL", BasicMonthViewUI.FIRST_DAY_COLUMN, 
-                dayGridPosition.x);
+        assertEquals(BasicMonthViewUI.FIRST_DAY_COLUMN, dayGridPosition.x, 
+                "last logical column in RToL");
      }
 
     /**
@@ -1088,8 +1087,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         BasicMonthViewUI ui = getRealizedMonthViewUI(ComponentOrientation.RIGHT_TO_LEFT, true);
         Point location = getLocationInColumn(ui, BasicMonthViewUI.DAYS_IN_WEEK - 1);
         Point dayGridPosition = ui.getDayGridPositionAtLocation(location.x, location.y); 
-        assertEquals("last logical column in RToL", BasicMonthViewUI.FIRST_DAY_COLUMN, 
-                dayGridPosition.x);
+        assertEquals(BasicMonthViewUI.FIRST_DAY_COLUMN, dayGridPosition.x, 
+                "last logical column in RToL");
      }
 
     /**
@@ -1106,7 +1105,7 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         BasicMonthViewUI ui = getRealizedMonthViewUI(ComponentOrientation.LEFT_TO_RIGHT);
         Point location = getLocationInColumn(ui, 0);
         Point dayGridPosition = ui.getDayGridPositionAtLocation(location.x, location.y);
-        assertEquals("first logical column in LToR", BasicMonthViewUI.FIRST_DAY_COLUMN, dayGridPosition.x);
+        assertEquals(BasicMonthViewUI.FIRST_DAY_COLUMN, dayGridPosition.x, "first logical column in LToR");
      }
     
     /**
@@ -1123,7 +1122,7 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         BasicMonthViewUI ui = getRealizedMonthViewUI(ComponentOrientation.LEFT_TO_RIGHT);
         Point location = getLocationInColumn(ui, BasicMonthViewUI.DAYS_IN_WEEK - 1);
         Point dayGridPosition = ui.getDayGridPositionAtLocation(location.x, location.y);
-        assertEquals("first logical column in LToR", BasicMonthViewUI.LAST_DAY_COLUMN, dayGridPosition.x);
+        assertEquals(BasicMonthViewUI.LAST_DAY_COLUMN, dayGridPosition.x, "first logical column in LToR");
      }
     /**
      * Map pixel to logical grid. 
@@ -1140,8 +1139,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         // right == week header
         Point location = getLocationInColumn(ui, BasicMonthViewUI.DAYS_IN_WEEK); 
         Point dayGridPosition = ui.getDayGridPositionAtLocation(location.x, location.y);
-        assertEquals("weeks of year column in RTL", BasicMonthViewUI.WEEK_HEADER_COLUMN, 
-                dayGridPosition.x);
+        assertEquals(BasicMonthViewUI.WEEK_HEADER_COLUMN, dayGridPosition.x, 
+                "weeks of year column in RTL");
      }
 
     
@@ -1160,7 +1159,7 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         // left == week header
         Point location = getLocationInColumn(ui, 0);
         Point dayGridPosition = ui.getDayGridPositionAtLocation(location.x, location.y); 
-        assertEquals("first logical column in LToR", BasicMonthViewUI.WEEK_HEADER_COLUMN, dayGridPosition.x);
+        assertEquals(BasicMonthViewUI.WEEK_HEADER_COLUMN, dayGridPosition.x, "first logical column in LToR");
      }
 
     /**
@@ -1175,8 +1174,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         }
         BasicMonthViewUI ui = getRealizedMonthViewUI(ComponentOrientation.LEFT_TO_RIGHT);
         Point location = getLocationInMonthHeader(ui);
-        assertNull("hit in header must return null grid position", 
-                ui.getDayGridPositionAtLocation(location.x, location.y));
+        assertNull(ui.getDayGridPositionAtLocation(location.x, location.y), 
+                "hit in header must return null grid position");
     }
     
     /**
@@ -1191,8 +1190,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         }
         BasicMonthViewUI ui = getRealizedMonthViewUI(ComponentOrientation.RIGHT_TO_LEFT);
         Point location = getLocationInMonthHeader(ui);
-        assertNull("hit in header must return null grid position", 
-                ui.getDayGridPositionAtLocation(location.x, location.y));
+        assertNull(ui.getDayGridPositionAtLocation(location.x, location.y), 
+                "hit in header must return null grid position");
     }
     
     /**
@@ -1215,8 +1214,8 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         assertEquals(monthField, first.get(Calendar.MONTH));
         Date monthRL = uiRToL.getMonth(0, 0);
         first.setTime(monthRL);
-        assertEquals("logical coordinates must be independent of orientation",
-                monthField, first.get(Calendar.MONTH));
+        assertEquals(monthField,
+                first.get(Calendar.MONTH), "logical coordinates must be independent of orientation");
     }
 
     /**
@@ -1244,7 +1243,7 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
      * 
      */
     @Test
-    @Ignore("Math.ceil use seems to result in pixel difference")
+    @Disabled("Math.ceil use seems to result in pixel difference")
     public void testMonthBoundsAtLocation() {
         // This test will not work in a headless configuration.
         if (GraphicsEnvironment.isHeadless()) {
@@ -1256,14 +1255,14 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         Rectangle monthBoundsRToL = uiRToL.getMonthBoundsAtLocation(20, 20);
         Rectangle monthBoundsLToR = uiLToR.getMonthBoundsAtLocation(20, 20);
         // bounds of first
-        assertEquals("bounds of left-most month must be equal", 
-                monthBoundsLToR, monthBoundsRToL);
+        assertEquals(monthBoundsLToR, 
+                monthBoundsRToL, "bounds of left-most month must be equal");
         Rectangle monthBoundsTwoRToL = uiRToL.getMonthBoundsAtLocation(
                         monthBoundsRToL.width + 20, 20);
         Rectangle monthBoundsTwoLToR = uiRToL.getMonthBoundsAtLocation(
                 monthBoundsLToR.width + 20, 20);
-        assertEquals("bounds of right-most month must be equal", 
-                monthBoundsTwoLToR, monthBoundsTwoRToL);
+        assertEquals(monthBoundsTwoLToR, 
+                monthBoundsTwoRToL, "bounds of right-most month must be equal");
         
     }
 
@@ -1285,7 +1284,7 @@ public class BasicMonthViewUITest extends InteractiveTestCase {
         frame.pack();
         BasicMonthViewUI ui = (BasicMonthViewUI) monthView.getUI();
         Rectangle monthBoundsLToR = ui.getMonthHeaderBoundsAtLocation(20, 20);
-        assertEquals("", ui.getMonthHeaderHeight(), monthBoundsLToR.height);
+        assertEquals(ui.getMonthHeaderHeight(), monthBoundsLToR.height, "");
     }
 
     

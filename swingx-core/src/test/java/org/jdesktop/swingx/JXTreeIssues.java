@@ -6,6 +6,8 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -41,7 +43,8 @@ import org.jdesktop.swingx.renderer.WrappingProvider;
 import org.jdesktop.swingx.test.XTestUtils;
 import org.jdesktop.swingx.tree.DefaultXTreeCellEditor;
 import org.jdesktop.swingx.tree.DefaultXTreeCellRenderer;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -84,11 +87,11 @@ public class JXTreeIssues extends JXTreeUnitTest {
     @Test
     public void testRendererUsedInEditorAfterSet() {
         TestTree tree = new TestTree();
-        assertTrue("sanity: editor is of type DefaultXTreeCellEditor", tree.getCellEditor() instanceof DefaultXTreeCellEditor);
+        assertTrue(tree.getCellEditor() instanceof DefaultXTreeCellEditor, "sanity: editor is of type DefaultXTreeCellEditor");
         TreeCellRenderer renderer = new DefaultTreeCellRenderer();
         tree.setCellRenderer(renderer);
-        assertSame("sanity: new renderer is wrapped", renderer, tree.getWrappedCellRenderer());
-        assertSame("editor must be updated with new renderer", renderer, ((DefaultXTreeCellEditor) tree.getCellEditor()).getRenderer()); 
+        assertSame(renderer, tree.getWrappedCellRenderer(), "sanity: new renderer is wrapped");
+        assertSame(renderer, ((DefaultXTreeCellEditor) tree.getCellEditor()).getRenderer(), "editor must be updated with new renderer"); 
     }
     
     /**
@@ -99,9 +102,9 @@ public class JXTreeIssues extends JXTreeUnitTest {
     @Test
     public void testLAFRendererTree() {
         JTree tree = new JTree();
-        assertNotNull("default renderer installed", tree.getCellRenderer());
-        assertTrue("expected UIResource, but was: " + tree.getCellRenderer().getClass(), 
-                tree.getCellRenderer() instanceof UIResource);
+        assertNotNull(tree.getCellRenderer(), "default renderer installed");
+        assertTrue(tree.getCellRenderer() instanceof UIResource, 
+                "expected UIResource, but was: " + tree.getCellRenderer().getClass());
     }
     
     /**
@@ -112,19 +115,18 @@ public class JXTreeIssues extends JXTreeUnitTest {
     @Test
     public void testLAFRendererXTree() {
         JXTree tree = new JXTree();
-        assertNotNull("default renderer installed", tree.getCellRenderer());
-        assertTrue("expected UIResource, but was: " + tree.getCellRenderer().getClass(), 
-                tree.getCellRenderer() instanceof UIResource);
+        assertNotNull(tree.getCellRenderer(), "default renderer installed");
+        assertTrue(tree.getCellRenderer() instanceof UIResource, 
+                "expected UIResource, but was: " + tree.getCellRenderer().getClass());
     }
     
     
     private DefaultTreeRenderer sharedRenderer;
     ComponentProvider<?> provider;
-    
-    
 
-    @Override
-    protected void setUp() throws Exception {
+
+    @BeforeEach
+    public void setUp() throws Exception {
         super.setUp();
         provider = new CheckBoxProvider(StringValues.TO_STRING);
         sharedRenderer = new DefaultTreeRenderer(new WrappingProvider(provider));
@@ -407,7 +409,8 @@ public class JXTreeIssues extends JXTreeUnitTest {
 //        addAction(frame, toggleClosedIcon);
         frame.setVisible(true);
     }
-    
+
+    @Test
     public void testDummy() {
         // do nothing - it's here let the test pass
     }

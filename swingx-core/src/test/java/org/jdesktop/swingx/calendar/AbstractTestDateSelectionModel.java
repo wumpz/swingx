@@ -21,6 +21,8 @@
  */
 package org.jdesktop.swingx.calendar;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -28,15 +30,12 @@ import java.util.SortedSet;
 import java.util.TimeZone;
 import java.util.TreeSet;
 
-import junit.framework.TestCase;
-
 import org.jdesktop.swingx.calendar.DateSelectionModel.SelectionMode;
 import org.jdesktop.swingx.event.DateSelectionEvent;
 import org.jdesktop.swingx.event.DateSelectionEvent.EventType;
 import org.jdesktop.swingx.test.DateSelectionReport;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Contains test for functionality implemeted on the AbstractDateXX level. <p>
@@ -48,8 +47,7 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
-public class AbstractTestDateSelectionModel extends TestCase {
+public class AbstractTestDateSelectionModel {
 
     protected DateSelectionModel model;
     // pre-defined dates - initialized in setUpCalendar
@@ -70,7 +68,7 @@ public class AbstractTestDateSelectionModel extends TestCase {
         model.setLowerBound(today);
         DateSelectionReport report = new DateSelectionReport(model);
         model.setLowerBound(today);
-        assertEquals("same bound, no event fired", 0, report.getEventCount());
+        assertEquals(0, report.getEventCount(), "same bound, no event fired");
     }
 
     /**
@@ -82,7 +80,7 @@ public class AbstractTestDateSelectionModel extends TestCase {
         model.setLowerBound(today);
         DateSelectionReport report = new DateSelectionReport(model);
         model.setLowerBound(null);
-        assertEquals("bound changed, event must be fired", 1, report.getEventCount(EventType.LOWER_BOUND_CHANGED));
+        assertEquals(1, report.getEventCount(EventType.LOWER_BOUND_CHANGED), "bound changed, event must be fired");
     }
     
     /**
@@ -93,7 +91,7 @@ public class AbstractTestDateSelectionModel extends TestCase {
     public void testSetLowerBoundFireSet() {
         DateSelectionReport report = new DateSelectionReport(model);
         model.setLowerBound(today);
-        assertEquals("bound changed, event must be fired", 1, report.getEventCount(EventType.LOWER_BOUND_CHANGED));
+        assertEquals(1, report.getEventCount(EventType.LOWER_BOUND_CHANGED), "bound changed, event must be fired");
     }
     
     /**
@@ -105,7 +103,7 @@ public class AbstractTestDateSelectionModel extends TestCase {
         model.setUpperBound(today);
         DateSelectionReport report = new DateSelectionReport(model);
         model.setUpperBound(today);
-        assertEquals("same bound, no event fired", 0, report.getEventCount());
+        assertEquals(0, report.getEventCount(), "same bound, no event fired");
     }
 
     /**
@@ -117,7 +115,7 @@ public class AbstractTestDateSelectionModel extends TestCase {
         model.setUpperBound(today);
         DateSelectionReport report = new DateSelectionReport(model);
         model.setUpperBound(null);
-        assertEquals("bound changed, event must be fired", 1, report.getEventCount(EventType.UPPER_BOUND_CHANGED));
+        assertEquals(1, report.getEventCount(EventType.UPPER_BOUND_CHANGED), "bound changed, event must be fired");
     }
     
     /**
@@ -128,7 +126,7 @@ public class AbstractTestDateSelectionModel extends TestCase {
     public void testSetUpperBoundFireSet() {
         DateSelectionReport report = new DateSelectionReport(model);
         model.setUpperBound(today);
-        assertEquals("bound changed, event must be fired", 1, report.getEventCount(EventType.UPPER_BOUND_CHANGED));
+        assertEquals(1, report.getEventCount(EventType.UPPER_BOUND_CHANGED), "bound changed, event must be fired");
     }
     
     /**
@@ -159,7 +157,7 @@ public class AbstractTestDateSelectionModel extends TestCase {
     public void testSetUpperBoundClearsSelectionAfter() {
         model.setSelectionInterval(tomorrow, tomorrow);
         model.setUpperBound(today);
-        assertTrue("future selection must be cleared", model.isSelectionEmpty());
+        assertTrue(model.isSelectionEmpty(), "future selection must be cleared");
     }
     
     /**
@@ -169,7 +167,7 @@ public class AbstractTestDateSelectionModel extends TestCase {
     public void testSetLowerBoundClearsSelectionBefore() {
         model.setSelectionInterval(yesterday, yesterday);
         model.setLowerBound(today);
-        assertTrue("past selection must be cleared", model.isSelectionEmpty());
+        assertTrue(model.isSelectionEmpty(), "past selection must be cleared");
     }
     
     /**
@@ -238,8 +236,8 @@ public class AbstractTestDateSelectionModel extends TestCase {
         // it was set ...
         assertFalse(model.isUnselectableDate(yesterday));
         // missing api on JXMonthView
-        assertEquals("unselectable dates must have been cleared", 
-                0, model.getUnselectableDates().size());
+        assertEquals(0, 
+                model.getUnselectableDates().size(), "unselectable dates must have been cleared");
     }
     
     /**
@@ -264,7 +262,7 @@ public class AbstractTestDateSelectionModel extends TestCase {
         // accidentally passes - because it is meaningful only in the timezone 
         // it was set ...
         assertFalse(model.isSelected(date));
-        assertTrue("selection must have been cleared", model.isSelectionEmpty());
+        assertTrue(model.isSelectionEmpty(), "selection must have been cleared");
     }
     
     /**
@@ -283,7 +281,7 @@ public class AbstractTestDateSelectionModel extends TestCase {
         }
         model.setLowerBound(yesterday);
         model.setTimeZone(tz);
-        assertEquals("lowerBound must have been reset", null, model.getLowerBound());
+        assertEquals(null, model.getLowerBound(), "lowerBound must have been reset");
     }
     
     /**
@@ -302,7 +300,7 @@ public class AbstractTestDateSelectionModel extends TestCase {
         }
         model.setUpperBound(yesterday);
         model.setTimeZone(tz);
-        assertEquals("upperbound must have been reset", null, model.getUpperBound());
+        assertEquals(null, model.getUpperBound(), "upperbound must have been reset");
     }
     
 
@@ -611,7 +609,7 @@ public class AbstractTestDateSelectionModel extends TestCase {
         model.setUpperBound(today);
         assertEquals(model.getNormalizedDate(today), model.getUpperBound());
         model.setUpperBound(null);
-        assertEquals("sanity - upper bound removed", null, model.getUpperBound());
+        assertEquals(null, model.getUpperBound(), "sanity - upper bound removed");
     }
     
     /**
@@ -623,7 +621,7 @@ public class AbstractTestDateSelectionModel extends TestCase {
         model.setLowerBound(today);
         assertEquals(model.getNormalizedDate(today), model.getLowerBound());
         model.setLowerBound(null);
-        assertEquals("sanity - upper bound removed", null, model.getLowerBound());
+        assertEquals(null, model.getLowerBound(), "sanity - upper bound removed");
     }
 
 
@@ -637,17 +635,17 @@ public class AbstractTestDateSelectionModel extends TestCase {
         model.setUpperBound(today);
         // the bound itself is allowed
         model.setSelectionInterval(today, today);
-        assertFalse("upper bound is selectable", model.isSelectionEmpty());
-        assertTrue("upper bound must be selected", model.isSelected(today));
+        assertFalse(model.isSelectionEmpty(), "upper bound is selectable");
+        assertTrue(model.isSelected(today), "upper bound must be selected");
         DateSelectionReport report = new DateSelectionReport(model);
         model.setSelectionInterval(tomorrow, tomorrow);
-        assertFalse("future must not be selected", model.isSelected(tomorrow));
-        assertEquals("no event fired", 0, report.getEventCount());
+        assertFalse(model.isSelected(tomorrow), "future must not be selected");
+        assertEquals(0, report.getEventCount(), "no event fired");
         // remove bound allows selection of tomorrow
         model.setUpperBound(null);
         model.setSelectionInterval(tomorrow, tomorrow);
-        assertTrue("tomorrow must be selected after removing upper bound ",
-                model.isSelected(tomorrow));
+        assertTrue(model.isSelected(tomorrow),
+                "tomorrow must be selected after removing upper bound ");
     }
     
     /**
@@ -660,17 +658,17 @@ public class AbstractTestDateSelectionModel extends TestCase {
         model.setLowerBound(today);
         // the bound itself is allowed
         model.setSelectionInterval(today, today);
-        assertFalse("lower bound is selectable", model.isSelectionEmpty());
-        assertTrue("loweer bound must be selected", model.isSelected(today));
+        assertFalse(model.isSelectionEmpty(), "lower bound is selectable");
+        assertTrue(model.isSelected(today), "loweer bound must be selected");
         DateSelectionReport report = new DateSelectionReport(model);
         model.setSelectionInterval(yesterday, yesterday);
-        assertFalse("past must not be selected", model.isSelected(yesterday));
-        assertEquals("no event fired", 0, report.getEventCount());
+        assertFalse(model.isSelected(yesterday), "past must not be selected");
+        assertEquals(0, report.getEventCount(), "no event fired");
         // remove bound allows selection of tomorrow
         model.setLowerBound(null);
         model.setSelectionInterval(yesterday, yesterday);
-        assertTrue("past must be selected after removing lower bound ",
-                model.isSelected(yesterday));
+        assertTrue(model.isSelected(yesterday),
+                "past must be selected after removing lower bound ");
     }
     
     /**
@@ -683,8 +681,8 @@ public class AbstractTestDateSelectionModel extends TestCase {
         model.setUpperBound(yesterday);
         DateSelectionReport report = new DateSelectionReport(model);
         model.setSelectionInterval(today, today);
-        assertEquals("selection must be empty", 0, model.getSelection().size());
-        assertEquals("no event fired", 0, report.getEventCount());
+        assertEquals(0, model.getSelection().size(), "selection must be empty");
+        assertEquals(0, report.getEventCount(), "no event fired");
     }
 
     /**
@@ -696,7 +694,7 @@ public class AbstractTestDateSelectionModel extends TestCase {
         model.setLowerBound(today);
         model.setUpperBound(today);
         model.setSelectionInterval(today, today);
-        assertTrue("selected bounds", model.isSelected(today));
+        assertTrue(model.isSelected(today), "selected bounds");
     }
 
 
@@ -712,7 +710,7 @@ public class AbstractTestDateSelectionModel extends TestCase {
         unselectableDates.add(today);
         model.setUnselectableDates(unselectableDates);
         model.setSelectionInterval(today, today);
-        assertTrue("selection must be empty", model.isSelectionEmpty());
+        assertTrue(model.isSelectionEmpty(), "selection must be empty");
     }
 
     
@@ -758,14 +756,14 @@ public class AbstractTestDateSelectionModel extends TestCase {
         DateSelectionReport report = new DateSelectionReport(model);
         // set adjusting
         model.setAdjusting(true);
-        assertTrue("model must be adjusting", model.isAdjusting());
+        assertTrue(model.isAdjusting(), "model must be adjusting");
         assertEquals(1, report.getEventCount());
         assertEquals(DateSelectionEvent.EventType.ADJUSTING_STARTED, 
                 report.getLastEventType());
         // next round - reset to default adjusting
         report.clear();
         model.setAdjusting(false);
-        assertFalse("model must not be adjusting", model.isAdjusting());
+        assertFalse(model.isAdjusting(), "model must not be adjusting");
         assertEquals(1, report.getEventCount());
         assertEquals(DateSelectionEvent.EventType.ADJUSTING_STOPPED, 
                 report.getLastEventType());
@@ -848,9 +846,9 @@ public class AbstractTestDateSelectionModel extends TestCase {
         
         calendar.setTime(today);
     }
-    
-    @Override
-    protected void setUp() throws Exception {
+
+    @BeforeEach
+    public void setUp() throws Exception {
         setUpCalendar();
         model = new DaySelectionModel();
     }

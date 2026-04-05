@@ -21,6 +21,8 @@
  */
 package org.jdesktop.swingx.plaf.basic;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.ComponentOrientation;
 import java.awt.GraphicsEnvironment;
 import java.util.Calendar;
@@ -32,7 +34,7 @@ import org.jdesktop.swingx.InteractiveTestCase;
 import org.jdesktop.swingx.JXFrame;
 import org.jdesktop.swingx.JXMonthView;
 import org.jdesktop.swingx.calendar.CalendarUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests to expose known issues of BasicMonthViewUI.
@@ -93,6 +95,7 @@ public class BasicMonthViewUIIssues extends InteractiveTestCase {
      * Set the default timezone and get the default calendar.
      * 
      */
+    @Test
     public void testTimeZoneCairoCalendarUtils() {
         TimeZone cairo = TimeZone.getTimeZone("Africa/Cairo");
         Calendar calendar = Calendar.getInstance(cairo);
@@ -106,19 +109,20 @@ public class BasicMonthViewUIIssues extends InteractiveTestCase {
         for (int week = 0; week < 6; week++) {
             for (int day = 0; day < 7; day++) {
                 calendar.add(Calendar.DAY_OF_MONTH, 1);
-                assertTrue("must be start of day " + calendar.getTime(),
-                        CalendarUtils.isStartOfDay(calendar));
+                assertTrue(CalendarUtils.isStartOfDay(calendar),
+                        "must be start of day " + calendar.getTime());
             }
-            assertTrue("must be start of week " + calendar.getTime(),
-                    CalendarUtils.isStartOfWeek(calendar));
+            assertTrue(CalendarUtils.isStartOfWeek(calendar),
+                    "must be start of week " + calendar.getTime());
         }
     }
-    
+
     /**
      * Test getDayBounds(Date) for leading dates are null. The assumption is
      * wrong for a leading date in the second month - it's contained in the
      * first!
      */
+    @Test
     public void testDayBoundsLeadingDatesNull() {
         // This test will not work in a headless configuration.
         if (GraphicsEnvironment.isHeadless()) {
@@ -131,9 +135,9 @@ public class BasicMonthViewUIIssues extends InteractiveTestCase {
         calendar.add(Calendar.MONTH, 1);
         int month = calendar.get(Calendar.MONTH);
         CalendarUtils.startOfWeek(calendar);
-        assertFalse("sanity - we have leading dates in the month", month == calendar.get(Calendar.MONTH));
-        assertEquals("leading dates must return null bounds", null, 
-                ui.getDayBounds(calendar.getTime()));
+        assertFalse(month == calendar.get(Calendar.MONTH), "sanity - we have leading dates in the month");
+        assertEquals(null, ui.getDayBounds(calendar.getTime()), 
+                "leading dates must return null bounds");
     }
 
 
@@ -185,12 +189,13 @@ public class BasicMonthViewUIIssues extends InteractiveTestCase {
         return ui;
     }
 
-    
+
     /**
      * Do nothing - just to keep the test runner from complaining 
      * if there are no issues.
      *
      */
+    @Test
     public void testDummy() {
         
     }

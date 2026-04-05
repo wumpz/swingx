@@ -34,6 +34,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import org.jdesktop.swingx.action.AbstractActionExt;
+import org.junit.jupiter.api.Test;
 
 /**
  * TODO add type doc
@@ -114,6 +115,7 @@ public class JXDialogVisualCheck extends InteractiveTestCase {
      * issues.
      *
      */
+    @Test
     public void testDummy() {
         
     }

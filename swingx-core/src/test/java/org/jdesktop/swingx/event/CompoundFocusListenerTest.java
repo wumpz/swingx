@@ -4,6 +4,8 @@
  */
 package org.jdesktop.swingx.event;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.Component;
 import java.awt.GraphicsEnvironment;
 import java.awt.KeyboardFocusManager;
@@ -27,13 +29,10 @@ import org.jdesktop.swingx.JXFrame;
 import org.jdesktop.swingx.JXPanel;
 import org.jdesktop.swingx.SwingXUtilities;
 import org.jdesktop.test.PropertyChangeReport;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-@Ignore("automated testing fails")
-@RunWith(JUnit4.class)
+@Disabled("automated testing fails")
 public class CompoundFocusListenerTest extends InteractiveTestCase {
     @SuppressWarnings("unused")
     private static final Logger LOG = Logger
@@ -82,16 +81,18 @@ public class CompoundFocusListenerTest extends InteractiveTestCase {
     }
 
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullRoot() {
-        new CompoundFocusListener(null);
+        assertThrows(NullPointerException.class, () -> {
+            new CompoundFocusListener(null);
+        });
     }
     
     @Test
     public void testFocusedInitialFalse() {
         JComboBox field = new JComboBox();
         field.setEditable(true);
-        assertFalse("sanity: combo not focused", field.hasFocus());
+        assertFalse(field.hasFocus(), "sanity: combo not focused");
         CompoundFocusListener l = new CompoundFocusListener(field);
         assertEquals(field.hasFocus(), l.isFocused());
     }
@@ -109,10 +110,10 @@ public class CompoundFocusListenerTest extends InteractiveTestCase {
             @Override
             public void run() {
                 Component focusOwner = KeyboardFocusManager.getCurrentKeyboardFocusManager().getPermanentFocusOwner();
-                assertTrue("sanity: focus transfered into picker hierarchy", 
-                        SwingXUtilities.isDescendingFrom(focusOwner, picker));
+                assertTrue(SwingXUtilities.isDescendingFrom(focusOwner, picker), 
+                        "sanity: focus transfered into picker hierarchy");
                 CompoundFocusListener l = new CompoundFocusListener(picker);
-                assertTrue("listener must take initial focused state ", l.isFocused());
+                assertTrue(l.isFocused(), "listener must take initial focused state ");
             }
         });
     }
@@ -128,7 +129,7 @@ public class CompoundFocusListenerTest extends InteractiveTestCase {
     private void assertRemoved(PropertyChangeReport report,
             PropertyChangeListener[] propertyChangeListeners) {
         for (PropertyChangeListener l : propertyChangeListeners) {
-            assertNotSame("property change listener must have been removed", report, l);
+            assertNotSame(report, l, "property change listener must have been removed");
         }
     }
 
@@ -147,8 +148,8 @@ public class CompoundFocusListenerTest extends InteractiveTestCase {
         }
         JXDatePicker picker = getRealizedDatePicker();
         Component focusOwner = KeyboardFocusManager.getCurrentKeyboardFocusManager().getPermanentFocusOwner();
-        assertFalse("sanity: initial focus must not be in picker", 
-                SwingXUtilities.isDescendingFrom(focusOwner, picker));
+        assertFalse(SwingXUtilities.isDescendingFrom(focusOwner, picker), 
+                "sanity: initial focus must not be in picker");
         CompoundFocusListener l = new CompoundFocusListener(picker);
         final PropertyChangeReport report = new PropertyChangeReport();
         l.addPropertyChangeListener(report);
@@ -177,8 +178,8 @@ public class CompoundFocusListenerTest extends InteractiveTestCase {
         }
         JXDatePicker picker = getRealizedDatePicker();
         Component focusOwner = KeyboardFocusManager.getCurrentKeyboardFocusManager().getPermanentFocusOwner();
-        assertFalse("sanity: initial focus must not be in picker", 
-                SwingXUtilities.isDescendingFrom(focusOwner, picker));
+        assertFalse(SwingXUtilities.isDescendingFrom(focusOwner, picker), 
+                "sanity: initial focus must not be in picker");
         CompoundFocusListener l = new CompoundFocusListener(picker);
         final PropertyChangeReport report = new PropertyChangeReport();
         l.addPropertyChangeListener(report);

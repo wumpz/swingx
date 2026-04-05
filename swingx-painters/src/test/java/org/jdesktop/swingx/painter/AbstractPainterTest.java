@@ -30,11 +30,14 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.awt.Graphics2D;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.awt.image.BufferedImageOp;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
@@ -49,7 +52,7 @@ public class AbstractPainterTest {
     protected AbstractPainter p;
     protected Graphics2D g;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         p = spy(createTestingPainter());
         g = mock(Graphics2D.class);
@@ -75,9 +78,10 @@ public class AbstractPainterTest {
     /**
      * Ensure a {@link NullPointerException} is thrown with a {@code null} graphics object.
      */
-    @Test(expected=NullPointerException.class)
+    @Test
     public void testPaintWithNullGraphics() {
-        p.paint(null, null, 10, 10);
+        assertThrows(NullPointerException.class, () ->
+            p.paint(null, null, 10, 10));
     }
 
     /**

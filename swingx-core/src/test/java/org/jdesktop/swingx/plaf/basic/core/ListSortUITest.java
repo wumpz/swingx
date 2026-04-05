@@ -21,6 +21,8 @@
  */
 package org.jdesktop.swingx.plaf.basic.core;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -47,11 +49,9 @@ import org.jdesktop.swingx.plaf.basic.core.ListSortUI.ModelChange;
 import org.jdesktop.swingx.sort.ListSortController;
 import org.jdesktop.swingx.sort.RowFilters;
 import org.jdesktop.swingx.sort.TableSortController;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -59,7 +59,6 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class ListSortUITest extends InteractiveTestCase {
     @SuppressWarnings("unused")
@@ -98,10 +97,10 @@ public class ListSortUITest extends InteractiveTestCase {
             
         };
         table.setRowFilter(filter);
-        assertEquals("sanity: filtered selection", selected - 1, table.getSelectedIndex());
+        assertEquals(selected - 1, table.getSelectedIndex(), "sanity: filtered selection");
         // remove last row
         ascendingListModel.remove(ascendingListModel.getSize() - 1);
-        assertEquals("filtered selection unchanged", selected - 1, table.getSelectedIndex());
+        assertEquals(selected - 1, table.getSelectedIndex(), "filtered selection unchanged");
         assertFalse(table.isSelectionEmpty());
     }
     /**
@@ -139,19 +138,25 @@ public class ListSortUITest extends InteractiveTestCase {
         model.add(2, "x");
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testConstructorDifferentSorter() {
-        new ListSortUI(new JXList(true), new ListSortController<ListModel>(ascendingListModel));
+        assertThrows(IllegalStateException.class, () -> {
+            new ListSortUI(new JXList(true), new ListSortController<ListModel>(ascendingListModel));
+        });
     }
     
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testConstructorNullSorter() {
-        new ListSortUI(new JXList(), null);
+        assertThrows(NullPointerException.class, () -> {
+            new ListSortUI(new JXList(), null);
+        });
     }
     
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testConstructorNullList() {
-        new ListSortUI(null, new ListSortController<ListModel>(ascendingListModel));
+        assertThrows(NullPointerException.class, () -> {
+            new ListSortUI(null, new ListSortController<ListModel>(ascendingListModel));
+        });
     }
     
     @Test
@@ -160,7 +165,7 @@ public class ListSortUITest extends InteractiveTestCase {
         list.setSelectedIndex(selection);
         RowFilter<Object, Integer> filter = RowFilters.regexFilter(".*", 0);
         controller.setRowFilter(filter);
-        assertEquals("setting filters must keep selection", selection, list.getSelectedIndex());
+        assertEquals(selection, list.getSelectedIndex(), "setting filters must keep selection");
     }
 
 
@@ -176,14 +181,14 @@ public class ListSortUITest extends InteractiveTestCase {
         list.setSelectedIndex(selectedRow);
         // revert order 
         list.setSortOrder(SortOrder.DESCENDING);
-        assertEquals("second row must be selected", 1, list.getSelectedIndex());
+        assertEquals(1, list.getSelectedIndex(), "second row must be selected");
         // add row in model coordinates
         // insert high value
         Object row = 100;
         ascendingListModel.addElement(row);
         assertEquals(row, list.getElementAt(0));
         // selection must be moved one below
-        assertEquals("selection must be incremented by one ", 2, list.getSelectedIndex());
+        assertEquals(2, list.getSelectedIndex(), "selection must be incremented by one ");
     }
     
     /**
@@ -195,9 +200,9 @@ public class ListSortUITest extends InteractiveTestCase {
         list.setSortOrder(SortOrder.ASCENDING);
         list.setSelectedIndex(0);
         ascendingListModel.remove(0);
-        assertTrue("sanity - empty selection after remove", list.isSelectionEmpty());
+        assertTrue(list.isSelectionEmpty(), "sanity - empty selection after remove");
         ascendingListModel.addElement(-1);
-        assertTrue("sanity - empty selection re-adding", list.isSelectionEmpty());
+        assertTrue(list.isSelectionEmpty(), "sanity - empty selection re-adding");
         list.setSelectedIndex(0);
     }
     
@@ -225,7 +230,7 @@ public class ListSortUITest extends InteractiveTestCase {
             public void valueChanged(ListSelectionEvent e) {
                 if (e.getValueIsAdjusting()) return;
                 int viewRow = list.getSelectedIndex(); 
-                assertEquals("view index visible", 0, viewRow);
+                assertEquals(0, viewRow, "view index visible");
                 // JW: the following checks if the reverse conversion succeeds
                 list.convertIndexToModel(viewRow);
                 
@@ -245,8 +250,8 @@ public class ListSortUITest extends InteractiveTestCase {
         list.setSelectedIndex(testRow);
         list.setSortOrder(SortOrder.DESCENDING);
         int index = list.getSelectedIndex();
-        assertEquals("last row must be selected after sorting", 
-                ascendingListModel.getSize() - (testRow + 1) , index);
+        assertEquals(ascendingListModel.getSize() - (testRow + 1), 
+                index, "last row must be selected after sorting");
         
     }
 
@@ -263,7 +268,7 @@ public class ListSortUITest extends InteractiveTestCase {
         int selection = 0;
         list.setSelectedIndex(selection);
         list.setModel(ascendingListModel);
-        assertTrue("setting model must clear selectioon", list.isSelectionEmpty());
+        assertTrue(list.isSelectionEmpty(), "setting model must clear selectioon");
         assertEquals(ascendingListModel.getSize(), list.getElementCount());
     }
     /**
@@ -276,7 +281,7 @@ public class ListSortUITest extends InteractiveTestCase {
         int selection = 0;
         list.setSelectedIndex(selection);
         ascendingListModel.fireContentsChanged();
-        assertTrue("dataChanged must clear selection", list.isSelectionEmpty());
+        assertTrue(list.isSelectionEmpty(), "dataChanged must clear selection");
     }
     /**
      * Selection must be cleared after dataChanged. 
@@ -289,7 +294,7 @@ public class ListSortUITest extends InteractiveTestCase {
         list.setSelectedIndex(selection);
         list.setSortOrder(SortOrder.DESCENDING);
         ascendingListModel.fireContentsChanged();
-        assertTrue("dataChanged must clear selection", list.isSelectionEmpty());
+        assertTrue(list.isSelectionEmpty(), "dataChanged must clear selection");
     }
     
     /**
@@ -306,8 +311,8 @@ public class ListSortUITest extends InteractiveTestCase {
         list.setSelectedIndex(1);
         // remove first 
         ascendingListModel.insertElementAt(5, 0);
-        assertEquals("selected must have moved after adding at start", 
-                2, list.getSelectedIndex());
+        assertEquals(2, 
+                list.getSelectedIndex(), "selected must have moved after adding at start");
     }
     
     /**
@@ -324,8 +329,8 @@ public class ListSortUITest extends InteractiveTestCase {
         list.setSelectedIndex(1);
         // remove first 
         ascendingListModel.remove(0);
-        assertEquals("first row must be selected removing old first", 
-                0, list.getSelectedIndex());
+        assertEquals(0, 
+                list.getSelectedIndex(), "first row must be selected removing old first");
     }
     
 
@@ -413,10 +418,9 @@ public class ListSortUITest extends InteractiveTestCase {
         return model;
     }
 
-    
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+
+    @BeforeEach
+    public void setUp() throws Exception {
         ascendingListModel = createAscendingListModel(0, 20);
         list = new JXList(ascendingListModel, true);
         controller = new ListSortController<>(list.getModel());
@@ -424,19 +428,18 @@ public class ListSortUITest extends InteractiveTestCase {
         list.setRowSorter(controller);
         testRow = 2;
     }
-    
-    
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
+
+
+    @AfterEach
+    public void tearDown() throws Exception {
     }
 
-    @Before
+    @BeforeEach
     public void setUpJ4() throws Exception {
         setUp();
     }
     
-    @After
+    @AfterEach
     public void tearDownJ4() throws Exception {
         tearDown();
     }

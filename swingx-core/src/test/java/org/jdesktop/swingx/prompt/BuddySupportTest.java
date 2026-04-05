@@ -1,20 +1,16 @@
 package org.jdesktop.swingx.prompt;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Component;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-import junit.framework.Assert;
-
 import org.jdesktop.swingx.plaf.BuddyLayoutAndBorder;
 import org.jdesktop.swingx.plaf.BuddyTextFieldUI;
 import org.jdesktop.swingx.prompt.BuddySupport.Position;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BuddySupportTest {
 	private JTextField tf = new JTextField();
@@ -23,9 +19,9 @@ public class BuddySupportTest {
 	public void testAdd() throws Exception {
 		JButton button = new JButton();
 		BuddySupport.addLeft(button, tf);
-		Assert.assertSame(BuddyLayoutAndBorder.class, tf.getLayout().getClass());
-		Assert.assertSame(1, tf.getComponentCount());
-		Assert.assertSame(button, tf.getComponent(0));
+		assertSame(BuddyLayoutAndBorder.class, tf.getLayout().getClass());
+		assertSame(1, tf.getComponentCount());
+		assertSame(button, tf.getComponent(0));
 	}
 
 	@Test
@@ -48,10 +44,10 @@ public class BuddySupportTest {
 
 	@Test
 	public void testGet() throws Exception {
-		Assert.assertSame(0, BuddySupport.getLeft(tf).size());
+		assertSame(0, BuddySupport.getLeft(tf).size());
 		JButton button = new JButton();
 		BuddySupport.addLeft(button, tf);
-		Assert.assertSame(1, BuddySupport.getLeft(tf).size());
+		assertSame(1, BuddySupport.getLeft(tf).size());
 	}
 	
 	@Test
@@ -59,8 +55,8 @@ public class BuddySupportTest {
 		JButton button = new JButton();
 		BuddySupport.addLeft(button, tf);
 		BuddySupport.remove(button, tf);
-		Assert.assertSame(0, BuddySupport.getLeft(tf).size());
-		Assert.assertSame(0, tf.getComponentCount());
+		assertSame(0, BuddySupport.getLeft(tf).size());
+		assertSame(0, tf.getComponentCount());
 	}
 	
 	@Test
@@ -70,9 +66,9 @@ public class BuddySupportTest {
 		BuddySupport.addLeft(button1, tf);
 		BuddySupport.addRight(button2, tf);
 		BuddySupport.removeAll(tf);
-		Assert.assertSame(0, BuddySupport.getLeft(tf).size());
-		Assert.assertSame(0, BuddySupport.getRight(tf).size());
-		Assert.assertSame(0, tf.getComponentCount());
+		assertSame(0, BuddySupport.getLeft(tf).size());
+		assertSame(0, BuddySupport.getRight(tf).size());
+		assertSame(0, tf.getComponentCount());
 	}
 	
 	@Test
@@ -81,8 +77,8 @@ public class BuddySupportTest {
 		BuddySupport.addLeft(button, tf);
 		tf.remove(button);
 		BuddySupport.ensureBuddiesAreInComponentHierarchy(tf);
-		Assert.assertSame(1, BuddySupport.getLeft(tf).size());
-		Assert.assertSame(1, tf.getComponentCount());
+		assertSame(1, BuddySupport.getLeft(tf).size());
+		assertSame(1, tf.getComponentCount());
 	}
 	
 	@Test
@@ -107,9 +103,9 @@ public class BuddySupportTest {
 	public void testInstall() throws Exception {
 		BuddySupport.add(new JButton(), Position.LEFT, tf);
 
-		Assert.assertSame(BuddyTextFieldUI.class, tf.getUI().getClass());
-		Assert.assertSame(BuddyLayoutAndBorder.class, tf.getBorder().getClass());
-		Assert.assertSame(BuddyLayoutAndBorder.class, tf.getLayout().getClass());
+		assertSame(BuddyTextFieldUI.class, tf.getUI().getClass());
+		assertSame(BuddyLayoutAndBorder.class, tf.getBorder().getClass());
+		assertSame(BuddyLayoutAndBorder.class, tf.getLayout().getClass());
 	}
 
 	@Test
@@ -117,15 +113,15 @@ public class BuddySupportTest {
 		BuddySupport.addLeft(new BuddyButton(), tf);
 		BuddySupport.addRight(new BuddyButton(), tf);
 
-		Assert.assertSame(2, tf.getComponentCount());
+		assertSame(2, tf.getComponentCount());
 		tf.updateUI();
-		Assert.assertSame(2, tf.getComponentCount());
+		assertSame(2, tf.getComponentCount());
 	}
 
 	@Test
 	public void testCreateNegativeGap() throws Exception {
 		Component c = BuddySupport.createGap(-1);
-		Assert.assertSame(-1, c.getPreferredSize().width);
+		assertSame(-1, c.getPreferredSize().width);
 	}
 
 }

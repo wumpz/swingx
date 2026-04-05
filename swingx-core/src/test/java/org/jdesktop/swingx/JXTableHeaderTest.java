@@ -4,6 +4,8 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
@@ -23,14 +25,11 @@ import javax.swing.table.TableColumn;
 import org.jdesktop.swingx.table.TableColumnExt;
 import org.jdesktop.test.PropertyChangeReport;
 import org.jdesktop.test.TestUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
-@RunWith(JUnit4.class)
 public class JXTableHeaderTest extends InteractiveTestCase {
     private static final Logger LOG = Logger.getLogger(JXTableHeaderTest.class
             .getName());
@@ -85,8 +84,8 @@ public class JXTableHeaderTest extends InteractiveTestCase {
         MouseEvent event = new MouseEvent(table, 0,
                 0, 0, 40, 5, 0, false);
         table.getPopupLocation(event);
-        assertNotSame("trigger point must not be same", 
-                table.getPopupTriggerLocation(), table.getPopupTriggerLocation());
+        assertNotSame(table.getPopupTriggerLocation(), 
+                table.getPopupTriggerLocation(), "trigger point must not be same");
     }
     
     /**
@@ -102,8 +101,8 @@ public class JXTableHeaderTest extends InteractiveTestCase {
         table.getPopupLocation(event);
         PropertyChangeReport report = new PropertyChangeReport(table);
         table.getPopupLocation(null);
-        assertNull("trigger must null", 
-                table.getPopupTriggerLocation());
+        assertNull(table.getPopupTriggerLocation(), 
+                "trigger must null");
         TestUtils.assertPropertyChangeEvent(report, "popupTriggerLocation", 
                 event.getPoint(), null);
     }
@@ -188,7 +187,7 @@ public class JXTableHeaderTest extends InteractiveTestCase {
         JXTable xTable = new JXTable(10, 2);
         xTable.getColumn(0).setHeaderValue(alternate[0]);
         xTable.getColumn(1).setHeaderValue(alternate[1]);
-        assertTrue("header height must be > 0", xTable.getTableHeader().getPreferredSize().height > 0);
+        assertTrue(xTable.getTableHeader().getPreferredSize().height > 0, "header height must be > 0");
     }
 
     /**
@@ -207,7 +206,7 @@ public class JXTableHeaderTest extends InteractiveTestCase {
         JXTable xTable = new JXTable(10, 2);
         xTable.getColumn(0).setHeaderValue(alternate[0]);
         xTable.getColumn(1).setHeaderValue(alternate[1]);
-        assertTrue("header height must be > 0", xTable.getTableHeader().getPreferredSize().height > 0);
+        assertTrue(xTable.getTableHeader().getPreferredSize().height > 0, "header height must be > 0");
     }
     /**
      * Issue #390-swingx: JXTableHeader: throws AIOOB on removing dragged column.
@@ -227,7 +226,7 @@ public class JXTableHeaderTest extends InteractiveTestCase {
         // sanity assert
         assertEquals(columnExt, table.getTableHeader().getDraggedColumn());
         table.getColumnModel().removeColumn(columnExt);
-        assertNull("draggedColumn must be null if removed", table.getTableHeader().getDraggedColumn());
+        assertNull(table.getTableHeader().getDraggedColumn(), "draggedColumn must be null if removed");
     }
     
     /**
@@ -246,7 +245,7 @@ public class JXTableHeaderTest extends InteractiveTestCase {
         // sanity assert
         assertEquals(columnExt, table.getTableHeader().getDraggedColumn());
         columnExt.setVisible(false);
-        assertNull("dragged column must visible or null", table.getTableHeader().getDraggedColumn());
+        assertNull(table.getTableHeader().getDraggedColumn(), "dragged column must visible or null");
     }
     
     
@@ -265,8 +264,8 @@ public class JXTableHeaderTest extends InteractiveTestCase {
         Component comp = renderer.getTableCellRendererComponent(table, 
                 columnExt.getHeaderValue(), false, false, -1, 1);
         Dimension prefRendererSize = comp.getPreferredSize();
-        assertEquals("Header pref height must respect renderer",
-                prefRendererSize.height, tableHeader.getPreferredSize().height);
+        assertEquals(prefRendererSize.height,
+                tableHeader.getPreferredSize().height, "Header pref height must respect renderer");
     }
     
 
@@ -328,9 +327,9 @@ public class JXTableHeaderTest extends InteractiveTestCase {
         JXTable table = new JXTable();
         table.setColumnControlVisible(true);
         wrapWithScrollingInFrame(table, "");
-        assertTrue("headerHeight must be > 0", table.getTableHeader().getHeight() > 0);
-        assertEquals("headerWidth must be table width", 
-                table.getWidth(), table.getTableHeader().getWidth());
+        assertTrue(table.getTableHeader().getHeight() > 0, "headerHeight must be > 0");
+        assertEquals(table.getWidth(), 
+                table.getTableHeader().getWidth(), "headerWidth must be table width");
         
     }
     
@@ -354,9 +353,9 @@ public class JXTableHeaderTest extends InteractiveTestCase {
         JXTable table = new JXTable(10, 2);
         table.setColumnControlVisible(true);
         wrapWithScrollingInFrame(table, "");
-        assertTrue("headerHeight must be > 0", table.getTableHeader().getHeight() > 0);
+        assertTrue(table.getTableHeader().getHeight() > 0, "headerHeight must be > 0");
         table.setModel(new DefaultTableModel());
-        assertTrue("headerHeight must be > 0", table.getTableHeader().getHeight() > 0);
+        assertTrue(table.getTableHeader().getHeight() > 0, "headerHeight must be > 0");
         
     }
     
@@ -442,21 +441,9 @@ public class JXTableHeaderTest extends InteractiveTestCase {
         } 
     }
 
-    
-    @Override
-    @Before
+    @BeforeEach
     public void setUp() {
         table = new JXTable(10, 5); 
         header = new JXTableHeader(table.getColumnModel());
     }
-
-
-    
-    @After
-    public void tearDownJ4() throws Exception {
-        tearDown();
-    }
-    
-
-
 }

@@ -1,9 +1,6 @@
 package org.jdesktop.swingx.geom;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
@@ -11,17 +8,14 @@ import java.awt.geom.Point2D;
 
 import javax.swing.JFrame;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-@RunWith(JUnit4.class)
 public class Star2DTest {
 
     Star2D star;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         star = new Star2D(50,50,10,15,4);
     }

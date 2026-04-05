@@ -22,6 +22,7 @@
 package org.jdesktop.swingx;
 
 import org.jdesktop.swingx.error.ErrorInfo;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -77,6 +78,7 @@ public class JXErrorPaneIssues extends InteractiveTestCase {
      * test fixtures to run.
      *
      */
+    @Test
     public void testDummy() {
     }
 

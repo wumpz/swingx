@@ -4,6 +4,8 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
@@ -30,6 +32,7 @@ import org.jdesktop.swingx.decorator.BorderHighlighter;
 import org.jdesktop.swingx.renderer.DefaultTableRenderer;
 import org.jdesktop.swingx.table.TableColumnExt;
 import org.jdesktop.test.AncientSwingTeam;
+import org.junit.jupiter.api.Test;
 
 /**
  * Interactive "test" methods for <code>JXTableHeader</code>.
@@ -341,6 +344,7 @@ public class JXTableHeaderVisualCheck extends InteractiveTestCase {
     /**
      * do nothing test - keep the testrunner happy.
      */
+    @Test
     public void testDummy() {
     }
 

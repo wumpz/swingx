@@ -22,21 +22,21 @@ package org.jdesktop.swingx.search;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import javax.swing.UIManager;
 
 import org.jdesktop.swingx.JXFindBar;
 import org.jdesktop.swingx.JXFindPanel;
 import org.jdesktop.test.EDTRunner;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  *
  * @author kschaefer
  */
-@RunWith(EDTRunner.class)
+@ExtendWith(EDTRunner.class)
 public class SearchFactoryTest {
     @Test
     public void testUpdateUI() throws Exception {

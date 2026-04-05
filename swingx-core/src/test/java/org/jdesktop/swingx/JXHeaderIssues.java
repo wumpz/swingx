@@ -26,6 +26,8 @@ import java.awt.GradientPaint;
 import java.util.logging.Logger;
 
 import org.jdesktop.swingx.painter.MattePainter;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -94,18 +96,19 @@ public class JXHeaderIssues extends InteractiveTestCase {
         addComponentOrientationToggle(frame);
         show(frame, 500, 500);
     }
-    
 
-    @Override
-    protected void setUp() throws Exception {
+
+    @BeforeEach
+    public void setUp() throws Exception {
         setSystemLF(true);
         // forcing load of headerAddon
         new JXHeader();
     }
-    
+
     /**
      * Dummy empty test just to keep it from whining.
      */
+    @Test
     public void testDummy() {
         // do nothing
     }

@@ -21,6 +21,8 @@
  */
 package org.jdesktop.swingx.decorator;
 
+import org.junit.jupiter.api.Test;
+
 
 /**
  * Contains failing tests for TableColumnExt in its role as HighlighterClient
@@ -29,8 +31,9 @@ package org.jdesktop.swingx.decorator;
  */
 public class TableColumnExtAsHighlighterClientIssues extends
         TableColumnExtAsHighlighterClientTest {
-    
-   
+
+
+    @Test
     public void testDummy() {
         
     }

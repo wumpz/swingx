@@ -21,6 +21,9 @@
  */
 package org.jdesktop.swingx.table;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.awt.Point;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -40,17 +43,14 @@ import org.jdesktop.swingx.JXFrame;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.table.DatePickerCellEditor;
 import org.jdesktop.swingx.table.NumberEditorExt;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * TODO add type doc
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class NumberEditorExtIssues extends InteractiveTestCase {
     @SuppressWarnings("unused")
     private static final Logger LOG = Logger
@@ -146,13 +146,15 @@ public class NumberEditorExtIssues extends InteractiveTestCase {
      * Check IllegalStateException as doc'ed - the strict version doesn't. 
      * Need to check the delegate implementation?
      */
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testEditorStrictValueIllegalState() {
-        JFormattedTextField field = (JFormattedTextField) cellEditorStrict
-                .getTableCellEditorComponent(table, Integer.MAX_VALUE, false, 0, INTEGER_COLUMN);
-        // add valid digit - but exceeds Integer bounds so must not return true
-        field.setText(field.getText() + "9");
-        cellEditorStrict.getCellEditorValue();
+        assertThrows(IllegalStateException.class, () -> {
+            JFormattedTextField field = (JFormattedTextField) cellEditorStrict
+                    .getTableCellEditorComponent(table, Integer.MAX_VALUE, false, 0, INTEGER_COLUMN);
+            // add valid digit - but exceeds Integer bounds so must not return true
+            field.setText(field.getText() + "9");
+            cellEditorStrict.getCellEditorValue();
+        });
     }
  
     /**
@@ -177,14 +179,16 @@ public class NumberEditorExtIssues extends InteractiveTestCase {
     /**
      * This is not really an issue: Double values exceeding the bounds are Infinity.
      */
-    @Test (expected = ParseException.class)
-    public void testNumberFormatterDouble() throws ParseException {
-        NumberFormat format = NumberFormat.getInstance();
-        // no need to do anything special - parsing of doubles fails if out-off range?
-        NumberFormatter formatter = new NumberFormatter(format);
-        String text = "9" + new Double(Double.MAX_VALUE).toString();
-        Number number = (Number) formatter.stringToValue(text);
-        LOG.info("number: " + number);
+    @Test
+    public void testNumberFormatterDouble() {
+        assertThrows(ParseException.class, () -> {
+            NumberFormat format = NumberFormat.getInstance();
+            // no need to do anything special - parsing of doubles fails if out-off range?
+            NumberFormatter formatter = new NumberFormatter(format);
+            String text = "9" + new Double(Double.MAX_VALUE).toString();
+            Number number = (Number) formatter.stringToValue(text);
+            LOG.info("number: " + number);
+        });
     }
 
     /**
@@ -246,13 +250,15 @@ public class NumberEditorExtIssues extends InteractiveTestCase {
     }
     
 
-    @Test (expected = ParseException.class)
-    public void testNumberFormatterMinMax() throws ParseException {
-        NumberFormat format = NumberFormat.getIntegerInstance();
-        NumberFormatter formatter = new NumberFormatter(format);
-        formatter.setMaximum(Integer.MAX_VALUE);
-        formatter.setMinimum(Integer.MIN_VALUE);
-        formatter.stringToValue(TOO_BIG_INTEGER);
+    @Test
+    public void testNumberFormatterMinMax() {
+        assertThrows(ParseException.class, () -> {
+            NumberFormat format = NumberFormat.getIntegerInstance();
+            NumberFormatter formatter = new NumberFormatter(format);
+            formatter.setMaximum(Integer.MAX_VALUE);
+            formatter.setMinimum(Integer.MIN_VALUE);
+            formatter.stringToValue(TOO_BIG_INTEGER);
+        });
     }
 
     @Test
@@ -264,8 +270,7 @@ public class NumberEditorExtIssues extends InteractiveTestCase {
         new Integer(TOO_BIG_INTEGER);
     }
     
-    @Before
-    @Override
+    @BeforeEach
     public void setUp() throws Exception {
         DefaultTableModel model = new DefaultTableModel(5, 1) {
 
@@ -281,6 +286,4 @@ public class NumberEditorExtIssues extends InteractiveTestCase {
         cellEditor = new NumberEditorExt(NumberFormat.getIntegerInstance());
         cellEditorStrict = new NumberEditorExt(NumberFormat.getIntegerInstance(), true);
     }
-
-
 }

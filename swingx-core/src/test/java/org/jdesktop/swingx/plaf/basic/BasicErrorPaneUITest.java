@@ -1,6 +1,6 @@
 package org.jdesktop.swingx.plaf.basic;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.applet.Applet;
 import java.awt.GraphicsEnvironment;
@@ -12,17 +12,14 @@ import javax.swing.JPanel;
 import javax.swing.JWindow;
 
 import org.jdesktop.swingx.JXErrorPane;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-@RunWith(JUnit4.class)
 public class BasicErrorPaneUITest {
     private static final Logger LOG = Logger.getLogger(BasicErrorPaneUITest.class.getName());
     private BasicErrorPaneUI ui;
 
-    @Before
+    @BeforeEach
     public void setup() {
         JXErrorPane pane = new JXErrorPane();
         // PENDING JW: commented as emergency fix for 1148 - test failure on Mac

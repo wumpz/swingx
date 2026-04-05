@@ -21,13 +21,15 @@
  */
 package org.jdesktop.swingx.decorator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 
-import junit.framework.TestCase;
-
 import org.jdesktop.test.ListSelectionReport;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test to understand behaviour/expose known issues of 
@@ -36,7 +38,7 @@ import org.jdesktop.test.ListSelectionReport;
  * 
  * @author Jeanette Winzenburg
  */
-public class ListSelectionIssues extends TestCase {
+public class ListSelectionIssues {
     /**
      * sanity: understand DefaultListSelectionModel behaviour.
      * 
@@ -44,6 +46,7 @@ public class ListSelectionIssues extends TestCase {
      * table.clearLeadAnchor
      *
      */
+    @Test
     public void testEventsONLeadAnchorAfterClearSelection() {
         DefaultListSelectionModel selectionModel = new DefaultListSelectionModel();
         int selected = 5;
@@ -78,6 +81,7 @@ public class ListSelectionIssues extends TestCase {
      * table.clearLeadAnchor
      *
      */
+    @Test
     public void testEventONLeadAnchorAfterClearSelection() {
         DefaultListSelectionModel selectionModel = new DefaultListSelectionModel();
         int selected = 5;
@@ -92,7 +96,7 @@ public class ListSelectionIssues extends TestCase {
         selectionModel.clearSelection();
         selectionModel.setAnchorSelectionIndex(-1);
         selectionModel.setLeadSelectionIndex(-1);
-        assertEquals("", 0, report.getEventCount(true));
+        assertEquals(0, report.getEventCount(true), "");
         selectionModel.setValueIsAdjusting(false);
         ListSelectionEvent event = report.getLastEvent(true);  
         assertEquals(5, event.getFirstIndex());
@@ -110,6 +114,7 @@ public class ListSelectionIssues extends TestCase {
      * 
      *
      */
+    @Test
     public void testLeadAnchorAfterClearSelection() {
         ListSelectionModel viewSelectionModel = new DefaultListSelectionModel();
         int selected = 5;
@@ -130,6 +135,7 @@ public class ListSelectionIssues extends TestCase {
      * Here: select index 5, remove 5..5 -> lead == 4
      *
      */
+    @Test
     public void testLeadAnchorAfterRemove() {
         ListSelectionModel viewSelectionModel = new DefaultListSelectionModel();
         assertLeadAnchorAfterRemoveAll(viewSelectionModel, 5, 5);
@@ -141,6 +147,7 @@ public class ListSelectionIssues extends TestCase {
      * 
      * Here: select index 5, remove 0..5 -> lead == -1
      */
+    @Test
     public void testLeadAnchorAfterRemoveAll() {
         ListSelectionModel viewSelectionModel = new DefaultListSelectionModel();
         assertLeadAnchorAfterRemoveAll(viewSelectionModel, 5, 0);
@@ -152,6 +159,7 @@ public class ListSelectionIssues extends TestCase {
      * 
      * Here: select 0, remove 0..0 --> lead == 0 (expected -1)
      */
+    @Test
     public void testLeadAnchorAfterRemoveAll0() {
         ListSelectionModel viewSelectionModel = new DefaultListSelectionModel();
         assertLeadAnchorAfterRemoveAll(viewSelectionModel, 0, 0);

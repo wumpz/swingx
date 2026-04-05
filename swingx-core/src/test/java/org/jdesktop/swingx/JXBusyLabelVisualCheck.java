@@ -32,6 +32,8 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.junit.jupiter.api.Test;
+
 /**
  * Visual tests of JXBusyLabel issues.
  * @author had
@@ -144,6 +146,7 @@ public class JXBusyLabelVisualCheck extends InteractiveTestCase {
     /**
      * do nothing test - keep the testrunner happy.
      */
+    @Test
     public void testDummy() {
     }
 

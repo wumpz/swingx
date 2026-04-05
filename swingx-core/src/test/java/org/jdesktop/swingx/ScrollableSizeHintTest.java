@@ -1,10 +1,10 @@
 package org.jdesktop.swingx;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import javax.swing.SwingConstants;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("nls")
 public class ScrollableSizeHintTest {

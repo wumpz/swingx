@@ -33,9 +33,11 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.junit.MatcherAssume.assumeThat;
+
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.awt.Component;
 import java.awt.GraphicsEnvironment;
@@ -60,23 +62,20 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.text.JTextComponent;
 
 import org.jdesktop.test.EDTRunner;
-import org.jdesktop.test.categories.Visual;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.junit.runner.RunWith;
-
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  *
  * @author Karl George Schaefer
  */
-@RunWith(EDTRunner.class)
+@ExtendWith(EDTRunner.class)
 public class AutoCompleteDecoratorTest  {
     private JComboBox combo;
     
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         combo = new JComboBox(new String[]{"Alpha", "Bravo", "Charlie", "Delta"});
@@ -91,8 +90,8 @@ public class AutoCompleteDecoratorTest  {
         JList list = new JList(combo.getModel());
         JTextComponent text = new JTextField();
         ListAdaptor adapter = new ListAdaptor(list, text);
-        assertSame("default adapter in two-param constructor", 
-                ObjectToStringConverter.DEFAULT_IMPLEMENTATION, adapter.stringConverter);
+        assertSame(ObjectToStringConverter.DEFAULT_IMPLEMENTATION, 
+                adapter.stringConverter, "default adapter in two-param constructor");
     }
     
     /**
@@ -104,8 +103,8 @@ public class AutoCompleteDecoratorTest  {
         JList list = new JList(combo.getModel());
         JTextComponent text = new JTextField();
         ListAdaptor adapter = new ListAdaptor(list, text, null);
-        assertSame("default adapter in three-param constructor", 
-                ObjectToStringConverter.DEFAULT_IMPLEMENTATION, adapter.stringConverter);
+        assertSame(ObjectToStringConverter.DEFAULT_IMPLEMENTATION, 
+                adapter.stringConverter, "default adapter in three-param constructor");
     }
     
     /**
@@ -295,12 +294,12 @@ public class AutoCompleteDecoratorTest  {
         AutoCompleteDecorator.decorate(combo);
         combo.removeAll();
     }
-    
+
     /**
      * SwingX Issue #1322.
      */
     @Test
-    @Category(Visual.class)
+    @Tag("Visual")
     public void testNonStrictCompletionWithKeyMovement() {
         assumeThat(GraphicsEnvironment.isHeadless(), is(false));
         

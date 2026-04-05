@@ -21,9 +21,12 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import javax.swing.JPanel;
 
 import org.jdesktop.test.SerializableSupport;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test to exposed known issues of serializable.
@@ -40,6 +43,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * First blow: RolloverController
      * 
      */
+    @Test
     public void testTreeTable() {
         JXTreeTable component = new JXTreeTable();
         try {
@@ -57,6 +61,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * First blow: TreeAdapter
      * 
      */
+    @Test
     public void testTree() {
         JXTree component = new JXTree();
         try {
@@ -74,6 +79,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * First blow: PainterUIResource
      * 
      */
+    @Test
     public void testTitledPanel() {
         JXTitledPanel component = new JXTitledPanel();
         try {
@@ -91,6 +97,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * First blow: ui delegate
      * 
      */
+    @Test
     public void testTipOfTheDay() {
         JXTipOfTheDay component = new JXTipOfTheDay();
         try {
@@ -108,6 +115,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * First blow: VerticalLayout
      * 
      */
+    @Test
     public void testTaskPaneContainer() {
         JXTaskPaneContainer component = new JXTaskPaneContainer();
         try {
@@ -117,7 +125,7 @@ public class SerializableIssues extends InteractiveTestCase {
         } 
     }
 
-    
+
     /**
      * Issue #423-swingx: all descendants of JComponent must be 
      * serializable. <p>
@@ -125,6 +133,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * First blow: VerticalLayout
      * 
      */
+    @Test
     public void testTaskPane() {
         JXTaskPane component = new JXTaskPane();
         try {
@@ -141,6 +150,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * First blow: rolloverController
      * 
      */
+    @Test
     public void testTable() {
         JXTable component = new JXTable();
         try {
@@ -157,6 +167,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * First blow: ui-delegate
      * 
      */
+    @Test
     public void testStatusBar() {
         JXStatusBar component = new JXStatusBar();
         try {
@@ -173,6 +184,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * First blow: EventHandler
      * 
      */
+    @Test
     public void testSearchPanel() {
         JXSearchPanel component = new JXSearchPanel();
         try {
@@ -182,7 +194,7 @@ public class SerializableIssues extends InteractiveTestCase {
         } 
     }
 
-    
+
     /**
      * Issue #423-swingx: all descendants of JComponent must be 
      * serializable. <p>
@@ -191,6 +203,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * 
      */
     @SuppressWarnings("unchecked")
+    @Test
     public void testMultiThumbSlider() {
         JXMultiThumbSlider component = new JXMultiThumbSlider();
         try {
@@ -207,6 +220,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * First blow: MultiSplitPaneLayout.
      * 
      */
+    @Test
     public void testMultiSplitPane() {
         JXMultiSplitPane component = new JXMultiSplitPane();
         try {
@@ -223,6 +237,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * First blow: BufferedImage.
      * 
      */
+    @Test
     public void testLoginPanel() {
         JXLoginPane component = new JXLoginPane();
         try {
@@ -239,6 +254,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * First blow: DelegatingRenderer.
      * 
      */
+    @Test
     public void testList() {
         JXList component = new JXList();
         try {
@@ -254,6 +270,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * 
      * first blow: PainterUIResource
      */
+    @Test
     public void testHeader() {
         JXHeader component = new JXHeader();
         try {
@@ -269,6 +286,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * 
      * Frist blow: Rectangle inner class
      */
+    @Test
     public void testGraph() {
         JXGraph component = new JXGraph();
         try {
@@ -284,6 +302,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * 
      * First blow: BufferedImage
      */
+    @Test
     public void testGradientChooser() {
         JXGradientChooser component = new JXGradientChooser();
         try {
@@ -301,6 +320,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * First blow: inner class?.
      *
      */
+    @Test
     public void testFrame() {
         JXFrame component = new JXFrame();
         try {
@@ -316,6 +336,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * 
      * First blow: EventHandler
      */
+    @Test
     public void testFindPanel() {
         JXFindPanel component = new JXFindPanel();
         try {
@@ -331,6 +352,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * 
      * First blow: EventHandler
      */
+    @Test
     public void testFindBar() {
         JXFindBar component = new JXFindBar();
         try {
@@ -346,6 +368,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * 
      * First blow: ui-delegate 
      */
+    @Test
     public void testErrorPane() {
         JXErrorPane component = new JXErrorPane();
         try {
@@ -361,6 +384,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * 
      *
      */
+    @Test
     public void testEditorPane() {
         JXEditorPane component = new JXEditorPane();
         try {
@@ -376,6 +400,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * 
      *
      */
+    @Test
     public void testDialog() {
         JXDialog component = new JXDialog(new JPanel());
         try {
@@ -385,13 +410,14 @@ public class SerializableIssues extends InteractiveTestCase {
         } 
     }
 
-    
+
     /**
      * Issue #423-swingx: all descendants of JComponent must be 
      * serializable.<p>
      * 
      *
      */
+    @Test
     public void testDatePicker() {
         JXDatePicker component = new JXDatePicker();
         try {
@@ -407,6 +433,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * 
      *
      */
+    @Test
     public void testColorSelectionButton() {
         JXColorSelectionButton component = new JXColorSelectionButton();
         try {
@@ -422,6 +449,7 @@ public class SerializableIssues extends InteractiveTestCase {
      * 
      *
      */
+    @Test
     public void testCollapsiblePane() {
         JXCollapsiblePane component = new JXCollapsiblePane();
         try {

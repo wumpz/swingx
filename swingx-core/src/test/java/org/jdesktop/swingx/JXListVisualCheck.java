@@ -51,8 +51,8 @@ import org.jdesktop.swingx.renderer.HyperlinkProvider;
 import org.jdesktop.swingx.renderer.HighlighterClientVisualCheck.FontHighlighter;
 import org.jdesktop.swingx.sort.RowFilters;
 import org.jdesktop.test.AncientSwingTeam;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class JXListVisualCheck extends InteractiveTestCase { //JXListTest {
@@ -532,9 +532,8 @@ public class JXListVisualCheck extends InteractiveTestCase { //JXListTest {
         return model;
     }
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @BeforeEach
+    public void setUp() throws Exception {
         listModel = createListModel();
         ascendingListModel = createAscendingListModel(0, 20);
     }
@@ -543,14 +542,13 @@ public class JXListVisualCheck extends InteractiveTestCase { //JXListTest {
     protected DefaultListModel ascendingListModel;
 
     
-    @Before
+    @BeforeEach
     public void setUpJ4() throws Exception {
         setUp();
     }
     
-    @After
+    @AfterEach
     public void tearDownJ4() throws Exception {
-        tearDown();
     }
 
 }

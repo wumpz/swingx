@@ -30,6 +30,7 @@ import javax.swing.Action;
 import org.jdesktop.swingx.InteractiveTestCase;
 import org.jdesktop.swingx.JXFrame;
 import org.jdesktop.swingx.JXTable;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test to exposed known issues of <code>Highlighter</code> client
@@ -110,6 +111,7 @@ public class HighlighterClientIssues extends InteractiveTestCase {
     /**
      * Dummy to keep the test runner happy.
      */
+    @Test
     public void testDummy() {
         
     }

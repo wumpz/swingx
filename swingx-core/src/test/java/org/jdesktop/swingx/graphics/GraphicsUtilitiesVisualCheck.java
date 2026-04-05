@@ -27,6 +27,7 @@ import javax.imageio.ImageIO;
 import org.jdesktop.swingx.JXImageView;
 import org.jdesktop.swingx.InteractiveTestCase;
 import org.jdesktop.swingx.util.GraphicsUtilities;
+import org.junit.jupiter.api.Test;
 
 /**
  * GraphicsUtilities visual checks.
@@ -62,6 +63,7 @@ public class GraphicsUtilitiesVisualCheck extends InteractiveTestCase {
     /**
      * do nothing test - keep the test runner happy.
      */
+    @Test
     public void testDummy() {
     }
 

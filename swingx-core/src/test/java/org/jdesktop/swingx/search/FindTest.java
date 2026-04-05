@@ -7,6 +7,8 @@
 
 package org.jdesktop.swingx.search;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -33,9 +35,8 @@ import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXSearchPanel;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.JXTree;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -44,7 +45,6 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class FindTest extends InteractiveTestCase {
     private static final Logger LOG = Logger
             .getLogger(FindTest.class.getName());
@@ -61,11 +61,10 @@ public class FindTest extends InteractiveTestCase {
           e.printStackTrace();
       }
   }
-   
-    
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+
+
+    @BeforeEach
+    public void setUp() throws Exception {
         // sanity: new instance for each test
         SearchFactory.setInstance(new SearchFactory());
     }
@@ -124,8 +123,8 @@ public class FindTest extends InteractiveTestCase {
         Window window = SwingUtilities.getWindowAncestor(findPanel);
         assertSame(frame, window.getOwner());
         SearchFactory.getInstance().hideSharedFindPanel(true);
-        assertFalse("window must not be displayable", window.isDisplayable());
-        assertNull("findPanel must be unparented", findPanel.getParent());
+        assertFalse(window.isDisplayable(), "window must not be displayable");
+        assertNull(findPanel.getParent(), "findPanel must be unparented");
     }
 
     /**
@@ -149,10 +148,10 @@ public class FindTest extends InteractiveTestCase {
         Window window = SwingUtilities.getWindowAncestor(findPanel);
         assertSame(frame, window.getOwner());
         SearchFactory.getInstance().hideSharedFindPanel(false);
-        assertFalse("window must not be visible", window.isVisible());
-        assertSame("findPanel must parent must be unchanged", 
-                parent, findPanel.getParent());
-        assertTrue("window must be displayable", window.isDisplayable());
+        assertFalse(window.isVisible(), "window must not be visible");
+        assertSame(parent, 
+                findPanel.getParent(), "findPanel must parent must be unchanged");
+        assertTrue(window.isDisplayable(), "window must be displayable");
     }
     
     /** 
@@ -172,12 +171,12 @@ public class FindTest extends InteractiveTestCase {
         int foundIndex = table.getSearchable().search(model.getPattern(), -1);
         // sanity asserts
         int foundColumn = ((TableSearchable) table.getSearchable()).lastSearchResult.foundColumn;
-        assertEquals("last line found", row, foundIndex);
-        assertEquals("column must be updated", firstColumn, foundColumn);
+        assertEquals(row, foundIndex, "last line found");
+        assertEquals(firstColumn, foundColumn, "column must be updated");
         // search with null searchstring 
         int notFoundIndex =  table.getSearchable().search((String) null);
-        assertEquals("nothing found", -1, notFoundIndex);
-        assertEquals("column must be reset", -1, ((TableSearchable) table.getSearchable()).lastSearchResult.foundColumn);
+        assertEquals(-1, notFoundIndex, "nothing found");
+        assertEquals(-1, ((TableSearchable) table.getSearchable()).lastSearchResult.foundColumn, "column must be reset");
 
     }
 
@@ -198,12 +197,12 @@ public class FindTest extends InteractiveTestCase {
         int foundIndex = table.getSearchable().search(model.getPattern(), -1);
         // sanity asserts
         int foundColumn = ((TableSearchable) table.getSearchable()).lastSearchResult.foundColumn;
-        assertEquals("last line found", row, foundIndex);
-        assertEquals("column must be updated", firstColumn, foundColumn);
+        assertEquals(row, foundIndex, "last line found");
+        assertEquals(firstColumn, foundColumn, "column must be updated");
         // search with null searchstring 
         int notFoundIndex =  table.getSearchable().search("");
-        assertEquals("nothing found", -1, notFoundIndex);
-        assertEquals("column must be reset", -1, ((TableSearchable) table.getSearchable()).lastSearchResult.foundColumn);
+        assertEquals(-1, notFoundIndex, "nothing found");
+        assertEquals(-1, ((TableSearchable) table.getSearchable()).lastSearchResult.foundColumn, "column must be reset");
 
     }
 
@@ -224,9 +223,9 @@ public class FindTest extends InteractiveTestCase {
         PatternModel model = new PatternModel();
         model.setRawText(firstSearchText);
         int foundIndex = table.getSearchable().search(model.getPattern(), -1, true);
-        assertEquals("last line found", row, foundIndex);
+        assertEquals(row, foundIndex, "last line found");
         int foundColumn = ((TableSearchable) table.getSearchable()).lastSearchResult.foundColumn;
-        assertEquals("column must be updated", firstColumn, foundColumn);
+        assertEquals(firstColumn, foundColumn, "column must be updated");
         // the last char(s) of all values is the row index
         // here we are searching for an entry in the next row relative to
         // the previous search and expect the match in the first column (index = 0);
@@ -235,8 +234,8 @@ public class FindTest extends InteractiveTestCase {
         model.setRawText(secondSearchText);
         int secondFoundIndex = table.getSearchable().search(model.getPattern(), previousRow, true);
         // sanity assert
-        assertEquals("must find match in same row", previousRow, secondFoundIndex);
-        assertEquals("column must be updated", lastColumn, ((TableSearchable) table.getSearchable()).lastSearchResult.foundColumn);
+        assertEquals(previousRow, secondFoundIndex, "must find match in same row");
+        assertEquals(lastColumn, ((TableSearchable) table.getSearchable()).lastSearchResult.foundColumn, "column must be updated");
         
     }
 
@@ -253,9 +252,9 @@ public class FindTest extends InteractiveTestCase {
         int firstColumn = 1;
         String firstSearchText = table.getValueAt(row, firstColumn).toString();
         int foundIndex = table.getSearchable().search(firstSearchText);
-        assertEquals("last line found", row, foundIndex);
+        assertEquals(row, foundIndex, "last line found");
         int foundColumn = ((TableSearchable) table.getSearchable()).lastSearchResult.foundColumn;
-        assertEquals("column must be updated", firstColumn, foundColumn);
+        assertEquals(firstColumn, foundColumn, "column must be updated");
         // the last char(s) of all values is the row index
         // here we are searching for an entry in the next row relative to
         // the previous search and expect the match in the first column (index = 0);
@@ -263,8 +262,8 @@ public class FindTest extends InteractiveTestCase {
         String secondSearchText = String.valueOf(nextRow);
         int secondFoundIndex = table.getSearchable().search(secondSearchText, nextRow);
         // sanity assert
-        assertEquals("must find match in same row", nextRow, secondFoundIndex);
-        assertEquals("column must be updated", 0, ((TableSearchable) table.getSearchable()).lastSearchResult.foundColumn);
+        assertEquals(nextRow, secondFoundIndex, "must find match in same row");
+        assertEquals(0, ((TableSearchable) table.getSearchable()).lastSearchResult.foundColumn, "column must be updated");
         
     }
 
@@ -280,10 +279,10 @@ public class FindTest extends InteractiveTestCase {
         int firstColumn = 0;
         String firstSearchText = table.getValueAt(row, firstColumn).toString();
         int foundIndex = table.getSearchable().search(firstSearchText);
-        assertEquals("last line found", row, foundIndex);
+        assertEquals(row, foundIndex, "last line found");
         String secondSearchText = table.getValueAt(row, firstColumn +1).toString();
         int secondFoundIndex = table.getSearchable().search(secondSearchText, foundIndex);
-        assertEquals("must find match in same row", foundIndex, secondFoundIndex);
+        assertEquals(foundIndex, secondFoundIndex, "must find match in same row");
         
     }
 
@@ -314,7 +313,7 @@ public class FindTest extends InteractiveTestCase {
         second.add(tree);
         // show search dialog for a searchable
         SearchFactory.getInstance().showFindDialog(tree, tree.getSearchable());
-        assertFalse("previous window must not be displayable", window.isDisplayable());
+        assertFalse(window.isDisplayable(), "previous window must not be displayable");
         assertSame(second, SwingUtilities.getWindowAncestor(findPanel).getOwner());
     }
     
@@ -337,7 +336,7 @@ public class FindTest extends InteractiveTestCase {
         // sanity: selection is match marker 
         assertEquals(row, list.getSelectedIndex());
         list.getSearchable().search((Pattern) null);
-        assertEquals("not found must not reset selection", row, list.getSelectedIndex());
+        assertEquals(row, list.getSelectedIndex(), "not found must not reset selection");
     }
 
     /**
@@ -356,7 +355,7 @@ public class FindTest extends InteractiveTestCase {
         // sanity: selection is match marker 
         assertEquals(row, table.getSelectedRow());
         table.getSearchable().search((Pattern) null);
-        assertEquals("not found must not reset selection", row, table.getSelectedRow());
+        assertEquals(row, table.getSelectedRow(), "not found must not reset selection");
     }
 
     /**
@@ -381,7 +380,7 @@ public class FindTest extends InteractiveTestCase {
         // sanity: selection is match marker 
         assertEquals(row, tree.getMinSelectionRow());
         tree.getSearchable().search((Pattern) null);
-        assertEquals("not found must not reset selection", row, tree.getMinSelectionRow());
+        assertEquals(row, tree.getMinSelectionRow(), "not found must not reset selection");
     }
     
     /**
@@ -422,8 +421,8 @@ public class FindTest extends InteractiveTestCase {
             LOG.fine("cannot run testSearchKeyStroke - headless environment");
             return;
         }
-        assertNotNull("searchfactory must return search accelerator", 
-                SearchFactory.getInstance().getSearchAccelerator());
+        assertNotNull(SearchFactory.getInstance().getSearchAccelerator(), 
+                "searchfactory must return search accelerator");
     }
 
     
@@ -445,7 +444,7 @@ public class FindTest extends InteractiveTestCase {
         model.setRawText(firstSearchText);
         // make sure we had a match
         int foundIndex = table.getSearchable().search(model.getPattern(), -1);
-        assertEquals("must return be found", row, foundIndex);
+        assertEquals(row, foundIndex, "must return be found");
         Component comp = table.prepareRenderer(table.getCellRenderer(row, column), row, column);
         assertEquals(Color.YELLOW.brighter(), comp.getBackground());
     }
@@ -463,13 +462,13 @@ public class FindTest extends InteractiveTestCase {
         model.setRawText(firstSearchText);
         // make sure we had a match
         int foundIndex = table.getSearchable().search(model.getPattern(), -1);
-        assertEquals("must return be found", 0, foundIndex);
+        assertEquals(0, foundIndex, "must return be found");
         // extended searchstring
         String secondSearchText ="one";
         model.setRawText(secondSearchText);
         // start search with row >> getRowCount()
         int secondFoundIndex = table.getSearchable().search(model.getPattern(), foundIndex);
-        assertEquals("must not be found", foundIndex, secondFoundIndex);
+        assertEquals(foundIndex, secondFoundIndex, "must not be found");
         
     }
 
@@ -486,10 +485,10 @@ public class FindTest extends InteractiveTestCase {
         model.setRawText(firstSearchText);
         // make sure we had a match
         int foundIndex = table.getSearchable().search(model.getPattern(), -1);
-        assertEquals("must return be found", 0, foundIndex);
+        assertEquals(0, foundIndex, "must return be found");
         // start search with row >> getRowCount()
         int notFoundIndex = table.getSearchable().search(model.getPattern(), table.getRowCount() * 5, false);
-        assertEquals("must not be found", -1, notFoundIndex);
+        assertEquals(-1, notFoundIndex, "must not be found");
         
     }
     /**
@@ -507,11 +506,11 @@ public class FindTest extends InteractiveTestCase {
         PatternModel model = new PatternModel();
         model.setRawText(firstSearchText);
         int foundIndex = table.getSearchable().search(model.getPattern(), -1, true);
-        assertEquals("last line found", row, foundIndex);
+        assertEquals(row, foundIndex, "last line found");
         String secondSearchText = table.getValueAt(row, lastColumn - 1).toString();
         model.setRawText(secondSearchText);
         int secondFoundIndex = table.getSearchable().search(model.getPattern(), foundIndex, true);
-        assertEquals("must find match in same row", foundIndex, secondFoundIndex);
+        assertEquals(foundIndex, secondFoundIndex, "must find match in same row");
     }
 
     
@@ -525,9 +524,9 @@ public class FindTest extends InteractiveTestCase {
         int row = 90;
         String searchText = table.getValueAt(row, 0).toString();
         int foundIndex = table.getSearchable().search(searchText);
-        assertEquals("last line found", row, foundIndex);
+        assertEquals(row, foundIndex, "last line found");
         int notFoundIndex = table.getSearchable().search(searchText, foundIndex);
-        assertEquals("nothing found after last line", -1, notFoundIndex);
+        assertEquals(-1, notFoundIndex, "nothing found after last line");
     }
     
     /**
@@ -541,9 +540,9 @@ public class FindTest extends InteractiveTestCase {
         int row = table.getRowCount() - 1;
         String searchText = table.getValueAt(row, 0).toString();
         int foundIndex = table.getSearchable().search(searchText);
-        assertEquals("last line found", row, foundIndex);
+        assertEquals(row, foundIndex, "last line found");
         int notFoundIndex = table.getSearchable().search(searchText, foundIndex);
-        assertEquals("nothing found after last line", -1, notFoundIndex);
+        assertEquals(-1, notFoundIndex, "nothing found after last line");
     }
 
     /**
@@ -559,9 +558,9 @@ public class FindTest extends InteractiveTestCase {
         String searchText = table.getValueAt(row, 0).toString();
         model.setRawText(searchText);
         int foundIndex = table.getSearchable().search(model.getPattern(), row + 1, true);
-        assertEquals("last line found", row, foundIndex);
+        assertEquals(row, foundIndex, "last line found");
         int notFoundIndex = table.getSearchable().search(model.getPattern(), foundIndex, true);
-        assertEquals("nothing found after last line", -1, notFoundIndex);
+        assertEquals(-1, notFoundIndex, "nothing found after last line");
     }
 
 
@@ -584,7 +583,7 @@ public class FindTest extends InteractiveTestCase {
         PatternModel model = new PatternModel();
         model.setRawText("fo");
         int foIndex = editor.getSearchable().search(model.getPattern(), text.length() - 1, true);
-        assertEquals("found index must be last occurence", text.lastIndexOf("fo"), foIndex);
+        assertEquals(text.lastIndexOf("fo"), foIndex, "found index must be last occurence");
         
     }
     
@@ -603,7 +602,7 @@ public class FindTest extends InteractiveTestCase {
         assertEquals(0, first);
         String searchExt = search + "u";
         int second = editor.getSearchable().search(searchExt, first);
-        assertEquals("index must be same if extension matches", first, second);
+        assertEquals(first, second, "index must be same if extension matches");
     }
     
     
@@ -621,7 +620,7 @@ public class FindTest extends InteractiveTestCase {
         String searchExt = search + "u";
         try {
             int second = editor.getSearchable().search(searchExt, first);
-            assertEquals("not found", -1, second);
+            assertEquals(-1, second, "not found");
             
         } catch (NullPointerException npe) {
             fail("npe");
@@ -684,12 +683,12 @@ public class FindTest extends InteractiveTestCase {
         editor.setText("f");
        // can't test in one method - the searchable has internal state
         int startOff = editor.getSearchable().search("f", -1);
-        assertEquals("must return first occurence if startIndex if off", 0, startOff);
+        assertEquals(0, startOff, "must return first occurence if startIndex if off");
         // sanity - must not find mismatch if longer
         int foIndex = editor.getSearchable().search("fo", -1);
-        assertEquals("must not find exceeding text", -1, foIndex);
+        assertEquals(-1, foIndex, "must not find exceeding text");
         foIndex = editor.getSearchable().search("f", 0);
-        assertEquals("must return first occurence from startIndex inclusively",0 , foIndex);
+        assertEquals(0,foIndex, "must return first occurence from startIndex inclusively");
     }
     
     /**
@@ -718,7 +717,7 @@ public class FindTest extends InteractiveTestCase {
         JXEditorPane editor = new JXEditorPane();
         editor.setText("fou four");
         int foIndex = editor.getSearchable().search("fo", -1);
-        assertEquals("selected text must be equals to input", "fo", editor.getSelectedText());
+        assertEquals("fo", editor.getSelectedText(), "selected text must be equals to input");
         try {
             String textAt = editor.getText(foIndex, 2);
             assertEquals("fo", textAt);
@@ -739,8 +738,8 @@ public class FindTest extends InteractiveTestCase {
             assertTrue(lastIndex != -1);
             assertTrue(lastIndex != useIndex);
 
-            assertEquals("Row not selected", lastIndex, table.getSelectedRow());
-            assertEquals("Column not selected", 0, table.getSelectedColumn());
+            assertEquals(lastIndex, table.getSelectedRow(), "Row not selected");
+            assertEquals(0, table.getSelectedColumn(), "Column not selected");
 
             String value = (String)table.getValueAt(table.getSelectedRow(),
                                                     table.getSelectedColumn());

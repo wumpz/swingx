@@ -21,6 +21,8 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Font;
@@ -56,6 +58,8 @@ import org.jdesktop.swingx.calendar.SingleDaySelectionModel;
 import org.jdesktop.swingx.event.DateSelectionEvent;
 import org.jdesktop.swingx.event.DateSelectionListener;
 import org.jdesktop.swingx.test.XTestUtils;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test to expose known issues with JXMonthView.
@@ -1131,15 +1135,16 @@ public class JXMonthViewVisualCheck extends InteractiveTestCase {
     }
 
 //----------------------
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() throws Exception {
         calendar = Calendar.getInstance();
     }
 
-    
+
     /**
      * do nothing test - keep the testrunner happy.
      */
+    @Test
     public void testDummy() {
     }
 

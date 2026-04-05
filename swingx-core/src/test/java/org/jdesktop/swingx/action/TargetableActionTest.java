@@ -30,22 +30,17 @@ import javax.swing.event.ChangeListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
-import junit.framework.TestCase;
-
 import org.jdesktop.swingx.JXEditorPane;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.JXTree;
 import org.jdesktop.swingx.JXTreeTable;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 
 /**
  * A unit test for targetable actions.
  */
-@RunWith(JUnit4.class)
-public class TargetableActionTest extends TestCase {
+public class TargetableActionTest {
 
     @Test
     public void testDummy() {

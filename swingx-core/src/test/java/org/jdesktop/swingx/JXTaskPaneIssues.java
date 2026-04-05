@@ -33,6 +33,7 @@ import javax.swing.KeyStroke;
 
 import org.jdesktop.swingx.action.AbstractActionExt;
 import org.jdesktop.swingx.hyperlink.AbstractHyperlinkAction;
+import org.junit.jupiter.api.Test;
 
 /**
  * 
@@ -117,6 +118,7 @@ public class JXTaskPaneIssues extends InteractiveTestCase {
      * Empty test method to keep the test runner happy if we have no 
      * open issues.
      */
+    @Test
     public void testDummy() {
         
     }

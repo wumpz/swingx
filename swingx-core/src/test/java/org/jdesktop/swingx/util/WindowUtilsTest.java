@@ -17,11 +17,11 @@ import javax.swing.JTable;
 
 import org.jdesktop.swingx.InteractiveTestCase;
 import org.jdesktop.test.EDTRunner;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 
-@RunWith(EDTRunner.class)
+@ExtendWith(EDTRunner.class)
 public class WindowUtilsTest extends InteractiveTestCase {
 
     public static void main(String[] args) {

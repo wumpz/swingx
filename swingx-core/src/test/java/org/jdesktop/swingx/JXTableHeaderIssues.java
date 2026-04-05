@@ -4,6 +4,9 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -33,6 +36,7 @@ import org.jdesktop.swingx.action.AbstractActionExt;
 import org.jdesktop.swingx.table.DefaultTableColumnModelExt;
 import org.jdesktop.swingx.table.TableColumnExt;
 import org.jdesktop.test.AncientSwingTeam;
+import org.junit.jupiter.api.Test;
 
 public class JXTableHeaderIssues extends JXTableHeaderTest {
     @SuppressWarnings("all")
@@ -52,14 +56,15 @@ public class JXTableHeaderIssues extends JXTableHeaderTest {
             e.printStackTrace();
         } 
     }
-    
-    
+
+
     /**
      * Issue #683-swingx: autoscroll if columns are dragged outside.
      * 
      * Enabled if autoscroll property is true. Changed default to true.
      * Temporarily disabled - clashes with table's horizontalScrollEnabled.
      */
+    @Test
     public void testAutoscrollsDefaultEmptyConstructor() {
         JXTableHeader header = new JXTableHeader();
         assertTrue(header.getAutoscrolls());
@@ -293,7 +298,7 @@ public class JXTableHeaderIssues extends JXTableHeaderTest {
      * Anyway, re-opened the old issue.
      *
      */
-//    public void interactiveSortGestureRecognizer() {
+    //    public void interactiveSortGestureRecognizer() {
 //        final JXTable table = new JXTable(10, 2);
 //        JXFrame frame = wrapWithScrollingInFrame(table, "Sort Gesture customization");
 //        Action action = new AbstractAction("toggle default/custom recognizer") {
@@ -341,7 +346,6 @@ public class JXTableHeaderIssues extends JXTableHeaderTest {
 //        
 //    }
 
-    
 
     /**
      * Issue 337-swingx: header heigth depends on sort icon (for ocean only?) 
@@ -350,13 +354,14 @@ public class JXTableHeaderIssues extends JXTableHeaderTest {
      * to determine the insets and calc the view rect.
      * 
      */
+    @Test
     public void testMetalBorderInsets() {
         JLabel label = new JLabel("sometext");
         AbstractBorder metalBorder = new MetalBorders.TableHeaderBorder();
         assertEquals(metalBorder.getBorderInsets(label), 
                 metalBorder.getBorderInsets(label, new Insets(0,0,0,0)));
     }
-    
+
     /**
      * Issue 337-swingx: header heigth depends on sort icon (for ocean only?) 
      * Looks like a problem in MetalBorders.TableHeaderBorder: extends AbstractBorder but
@@ -365,6 +370,7 @@ public class JXTableHeaderIssues extends JXTableHeaderTest {
      * 
      * Here we compound the default metal border
      */
+    @Test
     public void testMetalBorderInsetsHack() {
         JLabel label = new JLabel("sometext");
         AbstractBorder metalBorder = new MetalBorders.TableHeaderBorder();
@@ -372,19 +378,20 @@ public class JXTableHeaderIssues extends JXTableHeaderTest {
         assertEquals(compound.getBorderInsets(label), 
                 compound.getBorderInsets(label, new Insets(0,0,0,0)));
     }
-    
+
     /**
      * Issue 337-swingx: header heigth depends on sort icon (for ocean only?) 
      * NOTE: this seems to be independent of the tweaks to xTableHeaders
      *   prefSize.
      */
+    @Test
     public void testSortedPreferredHeight() {
         JXTable table = new JXTable(10, 2);
         JXTableHeader tableHeader = (JXTableHeader) table.getTableHeader();
         Dimension dim = tableHeader.getPreferredSize();
         table.setSortOrder(0, SortOrder.ASCENDING);
-        assertEquals("Header pref height must be unchanged if sorted",
-                dim.height, tableHeader.getPreferredSize().height);
+        assertEquals(dim.height,
+                tableHeader.getPreferredSize().height, "Header pref height must be unchanged if sorted");
     }
 
 }

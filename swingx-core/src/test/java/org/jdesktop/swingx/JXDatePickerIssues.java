@@ -21,6 +21,8 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -63,7 +65,8 @@ import javax.swing.table.TableModel;
 import org.jdesktop.swingx.calendar.CalendarUtils;
 import org.jdesktop.swingx.calendar.DatePickerFormatter;
 import org.jdesktop.swingx.table.DatePickerCellEditor;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Known issues of <code>JXDatePicker</code> and picker related 
@@ -550,7 +553,7 @@ public class JXDatePickerIssues extends InteractiveTestCase {
         int columns = 17;
         picker.getEditor().setColumns(columns);
         picker.updateUI();
-        assertEquals("columns after updateUI", columns, picker.getEditor().getColumns());
+        assertEquals(columns, picker.getEditor().getColumns(), "columns after updateUI");
     }
     
     /**
@@ -565,8 +568,8 @@ public class JXDatePickerIssues extends InteractiveTestCase {
         int columns = 17;
         ((JTextField) combo.getEditor().getEditorComponent()).setColumns(columns);
         combo.updateUI();
-        assertEquals("columns after updateUI", columns, 
-                ((JTextField) combo.getEditor().getEditorComponent()).getColumns());
+        assertEquals(columns, ((JTextField) combo.getEditor().getEditorComponent()).getColumns(), 
+                "columns after updateUI");
     }
     
     /**
@@ -582,7 +585,7 @@ public class JXDatePickerIssues extends InteractiveTestCase {
         int columns = 17;
         picker.getEditor().setColumns(columns);
         picker.updateUI();
-        assertEquals("columns after updateUI", columns, picker.getEditor().getColumns());
+        assertEquals(columns, picker.getEditor().getColumns(), "columns after updateUI");
     }
     
     /**
@@ -592,10 +595,10 @@ public class JXDatePickerIssues extends InteractiveTestCase {
     public void testSynchFontEditorPicker() {
         JXDatePicker picker = new JXDatePicker();
         Font derived = picker.getFont().deriveFont(40f);
-        assertFalse("sanity: derived font must not be uiresource", (derived instanceof UIResource));
+        assertFalse((derived instanceof UIResource), "sanity: derived font must not be uiresource");
         picker.setFont(derived);
         picker.updateUI();
-        assertEquals("font after updateUI", derived, picker.getFont());
+        assertEquals(derived, picker.getFont(), "font after updateUI");
     }
     
     /**
@@ -609,10 +612,10 @@ public class JXDatePickerIssues extends InteractiveTestCase {
         JFormattedTextField field = new JFormattedTextField();
         picker.setEditor(field);
         Font derived = picker.getFont().deriveFont(40f);
-        assertFalse("sanity: derived font must not be uiresource", (derived instanceof UIResource));
+        assertFalse((derived instanceof UIResource), "sanity: derived font must not be uiresource");
         picker.setFont(derived);
         picker.updateUI();
-        assertEquals("font after updateUI", derived, picker.getFont());
+        assertEquals(derived, picker.getFont(), "font after updateUI");
     }
 
     /**
@@ -624,8 +627,8 @@ public class JXDatePickerIssues extends InteractiveTestCase {
         JComboBox combo = new JComboBox();
         // make sure we have an editor
         combo.setEditable(true);
-        assertEquals("combo fonts initially synched",
-                combo.getEditor().getEditorComponent().getFont(), combo.getFont());
+        assertEquals(combo.getEditor().getEditorComponent().getFont(),
+                combo.getFont(), "combo fonts initially synched");
     }
     
     /**
@@ -640,11 +643,11 @@ public class JXDatePickerIssues extends InteractiveTestCase {
         Font font = combo.getFont();
         Font derived = font.deriveFont(40f);
         combo.setFont(derived);
-        assertEquals("combo fonts synched after setting",
-                combo.getEditor().getEditorComponent().getFont(), combo.getFont());
+        assertEquals(combo.getEditor().getEditorComponent().getFont(),
+                combo.getFont(), "combo fonts synched after setting");
         combo.updateUI();
-        assertEquals("combo fonts synched after updateUI",
-                combo.getEditor().getEditorComponent().getFont(), combo.getFont());
+        assertEquals(combo.getEditor().getEditorComponent().getFont(),
+                combo.getFont(), "combo fonts synched after updateUI");
         
     }
 
@@ -699,10 +702,11 @@ public class JXDatePickerIssues extends InteractiveTestCase {
         assertEquals(picker.getBackground(), picker.getEditor().getEditorComponent().getBackground());
     }
 
-    
+
     /**
      * Issue #764-swingx: picker prefsize too narrow
      */
+    @Test
     public void testPrefSizeGerman() {
         // wednesday - has width problems
         calendar.set(2008, Calendar.FEBRUARY, 20);
@@ -715,6 +719,7 @@ public class JXDatePickerIssues extends InteractiveTestCase {
     /**
      * Issue #764-swingx: picker prefsize too narrow
      */
+    @Test
     public void testPrefSizeUS() {
         // wednesday - has width problems
         calendar.set(2008, Calendar.FEBRUARY, 20);
@@ -722,10 +727,11 @@ public class JXDatePickerIssues extends InteractiveTestCase {
         JXDatePicker notNull = new JXDatePicker(calendar.getTime(), Locale.US);
         assertEquals(notNull.getPreferredSize(), nullDate.getPreferredSize());
     }
-    
+
     /**
      * Issue #764-swingx: picker prefsize too narrow
      */
+    @Test
     public void testPrefSizeUSEditor() {
         // wednesday - has width problems
         calendar.set(2008, Calendar.FEBRUARY, 20);
@@ -734,7 +740,7 @@ public class JXDatePickerIssues extends InteractiveTestCase {
         assertEquals(notNull.getEditor().getPreferredSize(), nullDate.getEditor().getPreferredSize());
     }
 
-    
+
 //    DateFormat longFormat = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL);
     /**
      * Issue #572-swingx: monthView must show linkDate on empty selection.
@@ -743,6 +749,7 @@ public class JXDatePickerIssues extends InteractiveTestCase {
      * PENDING: back out - say linkDate == today, not mutable by client code
      * but fixed to system?
      */
+    @Test
     public void testLinkDate() {
         JXDatePicker picker = new JXDatePicker();
         Date today = picker.getLinkDay();
@@ -789,10 +796,10 @@ public class JXDatePickerIssues extends InteractiveTestCase {
 
 
     private Calendar calendar;
-    
 
-    @Override
-    protected void setUp() throws Exception {
+
+    @BeforeEach
+    public void setUp() throws Exception {
         calendar = Calendar.getInstance();
     }
 

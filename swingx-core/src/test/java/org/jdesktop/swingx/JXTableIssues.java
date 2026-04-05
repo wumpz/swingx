@@ -20,6 +20,8 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -57,6 +59,7 @@ import org.jdesktop.test.AncientSwingTeam;
 import org.jdesktop.test.CellEditorReport;
 import org.jdesktop.test.PropertyChangeReport;
 import org.jdesktop.test.SerializableSupport;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test to exposed known issues of <code>JXTable</code>.
@@ -95,6 +98,7 @@ public class JXTableIssues extends InteractiveTestCase {
      * @throws Exception 
      * 
      */
+    @Test
     public void testGetValueOnInit() throws Exception {
         // This test will not work in a headless configuration.
         if (GraphicsEnvironment.isHeadless()) {
@@ -133,6 +137,7 @@ public class JXTableIssues extends InteractiveTestCase {
      * it must not but that's another issue).
      *  
      */
+    @Test
     public void testNPEEditorForInterface() {
         DefaultTableModel model = new DefaultTableModel(10, 2) {
 
@@ -153,6 +158,7 @@ public class JXTableIssues extends InteractiveTestCase {
      * Here we test if the table is not editing after editable property
      * of the currently edited column is changed to false.
      */
+    @Test
     public void testTableNotEditingOnColumnVisibleChange() {
         JXTable table = new JXTable(10, 2);
         TableColumnExt columnExt = table.getColumnExt(0);
@@ -161,11 +167,11 @@ public class JXTableIssues extends InteractiveTestCase {
         assertTrue(table.isEditing());
         assertEquals(0, table.getEditingColumn());
         columnExt.setVisible(false);
-        assertFalse("table must have terminated edit",table.isEditing());
+        assertFalse(table.isEditing(),"table must have terminated edit");
         fail("forcing a fail - cancel editing is a side-effect of removal notification");
     }
-   
-    
+
+
     /**
      * Issue #359-swing: find suitable rowHeight.
      * 
@@ -175,19 +181,21 @@ public class JXTableIssues extends InteractiveTestCase {
      * 
      * PENDING: this passes locally, fails on server
      */
+    @Test
     public void testRowHeightFontMetrics() {
         JXTable table = new JXTable(10, 2);
         TableCellEditor editor = table.getCellEditor(1, 1);
         Component comp = table.prepareEditor(editor, 1, 1);
         assertEquals(comp.getPreferredSize().height, table.getRowHeight());
     }
-    
+
     /**
      * a quick sanity test: reporting okay?. 
      * (doesn't belong here, should test the tools 
      * somewhere else)
      *
      */
+    @Test
     public void testCellEditorFired() {
         JXTable table = new JXTable(10, 2);
         table.editCellAt(0, 0);
@@ -195,29 +203,31 @@ public class JXTableIssues extends InteractiveTestCase {
         TableCellEditor editor = table.getCellEditor();
         editor.addCellEditorListener(report);
         editor.cancelCellEditing();
-        assertEquals("total count must be equals to canceled",
-                report.getCanceledEventCount(), report.getEventCount());
-        assertEquals("editor must have fired canceled", 1, report.getCanceledEventCount());
-        assertEquals("editor must not have fired stopped", 0, report.getStoppedEventCount());
+        assertEquals(report.getCanceledEventCount(),
+                report.getEventCount(), "total count must be equals to canceled");
+        assertEquals(1, report.getCanceledEventCount(), "editor must have fired canceled");
+        assertEquals(0, report.getStoppedEventCount(), "editor must not have fired stopped");
         report.clear();
-        assertEquals("canceled cleared", 0, report.getCanceledEventCount());
-        assertEquals("total cleared", 0, report.getStoppedEventCount());
+        assertEquals(0, report.getCanceledEventCount(), "canceled cleared");
+        assertEquals(0, report.getStoppedEventCount(), "total cleared");
         // same cell, same editor
         table.editCellAt(0, 0);
         editor.stopCellEditing();
-        assertEquals("total count must be equals to stopped",
-                report.getStoppedEventCount(), report.getEventCount());
-        assertEquals("editor must not have fired canceled", 0, report.getCanceledEventCount());
+        assertEquals(report.getStoppedEventCount(),
+                report.getEventCount(), "total count must be equals to stopped");
+        assertEquals(0, report.getCanceledEventCount(), "editor must not have fired canceled");
         // JW: surprising... it really fires twice?
-        assertEquals("editor must have fired stopped", 1, report.getStoppedEventCount());
+        assertEquals(1, report.getStoppedEventCount(), "editor must have fired stopped");
         
     }
+
     /**
      * Issue #349-swingx: table not serializable
      * 
      * Part of the problem is in TableRolloverController.
      *
      */
+    @Test
     public void testSerializationRollover() {
         JXTable table = new JXTable();
         SerializableSupport.serialize(table);
@@ -229,6 +239,7 @@ public class JXTableIssues extends InteractiveTestCase {
      * Part of it seems to be in BoundAction. 
      *
      */
+    @Test
     public void testSerializationRolloverFalse() {
         JXTable table = new JXTable();
         table.setRolloverEnabled(false);
@@ -250,14 +261,15 @@ public class JXTableIssues extends InteractiveTestCase {
      * Problem with state management.  
      *
      */
+    @Test
     public void testHorizontalScrollEnabled() {
         JXTable table = new JXTable();
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        assertEquals("horizontalScroll must be on", true, table.isHorizontalScrollEnabled());
+        assertEquals(true, table.isHorizontalScrollEnabled(), "horizontalScroll must be on");
         table.setHorizontalScrollEnabled(false);
-        assertEquals("horizontalScroll must be off", false, table.isHorizontalScrollEnabled());
+        assertEquals(false, table.isHorizontalScrollEnabled(), "horizontalScroll must be off");
     }
-    
+
     /**
      * we have a slight inconsistency in event values: setting the
      * client property to null means "false" but the event fired
@@ -266,6 +278,7 @@ public class JXTableIssues extends InteractiveTestCase {
      * The way out is to _not_ set the client prop manually, always go
      * through the property setter.
      */
+    @Test
     public void testClientPropertyNull() {
         JXTable table = new JXTable();
         // sanity assert: setting client property set's property
@@ -436,8 +449,8 @@ public class JXTableIssues extends InteractiveTestCase {
         table.getSearchable().search("e", 3);
         frame.setVisible(true);
     }
-    
-  //-------------------- adapted jesse wilson: #223
+
+    //-------------------- adapted jesse wilson: #223
 
 
     /**
@@ -445,6 +458,7 @@ public class JXTableIssues extends InteractiveTestCase {
      * selection
      * 
      */
+    @Test
     public void testModifyTableContentAndSelection() {
         CompareTableBehaviour compare = new CompareTableBehaviour(new Object[] { "A", "B", "C", "D", "E", "F", "G", "H", "I" });
         compare.table.getSelectionModel().setSelectionInterval(2, 5);
@@ -454,11 +468,12 @@ public class JXTableIssues extends InteractiveTestCase {
         Object[] selectedObjectsAfterModify = (new Object[] { "C", "D", "F" });
         assertSelection(compare.tableModel, compare.table.getSelectionModel(), selectedObjectsAfterModify);
     }
-    
+
     /**
      * Enhancement: modifying (= filtering by resetting the content) should keep 
      * selection
      */
+    @Test
     public void testModifyXTableContentAndSelection() {
         CompareTableBehaviour compare = new CompareTableBehaviour(new Object[] { "A", "B", "C", "D", "E", "F", "G", "H", "I" });
         compare.xTable.getSelectionModel().setSelectionInterval(2, 5);
@@ -479,7 +494,7 @@ public class JXTableIssues extends InteractiveTestCase {
         }
         
         List<?> expectedList = Arrays.asList(expected);
-        assertEquals("selected Objects must be as expected", expectedList, selected);
+        assertEquals(expectedList, selected, "selected Objects must be as expected");
     
     }
     public static class CompareTableBehaviour {

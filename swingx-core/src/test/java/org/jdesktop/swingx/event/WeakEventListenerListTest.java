@@ -21,14 +21,12 @@
  */
 package org.jdesktop.swingx.event;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import javax.swing.event.ChangeListener;
 
-import junit.framework.TestCase;
-
 import org.jdesktop.test.ChangeReport;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -39,8 +37,7 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
-public class WeakEventListenerListTest extends TestCase {
+public class WeakEventListenerListTest {
 
     /**
      * Test intial getListenerList
@@ -50,8 +47,8 @@ public class WeakEventListenerListTest extends TestCase {
     public void testGetListenerListInitial() {
         WeakEventListenerList list = new WeakEventListenerList();
         // must return empty array
-        assertNotNull("array must be not null", list.getListenerList());
-        assertEquals("array must be empty", 0, list.getListenerList().length);
+        assertNotNull(list.getListenerList(), "array must be not null");
+        assertEquals(0, list.getListenerList().length, "array must be empty");
     }
     
     /**
@@ -65,31 +62,31 @@ public class WeakEventListenerListTest extends TestCase {
         ChangeReport changeReport = new ChangeReport();
         list.add(ChangeListener.class, changeReport);
         Object[] array = list.getListenerList();
-        assertEquals("array must have 2 elements", 2, array.length);
-        assertSame("listener class must be at 0", ChangeListener.class, array[0]);
-        assertSame("added listener must be at 1", changeReport, array[1]);
+        assertEquals(2, array.length, "array must have 2 elements");
+        assertSame(ChangeListener.class, array[0], "listener class must be at 0");
+        assertSame(changeReport, array[1], "added listener must be at 1");
         // add a second
         ChangeReport otherReport = new ChangeReport();
         list.add(ChangeListener.class, otherReport);
         Object[] otherArray = list.getListenerList();
-        assertEquals("array must have 4 elements", 4, otherArray.length);
+        assertEquals(4, otherArray.length, "array must have 4 elements");
         assertSame(ChangeListener.class, otherArray[0]);
         assertSame(changeReport, otherArray[1]);
         assertSame(ChangeListener.class, otherArray[2]);
         assertSame(otherReport, otherArray[3]);
         list.remove(ChangeListener.class, changeReport);
         Object[] removedArray = list.getListenerList();
-        assertEquals("array must have 2 elements", 2, removedArray.length);
-        assertSame("listener class must be at 0", ChangeListener.class, removedArray[0]);
-        assertSame("added listener must be at 1", otherReport, removedArray[1]);
+        assertEquals(2, removedArray.length, "array must have 2 elements");
+        assertSame(ChangeListener.class, removedArray[0], "listener class must be at 0");
+        assertSame(otherReport, removedArray[1], "added listener must be at 1");
     }
     
     @Test
     public void testGetListenersInitial() {
         WeakEventListenerList list = new WeakEventListenerList();
         // must return empty array
-        assertNotNull("array must be not null", list.getListeners(ChangeListener.class));
-        assertEquals("array must be empty", 0, list.getListeners(ChangeListener.class).length);
+        assertNotNull(list.getListeners(ChangeListener.class), "array must be not null");
+        assertEquals(0, list.getListeners(ChangeListener.class).length, "array must be empty");
         
     }
 
@@ -104,19 +101,19 @@ public class WeakEventListenerListTest extends TestCase {
         ChangeReport changeReport = new ChangeReport();
         list.add(ChangeListener.class, changeReport);
         ChangeListener[] array = list.getListeners(ChangeListener.class);
-        assertEquals("array must have 2 elements", 1, array.length);
-        assertSame("added listener must be at 0", changeReport, array[0]);
+        assertEquals(1, array.length, "array must have 2 elements");
+        assertSame(changeReport, array[0], "added listener must be at 0");
         // add a second
         ChangeReport otherReport = new ChangeReport();
         list.add(ChangeListener.class, otherReport);
         ChangeListener[] otherArray = list.getListeners(ChangeListener.class);
-        assertEquals("array must have 2 elements", 2, otherArray.length);
+        assertEquals(2, otherArray.length, "array must have 2 elements");
         assertSame(changeReport, otherArray[0]);
         assertSame(otherReport, otherArray[1]);
         list.remove(ChangeListener.class, changeReport);
         ChangeListener[] removedArray = list.getListeners(ChangeListener.class);
-        assertEquals("array length", 1, removedArray.length);
-        assertSame("last added listener must be at 0", otherReport, removedArray[0]);
+        assertEquals(1, removedArray.length, "array length");
+        assertSame(otherReport, removedArray[0], "last added listener must be at 0");
     }
 
 }

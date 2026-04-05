@@ -30,6 +30,8 @@ import org.jdesktop.swingx.decorator.HighlighterFactory;
 import org.jdesktop.swingx.renderer.DefaultListRenderer;
 import org.jdesktop.swingx.renderer.StringValue;
 import org.jdesktop.swingx.renderer.StringValues;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -42,11 +44,11 @@ public class JXComboBoxVisualCheck extends InteractiveTestCase {
             .getLogger(JXComboBoxVisualCheck.class.getName());
     
     private ComboBoxModel model;
-    
+
     /**
      * {@inheritDoc}
      */
-    @Override
+    @BeforeEach
     public void setUp() {
         model = new DefaultComboBoxModel(new JComboBox().getActionMap().allKeys());
     }
@@ -85,7 +87,8 @@ public class JXComboBoxVisualCheck extends InteractiveTestCase {
         box.setRenderer(new DefaultListRenderer(sv));
         showInFrame(box, "navigation");
     }
-    
+
+    @Test
     public void testDummy() { }
 
     public void interactiveTestComboBoxAlternateHighlighter1() {

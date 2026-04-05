@@ -2,17 +2,21 @@ package org.jdesktop.swingx.graphics;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
 
 import java.awt.Composite;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 public class FilterCompositeTest {
-    @Test(expected=NullPointerException.class)
+    @Test
     public void checkThrowOnNullComposite() {
-        new FilterComposite(null);
+        assertThrows(NullPointerException.class, () -> {
+            new FilterComposite(null);
+        });
     }
     
     @Test

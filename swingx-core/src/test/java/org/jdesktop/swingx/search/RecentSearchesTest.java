@@ -1,19 +1,17 @@
 package org.jdesktop.swingx.search;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.prefs.Preferences;
 
 import org.jdesktop.swingx.JXSearchField;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class RecentSearchesTest {
 	private RecentSearches searchHistory;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		searchHistory = new RecentSearches("search.test");
 		searchHistory.removeAll();

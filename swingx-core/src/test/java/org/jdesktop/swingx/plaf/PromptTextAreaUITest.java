@@ -1,11 +1,11 @@
 package org.jdesktop.swingx.plaf;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import javax.swing.JTextArea;
 
 import org.jdesktop.swingx.JXTextArea;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PromptTextAreaUITest extends PromptTextUITest_Base {
     JTextArea textArea;

@@ -21,6 +21,8 @@
  */
 package org.jdesktop.swingx.renderer;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -60,9 +62,7 @@ import org.jdesktop.swingx.test.ComponentTreeTableModel;
 import org.jdesktop.swingx.test.XTestUtils;
 import org.jdesktop.test.PropertyChangeReport;
 import org.jdesktop.test.TestUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -72,7 +72,6 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class RenderingTest extends InteractiveTestCase {
     @SuppressWarnings("unused")
     private static final Logger LOG = Logger.getLogger(RenderingTest.class
@@ -86,8 +85,8 @@ public class RenderingTest extends InteractiveTestCase {
     @Test
     public void testRenderingComponentNames() throws Exception {
         ComponentProvider<?> provider = new LabelProvider();
-        assertEquals("default name expected null", null, provider
-                .getRendererComponent(null).getName());
+        assertEquals(null, provider
+                .getRendererComponent(null).getName(), "default name expected null");
         // use the same provider for all types of renderers
         DefaultTableRenderer rendererTable = new DefaultTableRenderer(provider);
         DefaultListRenderer rendererList = new DefaultListRenderer(provider);
@@ -99,7 +98,7 @@ public class RenderingTest extends InteractiveTestCase {
             JTable table = new JTable(4, 3);
             TableCellRenderer tableT = table.getDefaultRenderer(Object.class);
             String nameT = tableT.getTableCellRendererComponent(table, null, false, false, 0, 0).getName();
-            assertEquals("sanity: checking default name", "Table.cellRenderer", nameT);
+            assertEquals("Table.cellRenderer", nameT, "sanity: checking default name");
             assertEquals(nameT, rendererTable
                     .getTableCellRendererComponent(null, null, false, false, 0,
                             0).getName());
@@ -109,7 +108,7 @@ public class RenderingTest extends InteractiveTestCase {
             String nameL =
                      listR.getListCellRendererComponent(list, null, 0, false,
                             false).getName();
-            assertEquals("sanity: checking default name", "List.cellRenderer", nameL);
+            assertEquals("List.cellRenderer", nameL, "sanity: checking default name");
             assertEquals(nameL, rendererList.
                     getListCellRendererComponent(list, null, 0, false, false).getName());
             // tree
@@ -118,7 +117,7 @@ public class RenderingTest extends InteractiveTestCase {
             String nameTree =
                      treeR.getTreeCellRendererComponent(tree, null, false,
                             false, false, 1, false).getName();
-            assertEquals("sanity: checking default name", "Tree.cellRenderer", nameTree);
+            assertEquals("Tree.cellRenderer", nameTree, "sanity: checking default name");
             assertEquals(nameTree, rendererTree.
                     getTreeCellRendererComponent(tree, null, false, false, false, 0, false).getName());
             
@@ -134,11 +133,11 @@ public class RenderingTest extends InteractiveTestCase {
     @Test
     public void testWrappingIconPanelDropHackDefault() {
         JXPanel sanity = new JXPanel();
-        assertEquals("visible by default", true, sanity.isVisible());
+        assertEquals(true, sanity.isVisible(), "visible by default");
         WrappingIconPanel panel = new WrappingIconPanel();
-        assertEquals("invisible by default", false, panel.isVisible());
+        assertEquals(false, panel.isVisible(), "invisible by default");
         panel.setDropHackEnabled(false);
-        assertEquals("disabled hack", true, panel.isVisible());
+        assertEquals(true, panel.isVisible(), "disabled hack");
     }
     
     /**
@@ -149,11 +148,11 @@ public class RenderingTest extends InteractiveTestCase {
     @Test
     public void testWrappingIconPanelDropHackConstructor() {
         JXPanel sanity = new JXPanel();
-        assertEquals("visible by default", true, sanity.isVisible());
+        assertEquals(true, sanity.isVisible(), "visible by default");
         WrappingIconPanel panel = new WrappingIconPanel(false);
-        assertEquals("invisible by default", true, panel.isVisible());
+        assertEquals(true, panel.isVisible(), "invisible by default");
         panel.setDropHackEnabled(true);
-        assertEquals("disabled hack", false, panel.isVisible());
+        assertEquals(false, panel.isVisible(), "disabled hack");
     }
     
     /**
@@ -163,7 +162,7 @@ public class RenderingTest extends InteractiveTestCase {
     @Test
     public void testHyperlinkPainterAware() {
         HyperlinkProvider provider = new HyperlinkProvider();
-        assertTrue("hyperlink as rendering comp must be PainterAware", provider.getRendererComponent(null) instanceof PainterAware);
+        assertTrue(provider.getRendererComponent(null) instanceof PainterAware, "hyperlink as rendering comp must be PainterAware");
     }
 
     
@@ -175,7 +174,7 @@ public class RenderingTest extends InteractiveTestCase {
     public void testWrappingIconPanelPainterAware() {
         DefaultTreeRenderer renderer = new DefaultTreeRenderer();
         JComponent rendererComponent = renderer.getComponentProvider().getRendererComponent(null);
-        assertTrue("wrappingIconPanel as rendering comp must be PainterAware", rendererComponent instanceof PainterAware);
+        assertTrue(rendererComponent instanceof PainterAware, "wrappingIconPanel as rendering comp must be PainterAware");
     }
     
     /**
@@ -192,12 +191,12 @@ public class RenderingTest extends InteractiveTestCase {
         Color unclicked = hyperlink.getUnclickedColor();
         table.setDefaultRenderer(Object.class, new DefaultTableRenderer(provider));
         table.prepareRenderer(table.getCellRenderer(0, 0), 0, 0);
-        assertEquals("hyperlink foreground set to unclicked", unclicked, hyperlink.getForeground());
+        assertEquals(unclicked, hyperlink.getForeground(), "hyperlink foreground set to unclicked");
         table.setRowSelectionInterval(0, 0);
         // JW: had been failing before because I forgot to re-prepare :-)
         table.prepareRenderer(table.getCellRenderer(0, 0), 0, 0);
-        assertEquals("hyperlink foreground set to table's selection foreground", 
-                table.getSelectionForeground(), hyperlink.getForeground());
+        assertEquals(table.getSelectionForeground(), 
+                hyperlink.getForeground(), "hyperlink foreground set to table's selection foreground");
     }
 
 
@@ -284,8 +283,8 @@ public class RenderingTest extends InteractiveTestCase {
         context.replaceValue(new DefaultMutableTreeNode(p));
         WrappingProvider provider = new WrappingProvider(sv);
         provider.setUnwrapUserObject(false);
-        assertEquals("must not unwrap the user object", 
-                sv.getString(context.getValue()), provider.getString(context.getValue()));
+        assertEquals(sv.getString(context.getValue()), 
+                provider.getString(context.getValue()), "must not unwrap the user object");
     }
     
     /**
@@ -313,9 +312,9 @@ public class RenderingTest extends InteractiveTestCase {
         LabelProvider wrappee = (LabelProvider) provider.getWrappee();
         // configure 
         provider.getRendererComponent(context);
-        assertEquals("must not unwrap the user object", 
-                sv.getString(context.getValue()), 
-                wrappee.rendererComponent.getText());
+        assertEquals(sv.getString(context.getValue()), 
+                wrappee.rendererComponent.getText(), 
+                "must not unwrap the user object");
     }
     
 
@@ -369,8 +368,8 @@ public class RenderingTest extends InteractiveTestCase {
         CellContext context = new TableCellContext();
         context.replaceValue("dummy");
         JXHyperlink label = provider.getRendererComponent(context);
-        assertEquals("sanity - tooltip is set to value", "dummy", label
-                .getToolTipText());
+        assertEquals("dummy", label
+                .getToolTipText(), "sanity - tooltip is set to value");
         assertToolTipManagerNotRegistered(label);
     }
 
@@ -383,7 +382,7 @@ public class RenderingTest extends InteractiveTestCase {
     @Test
     public void testToolTipManagerRendererCheckBox() {
        JRendererCheckBox label = new JRendererCheckBox();
-       assertNull("sanity - no tooltip", label.getToolTipText());
+       assertNull(label.getToolTipText(), "sanity - no tooltip");
        String tip = "some tip";
        PropertyChangeReport report = new PropertyChangeReport();
        label.addPropertyChangeListener(report);
@@ -404,7 +403,7 @@ public class RenderingTest extends InteractiveTestCase {
     @Test
     public void testToolTipManagerRendererLabel() {
        JRendererLabel label = new JRendererLabel();
-       assertNull("sanity - no tooltip", label.getToolTipText());
+       assertNull(label.getToolTipText(), "sanity - no tooltip");
        String tip = "some tip";
        PropertyChangeReport report = new PropertyChangeReport();
        label.addPropertyChangeListener(report);
@@ -426,7 +425,7 @@ public class RenderingTest extends InteractiveTestCase {
     @Test
     public void testToolTipManagerJLabel() {
        JLabel label = new JLabel();
-       assertNull("sanity - no tooltip", label.getToolTipText());
+       assertNull(label.getToolTipText(), "sanity - no tooltip");
        String tip = "some tip";
        PropertyChangeReport report = new PropertyChangeReport();
        label.addPropertyChangeListener(report);
@@ -450,8 +449,8 @@ public class RenderingTest extends InteractiveTestCase {
     private void assertToolTipManagerNotRegistered(JComponent label) {
         MouseListener[] listeners = label.getMouseListeners();
         for (MouseListener l : listeners) {
-            assertEquals("registered with tooltipManager", false,
-                    l instanceof ToolTipManager);
+            assertEquals(false, l instanceof ToolTipManager,
+                    "registered with tooltipManager");
         }
     }
     
@@ -475,7 +474,7 @@ public class RenderingTest extends InteractiveTestCase {
                 managerCount++;
             }
         }
-        assertEquals("registered with tooltipManager", 1, managerCount);
+        assertEquals(1, managerCount, "registered with tooltipManager");
     }
     
     /**
@@ -614,7 +613,7 @@ public class RenderingTest extends InteractiveTestCase {
         Dimension newPrefSize = new Dimension(prefSize.width + 100, prefSize.height + 100);
         label.setPreferredSize(newPrefSize);
         visuals.configureVisuals(label, new TableCellContext());
-        assertEquals("default visual config must reset prefSize", prefSize, label.getPreferredSize());
+        assertEquals(prefSize, label.getPreferredSize(), "default visual config must reset prefSize");
     }
     
     /**
@@ -636,10 +635,10 @@ public class RenderingTest extends InteractiveTestCase {
         context.value = icon;
         JLabel label = provider.getRendererComponent(context);
         Icon i = label.getIcon();
-        assertTrue("icon must be empty", i instanceof EmptyIcon);
-        assertEquals("icon must have no width", 0, i.getIconWidth());
-        assertEquals("icon must have no height", 0, i.getIconHeight());
-        assertEquals("label text must be default to-string", StringValues.TO_STRING.getString(icon), label.getText());
+        assertTrue(i instanceof EmptyIcon, "icon must be empty");
+        assertEquals(0, i.getIconWidth(), "icon must have no width");
+        assertEquals(0, i.getIconHeight(), "icon must have no height");
+        assertEquals(StringValues.TO_STRING.getString(icon), label.getText(), "label text must be default to-string");
     }
     
     /**
@@ -658,7 +657,7 @@ public class RenderingTest extends InteractiveTestCase {
         context.value = icon;
         JLabel label = provider.getRendererComponent(context);
         assertEquals(icon, label.getIcon());
-        assertEquals("label text must be empty", StringValues.EMPTY.getString(icon), label.getText());
+        assertEquals(StringValues.EMPTY.getString(icon), label.getText(), "label text must be empty");
     }
     
     /**
@@ -778,25 +777,25 @@ public class RenderingTest extends InteractiveTestCase {
     private void assertWrappingProviderState(WrappingProvider provider, 
             IconValue iv, StringValue sv, ComponentProvider<?> delegate, boolean unwrap) {
         if (iv == null) {
-            assertEquals("default StringValue must be empty", StringValues.EMPTY, 
-                    provider.getStringValue());
+            assertEquals(StringValues.EMPTY, provider.getStringValue(), 
+                    "default StringValue must be empty");
         } else {
-            assertTrue("provider's StringValue must be a MappedValue containing the IconValue, but" +
-            		"was " + provider.getStringValue().getClass(),
-                    provider.getStringValue() instanceof MappedValue);
+            assertTrue(provider.getStringValue() instanceof MappedValue,
+                    "provider's StringValue must be a MappedValue containing the IconValue, but" +
+            		"was " + provider.getStringValue().getClass());
             // can't access MappedValue's delegates - usually don't need to
 //            assertEquals(iv, ((MappedValue) provider.getStringValue()).iconDelegate);
         }
         if (delegate == null) {
-            assertTrue("default wrappee must be LabelProvider but was " + 
-                    provider.getWrappee().getClass(), 
-               provider.getWrappee() instanceof LabelProvider);
+            assertTrue(provider.getWrappee() instanceof LabelProvider, 
+               "default wrappee must be LabelProvider but was " + 
+                    provider.getWrappee().getClass());
         } else {
-            assertEquals("wrappee must be set", delegate, provider.getWrappee());
+            assertEquals(delegate, provider.getWrappee(), "wrappee must be set");
         }
         if (sv != null) {
-            assertEquals("wrappee's StringValue must be configured to given", 
-                    sv, provider.getWrappee().getStringValue());
+            assertEquals(sv, 
+                    provider.getWrappee().getStringValue(), "wrappee's StringValue must be configured to given");
         }
         assertEquals(unwrap, provider.getUnwrapUserObject());
     }
@@ -1033,7 +1032,7 @@ public class RenderingTest extends InteractiveTestCase {
         JComponent label = new  JLabel("somevalue");
         label.setToolTipText("tooltip");
         visuals.configureVisuals(label, new TableCellContext());
-        assertNull("default visual config must clear tooltiptext", label.getToolTipText());
+        assertNull(label.getToolTipText(), "default visual config must clear tooltiptext");
     }
     
     /**

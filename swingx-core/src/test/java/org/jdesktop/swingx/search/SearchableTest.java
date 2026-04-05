@@ -21,11 +21,9 @@
  */
 package org.jdesktop.swingx.search;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
-
-import junit.framework.TestCase;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTable;
@@ -35,21 +33,21 @@ import org.jdesktop.swingx.decorator.BorderHighlighter;
 import org.jdesktop.swingx.decorator.SearchPredicate;
 import org.jdesktop.swingx.search.FindTest.TestListModel;
 import org.jdesktop.swingx.search.FindTest.TestTableModel;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Contains unit tests for Searchable implementations.
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
-public class SearchableTest extends TestCase {
+public class SearchableTest {
     
-    @Test (expected = NullPointerException.class)
+    @Test
     public void testTreeSearchableFailsOnNullTree() {
-        new TreeSearchable(null);
+        assertThrows(NullPointerException.class, () -> {
+            new TreeSearchable(null);
+        });
     }
 
     /** 
@@ -74,14 +72,14 @@ public class SearchableTest extends TestCase {
         SearchPredicate predicate = (SearchPredicate) hl.getHighlightPredicate();
         AbstractHighlighter replaceHL = new BorderHighlighter();
         ((AbstractSearchable) table.getSearchable()).setMatchHighlighter(replaceHL);
-        assertTrue("replaced highlighter must have searchPredicate ",
-                replaceHL.getHighlightPredicate() instanceof SearchPredicate);
-        assertEquals("replaced search predicate must be installed with old matching row", 
-                predicate.getHighlightRow(), 
-                ((SearchPredicate) replaceHL.getHighlightPredicate()).getHighlightRow());
-        assertSame("replaced renderer must be added", 
-                replaceHL, table.getHighlighters()[table.getHighlighters().length - 1]);
-        assertFalse("previous matchhighlighter must be removed", Arrays.asList(table.getHighlighters()).contains(hl));
+        assertTrue(replaceHL.getHighlightPredicate() instanceof SearchPredicate,
+                "replaced highlighter must have searchPredicate ");
+        assertEquals(predicate.getHighlightRow(), 
+                ((SearchPredicate) replaceHL.getHighlightPredicate()).getHighlightRow(), 
+                "replaced search predicate must be installed with old matching row");
+        assertSame(replaceHL, 
+                table.getHighlighters()[table.getHighlighters().length - 1], "replaced renderer must be added");
+        assertFalse(Arrays.asList(table.getHighlighters()).contains(hl), "previous matchhighlighter must be removed");
         
     }
 
@@ -107,9 +105,9 @@ public class SearchableTest extends TestCase {
         table.getSearchable().search(model.getPattern(), -1);
         // column index in view coordinates
         int foundColumn = ((AbstractSearchable) table.getSearchable()).lastSearchResult.foundColumn;
-        assertEquals("column must be updated", firstColumn, foundColumn);
+        assertEquals(firstColumn, foundColumn, "column must be updated");
         AbstractHighlighter hl = ((AbstractSearchable) table.getSearchable()).getMatchHighlighter();
-        assertTrue("searchPredicate", hl.getHighlightPredicate() instanceof SearchPredicate);
+        assertTrue(hl.getHighlightPredicate() instanceof SearchPredicate, "searchPredicate");
         SearchPredicate predicate = (SearchPredicate) hl.getHighlightPredicate();
         assertEquals(table.convertColumnIndexToModel(firstColumn), predicate.getHighlightColumn());
     }
@@ -123,7 +121,7 @@ public class SearchableTest extends TestCase {
     public void testTableUseMatchHighlighter() {
         JXTable table = new JXTable(new TestTableModel());
         table.putClientProperty(AbstractSearchable.MATCH_HIGHLIGHTER, Boolean.TRUE);
-        assertTrue("use match highlighter", ((AbstractSearchable) table.getSearchable()).markByHighlighter());
+        assertTrue(((AbstractSearchable) table.getSearchable()).markByHighlighter(), "use match highlighter");
         AbstractHighlighter hl = ((AbstractSearchable) table.getSearchable()).getMatchHighlighter();
         assertNotNull(hl);
     }
@@ -137,7 +135,7 @@ public class SearchableTest extends TestCase {
     public void testListUseMatchHighlighter() {
         JXList table = new JXList(new TestListModel());
         table.putClientProperty(AbstractSearchable.MATCH_HIGHLIGHTER, Boolean.TRUE);
-        assertTrue("use match highlighter", ((AbstractSearchable) table.getSearchable()).markByHighlighter());
+        assertTrue(((AbstractSearchable) table.getSearchable()).markByHighlighter(), "use match highlighter");
         AbstractHighlighter hl = ((AbstractSearchable) table.getSearchable()).getMatchHighlighter();
         assertNotNull(hl);
     }
@@ -151,7 +149,7 @@ public class SearchableTest extends TestCase {
     public void testTreeUseMatchHighlighter() {
         JXTree table = new JXTree();
         table.putClientProperty(AbstractSearchable.MATCH_HIGHLIGHTER, Boolean.TRUE);
-        assertTrue("use match highlighter", ((AbstractSearchable) table.getSearchable()).markByHighlighter());
+        assertTrue(((AbstractSearchable) table.getSearchable()).markByHighlighter(), "use match highlighter");
         AbstractHighlighter hl = ((AbstractSearchable) table.getSearchable()).getMatchHighlighter();
         assertNotNull(hl);
     }
@@ -163,7 +161,7 @@ public class SearchableTest extends TestCase {
     public void testTargetTable() {
         JXTable table = new JXTable();
         AbstractSearchable searchable = (AbstractSearchable) table.getSearchable();
-        assertSame("get target same as table", table, searchable.getTarget());
+        assertSame(table, searchable.getTarget(), "get target same as table");
     }
     
     /**
@@ -173,7 +171,7 @@ public class SearchableTest extends TestCase {
     public void testTargetList() {
         JXList table = new JXList();
         AbstractSearchable searchable = (AbstractSearchable) table.getSearchable();
-        assertSame("get target same as table", table, searchable.getTarget());
+        assertSame(table, searchable.getTarget(), "get target same as table");
     }
 
     /**
@@ -183,13 +181,12 @@ public class SearchableTest extends TestCase {
     public void testTargetTree() {
         JXTree table = new JXTree();
         AbstractSearchable searchable = (AbstractSearchable) table.getSearchable();
-        assertSame("get target same as table", table, searchable.getTarget());
+        assertSame(table, searchable.getTarget(), "get target same as table");
     }
 
-    
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+
+    @BeforeEach
+    public void setUp() throws Exception {
         // sanity: new instance for each test
         SearchFactory.setInstance(new SearchFactory());
     }

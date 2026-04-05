@@ -21,6 +21,8 @@
  */
 package org.jdesktop.swingx.calendar;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -30,16 +32,12 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Logger;
 
-import junit.framework.TestCase;
-
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.calendar.DatePickerFormatter.DatePickerFormatterUIResource;
 import org.jdesktop.swingx.plaf.UIManagerExt;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -49,8 +47,7 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
-public class DatePickerFormatterTest extends TestCase {
+public class DatePickerFormatterTest {
     @SuppressWarnings("unused")
     private static final Logger LOG = Logger
             .getLogger(DatePickerFormatterTest.class.getName());
@@ -71,8 +68,8 @@ public class DatePickerFormatterTest extends TestCase {
         }
         DatePickerFormatter formatter = new DatePickerFormatter();
         assertNotNull(formatter.getFormats());
-        assertTrue("must have formats:  " + formatter.getFormats().length,
-                formatter.getFormats().length > 0);
+        assertTrue(formatter.getFormats().length > 0,
+                "must have formats:  " + formatter.getFormats().length);
         assertEquals(DateFormat.getDateInstance(DateFormat.SHORT), formatter
                 .getFormats()[0]);
     }
@@ -93,7 +90,7 @@ public class DatePickerFormatterTest extends TestCase {
             return;
         }
         String pattern = UIManagerExt.getString("JXDatePicker.linkFormat");
-        assertNotNull("linkFormat entry is available", pattern);
+        assertNotNull(pattern, "linkFormat entry is available");
         MessageFormat format = new MessageFormat(pattern, Locale.getDefault());
         assertEquals(DateFormat.getDateInstance(), format
                 .getFormats()[0]);
@@ -109,8 +106,8 @@ public class DatePickerFormatterTest extends TestCase {
         DatePickerFormatter formatter = new DatePickerFormatter(locale);
         SimpleDateFormat format = (SimpleDateFormat) formatter.getFormats()[0];
         String pattern = UIManagerExt.getString("JXDatePicker.longFormat", locale);
-        assertEquals("format pattern must be same as from localized resource", 
-                pattern, format.toPattern());
+        assertEquals(pattern, 
+                format.toPattern(), "format pattern must be same as from localized resource");
     }
 
     /**
@@ -123,8 +120,8 @@ public class DatePickerFormatterTest extends TestCase {
         DatePickerFormatter formatter = new DatePickerFormatterUIResource(locale);
         SimpleDateFormat format = (SimpleDateFormat) formatter.getFormats()[0];
         String pattern = UIManagerExt.getString("JXDatePicker.longFormat", locale);
-        assertEquals("format pattern must be same as from localized resource", 
-                pattern, format.toPattern());
+        assertEquals(pattern, 
+                format.toPattern(), "format pattern must be same as from localized resource");
     }
     
     /**
@@ -236,11 +233,11 @@ public class DatePickerFormatterTest extends TestCase {
         DateFormat[] defaultFormats = defaultFormatter.getFormats();
         DatePickerFormatter formatter = new DatePickerFormatter((DateFormat[])null);
         DateFormat[] formats = formatter.getFormats();
-        assertNotNull("formats must not be null", formats);
+        assertNotNull(formats, "formats must not be null");
         assertEquals(defaultFormats.length, formats.length);
         for (int i = 0; i < defaultFormats.length; i++) {
-            assertEquals("format must be equals to default at " + i, 
-                    defaultFormats[i], formats[i]);
+            assertEquals(defaultFormats[i], 
+                    formats[i], "format must be equals to default at " + i);
         }
     }
     
@@ -306,8 +303,7 @@ public class DatePickerFormatterTest extends TestCase {
     private Calendar cal;
     private Locale originalLocale;
 
-    @Override
-    @Before
+    @BeforeEach
     public void setUp() {
         originalLocale = Locale.getDefault();
         cal = Calendar.getInstance();
@@ -315,10 +311,8 @@ public class DatePickerFormatterTest extends TestCase {
         new JXDatePicker();
     }
 
-    @Override
-    @After
+    @AfterEach
     public void tearDown() {
         Locale.setDefault(originalLocale);
     }
-
 }

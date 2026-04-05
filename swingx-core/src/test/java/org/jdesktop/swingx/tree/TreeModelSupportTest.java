@@ -21,21 +21,19 @@
  */
 package org.jdesktop.swingx.tree;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import javax.swing.event.TreeModelEvent;
 import javax.swing.tree.TreePath;
-
-import junit.framework.TestCase;
 
 import org.jdesktop.swingx.treetable.DefaultMutableTreeTableNode;
 import org.jdesktop.swingx.treetable.DefaultTreeTableModel;
 import org.jdesktop.swingx.treetable.TreeTableModel;
 import org.jdesktop.test.TreeModelReport;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -43,8 +41,7 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
-public class TreeModelSupportTest extends TestCase {
+public class TreeModelSupportTest {
 
     /** the treeModelSupport to test */
     private TreeModelSupport support;
@@ -56,14 +53,13 @@ public class TreeModelSupportTest extends TestCase {
     // TODO - implement and test precondition failure of added/removed 
     // notification
     
-    @Before
+    @BeforeEach
     public void setUpJ4() throws Exception {
         setUp();
     }
     
-    @After
+    @AfterEach
     public void tearDownJ4() throws Exception {
-        tearDown();
     }
     
     /**
@@ -75,7 +71,7 @@ public class TreeModelSupportTest extends TestCase {
      *   by TreePath but isn't)
      */
     @Test
-    @Ignore
+    @Disabled
     public void testPathChangedNotNullPathElements() {
         TreePath path = new TreePath(new Object[] {null});
         try {
@@ -130,7 +126,7 @@ public class TreeModelSupportTest extends TestCase {
      *
      */
     @Test
-    @Ignore
+    @Disabled
     public void testTreeStructureChangedNotNullPathElements() {
         TreePath path = new TreePath(new Object[] {null});
         try {
@@ -266,8 +262,8 @@ public class TreeModelSupportTest extends TestCase {
         return new DefaultTreeTableModel(root);
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() throws Exception {
         model = getDefaultTreeTableModel();
         support = new TreeModelSupport(model);
         report = new TreeModelReport();

@@ -50,6 +50,7 @@ import org.jdesktop.swingx.painter.MattePainter;
 import org.jdesktop.swingx.plaf.basic.BasicLoginPaneUI;
 import org.jdesktop.swingx.plaf.basic.CapsLockSupport;
 import org.jdesktop.swingx.util.GraphicsUtilities;
+import org.junit.jupiter.api.Test;
 
 /**
  * Simple tests to ensure that the {@code JXLoginPane} can be instantiated and
@@ -58,9 +59,6 @@ import org.jdesktop.swingx.util.GraphicsUtilities;
  * @author Karl Schaefer
  */
 public class JXLoginPaneVisualCheck extends InteractiveTestCase {
-    public JXLoginPaneVisualCheck() {
-        super("JXLoginPane Test");
-    }
 
     public static void main(String[] args) throws Exception {
         // setSystemLF(true);
@@ -346,12 +344,13 @@ public class JXLoginPaneVisualCheck extends InteractiveTestCase {
         });
         showInFrame(new JTextField(), "Caps Lock Test");
     }
-    
-	/**
+
+    /**
      * Do nothing, make the test runner happy
      * (would output a warning without a test fixture).
      *  
      */
+    @Test
     public void testDummy() {
 
     }

@@ -21,6 +21,8 @@
  */
 package org.jdesktop.swingx.sort;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.Color;
 import java.util.regex.Pattern;
 
@@ -34,17 +36,14 @@ import org.jdesktop.swingx.renderer.DefaultTableRenderer;
 import org.jdesktop.swingx.renderer.StringValue;
 import org.jdesktop.swingx.renderer.StringValues;
 import org.jdesktop.test.AncientSwingTeam;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit and visual tests for RowFilters.
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class RowFiltersTest extends InteractiveTestCase {
     
     private AncientSwingTeam teamModel;
@@ -61,19 +60,22 @@ public class RowFiltersTest extends InteractiveTestCase {
         }
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIllegalArgumentOnNegative() {
-        RowFilters.regexFilter(0, "some", -1);
+        assertThrows(IllegalArgumentException.class, () ->
+            RowFilters.regexFilter(0, "some", -1));
     }
     
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNPEOnNullRegex() {
-        RowFilters.regexFilter(0, null);
+        assertThrows(NullPointerException.class, () ->
+            RowFilters.regexFilter(0, null));
     }
     
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNPEOnNullPattern() {
-        RowFilters.regexFilter((Pattern) null);
+        assertThrows(NullPointerException.class, () ->
+            RowFilters.regexFilter((Pattern) null));
     }
     
     @Test
@@ -185,13 +187,11 @@ public class RowFiltersTest extends InteractiveTestCase {
         return sv;
     }
 
-    @Before
-    @Override
+    @BeforeEach
     public void setUp() throws Exception {
         teamModel = new AncientSwingTeam();
         colorColumn = 2;
         sv = createColorStringValue();
         entry = new FilterEntry();
     }
-
 }

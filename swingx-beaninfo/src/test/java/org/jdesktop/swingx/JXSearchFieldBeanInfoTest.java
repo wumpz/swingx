@@ -1,9 +1,9 @@
 package org.jdesktop.swingx;
 
 import org.jdesktop.beans.AbstractBeanInfoTest;
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 
-@Ignore
+@Disabled
 public class JXSearchFieldBeanInfoTest extends AbstractBeanInfoTest<JXSearchField> {
     @Override
     protected JXSearchField createInstance() {

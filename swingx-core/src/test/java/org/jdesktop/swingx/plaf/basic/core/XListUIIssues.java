@@ -21,6 +21,8 @@
  */
 package org.jdesktop.swingx.plaf.basic.core;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.logging.Logger;
 
 import javax.swing.JList;
@@ -31,9 +33,7 @@ import javax.swing.plaf.synth.SynthContext;
 import org.jdesktop.swingx.InteractiveTestCase;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.plaf.synth.SynthUI;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 /**
  * Issues around ListUI replacement.<p>
@@ -41,7 +41,6 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class XListUIIssues extends InteractiveTestCase {
 
     @SuppressWarnings("unused")
@@ -57,18 +56,21 @@ public class XListUIIssues extends InteractiveTestCase {
      * 
      * @throws Exception 
      */
-    @Test (expected=IllegalArgumentException.class)
+    @Test
     public void testSynthUIX() throws Exception {
-        LookAndFeel lf = UIManager.getLookAndFeel();
-        try {
-            setLookAndFeel("Nimbus");
-            JXList list = new JXList();
-            SynthUI ui = (SynthUI) list.getUI();
-            ui.getContext(new JXList());
-        } finally {
-            UIManager.setLookAndFeel(lf);
-        }
-        
+        assertThrows(IllegalArgumentException.class, () -> {
+            LookAndFeel lf = UIManager.getLookAndFeel();
+            try {
+                setLookAndFeel("Nimbus");
+                JXList list = new JXList();
+                SynthUI ui = (SynthUI) list.getUI();
+                ui.getContext(new JXList());
+            } finally {
+                UIManager.setLookAndFeel(lf);
+            }
+
+        });
+
     }
 
 
@@ -110,8 +112,8 @@ public class XListUIIssues extends InteractiveTestCase {
     @Test
     public void testDisabledExtendedUI() {
         JXList list = new JXList();
-        assertFalse("xlist must have BasicXListUI instead of " + list.getUI().getClass().getSimpleName(),
-                list.getUI() instanceof BasicXListUI);
+        assertFalse(list.getUI() instanceof BasicXListUI,
+                "xlist must have BasicXListUI instead of " + list.getUI().getClass().getSimpleName());
         
     }
 

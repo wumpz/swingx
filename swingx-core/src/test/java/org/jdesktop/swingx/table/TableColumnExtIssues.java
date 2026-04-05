@@ -6,15 +6,16 @@
  */
 package org.jdesktop.swingx.table;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
 import javax.swing.table.TableColumn;
 
-import junit.framework.TestCase;
-
 import org.jdesktop.test.PropertyChangeReport;
 import org.jdesktop.test.SerializableSupport;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test to exposed known issues of <code>TableColumnExt</code>.
@@ -25,31 +26,32 @@ import org.jdesktop.test.SerializableSupport;
  *  
  * @author Jeanette Winzenburg
  */
-public class TableColumnExtIssues extends TestCase {
+public class TableColumnExtIssues {
 
     /**
      * Issue #815-swingx: Listeners must not be cloned.
      * Test that a listener registered with the clone is not registered 
      * with the original.
      */
+    @Test
     public void testListenersOriginalNotRegistered() {
         TableColumnCloneable column = new TableColumnCloneable();
         column.setPreferredWidth(column.getMinWidth());
         int old = column.getPropertyChangeListeners().length;
-        assertEquals("sanity, no listener", 0, old);
+        assertEquals(0, old, "sanity, no listener");
         TableColumnCloneable clone = (TableColumnCloneable) column.clone();
         PropertyChangeReport report = new PropertyChangeReport();
         clone.addPropertyChangeListener(report);
         assertEquals(old, column.getPropertyChangeListeners().length);
     }
-    
 
-    
+
     /**
      * Issue #815-swingx: Listeners must not be cloned.
      * test that listeners registered with the original are not notified
      * when changing the clone.
      */
+    @Test
     public void testListenerNotificationCloneChanged() {
         TableColumnCloneable column = new TableColumnCloneable();
         column.setPreferredWidth(column.getMinWidth());
@@ -59,11 +61,12 @@ public class TableColumnExtIssues extends TestCase {
         clone.setPreferredWidth(column.getPreferredWidth() + 10);
         assertEquals(0, report.getEventCount());
     }
-    
+
     /**
      * Issue #815-swingx: Listeners must not be cloned.
      * Test that the listeners are still registered to the old.
      */
+    @Test
     public void testListenersOriginalRegistered() {
         TableColumnCloneable column = new TableColumnCloneable();
         PropertyChangeReport report = new PropertyChangeReport();
@@ -108,6 +111,7 @@ public class TableColumnExtIssues extends TestCase {
      * to be the same.
      *
      */
+    @Test
     public void testResizableBoundProperty() {
         TableColumnExt columnExt = new TableColumnExt();
         // sanity: assert expected defaults of resizable, minWidth
@@ -117,14 +121,14 @@ public class TableColumnExtIssues extends TestCase {
         columnExt.addPropertyChangeListener(report);
         columnExt.setMaxWidth(columnExt.getMinWidth());
         if (!columnExt.getResizable()) {
-            assertEquals("fixing column widths must fire resizable ", 
-                    1, report.getEventCount("resizable"));
+            assertEquals(1, 
+                    report.getEventCount("resizable"), "fixing column widths must fire resizable ");
         } else {
            fail("resizable must respect fixed column width"); 
         }
         
     }
-    
+
     /**
      * Sanity test Serializable: Listeners? Report not serializable?
      * 
@@ -132,6 +136,7 @@ public class TableColumnExtIssues extends TestCase {
      * @throws IOException
      * 
      */
+    @Test
     public void testSerializable() throws IOException, ClassNotFoundException {
         TableColumnExt columnExt = new TableColumnExt();
         PropertyChangeReport report = new PropertyChangeReport();
@@ -152,6 +157,7 @@ public class TableColumnExtIssues extends TestCase {
      * 
      * 
      */
+    @Test
     public void testNonSerializableClientProperties() throws IOException, ClassNotFoundException {
         TableColumnExt columnExt = new TableColumnExt();
         Object value = new Object();
@@ -165,6 +171,7 @@ public class TableColumnExtIssues extends TestCase {
      * without, the test would fail if there are no open issues.
      *
      */
+    @Test
     public void testDummy() {
     }
 }

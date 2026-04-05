@@ -42,6 +42,7 @@ import org.jdesktop.swingx.renderer.DefaultTableRenderer;
 import org.jdesktop.swingx.renderer.DefaultTreeRenderer;
 import org.jdesktop.swingx.treetable.FileSystemModel;
 import org.jdesktop.test.AncientSwingTeam;
+import org.junit.jupiter.api.BeforeEach;
 
 public class RolloverVisualCheck extends InteractiveTestCase {
 
@@ -580,10 +581,9 @@ public class RolloverVisualCheck extends InteractiveTestCase {
         table.setDefaultRenderer(Object.class, renderer);
         addEnabledToggle(frame, table);
     }
-    
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+
+    @BeforeEach
+    public void setUp() throws Exception {
         sortableTableModel = new AncientSwingTeam();
         listModel = new AbstractListModel() {
 

@@ -6,21 +6,20 @@
  */
 package org.jdesktop.swingx.treetable;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.logging.Logger;
 
 import javax.swing.tree.TreePath;
 
 import org.jdesktop.swingx.InteractiveTestCase;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 /**
  * 
  * Known issues around TreeTableModel and related classes.
  * 
  */
-@RunWith(JUnit4.class)
 public class TreeTableModelIssues extends InteractiveTestCase {
     @SuppressWarnings("unused")
     private static final Logger LOG = Logger
@@ -43,8 +42,8 @@ public class TreeTableModelIssues extends InteractiveTestCase {
     @Test
     public void testTreeStructureChangedEmptyPath() {
        TreePath path = new TreePath(new Object[] {null});
-       assertNotNull("TreePath must not contain null path elements", 
-               path.getLastPathComponent()); 
+       assertNotNull(path.getLastPathComponent(), 
+               "TreePath must not contain null path elements"); 
     }
 
 

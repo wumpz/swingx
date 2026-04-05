@@ -35,6 +35,8 @@ import org.jdesktop.swingx.decorator.HighlighterFactory;
 import org.jdesktop.swingx.decorator.PainterHighlighter;
 import org.jdesktop.swingx.painter.ImagePainter;
 import org.jdesktop.swingx.test.XTestUtils;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -109,12 +111,12 @@ public class JXComboBoxIssues extends InteractiveTestCase {
         JXFrame frame = showInFrame(panel, "Highlighter - editable");
         addStatusMessage(frame, "editable xcombo appearance looks okay in Win/Nimbus");
     }
-    
-    
+
+
     /**
      * {@inheritDoc}
      */
-    @Override
+    @BeforeEach
     public void setUp() {
         model = createComboBoxModel();
     }
@@ -122,6 +124,7 @@ public class JXComboBoxIssues extends InteractiveTestCase {
     private DefaultComboBoxModel createComboBoxModel() {
         return new DefaultComboBoxModel(new JComboBox().getActionMap().allKeys());
     }
-    
+
+    @Test
     public void testDummy() { }
 }

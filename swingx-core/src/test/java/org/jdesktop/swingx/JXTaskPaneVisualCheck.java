@@ -18,6 +18,9 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -36,8 +39,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Simple tests to ensure that the {@code JXTaskPane} can be instantiated and
@@ -50,10 +53,6 @@ public class JXTaskPaneVisualCheck extends InteractiveTestCase {
     @SuppressWarnings("unused")
     private static final Logger LOG = Logger
             .getLogger(JXTaskPaneVisualCheck.class.getName());
-    
-    public JXTaskPaneVisualCheck() {
-        super("JXLoginPane Test");
-    }
 
     public static void main(String[] args) throws Exception {
         JXTaskPaneVisualCheck test = new JXTaskPaneVisualCheck();
@@ -229,7 +228,7 @@ public class JXTaskPaneVisualCheck extends InteractiveTestCase {
     }
     
     // continue to ignore, until the test is fully converted to visual
-    @Test @Ignore
+    @Test @Disabled
   public void testAnimationListeners() throws Exception {
     JXTaskPane taskPane = new JXTaskPane();
     // start with a not expanded or animated taskPane
@@ -279,6 +278,7 @@ public class JXTaskPaneVisualCheck extends InteractiveTestCase {
      * (would output a warning without a test fixture).
      *
      */
+    @Test
     public void testDummy() {
         
     }

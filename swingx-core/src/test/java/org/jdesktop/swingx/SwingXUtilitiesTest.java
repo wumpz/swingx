@@ -24,9 +24,12 @@ package org.jdesktop.swingx;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.awt.Color;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.Component;
 import java.awt.GraphicsEnvironment;
 import java.beans.PropertyChangeListener;
@@ -57,11 +60,11 @@ import javax.swing.plaf.UIResource;
 import org.jdesktop.swingx.JXCollapsiblePane.CollapsiblePaneContainer;
 import org.jdesktop.swingx.plaf.basic.BasicDatePickerUI;
 import org.jdesktop.test.EDTRunner;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 
 /**
@@ -69,7 +72,6 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class SwingXUtilitiesTest extends InteractiveTestCase {
     @SuppressWarnings("unused")
     private static final Logger LOG = Logger
@@ -93,7 +95,7 @@ public class SwingXUtilitiesTest extends InteractiveTestCase {
      */
     @Test
     public void testUIInstallable() {
-        assertEquals("null must be uiInstallable ", true, SwingXUtilities.isUIInstallable(null));
+        assertEquals(true, SwingXUtilities.isUIInstallable(null), "null must be uiInstallable ");
         assertUIInstallable(new Color(10, 10, 10));
         assertUIInstallable(new ColorUIResource(10, 10, 10));
     }
@@ -102,7 +104,7 @@ public class SwingXUtilitiesTest extends InteractiveTestCase {
      * @param color
      */
     private void assertUIInstallable(Object color) {
-        assertEquals("uiInstallabe must be same ", color instanceof UIResource, SwingXUtilities.isUIInstallable(color));
+        assertEquals(color instanceof UIResource, SwingXUtilities.isUIInstallable(color), "uiInstallabe must be same ");
     }
     
     @Test
@@ -149,25 +151,15 @@ public class SwingXUtilitiesTest extends InteractiveTestCase {
     }
 
     
-    @Before
-    public void setUpJ4() throws Exception {
-        setUp();
-    }
-    
-    @After
-    public void tearDownJ4() throws Exception {
-        tearDown();
-    }
-    
-    
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() throws Exception {
         setSystemLF(true);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testGetTranslucentRepaintManagerWithNull() {
-        SwingXUtilities.getTranslucentRepaintManager(null);
+        assertThrows(NullPointerException.class, () ->
+            SwingXUtilities.getTranslucentRepaintManager(null));
     }
     
     @Test
@@ -246,51 +238,52 @@ public class SwingXUtilitiesTest extends InteractiveTestCase {
         assertThat(SwingXUtilities.invokeAndWait(callable), is(true));
         assertThat((System.currentTimeMillis() - start) > 1000, is(true));
     }
-    
-    @RunWith(EDTRunner.class)
-    public static class GetAncestorTest {
+
+    @Nested
+    @ExtendWith(EDTRunner.class)
+    public class GetAncestorTest {
         private Component source;
-        
-        @Before
+
+        @BeforeEach
         public void setUp() {
             JXTaskPane pane = new JXTaskPane();
             source = pane.add(new JButton());
-            
+
             JXTaskPaneContainer tpc = new JXTaskPaneContainer();
             tpc.add(pane);
-            
+
             JPanel panel = new JPanel();
             panel.add(tpc);
         }
-        
+
         @Test
         public void testNullClass() {
             assertThat(SwingXUtilities.getAncestor(null, source), is(nullValue()));
         }
-        
+
         @Test
         public void testNullSource() {
             assertThat(SwingXUtilities.getAncestor(JPanel.class, null), is(nullValue()));
         }
-        
+
         @Test
         public void testFindAncestorClass() {
             assertThat(SwingXUtilities.getAncestor(JXTaskPane.class, source), is(not(nullValue())));
         }
-        
+
         @Test
         public void testFindAncestorInterface() {
             assertThat(SwingXUtilities.getAncestor(
-                    CollapsiblePaneContainer.class, source),
+                            CollapsiblePaneContainer.class, source),
                     is(not(nullValue())));
         }
-        
+
         @Test
         public void testFindMissingAncestorClass() {
             assertThat(SwingXUtilities.getAncestor(JComboBox.class, source),
                     is(nullValue()));
         }
-        
+
         @Test
         public void testFindMissingAncestorInterface() {
             assertThat(SwingXUtilities.getAncestor(PropertyChangeListener.class, source),
@@ -300,16 +293,16 @@ public class SwingXUtilitiesTest extends InteractiveTestCase {
     
     @Test
     public void testDescendingNull() {
-        assertFalse("both nulls are not descending", SwingXUtilities.isDescendingFrom(null, null));
-        assertFalse("null comp is not descending", SwingXUtilities.isDescendingFrom(null, new JScrollPane()));
-        assertFalse("comp is not descending null parent", SwingXUtilities.isDescendingFrom(new JLabel(), null));
+        assertFalse(SwingXUtilities.isDescendingFrom(null, null), "both nulls are not descending");
+        assertFalse(SwingXUtilities.isDescendingFrom(null, new JScrollPane()), "null comp is not descending");
+        assertFalse(SwingXUtilities.isDescendingFrom(new JLabel(), null), "comp is not descending null parent");
     }
     
     @Test
     public void testDescendingSame() {
         JComponent comp = new JLabel();
-        assertTrue("same component must be interpreted as descending", 
-                SwingXUtilities.isDescendingFrom(comp, comp));
+        assertTrue(SwingXUtilities.isDescendingFrom(comp, comp), 
+                "same component must be interpreted as descending");
     }
     
     @Test
@@ -329,7 +322,7 @@ public class SwingXUtilitiesTest extends InteractiveTestCase {
         SwingUtilities.invokeAndWait(new Runnable() {
             @Override
             public void run() {
-                assertTrue("popup visible ", ((BasicDatePickerUI) picker.getUI()).isPopupVisible());
+                assertTrue(((BasicDatePickerUI) picker.getUI()).isPopupVisible(), "popup visible ");
                 assertTrue(SwingXUtilities.isDescendingFrom(picker.getMonthView(), picker));
                 
             }

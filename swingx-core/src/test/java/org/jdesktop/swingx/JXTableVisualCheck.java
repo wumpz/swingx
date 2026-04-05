@@ -77,9 +77,8 @@ import org.jdesktop.swingx.table.DatePickerCellEditor;
 import org.jdesktop.swingx.table.TableColumnExt;
 import org.jdesktop.swingx.treetable.FileSystemModel;
 import org.jdesktop.test.AncientSwingTeam;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Split from old JXTableUnitTest - contains "interactive"
@@ -89,7 +88,6 @@ import org.junit.runners.JUnit4;
  * tests or change positioning algo to start on top again if hidden. <p>
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class JXTableVisualCheck extends JXTableUnitTest {
     private static final Logger LOG = Logger.getLogger(JXTableVisualCheck.class
             .getName());
@@ -1529,11 +1527,10 @@ public class JXTableVisualCheck extends JXTableUnitTest {
         frame.add(bar, BorderLayout.NORTH);
         frame.setVisible(true);
     }
- 
 
-    
-    @Override
-    protected void setUp() throws Exception {
+
+    @BeforeEach
+    public void setUp() throws Exception {
         super.setUp();
         // super has LF specific tests...
         setSystemLF(true);

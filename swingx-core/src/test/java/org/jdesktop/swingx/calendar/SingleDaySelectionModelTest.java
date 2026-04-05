@@ -20,6 +20,8 @@
  */
 package org.jdesktop.swingx.calendar;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.SortedSet;
@@ -29,10 +31,8 @@ import java.util.logging.Logger;
 import org.jdesktop.swingx.calendar.DateSelectionModel.SelectionMode;
 import org.jdesktop.swingx.event.DateSelectionEvent;
 import org.jdesktop.swingx.test.DateSelectionReport;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -40,7 +40,6 @@ import org.junit.runners.JUnit4;
  * 
  * Moved from swingx to calendar package as of version 1.15
  */
-@RunWith(JUnit4.class)
 public class SingleDaySelectionModelTest extends AbstractTestDateSelectionModel {
     @SuppressWarnings("unused")
     private static final Logger LOG = Logger
@@ -125,10 +124,10 @@ public class SingleDaySelectionModelTest extends AbstractTestDateSelectionModel 
        model.setSelectionInterval(today, today);
        // sanity: today itself
        assertTrue(model.isSelected(today));
-       assertTrue("every date contained in today must be regarded as selected - startofday", 
-               model.isSelected(startOfDay(today)));
-       assertTrue("every date contained in today must be regarded as selected - endofday", 
-               model.isSelected(endOfDay(today)));
+       assertTrue(model.isSelected(startOfDay(today)), 
+               "every date contained in today must be regarded as selected - startofday");
+       assertTrue(model.isSelected(endOfDay(today)), 
+               "every date contained in today must be regarded as selected - endofday");
     }
 
     
@@ -145,9 +144,9 @@ public class SingleDaySelectionModelTest extends AbstractTestDateSelectionModel 
         assertTrue(model.isSelected(date));
         DateSelectionReport report = new DateSelectionReport(model);
         model.setSelectionInterval(date, date);
-        assertEquals("selection must not fire on selecting already selected date",
-                0,
-                report.getEventCount());
+        assertEquals(0,
+                report.getEventCount(),
+                "selection must not fire on selecting already selected date");
     }
 
     /**
@@ -163,9 +162,9 @@ public class SingleDaySelectionModelTest extends AbstractTestDateSelectionModel 
         assertTrue(model.isSelected(date));
         DateSelectionReport report = new DateSelectionReport(model);
         model.addSelectionInterval(date, date);
-        assertEquals("selection must not fire on selecting already selected date",
-                0,
-                report.getEventCount());
+        assertEquals(0,
+                report.getEventCount(),
+                "selection must not fire on selecting already selected date");
     }
 
  
@@ -184,9 +183,9 @@ public class SingleDaySelectionModelTest extends AbstractTestDateSelectionModel 
         assertTrue(model.isSelected(date));
         DateSelectionReport report = new DateSelectionReport(model);
         model.setSelectionInterval(date, end);
-        assertEquals("selection must not fire on selecting already selected date",
-                0,
-                report.getEventCount());
+        assertEquals(0,
+                report.getEventCount(),
+                "selection must not fire on selecting already selected date");
     }
 
     /**
@@ -204,9 +203,9 @@ public class SingleDaySelectionModelTest extends AbstractTestDateSelectionModel 
         assertTrue(model.isSelected(date));
         DateSelectionReport report = new DateSelectionReport(model);
         model.addSelectionInterval(date, end);
-        assertEquals("selection must not fire on selecting already selected date",
-                0,
-                report.getEventCount());
+        assertEquals(0,
+                report.getEventCount(),
+                "selection must not fire on selecting already selected date");
     }
 
     /**
@@ -224,9 +223,9 @@ public class SingleDaySelectionModelTest extends AbstractTestDateSelectionModel 
         assertTrue(model.isSelected(date));
         DateSelectionReport report = new DateSelectionReport(model);
         model.setSelectionInterval(date, end);
-        assertEquals("selection must not fire on selecting already selected date",
-                0,
-                report.getEventCount());
+        assertEquals(0,
+                report.getEventCount(),
+                "selection must not fire on selecting already selected date");
     }
 
     /**
@@ -244,9 +243,9 @@ public class SingleDaySelectionModelTest extends AbstractTestDateSelectionModel 
         assertTrue(model.isSelected(date));
         DateSelectionReport report = new DateSelectionReport(model);
         model.addSelectionInterval(date, end);
-        assertEquals("selection must not fire on selecting already selected date",
-                0,
-                report.getEventCount());
+        assertEquals(0,
+                report.getEventCount(),
+                "selection must not fire on selecting already selected date");
     }
     /**
      * related to #625-swingx: DateSelectionModel must not fire on clearing empty selection.
@@ -257,9 +256,9 @@ public class SingleDaySelectionModelTest extends AbstractTestDateSelectionModel 
         assertTrue(model.isSelectionEmpty());
         DateSelectionReport report = new DateSelectionReport(model);
         model.clearSelection();
-        assertEquals("selection must not fire on clearing empty selection",
-                0,
-                report.getEventCount());
+        assertEquals(0,
+                report.getEventCount(),
+                "selection must not fire on clearing empty selection");
     }
     
     /**
@@ -276,12 +275,12 @@ public class SingleDaySelectionModelTest extends AbstractTestDateSelectionModel 
         assertFalse(model.isSelectionEmpty());
         DateSelectionReport report = new DateSelectionReport(model);
         model.clearSelection();
-        assertEquals("selection must fire on clearing selection",
-                1,
-                report.getEventCount());
-        assertEquals("event type must be SELECTION_CLEARED",
-                DateSelectionEvent.EventType.SELECTION_CLEARED,
-                report.getLastEventType());
+        assertEquals(1,
+                report.getEventCount(),
+                "selection must fire on clearing selection");
+        assertEquals(DateSelectionEvent.EventType.SELECTION_CLEARED,
+                report.getLastEventType(),
+                "event type must be SELECTION_CLEARED");
     }
     
     /**
@@ -295,9 +294,9 @@ public class SingleDaySelectionModelTest extends AbstractTestDateSelectionModel 
         assertTrue(model.isSelected(date));
         DateSelectionReport report = new DateSelectionReport(model);
         model.setSelectionInterval(date, date);
-        assertEquals("selection must not fire on selecting already selected date",
-                0,
-                report.getEventCount());
+        assertEquals(0,
+                report.getEventCount(),
+                "selection must not fire on selecting already selected date");
     }
     
     /**
@@ -313,12 +312,12 @@ public class SingleDaySelectionModelTest extends AbstractTestDateSelectionModel 
         assertTrue(model.isSelected(today));
         DateSelectionReport report = new DateSelectionReport(model);
         model.setSelectionInterval(tomorrow, tomorrow);
-        assertEquals("selection must fire on selection",
-                1,
-                report.getEventCount());
-        assertEquals("event type must be DATES_SET",
-                DateSelectionEvent.EventType.DATES_SET,
-                report.getLastEventType());
+        assertEquals(1,
+                report.getEventCount(),
+                "selection must fire on selection");
+        assertEquals(DateSelectionEvent.EventType.DATES_SET,
+                report.getLastEventType(),
+                "event type must be DATES_SET");
     }
     
 
@@ -335,7 +334,7 @@ public class SingleDaySelectionModelTest extends AbstractTestDateSelectionModel 
         model.setLowerBound(endOfDay(today));
         // the bound itself is allowed
         model.setSelectionInterval(today, today);
-        assertTrue("same day as lower bound is allowed", model.isSelected(today));
+        assertTrue(model.isSelected(today), "same day as lower bound is allowed");
     }
     
  
@@ -350,7 +349,7 @@ public class SingleDaySelectionModelTest extends AbstractTestDateSelectionModel 
         // the bound itself is allowed
         model.setSelectionInterval(today, today);
         assertEquals(today, model.getFirstSelectionDate());
-        assertTrue("same day as upper bound is allowed", model.isSelected(today));
+        assertTrue(model.isSelected(today), "same day as upper bound is allowed");
     }
     
     
@@ -363,12 +362,12 @@ public class SingleDaySelectionModelTest extends AbstractTestDateSelectionModel 
         unselectableDates.add(today);
         model.setUnselectableDates(unselectableDates);
         // all dates in today must be rejected
-        assertTrue("raw today must be unselectable", 
-                model.isUnselectableDate(today));
-        assertTrue("start of today must be unselectable", 
-                model.isUnselectableDate(startOfDay(today)));
-        assertTrue("end of today must be unselectable", 
-                model.isUnselectableDate(endOfDay(today)));
+        assertTrue(model.isUnselectableDate(today), 
+                "raw today must be unselectable");
+        assertTrue(model.isUnselectableDate(startOfDay(today)), 
+                "start of today must be unselectable");
+        assertTrue(model.isUnselectableDate(endOfDay(today)), 
+                "end of today must be unselectable");
         // remove the unselectable 
         model.setUnselectableDates(new TreeSet<>());
         assertFalse(model.isUnselectableDate(today));
@@ -383,8 +382,8 @@ public class SingleDaySelectionModelTest extends AbstractTestDateSelectionModel 
     public void testRemoveInterval() {
         model.setSelectionInterval(today, today);
         model.removeSelectionInterval(yesterday, tomorrow);
-        assertTrue("selection must be empty: selected today and removed interval [yesterday, tomorrow]", 
-                model.isSelectionEmpty());
+        assertTrue(model.isSelectionEmpty(), 
+                "selection must be empty: selected today and removed interval [yesterday, tomorrow]");
     }
 
     /**
@@ -428,7 +427,7 @@ public class SingleDaySelectionModelTest extends AbstractTestDateSelectionModel 
         SortedSet<Date> result = model.getUnselectableDates();
         assertEquals(unselectableDates, result);
 
-        assertTrue("today must be removed", model.isSelectionEmpty());
+        assertTrue(model.isSelectionEmpty(), "today must be removed");
 
     }
 
@@ -436,7 +435,7 @@ public class SingleDaySelectionModelTest extends AbstractTestDateSelectionModel 
     // pre-defined reference dates - all relative to current date at around 5 am
     
     @Override
-    @Before
+    @BeforeEach
        public void setUp() {
         setUpCalendar();
         model = new SingleDaySelectionModel();

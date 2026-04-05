@@ -4,17 +4,17 @@
  */
 package org.jdesktop.test;
 
-import org.jdesktop.beans.AbstractBean;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import junit.framework.TestCase;
+import org.jdesktop.beans.AbstractBean;
+import org.junit.jupiter.api.Test;
 
 /**
  * Contains unit tests around the xxReport classes.
  * 
  * @author Jeanette Winzenburg, Berlin
  */
-public class AllReportsTest extends TestCase {
+public class AllReportsTest {
 
 
     /**

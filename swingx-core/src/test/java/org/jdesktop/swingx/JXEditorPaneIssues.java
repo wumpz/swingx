@@ -7,6 +7,9 @@
 
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.logging.Logger;
 
 import javax.swing.Action;
@@ -14,6 +17,7 @@ import javax.swing.Action;
 import org.jdesktop.swingx.action.ActionFactory;
 import org.jdesktop.swingx.action.ActionManager;
 import org.jdesktop.swingx.action.TargetManager;
+import org.junit.jupiter.api.Test;
 
 /**
  * A unit test for the JXEditorPane
@@ -27,6 +31,7 @@ public class JXEditorPaneIssues extends JXEditorPaneTest {
     private static String testText = "This is an example of some text";
 
 
+    @Test
     public void testEditorActionManagerWoes() {
         JXEditorPane editable = new JXEditorPane();
         assertTrue(editable.isEditable());
@@ -34,7 +39,7 @@ public class JXEditorPaneIssues extends JXEditorPaneTest {
         TargetManager.getInstance().addTarget(editable);
         
     }
-    
+
     /**
      * Issue #289-swingx: JXEditorPane actions should be disabled if not
      * applicable.
@@ -42,6 +47,7 @@ public class JXEditorPaneIssues extends JXEditorPaneTest {
      * undo must not perform on non-editable editor.
      * 
      */
+    @Test
     public void testXUndoActionNotEditable() {
         JXEditorPane editor = new JXEditorPane();
         editor.setEditable(false);
@@ -49,7 +55,7 @@ public class JXEditorPaneIssues extends JXEditorPaneTest {
         assertEquals(testText, editor.getText());
         Action action = editor.getActionMap().get("undo");
         action.actionPerformed(null);
-        assertEquals("undo must have no effect", testText, editor.getText());
+        assertEquals(testText, editor.getText(), "undo must have no effect");
     }
  
 }

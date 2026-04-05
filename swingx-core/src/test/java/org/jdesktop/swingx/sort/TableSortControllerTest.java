@@ -21,7 +21,7 @@
  */
 package org.jdesktop.swingx.sort;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Color;
 import java.util.HashMap;
@@ -34,16 +34,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import org.jdesktop.test.AncientSwingTeam;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit test of TableSortController.
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class TableSortControllerTest extends
         AbstractTestSortController<TableSortController<TableModel>, TableModel> {
     @SuppressWarnings("unused")
@@ -170,8 +167,8 @@ public class TableSortControllerTest extends
         RowFilter<Object, Object> filter = RowFilter
                 .regexFilter("R/G/B: -2", 2);
         controller.setRowFilter(filter);
-        assertTrue("view row count: " + controller.getViewRowCount(),
-                controller.getViewRowCount() > 0);
+        assertTrue(controller.getViewRowCount() > 0,
+                "view row count: " + controller.getViewRowCount());
     }
 
     @Override

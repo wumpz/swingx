@@ -8,6 +8,8 @@ package org.jdesktop.swingx.table;
 
 import java.util.logging.Logger;
 
+import org.junit.jupiter.api.Test;
+
 /**
  * Test to exposed known issues of <code>ColumnControlButton</code>. <p>
  * 
@@ -25,6 +27,7 @@ public class ColumnControlButtonIssues extends ColumnControlButtonTest {
     private static final Logger LOG = Logger
             .getLogger(ColumnControlButtonIssues.class.getName());
 
+    @Test
     public void testDummy() {
         // do nothing - placeholder for empty issues
     }

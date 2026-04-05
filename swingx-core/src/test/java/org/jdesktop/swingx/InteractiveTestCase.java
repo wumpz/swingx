@@ -56,22 +56,17 @@ import org.jdesktop.swingx.search.SearchFactory;
  * @author Amy Fowler
  * @version 1.0
  */
-public abstract class InteractiveTestCase extends junit.framework.TestCase {
+public abstract class InteractiveTestCase {
     private static final Logger LOG = Logger
             .getLogger(InteractiveTestCase.class.getName());
     protected Point frameLocation = new Point(0,0);
     protected boolean systemLF;
     
     public InteractiveTestCase() {
-        super();
         String className = getClass().getName();
         int lastDot = className.lastIndexOf(".");
         String lastElement = className.substring(lastDot + 1);
-        setName(lastElement);
-    }
-    
-    public InteractiveTestCase(String testTitle) {
-        super(testTitle);
+        //setName(lastElement);
     }
 
 //----------------- run
@@ -90,7 +85,6 @@ public abstract class InteractiveTestCase extends junit.framework.TestCase {
      * @throws java.lang.Exception
      */
     public void runInteractiveTests(String regexPattern)  throws java.lang.Exception {
-        setUp();
         Class<?> testClass = getClass();
         Method methods[] = testClass.getMethods();
 
@@ -108,7 +102,6 @@ public abstract class InteractiveTestCase extends junit.framework.TestCase {
             System.out.println("no test methods found matching the pattern: "+
                                regexPattern);
         }
-        tearDown();
     }
 
     /**

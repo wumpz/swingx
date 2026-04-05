@@ -12,6 +12,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import java.beans.PropertyChangeEvent;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.logging.Logger;
 
 import javax.swing.event.ChangeEvent;
@@ -26,9 +29,8 @@ import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.event.TableColumnModelExtListener;
 import org.jdesktop.swingx.test.ColumnModelReport;
 import org.jdesktop.test.TestUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
+
 import static org.mockito.ArgumentMatchers.argThat;
 
 
@@ -43,7 +45,6 @@ import static org.mockito.ArgumentMatchers.argThat;
  * 
  * @author  Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class TableColumnModelTest extends InteractiveTestCase {
     @SuppressWarnings("all")
     private static final Logger LOG = Logger
@@ -73,7 +74,7 @@ public class TableColumnModelTest extends InteractiveTestCase {
         column.setVisible(false);
         ColumnModelReport report = new ColumnModelReport(columnModel);
         columnModel.removeColumn(column);
-        assertTrue("columnModel must fire removed for hidden columns", report.hasRemovedEvent());
+        assertTrue(report.hasRemovedEvent(), "columnModel must fire removed for hidden columns");
     }
     
     
@@ -122,8 +123,8 @@ public class TableColumnModelTest extends InteractiveTestCase {
             @Override
             public void columnAdded(TableColumnModelEvent e) {
                 int fromIndex = e.getToIndex();
-                assertEquals("old column really removed", true, 
-                        columnModel.isAddedFromInvisibleEvent(fromIndex));
+                assertEquals(true, columnModel.isAddedFromInvisibleEvent(fromIndex), 
+                        "old column really removed");
                 // note: the toIndex here is always the last
                 // following are moves to position before hiding
             }
@@ -202,9 +203,9 @@ public class TableColumnModelTest extends InteractiveTestCase {
             @Override
             public void columnRemoved(TableColumnModelEvent e) {
                 int fromIndex = e.getFromIndex();
-                assertEquals("old visible index of removed", index, fromIndex);
-                assertEquals("moved to invisible", expected, 
-                        columnModel.isRemovedToInvisibleEvent(fromIndex));
+                assertEquals(index, fromIndex, "old visible index of removed");
+                assertEquals(expected, columnModel.isRemovedToInvisibleEvent(fromIndex), 
+                        "moved to invisible");
                 
             }
             @Override
@@ -355,9 +356,9 @@ public class TableColumnModelTest extends InteractiveTestCase {
         TableColumnExt tableColumnExt = ((TableColumnExt) model.getColumn(0));
         tableColumnExt.setVisible(false);
         model.removeColumn(tableColumnExt);
-        assertEquals("visible column count must be reduced", COLUMN_COUNT - 1, model.getColumns(false).size());
-        assertEquals("all columns count must be unchanged", COLUMN_COUNT - 1, model.getColumns(true).size());
-        assertFalse("removing invisible must update event cache", model.isRemovedToInvisibleEvent(0));
+        assertEquals(COLUMN_COUNT - 1, model.getColumns(false).size(), "visible column count must be reduced");
+        assertEquals(COLUMN_COUNT - 1, model.getColumns(true).size(), "all columns count must be unchanged");
+        assertFalse(model.isRemovedToInvisibleEvent(0), "removing invisible must update event cache");
     }
 
     
@@ -365,8 +366,8 @@ public class TableColumnModelTest extends InteractiveTestCase {
     public void testGetColumns() {
         TableColumnModelExt model = createColumnModel(COLUMN_COUNT);
         ((TableColumnExt) model.getColumn(0)).setVisible(false);
-        assertEquals("visible column count must be reduced", COLUMN_COUNT - 1, model.getColumns(false).size());
-        assertEquals("all columns count must be unchanged", COLUMN_COUNT, model.getColumns(true).size());
+        assertEquals(COLUMN_COUNT - 1, model.getColumns(false).size(), "visible column count must be reduced");
+        assertEquals(COLUMN_COUNT, model.getColumns(true).size(), "all columns count must be unchanged");
     }
     /**
      * column count must be changed on changing 
@@ -380,7 +381,7 @@ public class TableColumnModelTest extends InteractiveTestCase {
         TableColumnExt column = (TableColumnExt) model.getColumn(columnCount - 1);
         assertTrue(column.isVisible());
         column.setVisible(false);
-        assertEquals("columnCount must be decremented", columnCount - 1, model.getColumnCount());
+        assertEquals(columnCount - 1, model.getColumnCount(), "columnCount must be decremented");
     }
     
     /**
@@ -396,8 +397,8 @@ public class TableColumnModelTest extends InteractiveTestCase {
         TableColumnExt column = (TableColumnExt) model.getColumn(0);
         int columnWidth = column.getWidth();
         column.setVisible(false);
-        assertEquals("new total width must be old minus invisible column width " + columnWidth,
-                totalWidth - columnWidth, model.getTotalColumnWidth());
+        assertEquals(totalWidth - columnWidth,
+                model.getTotalColumnWidth(), "new total width must be old minus invisible column width " + columnWidth);
         
     }
     
@@ -412,7 +413,7 @@ public class TableColumnModelTest extends InteractiveTestCase {
         model.addColumnModelListener(l);
         TableColumnExt column = (TableColumnExt) model.getColumn(0);
         column.setVisible(false);
-        assertTrue("must have fired columnRemoved", l.hasRemovedEvent());
+        assertTrue(l.hasRemovedEvent(), "must have fired columnRemoved");
     }
 
     /** 
@@ -427,7 +428,7 @@ public class TableColumnModelTest extends InteractiveTestCase {
         column.setVisible(false);
         model.addColumnModelListener(l);
         column.setVisible(true);
-        assertTrue("must have fired columnRemoved", l.hasAddedEvent());
+        assertTrue(l.hasAddedEvent(), "must have fired columnRemoved");
     }
 
     /**
@@ -442,7 +443,7 @@ public class TableColumnModelTest extends InteractiveTestCase {
 
             @Override
             public void columnAdded(TableColumnModelEvent e) {
-                assertTrue("toIndex must be positive", e.getToIndex() >= 0);
+                assertTrue(e.getToIndex() >= 0, "toIndex must be positive");
                 ((TableColumnModel) e.getSource()).getColumn(e.getToIndex());
             }
 
@@ -488,10 +489,10 @@ public class TableColumnModelTest extends InteractiveTestCase {
         TableColumnModel model = createColumnModel(COLUMN_COUNT);
         int totalWidth = model.getTotalColumnWidth();
         int lastColumn = model.getColumnIndexAtX(totalWidth - 10);
-        assertEquals("lastColumn detected", model.getColumnCount() - 1, lastColumn);
+        assertEquals(model.getColumnCount() - 1, lastColumn, "lastColumn detected");
         TableColumnExt column = (TableColumnExt) model.getColumn(lastColumn);
         column.setVisible(false);
-        assertEquals("out of range", -1, model.getColumnIndexAtX(totalWidth - 10));
+        assertEquals(-1, model.getColumnIndexAtX(totalWidth - 10), "out of range");
     }
 
 //------------------  factory methods

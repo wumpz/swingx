@@ -21,7 +21,7 @@
 package org.jdesktop.swingx.painter;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.awt.Color;
 import java.awt.Insets;
@@ -29,7 +29,7 @@ import java.awt.Paint;
 
 import org.hamcrest.CoreMatchers;
 import org.jdesktop.swingx.painter.effects.AreaEffect;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for RectanglePainter.

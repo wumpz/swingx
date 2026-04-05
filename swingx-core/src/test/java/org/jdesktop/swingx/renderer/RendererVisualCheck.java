@@ -133,6 +133,7 @@ import org.jdesktop.swingx.treetable.TreeTableModel;
 import org.jdesktop.swingx.treetable.TreeTableNode;
 import org.jdesktop.swingx.util.PaintUtils;
 import org.jdesktop.test.AncientSwingTeam;
+import org.junit.jupiter.api.Test;
 
 /**
  * Visual check of extended Swingx renderers.
@@ -2152,13 +2153,14 @@ public class RendererVisualCheck extends InteractiveTestCase {
 //            bean, newValue, propertyDescriptor, e);
 //    }
 
-    }    
-    
+    }
+
     /**
      * do-nothing method - suppress warning if there are no other
      * test fixtures to run.
      *
      */
+    @Test
     public void testDummy() {
         
     }

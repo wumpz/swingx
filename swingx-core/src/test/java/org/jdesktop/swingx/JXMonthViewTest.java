@@ -21,9 +21,12 @@
 package org.jdesktop.swingx;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.awt.Color;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.ComponentOrientation;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
@@ -56,11 +59,9 @@ import org.jdesktop.swingx.test.DateSelectionReport;
 import org.jdesktop.test.ActionReport;
 import org.jdesktop.test.PropertyChangeReport;
 import org.jdesktop.test.TestUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -73,7 +74,6 @@ import org.junit.runners.JUnit4;
  * 
  * @author Joshua Outwater
  */
-@RunWith(JUnit4.class)
 public class JXMonthViewTest extends InteractiveTestCase {
     private static final Logger LOG = Logger.getLogger(JXMonthViewTest.class
             .getName());
@@ -88,8 +88,7 @@ public class JXMonthViewTest extends InteractiveTestCase {
 
     private JXMonthView monthView;
     
-    @Override
-    @Before
+    @BeforeEach
        public void setUp() {
         calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 5);
@@ -114,8 +113,7 @@ public class JXMonthViewTest extends InteractiveTestCase {
         monthView = new JXMonthView();
     }
 
-    @Override
-    @After
+    @AfterEach
        public void tearDown() {
         JComponent.setDefaultLocale(componentLocale);
     }
@@ -173,8 +171,8 @@ public class JXMonthViewTest extends InteractiveTestCase {
         String[] monthNames = DateFormatSymbols.getInstance(monthView.getLocale()).getMonths();
         Calendar calendar = monthView.getCalendar();
         int month = calendar.get(Calendar.MONTH);
-        assertTrue("name must be updated with locale, expected: " + monthNames[month] + " was: " + action.getName(), 
-                action.getName().startsWith(monthNames[month]));
+        assertTrue(action.getName().startsWith(monthNames[month]), 
+                "name must be updated with locale, expected: " + monthNames[month] + " was: " + action.getName());
     }
 
     
@@ -222,14 +220,14 @@ public class JXMonthViewTest extends InteractiveTestCase {
         Clock clock = new Clock();
         clock.nextDay();
         JXMonthView monthView = createMonthViewWithClock(clock);
-        assertEquals("sanity: monthView takes clock current initially", 
-                CalendarUtils.startOfDay(monthView.getCalendar(), clock.getCurrentDate()), monthView.getToday());
+        assertEquals(CalendarUtils.startOfDay(monthView.getCalendar(), clock.getCurrentDate()), 
+                monthView.getToday(), "sanity: monthView takes clock current initially");
         // increment clock
         clock.nextDay();
         // realize monthView
         showInFrame(monthView, "");
-        assertEquals(" monthView must update today in addNotify", 
-                CalendarUtils.startOfDay(monthView.getCalendar(), clock.getCurrentDate()), monthView.getToday());
+        assertEquals(CalendarUtils.startOfDay(monthView.getCalendar(), clock.getCurrentDate()), 
+                monthView.getToday(), " monthView must update today in addNotify");
     }
 
     /**
@@ -297,7 +295,7 @@ public class JXMonthViewTest extends InteractiveTestCase {
        Action action = monthView.getActionMap().get("nextMonth"); 
        if (monthView.getComponentOrientation().isLeftToRight()) {
            Icon icon = (Icon) action.getValue(Action.SMALL_ICON);
-           assertNotNull("sanity: the decorated month nav action has an icon", icon);
+           assertNotNull(icon, "sanity: the decorated month nav action has an icon");
            assertEquals(UIManager.getIcon("JXMonthView.monthUpFileName"), icon);
            monthView.applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 //           assertNotSame(icon, action.getValue(Action.SMALL_ICON));
@@ -323,9 +321,8 @@ public class JXMonthViewTest extends InteractiveTestCase {
         calendar.add(Calendar.MONTH, 1);
         monthView.setFirstDisplayedDay(calendar.getTime());
         int nextMonth = calendar.get(Calendar.MONTH);
-        assertTrue("month changed: old/new " + month + "/" + nextMonth, nextMonth != month);
-        assertTrue("name must be updated, expected: " + monthNames[nextMonth] + " was: " + action.getName()
-                , action.getName().startsWith(monthNames[nextMonth]));
+        assertTrue(nextMonth != month, "month changed: old/new " + month + "/" + nextMonth);
+        assertTrue(action.getName().startsWith(monthNames[nextMonth]), "name must be updated, expected: " + monthNames[nextMonth] + " was: " + action.getName());
     }
 
     /**
@@ -345,8 +342,8 @@ public class JXMonthViewTest extends InteractiveTestCase {
         String[] monthNames = DateFormatSymbols.getInstance(monthView.getLocale()).getMonths();
         Calendar calendar = monthView.getCalendar();
         int month = calendar.get(Calendar.MONTH);
-        assertTrue("name must be updated with locale, expected: " + monthNames[month] + " was: " + action.getName(), 
-                action.getName().startsWith(monthNames[month]));
+        assertTrue(action.getName().startsWith(monthNames[month]), 
+                "name must be updated with locale, expected: " + monthNames[month] + " was: " + action.getName());
     }
 
     /**
@@ -358,9 +355,9 @@ public class JXMonthViewTest extends InteractiveTestCase {
     @Test
     public void testZoomableZoomOutAction() {
         JXMonthView monthView = new JXMonthView();
-        assertNotNull("monthView must have zoomOutAction", monthView.getActionMap().get("zoomOut"));
+        assertNotNull(monthView.getActionMap().get("zoomOut"), "monthView must have zoomOutAction");
         monthView.setZoomable(true);
-        assertNotNull("monthView must have zoomOutAction", monthView.getActionMap().get("zoomOut"));
+        assertNotNull(monthView.getActionMap().get("zoomOut"), "monthView must have zoomOutAction");
     }
     
     
@@ -382,7 +379,7 @@ public class JXMonthViewTest extends InteractiveTestCase {
      * @param actionKey
      */
     private void assertActionInstalled(JXMonthView monthView, String actionKey) {
-        assertNotNull("ui must have installed action for " + actionKey, monthView.getActionMap().get(actionKey));
+        assertNotNull(monthView.getActionMap().get(actionKey), "ui must have installed action for " + actionKey);
     }
 
     /**
@@ -407,12 +404,12 @@ public class JXMonthViewTest extends InteractiveTestCase {
 
     @Test
     public void testZoomableProperty() {
-        assertFalse("default zoomable is off", monthView.isZoomable());
+        assertFalse(monthView.isZoomable(), "default zoomable is off");
         PropertyChangeReport report = new PropertyChangeReport();
         monthView.addPropertyChangeListener(report);
         monthView.setZoomable(true);
         TestUtils.assertPropertyChangeEvent(report, "zoomable", false, true);
-        assertTrue("traversable follows zoomable", monthView.isTraversable());
+        assertTrue(monthView.isTraversable(), "traversable follows zoomable");
     }
     
     /**
@@ -438,9 +435,10 @@ public class JXMonthViewTest extends InteractiveTestCase {
      * enforced.
      * 
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testDayForegroundBeforeSunday() {
-        monthView.setDayForeground(Calendar.SUNDAY - 1, Color.RED);
+        assertThrows(IllegalArgumentException.class, () ->
+            monthView.setDayForeground(Calendar.SUNDAY - 1, Color.RED));
     }
 
     /**
@@ -449,9 +447,10 @@ public class JXMonthViewTest extends InteractiveTestCase {
      * enforced.
      * 
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testDayForegroundAfterSaturday() {
-        monthView.setDayForeground(Calendar.SATURDAY + 1, Color.RED);
+        assertThrows(IllegalArgumentException.class, () ->
+            monthView.setDayForeground(Calendar.SATURDAY + 1, Color.RED));
     }
 
  
@@ -496,7 +495,7 @@ public class JXMonthViewTest extends InteractiveTestCase {
     public void testMonthStringInsets() {
         Insets old = monthView.getMonthStringInsets();
         Insets color = new Insets(21, 22, 23, 24);
-        assertFalse("sanity: the new insets are not equals", color.equals(old));
+        assertFalse(color.equals(old), "sanity: the new insets are not equals");
         PropertyChangeReport report = new PropertyChangeReport();
         monthView.addPropertyChangeListener(report);
         monthView.setMonthStringInsets(color);
@@ -722,7 +721,7 @@ public class JXMonthViewTest extends InteractiveTestCase {
         JXMonthView monthView = new JXMonthView();
         String[] days = null;
         monthView.setDaysOfTheWeek(days);
-        assertNotNull("daysOfTheWeek must not be null", monthView.getDaysOfTheWeek());
+        assertNotNull(monthView.getDaysOfTheWeek(), "daysOfTheWeek must not be null");
        
    }
 
@@ -732,7 +731,7 @@ public class JXMonthViewTest extends InteractiveTestCase {
     @Test
     public void testDaysOfWeekInitial() {
         JXMonthView monthView = new JXMonthView();
-        assertNotNull("daysOfTheWeek must not be null", monthView.getDaysOfTheWeek());
+        assertNotNull(monthView.getDaysOfTheWeek(), "daysOfTheWeek must not be null");
     }
     
     /**
@@ -758,8 +757,8 @@ public class JXMonthViewTest extends InteractiveTestCase {
         // sanity
         assertEquals(Arrays.asList(days), Arrays.asList(monthView.getDaysOfTheWeek()));
         monthView.setDaysOfTheWeek(null);
-        assertEquals("use ui-provided daysOfWeek after reset", 
-                Arrays.asList(uiDays), Arrays.asList(monthView.getDaysOfTheWeek()));
+        assertEquals(Arrays.asList(uiDays), 
+                Arrays.asList(monthView.getDaysOfTheWeek()), "use ui-provided daysOfWeek after reset");
     }
 
 
@@ -882,11 +881,11 @@ public class JXMonthViewTest extends InteractiveTestCase {
         int first = model.getFirstDayOfWeek() + 1;
         model.setFirstDayOfWeek(first);
         JXMonthView monthView = new JXMonthView(new Date(), model);
-        assertEquals("model's calendar properties must be unchanged: minimalDays", 
-                first, model.getFirstDayOfWeek());
+        assertEquals(first, 
+                model.getFirstDayOfWeek(), "model's calendar properties must be unchanged: minimalDays");
         // sanity: taken in monthView
-        assertEquals("monthView's calendar properties must be synched", 
-                first, monthView.getFirstDayOfWeek());
+        assertEquals(first, 
+                monthView.getFirstDayOfWeek(), "monthView's calendar properties must be synched");
     }
     /**
      * Issue #733-swingx: model and monthView cal not synched.
@@ -909,22 +908,22 @@ public class JXMonthViewTest extends InteractiveTestCase {
         model.setTimeZone(tz);
         int modelMinimal = model.getMinimalDaysInFirstWeek();
         monthView.setSelectionModel(model);
-        assertEquals("timeZone must be updated from model", tz, monthView.getTimeZone());
+        assertEquals(tz, monthView.getTimeZone(), "timeZone must be updated from model");
         // Issue 1143
-        assertTrue("firstDisplayedDay must be updated to start of day", CalendarUtils.isStartOfDay(monthView.getCalendar()));
-        assertEquals("Locale must be updated from model", locale, monthView.getLocale());
+        assertTrue(CalendarUtils.isStartOfDay(monthView.getCalendar()), "firstDisplayedDay must be updated to start of day");
+        assertEquals(locale, monthView.getLocale(), "Locale must be updated from model");
         // be aware if it makes no sense to assert
         if (firstDayOfWeek != model.getFirstDayOfWeek()) {
-            assertEquals("firstDayOfWeek must be updated from model", 
-                    model.getFirstDayOfWeek(), monthView.getFirstDayOfWeek());
+            assertEquals(model.getFirstDayOfWeek(), 
+                    monthView.getFirstDayOfWeek(), "firstDayOfWeek must be updated from model");
         } else {
             LOG.info("cannot assert firstDayOfWeek - was same");
         }
         // @KEEP - this is an open issue: monthView must not change the
         // model settings but minimalDaysInFirstWeek > 1 confuse the 
         // BasicMonthViewUI - remove if passing in xIssues
-        assertEquals("model minimals must not be changed", 
-                modelMinimal, model.getMinimalDaysInFirstWeek());
+        assertEquals(modelMinimal, 
+                model.getMinimalDaysInFirstWeek(), "model minimals must not be changed");
     }
 
     /**
@@ -939,8 +938,8 @@ public class JXMonthViewTest extends InteractiveTestCase {
         int first = model.getMinimalDaysInFirstWeek() + 1;
         model.setMinimalDaysInFirstWeek(first);
         JXMonthView monthView = new JXMonthView(new Date(), model);
-        assertEquals("model's calendar properties must be unchanged: minimalDays", 
-                first, model.getMinimalDaysInFirstWeek());
+        assertEquals(first, 
+                model.getMinimalDaysInFirstWeek(), "model's calendar properties must be unchanged: minimalDays");
     }
 
     /**
@@ -958,8 +957,8 @@ public class JXMonthViewTest extends InteractiveTestCase {
         int first = model.getMinimalDaysInFirstWeek() + 1;
         model.setMinimalDaysInFirstWeek(first);
         monthView.setSelectionModel(model);
-        assertEquals("model minimals must not be changed", 
-                first, model.getMinimalDaysInFirstWeek());
+        assertEquals(first, 
+                model.getMinimalDaysInFirstWeek(), "model minimals must not be changed");
     }
     
 
@@ -1057,7 +1056,7 @@ public class JXMonthViewTest extends InteractiveTestCase {
         PropertyChangeReport report = new PropertyChangeReport();
         monthView.addPropertyChangeListener(report);
         monthView.setTimeZone(tz);
-        assertEquals("no change in flaggedDates must not fire", 0, report.getEventCount("flaggedDates"));
+        assertEquals(0, report.getEventCount("flaggedDates"), "no change in flaggedDates must not fire");
     }
     
     /**
@@ -1073,8 +1072,8 @@ public class JXMonthViewTest extends InteractiveTestCase {
             locale = Locale.FRENCH;
         }
         monthView.setLocale(locale);
-        assertEquals("locale set in monthView must be passed to model", 
-                locale, monthView.getSelectionModel().getLocale());
+        assertEquals(locale, 
+                monthView.getSelectionModel().getLocale(), "locale set in monthView must be passed to model");
     }
     
     /**
@@ -1090,8 +1089,8 @@ public class JXMonthViewTest extends InteractiveTestCase {
             locale = Locale.FRENCH;
         }
         monthView.getSelectionModel().setLocale(locale);
-        assertEquals("locale set in model must be passed to monthView", 
-                locale, monthView.getLocale());
+        assertEquals(locale, 
+                monthView.getLocale(), "locale set in model must be passed to monthView");
     }
     
     
@@ -1108,8 +1107,8 @@ public class JXMonthViewTest extends InteractiveTestCase {
             locale = Locale.FRENCH;
         }
         JXMonthView monthView = new JXMonthView(locale);
-        assertEquals("initial locale in constructor must be passed to model", 
-                locale, monthView.getSelectionModel().getLocale());
+        assertEquals(locale, 
+                monthView.getSelectionModel().getLocale(), "initial locale in constructor must be passed to model");
     }
 
     /**
@@ -1343,8 +1342,8 @@ public class JXMonthViewTest extends InteractiveTestCase {
                 us.revalidate();
                 // need to validate frame - why?
                 frame.validate();
-                assertEquals("firstDisplayed must not be changed on revalidate", 
-                        first, us.getFirstDisplayedDay());
+                assertEquals(first, 
+                        us.getFirstDisplayedDay(), "firstDisplayed must not be changed on revalidate");
 //                assertEquals(first, us.getFirstDisplayedDate());
 //                fail("weird (threading issue?): the firstDisplayed is changed in layoutContainer - not testable here");
             }
@@ -1664,7 +1663,7 @@ public class JXMonthViewTest extends InteractiveTestCase {
         TimeZone tz = monthView.getTimeZone();
         Calendar calendar = monthView.getCalendar();
         calendar.setTimeZone(getTimeZone(tz, CalendarUtils.THREE_HOURS));
-        assertEquals("monthView must protect its calendar", tz, monthView.getTimeZone());
+        assertEquals(tz, monthView.getTimeZone(), "monthView must protect its calendar");
     }
 
     /**
@@ -1682,16 +1681,16 @@ public class JXMonthViewTest extends InteractiveTestCase {
       JXMonthView monthView = new JXMonthView();
       assertEquals(1, monthView.getCalendar().get(Calendar.DATE));
       Date first = monthView.getFirstDisplayedDay();
-      assertEquals("monthViews calendar represents the first day of the month", 
-              first, monthView.getCalendar().getTime());
+      assertEquals(first, 
+              monthView.getCalendar().getTime(), "monthViews calendar represents the first day of the month");
       Calendar cal = Calendar.getInstance();
       // add one day, now we are on the second
       cal.setTime(first);
       cal.add(Calendar.DATE, 1);
       Date date = cal.getTime();
       monthView.addSelectionInterval(date , date);
-      assertEquals("selection must not change the calendar", 
-              first, monthView.getCalendar().getTime());
+      assertEquals(first, 
+              monthView.getCalendar().getTime(), "selection must not change the calendar");
    }
 
    /**
@@ -1709,16 +1708,16 @@ public class JXMonthViewTest extends InteractiveTestCase {
       JXMonthView monthView = new JXMonthView();
       assertEquals(1, monthView.getCalendar().get(Calendar.DATE));
       Date first = monthView.getFirstDisplayedDay();
-      assertEquals("monthViews calendar represents the first day of the month", 
-              first, monthView.getCalendar().getTime());
+      assertEquals(first, 
+              monthView.getCalendar().getTime(), "monthViews calendar represents the first day of the month");
       Calendar cal = Calendar.getInstance();
       // add one day, now we are on the second
       cal.setTime(first);
       cal.add(Calendar.DATE, 1);
       Date date = cal.getTime();
       monthView.isSelected(date);
-      assertEquals("query selection must not change the calendar", 
-              first, monthView.getCalendar().getTime());
+      assertEquals(first, 
+              monthView.getCalendar().getTime(), "query selection must not change the calendar");
    }
 
 
@@ -1743,8 +1742,8 @@ public class JXMonthViewTest extends InteractiveTestCase {
       cal.add(Calendar.MONTH, 1);
       Date next = cal.getTime();
       monthView.setFirstDisplayedDay(next);
-      assertEquals("monthViews calendar represents the first day of the month", 
-              next, monthView.getCalendar().getTime());
+      assertEquals(next, 
+              monthView.getCalendar().getTime(), "monthViews calendar represents the first day of the month");
     }
     
     /**
@@ -1756,14 +1755,14 @@ public class JXMonthViewTest extends InteractiveTestCase {
         Calendar temp = (Calendar) calendar.clone();
         CalendarUtils.startOfMonth(temp);
         // sanity
-        assertEquals("sanity...", temp.getTime(), monthView.getFirstDisplayedDay());
+        assertEquals(temp.getTime(), monthView.getFirstDisplayedDay(), "sanity...");
         calendar.add(Calendar.YEAR, 1);
         Date nextYear = calendar.getTime();
         temp = (Calendar) calendar.clone();
         CalendarUtils.startOfMonth(temp);
         monthView.ensureDateVisible(nextYear);
-        assertEquals("must be scrolled to next year", 
-                temp.getTime(), monthView.getFirstDisplayedDay());
+        assertEquals(temp.getTime(), 
+                monthView.getFirstDisplayedDay(), "must be scrolled to next year");
     }
     
     /**
@@ -1774,14 +1773,14 @@ public class JXMonthViewTest extends InteractiveTestCase {
         JXMonthView monthView = new JXMonthView();
         Calendar temp = (Calendar) calendar.clone();
         CalendarUtils.startOfMonth(temp);
-        assertEquals("sanity..", temp.getTime(), monthView.getFirstDisplayedDay());
+        assertEquals(temp.getTime(), monthView.getFirstDisplayedDay(), "sanity..");
         calendar.add(Calendar.MONTH, 1);
         Date nextMonth = calendar.getTime();
         temp = (Calendar) calendar.clone();
         CalendarUtils.startOfMonth(temp);
         monthView.ensureDateVisible(nextMonth);
-        assertEquals("must be scrolled to next month", 
-                temp.getTime(), monthView.getFirstDisplayedDay());
+        assertEquals(temp.getTime(), 
+                monthView.getFirstDisplayedDay(), "must be scrolled to next month");
     }
 
     /**
@@ -1793,12 +1792,12 @@ public class JXMonthViewTest extends InteractiveTestCase {
         Calendar temp = (Calendar) calendar.clone();
         CalendarUtils.startOfMonth(temp);
         Date first = monthView.getFirstDisplayedDay();
-        assertEquals("sanity...", temp.getTime(), first);
+        assertEquals(temp.getTime(), first, "sanity...");
         CalendarUtils.endOfMonth(calendar);
         Date thisMonth = calendar.getTime();
         monthView.ensureDateVisible(thisMonth);
-        assertEquals("same month, nothing changed", 
-                first, monthView.getFirstDisplayedDay());
+        assertEquals(first, 
+                monthView.getFirstDisplayedDay(), "same month, nothing changed");
     }
 
 
@@ -1810,13 +1809,13 @@ public class JXMonthViewTest extends InteractiveTestCase {
         JXMonthView monthView = new JXMonthView();
         Calendar temp = (Calendar) calendar.clone();
         CalendarUtils.startOfMonth(temp);
-        assertEquals("sanity...", temp.getTime(), monthView.getFirstDisplayedDay());
+        assertEquals(temp.getTime(), monthView.getFirstDisplayedDay(), "sanity...");
         calendar.add(Calendar.YEAR, 1);
         Date nextYear = calendar.getTime();
         temp = (Calendar) calendar.clone();
         CalendarUtils.startOfMonth(temp);
         monthView.ensureDateVisible(nextYear);
-        assertEquals("must be scrolled to next year", temp.getTime(), monthView.getFirstDisplayedDay());
+        assertEquals(temp.getTime(), monthView.getFirstDisplayedDay(), "must be scrolled to next year");
     }
     
     /**
@@ -1827,14 +1826,14 @@ public class JXMonthViewTest extends InteractiveTestCase {
         JXMonthView monthView = new JXMonthView();
         Calendar temp = (Calendar) calendar.clone();
         CalendarUtils.startOfMonth(temp);
-        assertEquals("sanity ...", temp.getTime(), monthView.getFirstDisplayedDay());
+        assertEquals(temp.getTime(), monthView.getFirstDisplayedDay(), "sanity ...");
         calendar.add(Calendar.MONTH, 1);
         Date nextMonth = calendar.getTime();
         temp = (Calendar) calendar.clone();
         CalendarUtils.startOfMonth(temp);
         monthView.ensureDateVisible(nextMonth);
-        assertEquals("must be scrolled to next month", 
-                temp.getTime(), monthView.getFirstDisplayedDay());
+        assertEquals(temp.getTime(), 
+                monthView.getFirstDisplayedDay(), "must be scrolled to next month");
     }
 
     /**
@@ -1846,11 +1845,11 @@ public class JXMonthViewTest extends InteractiveTestCase {
         Calendar temp = (Calendar) calendar.clone();
         CalendarUtils.startOfMonth(temp);
         Date first = monthView.getFirstDisplayedDay();
-        assertEquals("sanity ...", temp.getTime(), first);
+        assertEquals(temp.getTime(), first, "sanity ...");
         CalendarUtils.endOfMonth(calendar);
         Date thisMonth = calendar.getTime();
         monthView.ensureDateVisible(thisMonth);
-        assertEquals("same month, nothing changed", first, monthView.getFirstDisplayedDay());
+        assertEquals(first, monthView.getFirstDisplayedDay(), "same month, nothing changed");
     }
 
     /**
@@ -1883,7 +1882,7 @@ public class JXMonthViewTest extends InteractiveTestCase {
         // accidentally passes - because it is meaningful only in the timezone 
         // it was set ...
         assertFalse(monthView.isSelected(date));
-        assertTrue("selection must have been cleared", monthView.isSelectionEmpty());
+        assertTrue(monthView.isSelectionEmpty(), "selection must have been cleared");
     }
     
     /**
@@ -1899,7 +1898,7 @@ public class JXMonthViewTest extends InteractiveTestCase {
         JXMonthView monthView = new JXMonthView();
         monthView.setLowerBound(yesterday);
         monthView.setTimeZone(getTimeZone(monthView.getTimeZone(), CalendarUtils.THREE_HOURS));
-        assertEquals("lowerBound must have been reset", null, monthView.getLowerBound());
+        assertEquals(null, monthView.getLowerBound(), "lowerBound must have been reset");
     }
     
     /**
@@ -1915,7 +1914,7 @@ public class JXMonthViewTest extends InteractiveTestCase {
         JXMonthView monthView = new JXMonthView();
         monthView.setUpperBound(yesterday);
         monthView.setTimeZone(getTimeZone(monthView.getTimeZone(), CalendarUtils.THREE_HOURS));
-        assertEquals("upperbound must have been reset", null, monthView.getUpperBound());
+        assertEquals(null, monthView.getUpperBound(), "upperbound must have been reset");
     }
     
     /**
@@ -1936,7 +1935,7 @@ public class JXMonthViewTest extends InteractiveTestCase {
         assertFalse(monthView.isFlaggedDate(yesterday));
         // missing api
         // assertEquals(0, monthView.getFlaggedDates().size());
-        assertFalse("flagged dates must have been cleared", monthView.hasFlaggedDates());
+        assertFalse(monthView.hasFlaggedDates(), "flagged dates must have been cleared");
     }
     
     /**
@@ -1956,8 +1955,8 @@ public class JXMonthViewTest extends InteractiveTestCase {
         // it was set ...
         assertFalse(monthView.isUnselectableDate(yesterday));
         // missing api on JXMonthView
-        assertEquals("unselectable dates must have been cleared", 
-                0, monthView.getSelectionModel().getUnselectableDates().size());
+        assertEquals(0, 
+                monthView.getSelectionModel().getUnselectableDates().size(), "unselectable dates must have been cleared");
     }
     
     /**
@@ -1987,8 +1986,8 @@ public class JXMonthViewTest extends InteractiveTestCase {
         TimeZone timeZone = monthView.getTimeZone();
         // just interested in a different timezone, no quantification intended
         monthView.setTimeZone(getTimeZone(timeZone, CalendarUtils.THREE_HOURS));
-        assertEquals("anchor must be invariant to timezone change", 
-                anchor, monthView.getAnchorDate());
+        assertEquals(anchor, 
+                monthView.getAnchorDate(), "anchor must be invariant to timezone change");
     }
 
     /**
@@ -2046,13 +2045,13 @@ public class JXMonthViewTest extends InteractiveTestCase {
                 + "\n monthView firstDisplayed " + monthView.getFirstDisplayedDay();
 
         assertEquals(
+                (realOffset) / (1000 * 60), 
+                (monthView.getFirstDisplayedDay().getTime() - firstDisplayed.getTime()) / (1000 * 60),
                 "first displayed must be offset by real offset "
                         + "\n ********** spurious failure - so try extensiv debug output:"
                         + "\n " + server 
                         + "\n " + timeZones 
-                        + "\n " + monthViewProps, 
-                (realOffset) / (1000 * 60),
-                (monthView.getFirstDisplayedDay().getTime() - firstDisplayed.getTime()) / (1000 * 60));
+                        + "\n " + monthViewProps);
 /*
  * The output of failure:
  * 
@@ -2119,8 +2118,8 @@ lastRule=java.util.SimpleTimeZone[id=US/Pacific,offset=-28800000,dstSavings=3600
         // PENDING JW: sure this is the correct direction of the shift?
         // yeah, think so: the anchor is fixed, moving the timezone results
         // in a shift into the opposite direction of the offset
-        assertEquals("first displayed must be offset by real offset", 
-                realOffset,  monthView.getFirstDisplayedDay().getTime() - firstDisplayed.getTime());
+        assertEquals(realOffset, 
+                monthView.getFirstDisplayedDay().getTime() - firstDisplayed.getTime(),  "first displayed must be offset by real offset");
     }
     
     /**
@@ -2176,16 +2175,16 @@ lastRule=java.util.SimpleTimeZone[id=US/Pacific,offset=-28800000,dstSavings=3600
     public void testComponentInputMapEnabledControlsFocusedKeyBindings() {
         JXMonthView monthView = new JXMonthView();
         // initial: no bindings
-        assertEquals("monthView must not have in-focused keyBindings", 0, 
-                monthView.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).size());
+        assertEquals(0, monthView.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).size(), 
+                "monthView must not have in-focused keyBindings");
         monthView.setComponentInputMapEnabled(true);
         // setting the flag installs bindings
-        assertTrue("monthView must have in-focused keyBindings after showing in popup",  
-              monthView.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).size() > 0);
+        assertTrue(monthView.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).size() > 0,  
+              "monthView must have in-focused keyBindings after showing in popup");
         monthView.setComponentInputMapEnabled(false);
         // resetting the flag uninstalls the bindings
-        assertEquals("monthView must not have in-focused keyBindings", 0, 
-                monthView.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).size());
+        assertEquals(0, monthView.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).size(), 
+                "monthView must not have in-focused keyBindings");
     }
 
     /**
@@ -2196,8 +2195,8 @@ lastRule=java.util.SimpleTimeZone[id=US/Pacific,offset=-28800000,dstSavings=3600
     @Test
     public void testComponentInputMapEnabled() {
         JXMonthView monthView = new JXMonthView();
-        assertFalse("the default value must be false", 
-                monthView.isComponentInputMapEnabled());
+        assertFalse(monthView.isComponentInputMapEnabled(), 
+                "the default value must be false");
         PropertyChangeReport report = new PropertyChangeReport();
         monthView.addPropertyChangeListener(report);
         monthView.setComponentInputMapEnabled(true);
@@ -2235,12 +2234,12 @@ lastRule=java.util.SimpleTimeZone[id=US/Pacific,offset=-28800000,dstSavings=3600
         JXMonthView monthView = new JXMonthView();
         monthView.getSelectionModel().setAdjusting(true);
         monthView.commitSelection();
-        assertFalse("commit must reset adjusting", 
-                monthView.getSelectionModel().isAdjusting());
+        assertFalse(monthView.getSelectionModel().isAdjusting(), 
+                "commit must reset adjusting");
         monthView.getSelectionModel().setAdjusting(true);
         monthView.cancelSelection();
-        assertFalse("cancel must reset adjusting", 
-                monthView.getSelectionModel().isAdjusting());
+        assertFalse(monthView.getSelectionModel().isAdjusting(), 
+                "cancel must reset adjusting");
         
     }
     /**
@@ -2326,8 +2325,8 @@ lastRule=java.util.SimpleTimeZone[id=US/Pacific,offset=-28800000,dstSavings=3600
         DateSelectionReport report = new DateSelectionReport(view.getSelectionModel());
         Action cancel = view.getActionMap().get("cancelSelection");
         cancel.actionPerformed(null);
-        assertFalse("ui keyboard action must have stopped model adjusting", 
-                view.getSelectionModel().isAdjusting());
+        assertFalse(view.getSelectionModel().isAdjusting(), 
+                "ui keyboard action must have stopped model adjusting");
         assertEquals(2, report.getEventCount());
     }
     /**
@@ -2342,8 +2341,8 @@ lastRule=java.util.SimpleTimeZone[id=US/Pacific,offset=-28800000,dstSavings=3600
         DateSelectionReport report = new DateSelectionReport(view.getSelectionModel());
         Action cancel = view.getActionMap().get("acceptSelection");
         cancel.actionPerformed(null);
-        assertFalse("ui keyboard action must have stopped model adjusting", 
-                view.getSelectionModel().isAdjusting());
+        assertFalse(view.getSelectionModel().isAdjusting(), 
+                "ui keyboard action must have stopped model adjusting");
         assertEquals(1, report.getEventCount());
         assertEquals(EventType.ADJUSTING_STOPPED, report.getLastEvent().getEventType());
     }
@@ -2358,8 +2357,8 @@ lastRule=java.util.SimpleTimeZone[id=US/Pacific,offset=-28800000,dstSavings=3600
         DateSelectionReport report = new DateSelectionReport(view.getSelectionModel());
         Action select = view.getActionMap().get("selectNextDay");
         select.actionPerformed(null);
-        assertTrue("ui keyboard action must have started model adjusting", 
-                view.getSelectionModel().isAdjusting());
+        assertTrue(view.getSelectionModel().isAdjusting(), 
+                "ui keyboard action must have started model adjusting");
         assertEquals(2, report.getEventCount());
         // assert that the adjusting is fired before the set
         assertEquals(EventType.DATES_SET, report.getLastEvent().getEventType());
@@ -2377,8 +2376,8 @@ lastRule=java.util.SimpleTimeZone[id=US/Pacific,offset=-28800000,dstSavings=3600
         DateSelectionReport report = new DateSelectionReport(view.getSelectionModel());
         Action select = view.getActionMap().get("adjustSelectionNextDay");
         select.actionPerformed(null);
-        assertTrue("ui keyboard action must have started model adjusting", 
-                view.getSelectionModel().isAdjusting());
+        assertTrue(view.getSelectionModel().isAdjusting(), 
+                "ui keyboard action must have started model adjusting");
         assertEquals(2, report.getEventCount());
         // assert that the adjusting is fired before the add
         // only: the type a set instead or the expected added - bug or feature?
@@ -2462,12 +2461,12 @@ lastRule=java.util.SimpleTimeZone[id=US/Pacific,offset=-28800000,dstSavings=3600
         assertFalse(monthView.isUnselectableDate(today));
         // set unselectable today
         monthView.setUnselectableDates(today);
-        assertTrue("raqw today must be unselectable", 
-                monthView.isUnselectableDate(today));
-        assertTrue("start of today must be unselectable", 
-                monthView.isUnselectableDate(startOfDay(today)));
-        assertTrue("end of today must be unselectable", 
-                monthView.isUnselectableDate(endOfDay(today)));
+        assertTrue(monthView.isUnselectableDate(today), 
+                "raqw today must be unselectable");
+        assertTrue(monthView.isUnselectableDate(startOfDay(today)), 
+                "start of today must be unselectable");
+        assertTrue(monthView.isUnselectableDate(endOfDay(today)), 
+                "end of today must be unselectable");
         monthView.setUnselectableDates();
         assertFalse(monthView.isUnselectableDate(today));
         assertFalse(monthView.isUnselectableDate(startOfDay(today)));
@@ -2505,7 +2504,7 @@ lastRule=java.util.SimpleTimeZone[id=US/Pacific,offset=-28800000,dstSavings=3600
         JXMonthView monthView = new JXMonthView();
         Date copy = new Date(today.getTime());
         monthView.setSelectionInterval(today, today);
-        assertEquals("the date used for selection must be unchanged", copy, today);
+        assertEquals(copy, today, "the date used for selection must be unchanged");
     }
     /**
      * test cover method: isSelectedDate
@@ -2531,7 +2530,7 @@ lastRule=java.util.SimpleTimeZone[id=US/Pacific,offset=-28800000,dstSavings=3600
         monthView.setSelectionDate(today);
         // use today
         monthView.isSelected(today);
-        assertEquals("date must not be changed in isSelected", copy, today);
+        assertEquals(copy, today, "date must not be changed in isSelected");
     }
    
     /**
@@ -2560,7 +2559,7 @@ lastRule=java.util.SimpleTimeZone[id=US/Pacific,offset=-28800000,dstSavings=3600
         JXMonthView monthView = new JXMonthView();
         assertNull(monthView.getSelectionDate());
         monthView.setSelectionInterval(today, today);
-        assertEquals("same day", startOfDay(today), monthView.getSelectionDate());
+        assertEquals(startOfDay(today), monthView.getSelectionDate(), "same day");
         // clear selection
         monthView.clearSelection();
         assertNull(monthView.getSelectionDate());
@@ -2726,7 +2725,7 @@ lastRule=java.util.SimpleTimeZone[id=US/Pacific,offset=-28800000,dstSavings=3600
         monthView.addFlaggedDates(tomorrow, yesterday);
         assertEquals(2, monthView.getFlaggedDates().size());
         monthView.clearFlaggedDates();
-        assertFalse("flagged dates must be cleared", monthView.hasFlaggedDates());
+        assertFalse(monthView.hasFlaggedDates(), "flagged dates must be cleared");
     }
 
     /**

@@ -1,11 +1,11 @@
 package org.jdesktop.swingx.plaf;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import javax.swing.JTextField;
 
 import org.jdesktop.swingx.JXTextField;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PromptTextFieldUITest extends PromptTextUITest_Base {
     JTextField txtField;

@@ -21,6 +21,9 @@
  */
 package org.jdesktop.swingx.table;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -43,17 +46,14 @@ import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.ComponentAdapter;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.renderer.HighlighterClientVisualCheck.FontHighlighter;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for TableRowHeightController.
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class TableRowHeightControllerTest extends InteractiveTestCase {
     
     @SuppressWarnings("unused")
@@ -216,15 +216,15 @@ public class TableRowHeightControllerTest extends InteractiveTestCase {
     public void testSetModelRewiresModelListeners() throws InterruptedException, InvocationTargetException {
         final int smallRowHeight = table.getRowHeight(1);
         final AbstractTableModel oldModel = (AbstractTableModel) table.getModel();
-        assertEquals("sanity: model listener installed", true, containsModelListener(oldModel));
+        assertEquals(true, containsModelListener(oldModel), "sanity: model listener installed");
         final DefaultTableModel model = createTableModel(true);
         table.setModel(model);
         
         SwingUtilities.invokeAndWait(new Runnable() {
             @Override
             public void run() {
-                assertEquals("new model must be installed", true, containsModelListener(model));
-                assertEquals("oldModel must be released", false, containsModelListener(oldModel));
+                assertEquals(true, containsModelListener(model), "new model must be installed");
+                assertEquals(false, containsModelListener(oldModel), "oldModel must be released");
                 assertEquals(smallRowHeight, table.getRowHeight(0));
             }
         });
@@ -279,7 +279,7 @@ public class TableRowHeightControllerTest extends InteractiveTestCase {
         int bigRowHeight = table.getRowHeight(1);
         assertEquals(getRendererRowHeight(0, 0), table.getRowHeight(0));
         assertEquals(getRendererRowHeight(1, 0), table.getRowHeight(1));
-        assertTrue(" ", 2 * rowHeight < bigRowHeight);
+        assertTrue(2 * rowHeight < bigRowHeight, " ");
     }
     
     /**
@@ -292,12 +292,10 @@ public class TableRowHeightControllerTest extends InteractiveTestCase {
         return comp.getPreferredSize().height;
     }
 
-    @Override
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         table = createXTableWithIndyRowHeights();
         controller = new TableRowHeightController(table);
-//        controller.install(table);
     }
     
     

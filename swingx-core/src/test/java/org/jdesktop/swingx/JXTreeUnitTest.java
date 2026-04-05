@@ -6,6 +6,8 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.util.Hashtable;
@@ -39,10 +41,8 @@ import org.jdesktop.swingx.treetable.TreeTableModel;
 import org.jdesktop.test.AncientSwingTeam;
 import org.jdesktop.test.PropertyChangeReport;
 import org.jdesktop.test.TestUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -50,14 +50,9 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class JXTreeUnitTest extends InteractiveTestCase {
 
     protected TreeTableModel treeTableModel;
-        
-    public JXTreeUnitTest() {
-        super("JXTree Test");
-    }
 
     /**
      * Issue #1563-swingx: find cell that was clicked for componentPopup
@@ -90,8 +85,8 @@ public class JXTreeUnitTest extends InteractiveTestCase {
         MouseEvent event = new MouseEvent(table, 0,
                 0, 0, 40, 5, 0, false);
         table.getPopupLocation(event);
-        assertNotSame("trigger point must not be same", 
-                table.getPopupTriggerLocation(), table.getPopupTriggerLocation());
+        assertNotSame(table.getPopupTriggerLocation(), 
+                table.getPopupTriggerLocation(), "trigger point must not be same");
     }
     
     /**
@@ -108,8 +103,8 @@ public class JXTreeUnitTest extends InteractiveTestCase {
         table.getPopupLocation(event);
         PropertyChangeReport report = new PropertyChangeReport(table);
         table.getPopupLocation(null);
-        assertNull("trigger must null", 
-                table.getPopupTriggerLocation());
+        assertNull(table.getPopupTriggerLocation(), 
+                "trigger must null");
         TestUtils.assertPropertyChangeEvent(report, "popupTriggerLocation", 
                 event.getPoint(), null);
     }
@@ -123,8 +118,8 @@ public class JXTreeUnitTest extends InteractiveTestCase {
         JXTree tree = new JXTree(AncientSwingTeam.createNamedColorTreeModel());
         tree.setCellRenderer(new DefaultTreeRenderer(createColorStringValue()));
         tree.expandAll();
-        assertEquals("must not find a match for 'b', all start with 'r'", 
-                null, tree.getNextMatch("b", 0, Bias.Forward));
+        assertEquals(null, 
+                tree.getNextMatch("b", 0, Bias.Forward), "must not find a match for 'b', all start with 'r'");
 
     }
     
@@ -140,7 +135,7 @@ public class JXTreeUnitTest extends InteractiveTestCase {
     public void testRendererNotification() {
         JXTree tree = new JXTree();
         TreeCellRenderer renderer = tree.getCellRenderer();
-        assertNotNull("sanity: ", renderer);
+        assertNotNull(renderer, "sanity: ");
         PropertyChangeReport report = new PropertyChangeReport(tree);
         tree.setCellRenderer(new DefaultTreeRenderer());
         assertEquals(1, report.getEventCount());
@@ -171,8 +166,8 @@ public class JXTreeUnitTest extends InteractiveTestCase {
     @Test
     public void testDefaultRendererOnInit() {
         TestTree tree = new TestTree();
-        assertNotNull("sanity: default renderer created", tree.getCreatedDefaultRenderer()); 
-        assertSame("sanity: default renderer used as wrappee", tree.getCreatedDefaultRenderer(), tree.getWrappedCellRenderer());
+        assertNotNull(tree.getCreatedDefaultRenderer(), "sanity: default renderer created"); 
+        assertSame(tree.getCreatedDefaultRenderer(), tree.getWrappedCellRenderer(), "sanity: default renderer used as wrappee");
     }
     
     /**
@@ -183,7 +178,7 @@ public class JXTreeUnitTest extends InteractiveTestCase {
     @Test
     public void testDefaultRendererUsedInEditorOnInit() {
         TestTree tree = new TestTree();
-        assertTrue("sanity: editor is of type DefaultXTreeCellEditor", tree.getCellEditor() instanceof DefaultXTreeCellEditor);
+        assertTrue(tree.getCellEditor() instanceof DefaultXTreeCellEditor, "sanity: editor is of type DefaultXTreeCellEditor");
         assertSame(tree.getWrappedCellRenderer(), ((DefaultXTreeCellEditor) tree.getCellEditor()).getRenderer()); 
     }
     
@@ -227,7 +222,7 @@ public class JXTreeUnitTest extends InteractiveTestCase {
         Color customColor = Color.RED;
         tree.setSelectionBackground(customColor);
         tree.updateUI();
-        assertEquals("custom color must not be reset by ui", customColor, tree.getSelectionBackground());
+        assertEquals(customColor, tree.getSelectionBackground(), "custom color must not be reset by ui");
     }
     
     /**
@@ -241,7 +236,7 @@ public class JXTreeUnitTest extends InteractiveTestCase {
         Color customColor = Color.RED;
         tree.setSelectionForeground(customColor);
         tree.updateUI();
-        assertEquals("custom color must not be reset by ui", customColor, tree.getSelectionForeground());
+        assertEquals(customColor, tree.getSelectionForeground(), "custom color must not be reset by ui");
     }
     
     
@@ -281,8 +276,8 @@ public class JXTreeUnitTest extends InteractiveTestCase {
     public void testWrappedRendererDefault() {
         JXTree list = new JXTree();
         DelegatingRenderer renderer = (DelegatingRenderer) list.getCellRenderer();
-        assertSame("wrapping renderer must use list's default on null", 
-                 renderer.getDelegateRenderer(), list.getWrappedCellRenderer());
+        assertSame(renderer.getDelegateRenderer(), 
+                 list.getWrappedCellRenderer(), "wrapping renderer must use list's default on null");
     }
 
     /**
@@ -295,8 +290,8 @@ public class JXTreeUnitTest extends InteractiveTestCase {
         DelegatingRenderer renderer = (DelegatingRenderer) list.getCellRenderer();
         TreeCellRenderer custom = new DefaultTreeRenderer();
         list.setCellRenderer(custom);
-        assertSame("wrapping renderer must use list's default on null", 
-                 renderer.getDelegateRenderer(), list.getWrappedCellRenderer());
+        assertSame(renderer.getDelegateRenderer(), 
+                 list.getWrappedCellRenderer(), "wrapping renderer must use list's default on null");
     }
     
     /**
@@ -309,8 +304,8 @@ public class JXTreeUnitTest extends InteractiveTestCase {
         TreeCellRenderer defaultRenderer = list.createDefaultCellRenderer();
         DelegatingRenderer renderer = (DelegatingRenderer) list.getCellRenderer();
         list.setCellRenderer(null);
-        assertEquals("wrapping renderer must use list's default on null", 
-                defaultRenderer.getClass(), renderer.getDelegateRenderer().getClass());
+        assertEquals(defaultRenderer.getClass(), 
+                renderer.getDelegateRenderer().getClass(), "wrapping renderer must use list's default on null");
     }
 
     /**
@@ -323,8 +318,8 @@ public class JXTreeUnitTest extends InteractiveTestCase {
     public void testDelegatingRendererUseDefault() {
         JXTree list = new JXTree();
         TreeCellRenderer defaultRenderer = list.createDefaultCellRenderer();
-        assertEquals("sanity: creates default", DefaultXTreeCellRenderer.class, 
-                defaultRenderer.getClass());
+        assertEquals(DefaultXTreeCellRenderer.class, defaultRenderer.getClass(), 
+                "sanity: creates default");
         DelegatingRenderer renderer = (DelegatingRenderer) list.getCellRenderer();
         assertEquals(defaultRenderer.getClass(), renderer.getDelegateRenderer().getClass());
     }
@@ -346,8 +341,8 @@ public class JXTreeUnitTest extends InteractiveTestCase {
         TreeCellRenderer defaultRenderer = list.createDefaultCellRenderer();
         DelegatingRenderer renderer = (DelegatingRenderer) list.getCellRenderer();
         list.setCellRenderer(null);
-        assertEquals("wrapping renderer must use list's default on null",
-                defaultRenderer.getClass(), renderer.getDelegateRenderer().getClass());
+        assertEquals(defaultRenderer.getClass(),
+                renderer.getDelegateRenderer().getClass(), "wrapping renderer must use list's default on null");
     }
     
     /**
@@ -365,8 +360,8 @@ public class JXTreeUnitTest extends InteractiveTestCase {
             
         };
         TreeCellRenderer defaultRenderer = list.createDefaultCellRenderer();
-        assertEquals("sanity: creates custom", CustomDefaultRenderer.class, 
-                defaultRenderer.getClass());
+        assertEquals(CustomDefaultRenderer.class, defaultRenderer.getClass(), 
+                "sanity: creates custom");
         DelegatingRenderer renderer = (DelegatingRenderer) list.getCellRenderer();
         assertEquals(defaultRenderer.getClass(), renderer.getDelegateRenderer().getClass());
     }
@@ -442,7 +437,7 @@ public class JXTreeUnitTest extends InteractiveTestCase {
         DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
         renderer.setLeafIcon(null);
         tree.setCellRenderer(renderer);
-        assertEquals("renderer must have null leaf icon", null, renderer.getLeafIcon());
+        assertEquals(null, renderer.getLeafIcon(), "renderer must have null leaf icon");
     }
 
     /**
@@ -459,10 +454,10 @@ public class JXTreeUnitTest extends InteractiveTestCase {
         // PENDING: incomplete api - no getter
 //        Icon leaf = tree.getLeafIcon();
         DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
-        assertNotNull("sanity - the renderer has a leafIcon ", renderer.getLeafIcon());
+        assertNotNull(renderer.getLeafIcon(), "sanity - the renderer has a leafIcon ");
         tree.setCellRenderer(renderer);
-        assertEquals("renderer leaf icon must be overwritten by tree's leaf icon", 
-                null, renderer.getLeafIcon());
+        assertEquals(null, 
+                renderer.getLeafIcon(), "renderer leaf icon must be overwritten by tree's leaf icon");
     }
 
     /**
@@ -478,7 +473,7 @@ public class JXTreeUnitTest extends InteractiveTestCase {
         assertNotNull(renderer.getLeafIcon());
         tree.setCellRenderer(renderer);
         tree.setLeafIcon(null);
-        assertEquals("renderer must have null leaf icon", null, renderer.getLeafIcon());
+        assertEquals(null, renderer.getLeafIcon(), "renderer must have null leaf icon");
     }
 
     /**
@@ -495,7 +490,7 @@ public class JXTreeUnitTest extends InteractiveTestCase {
         assertNotNull(renderer.getLeafIcon());
         tree.setCellRenderer(renderer);
         tree.setLeafIcon(null);
-        assertEquals("renderer must have null leaf icon", null, renderer.getLeafIcon());
+        assertEquals(null, renderer.getLeafIcon(), "renderer must have null leaf icon");
     }
     
     /**
@@ -507,7 +502,7 @@ public class JXTreeUnitTest extends InteractiveTestCase {
     @Test
     public void testIconOverwriteInitial() {
         JXTree tree = new JXTree();
-        assertFalse("initial overwriteRendererIcons must be false", tree.isOverwriteRendererIcons());
+        assertFalse(tree.isOverwriteRendererIcons(), "initial overwriteRendererIcons must be false");
     }
     
     
@@ -583,8 +578,8 @@ public class JXTreeUnitTest extends InteractiveTestCase {
         int coreCount = getListenerCountAfterStartEditing(core);
         JXTree tree = createEditingTree();
         DefaultTreeCellEditor cellEditor = (DefaultTreeCellEditor) tree.getCellEditor();
-        assertEquals("need one more listener than core", 
-                coreCount + 1, cellEditor.getCellEditorListeners().length);
+        assertEquals(coreCount + 1, 
+                cellEditor.getCellEditorListeners().length, "need one more listener than core");
     }
     
     /**
@@ -717,11 +712,11 @@ public class JXTreeUnitTest extends InteractiveTestCase {
         final JXTree treeTable = new JXTree(model);
         // sanity...
         assertTrue(treeTable.isRootVisible());
-        assertEquals("all children visible", childCount + 1, treeTable.getRowCount());
+        assertEquals(childCount + 1, treeTable.getRowCount(), "all children visible");
         treeTable.collapseAll();
-        assertEquals(" all children invisible", 1, treeTable.getRowCount());
+        assertEquals(1, treeTable.getRowCount(), " all children invisible");
         treeTable.setRootVisible(false);
-        assertEquals("no rows with invisible root", 0, treeTable.getRowCount());
+        assertEquals(0, treeTable.getRowCount(), "no rows with invisible root");
         treeTable.expandAll();
         assertTrue(treeTable.getRowCount() > 0);
         
@@ -737,7 +732,7 @@ public class JXTreeUnitTest extends InteractiveTestCase {
         JXTree tree = new JXTree(treeTableModel);
         // sanity: no selection
         assertEquals(0, tree.getSelectionCount());
-        assertNotNull("getSelectedRows guarantees not null array", tree.getSelectionRows());
+        assertNotNull(tree.getSelectionRows(), "getSelectedRows guarantees not null array");
     }
     
     /**
@@ -750,7 +745,7 @@ public class JXTreeUnitTest extends InteractiveTestCase {
         JXTree tree = new JXTree(treeTableModel);
         // sanity: no selection
         assertEquals(0, tree.getSelectionCount());
-        assertNotNull("getSelectedPaths guarantees not null array", tree.getSelectionPaths());
+        assertNotNull(tree.getSelectionPaths(), "getSelectedPaths guarantees not null array");
     }
     /**
      * Issue #221-swingx: actionMap not initialized in JXTreeNode constructor.
@@ -774,9 +769,9 @@ public class JXTreeUnitTest extends InteractiveTestCase {
      * @param tree
      */
     private void assertXTreeInit(JXTree tree) {
-        assertNotNull("Actions must be initialized", tree.getActionMap().get("find"));
-        assertTrue("Editor must be DefaultXTreeCellEditor", 
-                tree.getCellEditor() instanceof DefaultXTreeCellEditor);
+        assertNotNull(tree.getActionMap().get("find"), "Actions must be initialized");
+        assertTrue(tree.getCellEditor() instanceof DefaultXTreeCellEditor, 
+                "Editor must be DefaultXTreeCellEditor");
         // JW: wrong assumption, available for TreeTableModel impl only?
 //        assertNotNull("conversionMethod must be initialized", 
 //                tree.getValueConversionMethod(tree.getModel()));
@@ -819,12 +814,10 @@ public class JXTreeUnitTest extends InteractiveTestCase {
         };
         return sv;
     }
-    
 
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @BeforeEach
+    public void setUp() throws Exception {
         treeTableModel = new FileSystemModel();
     }
 

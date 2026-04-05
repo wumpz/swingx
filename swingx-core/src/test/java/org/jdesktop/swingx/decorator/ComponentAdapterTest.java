@@ -21,7 +21,7 @@
  */
 package org.jdesktop.swingx.decorator;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Color;
 
@@ -30,8 +30,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
-
-import junit.framework.TestCase;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTable;
@@ -44,11 +42,9 @@ import org.jdesktop.swingx.renderer.StringValue;
 import org.jdesktop.swingx.renderer.StringValues;
 import org.jdesktop.swingx.treetable.TreeTableModel;
 import org.jdesktop.test.AncientSwingTeam;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -56,8 +52,7 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
-public class ComponentAdapterTest extends TestCase {
+public class ComponentAdapterTest {
     
     /**
      * A custom StringValue for Color. Maps to a string composed of the
@@ -710,20 +705,19 @@ public class ComponentAdapterTest extends TestCase {
         return sv;
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() throws Exception {
         sv = createColorStringValue();
     }
     
 
-    @Before
+    @BeforeEach
     public void setUpJ4() throws Exception {
         setUp();
     }
     
-    @After
+    @AfterEach
     public void tearDownJ4() throws Exception {
-        tearDown();
     }
     
 

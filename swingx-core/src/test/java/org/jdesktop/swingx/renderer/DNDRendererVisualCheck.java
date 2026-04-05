@@ -27,6 +27,7 @@ import org.jdesktop.swingx.JXTree;
 import org.jdesktop.swingx.JXTreeTable;
 import org.jdesktop.swingx.test.ComponentTreeTableModel;
 import org.jdesktop.test.AncientSwingTeam;
+import org.junit.jupiter.api.Test;
 
 /**
  * 
@@ -238,7 +239,8 @@ public class DNDRendererVisualCheck extends InteractiveTestCase {
 
         xTable.setTransferHandler(tableTransfer);
     }
-    
+
+    @Test
     public void testDummy() {
         // do nothing - placeholder for empty issues
     }

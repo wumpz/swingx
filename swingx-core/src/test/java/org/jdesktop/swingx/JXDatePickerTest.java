@@ -20,6 +20,8 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -67,17 +69,14 @@ import org.jdesktop.test.ActionReport;
 import org.jdesktop.test.PopupMenuReport;
 import org.jdesktop.test.PropertyChangeReport;
 import org.jdesktop.test.TestUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
  * Unit tests for JXDatePicker.
  */
-@RunWith(JUnit4.class)
 public class JXDatePickerTest extends InteractiveTestCase {
     private static final Logger LOG = Logger.getLogger(JXDatePickerTest.class
             .getName());
@@ -123,11 +122,11 @@ public class JXDatePickerTest extends InteractiveTestCase {
 
 
     private void assertInheritedPopup(JComponent box, JPopupMenu popup) {
-        assertSame("inherited popup expected on " + box.getClass(), popup,  box.getComponentPopupMenu());
+        assertSame(popup, box.getComponentPopupMenu(),  "inherited popup expected on " + box.getClass());
         for (int i = 0; i < box.getComponentCount(); i++) {
             if (box.getComponent(i) instanceof JComponent)
-                assertSame("inherited popup expected on " + box.getComponent(i).getClass(),
-                        popup, ((JComponent) box.getComponent(i)).getComponentPopupMenu());
+                assertSame(popup,
+                        ((JComponent) box.getComponent(i)).getComponentPopupMenu(), "inherited popup expected on " + box.getComponent(i).getClass());
         }
     }
     
@@ -357,7 +356,7 @@ public class JXDatePickerTest extends InteractiveTestCase {
     public void testCustomFormatterNull() {
         JXDatePicker picker = new JXDatePicker();
         DefaultFormatterFactory factory = new DefaultFormatterFactory();
-        assertEquals("sanity (null formatter): ", null, factory.getFormatter(picker.getEditor()));
+        assertEquals(null, factory.getFormatter(picker.getEditor()), "sanity (null formatter): ");
         picker.getEditor().setFormatterFactory(factory);
         picker.updateUI();
     }
@@ -429,14 +428,14 @@ public class JXDatePickerTest extends InteractiveTestCase {
     public void testEnabledKeptOnUpdateUI() {
         JXDatePicker picker = new JXDatePicker();
         picker.setEnabled(false);
-        assertFalse("sanity: picker disabled", picker.isEnabled());
-        assertEquals("editor enabled must follow picker enabled", 
-                picker.isEnabled(), picker.getEditor().isEnabled());
+        assertFalse(picker.isEnabled(), "sanity: picker disabled");
+        assertEquals(picker.isEnabled(), 
+                picker.getEditor().isEnabled(), "editor enabled must follow picker enabled");
         picker.updateUI();
-        assertFalse("sanity: picker disabled", picker.isEnabled());
+        assertFalse(picker.isEnabled(), "sanity: picker disabled");
         for (int i = 0; i < picker.getComponentCount(); i++) {
-            assertEquals("child enabled must follow picker enabled", 
-                    picker.isEnabled(), picker.getComponent(i).isEnabled());
+            assertEquals(picker.isEnabled(), 
+                    picker.getComponent(i).isEnabled(), "child enabled must follow picker enabled");
         }
     }
     
@@ -449,9 +448,9 @@ public class JXDatePickerTest extends InteractiveTestCase {
         JXDatePicker picker = new JXDatePicker();
         picker.setEnabled(false);
         picker.setEditor(new JFormattedTextField());
-        assertFalse("sanity: picker disabled", picker.isEnabled());
-        assertEquals("editor enabled must follow picker enabled", 
-                picker.isEnabled(), picker.getEditor().isEnabled());
+        assertFalse(picker.isEnabled(), "sanity: picker disabled");
+        assertEquals(picker.isEnabled(), 
+                picker.getEditor().isEnabled(), "editor enabled must follow picker enabled");
     }
     
     /**
@@ -462,13 +461,13 @@ public class JXDatePickerTest extends InteractiveTestCase {
     public void testEditableKeptOnUpdateUI() {
         JXDatePicker picker = new JXDatePicker();
         picker.setEditable(false);
-        assertFalse("sanity: picker disabled", picker.isEditable());
-        assertEquals("editor enabled must follow picker enabled", 
-                picker.isEditable(), picker.getEditor().isEditable());
+        assertFalse(picker.isEditable(), "sanity: picker disabled");
+        assertEquals(picker.isEditable(), 
+                picker.getEditor().isEditable(), "editor enabled must follow picker enabled");
         picker.updateUI();
-        assertFalse("sanity: picker disabled", picker.isEditable());
-        assertEquals("editor enabled must follow picker enabled", 
-                picker.isEditable(), picker.getEditor().isEditable());
+        assertFalse(picker.isEditable(), "sanity: picker disabled");
+        assertEquals(picker.isEditable(), 
+                picker.getEditor().isEditable(), "editor enabled must follow picker enabled");
     }
     
     /**
@@ -480,9 +479,9 @@ public class JXDatePickerTest extends InteractiveTestCase {
         JXDatePicker picker = new JXDatePicker();
         picker.setEditable(false);
         picker.setEditor(new JFormattedTextField());
-        assertFalse("sanity: picker disabled", picker.isEditable());
-        assertEquals("editor enabled must follow picker enabled", 
-                picker.isEditable(), picker.getEditor().isEditable());
+        assertFalse(picker.isEditable(), "sanity: picker disabled");
+        assertEquals(picker.isEditable(), 
+                picker.getEditor().isEditable(), "editor enabled must follow picker enabled");
     }
     
     /**
@@ -615,8 +614,7 @@ public class JXDatePickerTest extends InteractiveTestCase {
         Date date = new Date();
         selectionModel.setSelectionInterval(date, date);
         Date first = selectionModel.getFirstSelectionDate();
-        assertEquals("formats diff: " + (date.getTime() - first.getTime())
-                , date, first);
+        assertEquals(date, first, "formats diff: " + (date.getTime() - first.getTime()));
     }
     
 
@@ -800,9 +798,9 @@ public class JXDatePickerTest extends InteractiveTestCase {
         // sanity: the addon was loaded
         assertNotNull(oldLinkFormat);
         UIManager.put(key, null);
-        assertEquals("no null overwrite", oldLinkFormat, UIManagerExt.getString(key));
+        assertEquals(oldLinkFormat, UIManagerExt.getString(key), "no null overwrite");
         UIManager.getLookAndFeelDefaults().remove(key);
-        assertEquals("no remove", oldLinkFormat, UIManagerExt.getString(key));
+        assertEquals(oldLinkFormat, UIManagerExt.getString(key), "no remove");
         new JXDatePicker();
     }
     
@@ -876,8 +874,8 @@ public class JXDatePickerTest extends InteractiveTestCase {
         // trick the picker - no formats
         picker.getEditor().setFormatterFactory(new DefaultFormatterFactory(
                 new DatePickerFormatter((DateFormat[]) null)));
-        assertNotNull("picker format array must not be null", 
-                picker.getFormats());
+        assertNotNull(picker.getFormats(), 
+                "picker format array must not be null");
     }
 
     /**
@@ -890,8 +888,8 @@ public class JXDatePickerTest extends InteractiveTestCase {
         JXDatePicker picker = new JXDatePicker();
         // trick the picker - no formats
         picker.getEditor().setFormatterFactory(new DefaultFormatterFactory());
-        assertNotNull("picker format array must not be null", 
-                picker.getFormats());
+        assertNotNull(picker.getFormats(), 
+                "picker format array must not be null");
     }
 
 
@@ -997,15 +995,15 @@ public class JXDatePickerTest extends InteractiveTestCase {
         // remove
         picker.setLinkPanel(null);
         // assert it is removed
-        assertNull("linkPanel must be removed", linkPanel.getParent());
+        assertNull(linkPanel.getParent(), "linkPanel must be removed");
         // assert bindings removed
         assertLinkPanelBindings(linkPanel, false);
         // set again
         picker.setLinkPanel(linkPanel);
         // assert the bindings are installed again
         assertLinkPanelBindings(linkPanel, true);
-        assertSame("linkPanel must be added to same parent", 
-                oldParent, linkPanel.getParent());
+        assertSame(oldParent, 
+                linkPanel.getParent(), "linkPanel must be added to same parent");
         frame.dispose();
     }
 
@@ -1041,15 +1039,15 @@ public class JXDatePickerTest extends InteractiveTestCase {
      */
     private void assertLinkPanelBindings(JComponent linkPanel, boolean bound) {
         if (bound) {
-        assertNotNull("home commit action must be registered", 
-                linkPanel.getActionMap().get(JXDatePicker.HOME_COMMIT_KEY));
-        assertNotNull("home navigate action must be registered", 
-                linkPanel.getActionMap().get(JXDatePicker.HOME_NAVIGATE_KEY));
+        assertNotNull(linkPanel.getActionMap().get(JXDatePicker.HOME_COMMIT_KEY), 
+                "home commit action must be registered");
+        assertNotNull(linkPanel.getActionMap().get(JXDatePicker.HOME_NAVIGATE_KEY), 
+                "home navigate action must be registered");
         } else {
-            assertNull("home commit action must not be registered", 
-                    linkPanel.getActionMap().get(JXDatePicker.HOME_COMMIT_KEY));
-            assertNull("home navigate action must not be registered", 
-                    linkPanel.getActionMap().get(JXDatePicker.HOME_NAVIGATE_KEY));
+            assertNull(linkPanel.getActionMap().get(JXDatePicker.HOME_COMMIT_KEY), 
+                    "home commit action must not be registered");
+            assertNull(linkPanel.getActionMap().get(JXDatePicker.HOME_NAVIGATE_KEY), 
+                    "home navigate action must not be registered");
         }
         assertKeyBindings(linkPanel, JXDatePicker.HOME_COMMIT_KEY, bound);
         assertKeyBindings(linkPanel, JXDatePicker.HOME_NAVIGATE_KEY, bound);
@@ -1071,9 +1069,9 @@ public class JXDatePickerTest extends InteractiveTestCase {
                 comp.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW), 
                 actionKey);
         boolean hasBinding = hasAncestorBinding || hasFocusedBinding || hasInFocusedBinding;
-        assertEquals("component has keybinding for " + actionKey,
-                bound,
-                hasBinding);
+        assertEquals(bound,
+                hasBinding,
+                "component has keybinding for " + actionKey);
         
     }
 
@@ -1154,8 +1152,8 @@ public class JXDatePickerTest extends InteractiveTestCase {
         picker.addActionListener(report);
         Action cancelAction = picker.getMonthView().getActionMap().get(JXMonthView.CANCEL_KEY);
         cancelAction.actionPerformed(null);
-        assertEquals("must have receive 1 event after monthView cancel", 
-                1, report.getEventCount());
+        assertEquals(1, 
+                report.getEventCount(), "must have receive 1 event after monthView cancel");
         assertEquals(JXDatePicker.CANCEL_KEY, report.getLastActionCommand());
         
     }
@@ -1173,8 +1171,8 @@ public class JXDatePickerTest extends InteractiveTestCase {
         final ActionReport report = new ActionReport();
         picker.addActionListener(report);
         commitAction.actionPerformed(null);
-         assertEquals("must have receive 1 event after monthView commit", 
-                1, report.getEventCount());
+         assertEquals(1, 
+                report.getEventCount(), "must have receive 1 event after monthView commit");
         assertEquals(JXDatePicker.COMMIT_KEY, report.getLastActionCommand());
     }
     
@@ -1207,20 +1205,20 @@ public class JXDatePickerTest extends InteractiveTestCase {
         JFormattedTextField editor = picker.getEditor();
         Action wrapper = editor.getActionMap().get(EditorCancelAction.TEXT_CANCEL_KEY);
         // wrapper installed
-        assertTrue("PickerUI installed the wrapper action", wrapper instanceof EditorCancelAction);
+        assertTrue(wrapper instanceof EditorCancelAction, "PickerUI installed the wrapper action");
         // set editor to field
         picker.setEditor(field);
         // old editor back to original 
-        assertSame("original action must be reset on setEditor", original, 
-                editor.getActionMap().get(EditorCancelAction.TEXT_CANCEL_KEY));
+        assertSame(original, editor.getActionMap().get(EditorCancelAction.TEXT_CANCEL_KEY), 
+                "original action must be reset on setEditor");
         Action otherWrapper = field.getActionMap().get(EditorCancelAction.TEXT_CANCEL_KEY);
         assertTrue(otherWrapper instanceof EditorCancelAction);
         // created a new one
         assertNotSame(wrapper, otherWrapper);
         // uninstall
         picker.getUI().uninstallUI(picker);
-        assertSame("original action must be reset on uninstall", original, 
-                field.getActionMap().get(EditorCancelAction.TEXT_CANCEL_KEY));
+        assertSame(original, field.getActionMap().get(EditorCancelAction.TEXT_CANCEL_KEY), 
+                "original action must be reset on uninstall");
     }
     
     /**
@@ -1365,7 +1363,7 @@ public class JXDatePickerTest extends InteractiveTestCase {
     private void assertTimeZoneLinkFormat(JXDatePicker picker,
             TimeZone alternative) {
         // sanity: picker has timezone as expected
-        assertEquals("expected timezone in picker", alternative, picker.getTimeZone());
+        assertEquals(alternative, picker.getTimeZone(), "expected timezone in picker");
         MessageFormat format = picker.getLinkFormat();
         for (Format subFormat : format.getFormats()) {
             if (subFormat instanceof DateFormat) {
@@ -1444,7 +1442,7 @@ public class JXDatePickerTest extends InteractiveTestCase {
             TimeZone alternative) {
         assertEquals(alternative, picker.getTimeZone());
         for (DateFormat format : picker.getFormats()) {
-            assertEquals("timezone must be synched", picker.getTimeZone(), format.getTimeZone());
+            assertEquals(picker.getTimeZone(), format.getTimeZone(), "timezone must be synched");
         }
     }
 
@@ -1456,7 +1454,7 @@ public class JXDatePickerTest extends InteractiveTestCase {
         JXDatePicker picker = new JXDatePicker();
         assertNotNull(picker.getTimeZone());
         for (DateFormat format : picker.getFormats()) {
-            assertEquals("timezone must be synched", picker.getTimeZone(), format.getTimeZone());
+            assertEquals(picker.getTimeZone(), format.getTimeZone(), "timezone must be synched");
         }
     }
 
@@ -1583,7 +1581,7 @@ public class JXDatePickerTest extends InteractiveTestCase {
             return;
         }
         // sanity ...
-        assertFalse("", date.equals(picker.getDate()));
+        assertFalse(date.equals(picker.getDate()), "");
         PropertyChangeReport report = new PropertyChangeReport();
         picker.addPropertyChangeListener("date", report);
         picker.commitEdit();
@@ -1612,7 +1610,7 @@ public class JXDatePickerTest extends InteractiveTestCase {
             return;
         }
         // sanity ...
-        assertFalse("", date.equals(picker.getDate()));
+        assertFalse(date.equals(picker.getDate()), "");
         picker.commitEdit();
         assertSynchAll(picker, date);
     }
@@ -1777,8 +1775,8 @@ public class JXDatePickerTest extends InteractiveTestCase {
         // sanity - that at least the other views are uneffected
         assertTrue(picker.isEditable());
         assertTrue(picker.getMonthView().isEnabled());
-        assertFalse("Do not change the state of the sender during notification processing", 
-                picker.getEditor().isEditable());
+        assertFalse(picker.getEditor().isEditable(), 
+                "Do not change the state of the sender during notification processing");
     }
 
     /**
@@ -1802,8 +1800,8 @@ public class JXDatePickerTest extends InteractiveTestCase {
         // sanity - that at least the other views are uneffected
         assertTrue(picker.isEnabled());
         assertTrue(picker.getEditor().isEnabled());
-        assertFalse("Do not change the state of the sender during notification processing", 
-                button.isEnabled());
+        assertFalse(button.isEnabled(), 
+                "Do not change the state of the sender during notification processing");
     }
 
     /**
@@ -1836,12 +1834,12 @@ public class JXDatePickerTest extends InteractiveTestCase {
         assertEquals(defaultListenerCount + 1, 
                 picker.getEditor().getPropertyChangeListeners().length);
         picker.getUI().uninstallUI(picker);
-        assertEquals("the ui installe listener must be removed", 
-                defaultListenerCount, 
+        assertEquals(defaultListenerCount, 
+                picker.getEditor().getPropertyChangeListeners().length, 
                 // right now we can access the editor even after uninstall
                 // because the picker keeps a reference
                 // TODO: after cleanup, this will be done through the ui
-                picker.getEditor().getPropertyChangeListeners().length);
+                "the ui installe listener must be removed");
     }
 
     /**
@@ -1902,12 +1900,12 @@ public class JXDatePickerTest extends InteractiveTestCase {
     public void testEditorUIResource() {
         JXDatePicker picker = new JXDatePicker();
         // this is safe: ui must install an editor and it must be of type UIResource
-        assertEquals("default editor is UIResource ", true, picker.getEditor() instanceof UIResource);
+        assertEquals(true, picker.getEditor() instanceof UIResource, "default editor is UIResource ");
         JFormattedTextField editor = new JFormattedTextField();
         picker.setEditor(editor);
-        assertEquals("sanity: custom editor not UIResource ", false, picker.getEditor() instanceof UIResource);
+        assertEquals(false, picker.getEditor() instanceof UIResource, "sanity: custom editor not UIResource ");
         picker.updateUI();
-        assertSame("updateUI must not touch custom editor", editor, picker.getEditor()); 
+        assertSame(editor, picker.getEditor(), "updateUI must not touch custom editor"); 
     }
 
     /**
@@ -1997,17 +1995,17 @@ public class JXDatePickerTest extends InteractiveTestCase {
     @Test
     public void testMinSizeEqualsPrefSize() {
         JXDatePicker picker = new JXDatePicker(new Date());
-        assertEquals("pref/min expected equal", 
-                picker.getEditor().getPreferredSize().width, 
-                picker.getEditor().getMinimumSize().width);
+        assertEquals(picker.getEditor().getPreferredSize().width, 
+                picker.getEditor().getMinimumSize().width, 
+                "pref/min expected equal");
         picker.getEditor().setText("1");
-        assertEquals("pref/min expected equal", 
-                picker.getEditor().getPreferredSize().width, 
-                picker.getEditor().getMinimumSize().width);
+        assertEquals(picker.getEditor().getPreferredSize().width, 
+                picker.getEditor().getMinimumSize().width, 
+                "pref/min expected equal");
         picker.setDate(null);
-        assertEquals("pref/min expected equal", 
-                picker.getEditor().getPreferredSize().width, 
-                picker.getEditor().getMinimumSize().width);
+        assertEquals(picker.getEditor().getPreferredSize().width, 
+                picker.getEditor().getMinimumSize().width, 
+                "pref/min expected equal");
     }
     
     
@@ -2024,8 +2022,8 @@ public class JXDatePickerTest extends InteractiveTestCase {
         Dimension empty = picker.getPreferredSize();
         // simulate editing (uncommitted)
         picker.getEditor().setText("1");
-        assertEquals("pref width must be same while editing", 
-                empty.width, picker.getPreferredSize().width);
+        assertEquals(empty.width, 
+                picker.getPreferredSize().width, "pref width must be same while editing");
     }
     
     /**
@@ -2042,8 +2040,8 @@ public class JXDatePickerTest extends InteractiveTestCase {
         Dimension withValue = picker.getPreferredSize();
         // simulate editing (uncommitted)
         picker.getEditor().setText("1");
-        assertEquals("pref width must be same while editing", 
-                withValue.width, picker.getPreferredSize().width);
+        assertEquals(withValue.width, 
+                picker.getPreferredSize().width, "pref width must be same while editing");
     }
     
 
@@ -2058,8 +2056,8 @@ public class JXDatePickerTest extends InteractiveTestCase {
         Dimension withValue = picker.getPreferredSize();
         // null value
         picker.setDate(null);
-        assertEquals("pref width must be same null value", 
-                withValue.width, picker.getPreferredSize().width);
+        assertEquals(withValue.width, 
+                picker.getPreferredSize().width, "pref width must be same null value");
     }
     
     @Test
@@ -2127,14 +2125,12 @@ public class JXDatePickerTest extends InteractiveTestCase {
     }
     
 
-    @Override
-    @Before
+    @BeforeEach
        public void setUp() {
         calendar = Calendar.getInstance();
     }
 
-    @Override
-    @After
+    @AfterEach
        public void tearDown() {
     }
 

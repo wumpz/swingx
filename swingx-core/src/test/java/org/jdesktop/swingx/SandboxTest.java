@@ -4,16 +4,14 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.util.logging.Logger;
 
-import junit.framework.TestCase;
-
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * "hand test" sandbox restrictions 
@@ -24,9 +22,8 @@ import org.junit.runners.JUnit4;
  * (because I found no way to uninstall it when the test class is done)
  * 
  */
-@Ignore
-@RunWith(JUnit4.class)
-public class SandboxTest extends TestCase {
+@Disabled
+public class SandboxTest {
     private static final Logger LOG = Logger.getLogger(SandboxTest.class
             .getName());
     /**
@@ -70,8 +67,7 @@ public class SandboxTest extends TestCase {
         }
     }
     
-    @Override
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
 //        LookAndFeelAddons.getAddon();
         InteractiveTestCase.setLAF("Win");
@@ -112,7 +108,7 @@ public class SandboxTest extends TestCase {
 //    }
     
   
-    @AfterClass
+    @AfterAll
     public static void uninstall() {
         // be sure to uninstall the manager
 //        System.setSecurityManager(null);

@@ -7,6 +7,9 @@
 
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.awt.event.ActionEvent;
 import java.util.logging.Level;
 
@@ -16,6 +19,7 @@ import javax.swing.JButton;
 
 import org.jdesktop.swingx.error.ErrorInfo;
 import org.jdesktop.swingx.error.ErrorLevel;
+import org.junit.jupiter.api.Test;
 
 /**
  * A unit test for the JXErrorPane
@@ -138,7 +142,7 @@ public class JXErrorPaneVisualCheck extends InteractiveTestCase {
             errorPane.setErrorInfo(null);
             fail("Failed to fail while setting null ErrorInfo");
         } catch (NullPointerException e) {
-            assertEquals("Unexpected error message", "ErrorInfo can\'t be null. Provide valid ErrorInfo object.", e.getMessage());
+            assertEquals("ErrorInfo can\'t be null. Provide valid ErrorInfo object.", e.getMessage(), "Unexpected error message");
             // ignore - expected.
         }
     }
@@ -155,6 +159,7 @@ public class JXErrorPaneVisualCheck extends InteractiveTestCase {
     /**
      * do nothing test - keep the testrunner happy.
      */
+    @Test
     public void testDummy() {
     }
 

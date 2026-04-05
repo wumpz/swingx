@@ -1,23 +1,20 @@
 package org.jdesktop.swingx.treetable;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.Vector;
 
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
-import junit.framework.TestCase;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
  */
-@RunWith(JUnit4.class)
-public class DefaultTreeTableModelUnitTest extends TestCase {
+public class DefaultTreeTableModelUnitTest {
     private DefaultTreeTableModel model;
     private DefaultMutableTreeTableNode root;
     private DefaultMutableTreeTableNode child1;
@@ -29,14 +26,13 @@ public class DefaultTreeTableModelUnitTest extends TestCase {
     private DefaultMutableTreeTableNode grandchild5;
     private AbstractMutableTreeTableNode grandchild6;
     
-    @Before
+    @BeforeEach
     public void setUpJ4() throws Exception {
         setUp();
     }
     
-    @After
+    @AfterEach
     public void tearDownJ4() throws Exception {
-        tearDown();
     }
     
     private TreeTableNode createTree() {
@@ -76,9 +72,8 @@ public class DefaultTreeTableModelUnitTest extends TestCase {
     /**
      * {@inheritDoc}
      */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @BeforeEach
+    public void setUp() throws Exception {
         
         Vector<String> names = new Vector<>();
         names.add("A");
@@ -193,7 +188,8 @@ public class DefaultTreeTableModelUnitTest extends TestCase {
             //success
         }
     }
-    
+
+    @Test
     public void testSetValueAtIssues() {
         //TODO what to do in this case?  exception? nothing?
         //Outside TTN count

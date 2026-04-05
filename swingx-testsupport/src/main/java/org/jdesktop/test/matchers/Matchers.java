@@ -15,12 +15,7 @@ public final class Matchers {
      * @return {@code true} if any property can be matched; {@code false} otherwise
      */
     public static ArgumentMatcher<PropertyChangeEvent> anyProperty() {
-        return new ArgumentMatcher<PropertyChangeEvent>() {
-					@Override
-					public boolean matches(PropertyChangeEvent t) {
-						return true;
-					}
-			};
+        return (ArgumentMatcher<PropertyChangeEvent>) t -> true;
     }
 
     /**

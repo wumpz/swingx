@@ -21,6 +21,8 @@
  */
 package org.jdesktop.swingx.sort;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,7 @@ import javax.swing.SortOrder;
 import javax.swing.RowSorter.SortKey;
 
 import org.jdesktop.swingx.InteractiveTestCase;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Issues with SortController implementations.

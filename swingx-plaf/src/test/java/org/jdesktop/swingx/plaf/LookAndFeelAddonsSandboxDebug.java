@@ -4,16 +4,17 @@
  */
 package org.jdesktop.swingx.plaf;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.net.URL;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.ServiceLoader;
 import java.util.logging.Logger;
 
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Contains failing tests used for debugging the reason for sandbox
@@ -26,8 +27,7 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg, Berlin
  */
-@Ignore
-@RunWith(JUnit4.class)
+@Disabled
 public class LookAndFeelAddonsSandboxDebug extends
         LookAndFeelAddonsSandboxOnTest {
     @SuppressWarnings("unused")
@@ -49,7 +49,7 @@ public class LookAndFeelAddonsSandboxDebug extends
                         return ServiceLoader.load(LookAndFeelAddons.class);
                     }
                 });  
-        assertTrue("loader must have addons: fails here because the loading happens lazily", loader.iterator().hasNext());
+        assertTrue(loader.iterator().hasNext(), "loader must have addons: fails here because the loading happens lazily");
     }
 
     /**
@@ -70,9 +70,9 @@ public class LookAndFeelAddonsSandboxDebug extends
         // using the classloader (just as ServiceLoader does)
         // absolute path always
         URL url = clazz.getClassLoader().getResource(services);
-        assertNotNull("services must be found: fails in security restricted contexts because the loader " +
-        		"has no access to the provider configuration file", 
-        		url);
+        assertNotNull(url, 
+        		"services must be found: fails in security restricted contexts because the loader " +
+        		"has no access to the provider configuration file");
     }
 
     /**
@@ -86,9 +86,9 @@ public class LookAndFeelAddonsSandboxDebug extends
     @Test
     public void testServiceLoader() {
         ServiceLoader<LookAndFeelAddons> loader = ServiceLoader.load(LookAndFeelAddons.class);
-        assertTrue("loader must have addons: fails in security restricted contexts because the loader " +
-        		"has no access to the provider configuration file", 
-        		loader.iterator().hasNext());
+        assertTrue(loader.iterator().hasNext(), 
+        		"loader must have addons: fails in security restricted contexts because the loader " +
+        		"has no access to the provider configuration file");
     }
 
 }

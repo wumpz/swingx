@@ -21,6 +21,8 @@
  */
 package org.jdesktop.swingx.renderer;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -87,6 +89,7 @@ import org.jdesktop.swingx.treetable.FileSystemModel;
 import org.jdesktop.swingx.treetable.TreeTableModel;
 import org.jdesktop.swingx.util.PaintUtils;
 import org.jdesktop.test.AncientSwingTeam;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test around known issues of SwingX renderers. <p>
@@ -608,7 +611,7 @@ public class RendererIssues extends InteractiveTestCase {
 
 //--------------- unit tests
 
-    
+
     /**
      * Issue #794-swingx: tooltip must be reset.
      * 
@@ -616,15 +619,16 @@ public class RendererIssues extends InteractiveTestCase {
      * column)
      * 
      */
+    @Test
     public void testToolTipResetTreeTableTreeRenderer() {
         JXTreeTable treeTable = new JXTreeTable(new ComponentTreeTableModel(new JXPanel()));
         JComponent label = (JComponent) treeTable.prepareRenderer(treeTable.getCellRenderer(0, 0), 0, 0);
         String tip = "some tip";
         label.setToolTipText(tip);
-        assertEquals("sanity: tooltip must be set", tip, label.getToolTipText());
+        assertEquals(tip, label.getToolTipText(), "sanity: tooltip must be set");
         // prepare again
         label = (JComponent) treeTable.prepareRenderer(treeTable.getCellRenderer(0, 0), 0, 0);
-        assertEquals("tooltip must be reset in each prepare", null, label.getToolTipText());
+        assertEquals(null, label.getToolTipText(), "tooltip must be reset in each prepare");
     }
 
     /**
@@ -633,6 +637,7 @@ public class RendererIssues extends InteractiveTestCase {
      * postponed to 0.9.x - will break all interface implementors.
      * 
      */
+    @Test
     public void testNodeTypeIcons() {
        TreeCellContext context = new TreeCellContext();
        context.installContext(null, "dummy", -1, -1, false, false, false, true);
@@ -658,6 +663,7 @@ public class RendererIssues extends InteractiveTestCase {
      * TODO: fix and reinstate the test
      * @throws UnsupportedLookAndFeelException 
      */
+    @Test
     public void testListFocusBorder() throws UnsupportedLookAndFeelException {
         LookAndFeel lf = UIManager.getLookAndFeel();
         try {
@@ -707,6 +713,7 @@ public class RendererIssues extends InteractiveTestCase {
      * LinkRenderer didn't. Think whether to change the provider go back
      * to hyperlink font? 
      */
+    @Test
     public void testUpdateRendererOnLFChange() {
         boolean defaultToSystemLF = true;
         setSystemLF(defaultToSystemLF);
@@ -724,8 +731,8 @@ public class RendererIssues extends InteractiveTestCase {
         }
         SwingUtilities.updateComponentTreeUI(table);
         Component rendererComp = table.prepareRenderer(table.getCellRenderer(0, 0), 0, 0);
-        assertEquals("renderer font must be updated", 
-                comparisonComponent.getFont(), rendererComp.getFont());
+        assertEquals(comparisonComponent.getFont(), 
+                rendererComp.getFont(), "renderer font must be updated");
         
     }
 
@@ -735,18 +742,20 @@ public class RendererIssues extends InteractiveTestCase {
      * NPE in JComponent.paintComponent finally block 
      *
      */
+    @Test
     public void testLabelNPEPaintComponentOpaque() {
         JRendererLabel label = new JRendererLabel();
         label.setOpaque(true);
         label.paintComponent(null);
     }
-    
+
     /**
      * RendererLabel NPE with null Graphics. While expected,
      * the exact location is not.
      * NPE in JComponent.paintComponent finally block 
      *
      */
+    @Test
     public void testLabelNPEPaintComponent() {
         JRendererLabel label = new JRendererLabel();
         label.setOpaque(false);

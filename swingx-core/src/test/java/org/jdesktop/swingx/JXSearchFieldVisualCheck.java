@@ -20,6 +20,8 @@
  */
 package org.jdesktop.swingx;
 
+import org.junit.jupiter.api.Test;
+
 
 /**
  * Visual tests of JXSearchField issues.
@@ -49,6 +51,7 @@ public class JXSearchFieldVisualCheck extends InteractiveTestCase {
     /**
      * do nothing test - keep the testrunner happy.
      */
+    @Test
     public void testDummy() {
     }
 

@@ -7,6 +7,9 @@ package org.jdesktop.swingx.tree;
 import static org.jdesktop.swingx.tree.TreeUtilities.EMPTY_ENUMERATION;
 
 import java.util.Enumeration;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.logging.Logger;
@@ -25,17 +28,14 @@ import org.jdesktop.swingx.tree.TreeUtilities.PostorderModelEnumeration;
 import org.jdesktop.swingx.tree.TreeUtilities.PostorderNodeEnumeration;
 import org.jdesktop.swingx.tree.TreeUtilities.PreorderModelEnumeration;
 import org.jdesktop.swingx.tree.TreeUtilities.PreorderNodeEnumeration;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test of TreeUtilities.
  * 
  * @author Jeanette Winzenburg, Berlin
  */
-@RunWith(JUnit4.class)
 public class TreeUtilitiesTest extends InteractiveTestCase {
 
 // traversal tests
@@ -142,23 +142,23 @@ public class TreeUtilitiesTest extends InteractiveTestCase {
     private void assertSameEnumeration(String message, Enumeration<?> coreEnum,
             Enumeration<?> xEnum) {
         while(coreEnum.hasMoreElements()) {
-            assertTrue(message + " must have more elements", xEnum.hasMoreElements());
-            assertSame(message, coreEnum.nextElement(), xEnum.nextElement());
+            assertTrue(xEnum.hasMoreElements(), message + " must have more elements");
+            assertSame(coreEnum.nextElement(), xEnum.nextElement(), message);
         }
-        assertFalse(message + " must not have more elements", xEnum.hasMoreElements());
+        assertFalse(xEnum.hasMoreElements(), message + " must not have more elements");
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void testEmptyEnumeration() {
-        assertFalse(EMPTY_ENUMERATION.hasMoreElements());
-        EMPTY_ENUMERATION.nextElement();
+        assertThrows(NoSuchElementException.class, () -> {
+            assertFalse(EMPTY_ENUMERATION.hasMoreElements());
+            EMPTY_ENUMERATION.nextElement();
+        });
     }
 
 //------------------
     
-    
-    @Override
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         JXTree tree = new JXTree();
         model = tree.getModel();

@@ -4,6 +4,8 @@
  */
 package org.jdesktop.swingx.plaf;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.net.URL;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
@@ -12,13 +14,7 @@ import java.util.logging.Logger;
 
 import javax.swing.UIManager;
 
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.*;
 
 /**
  * "hand test" sandbox restrictions  for LookAndFeelAddons. Behaviour
@@ -30,8 +26,7 @@ import org.junit.runners.JUnit4;
  * (because I found no way to uninstall it when the test class is done)
  * 
  */
-@Ignore
-@RunWith(JUnit4.class)
+@Disabled
 public class LookAndFeelAddonsSandboxOnTest extends LookAndFeelAddonsSandboxTest {
     private static final Logger LOG = Logger.getLogger(LookAndFeelAddonsSandboxOnTest.class
             .getName());
@@ -55,7 +50,7 @@ public class LookAndFeelAddonsSandboxOnTest extends LookAndFeelAddonsSandboxTest
                 return clazz.getClassLoader().getResource(services);
             }
         });
-        assertNotNull("services must be found", url);
+        assertNotNull(url, "services must be found");
     }
     
     /**
@@ -84,7 +79,7 @@ public class LookAndFeelAddonsSandboxOnTest extends LookAndFeelAddonsSandboxTest
             count++;
         }
 
-        assertEquals("loader must have addons", 7, count);
+        assertEquals(7, count, "loader must have addons");
     }
     
     /**
@@ -109,29 +104,30 @@ public class LookAndFeelAddonsSandboxOnTest extends LookAndFeelAddonsSandboxTest
      * Sanity: verify access to swing.addon denied.
      *
      */
-    @Test(expected= SecurityException.class)
+    @Test
     public void testPropertySwingAddonDenied() {
-        System.getProperty("swing.addon", "not specified");
+        assertThrows(SecurityException.class, () ->
+            System.getProperty("swing.addon", "not specified"));
     }
     
     /**
      * Sanity: verify access to swing.crossplatformaddon denied.
      *
      */
-    @Test(expected= SecurityException.class)
+    @Test
     public void testPropertySwingCrossplatformAddonDenied() {
-        System.getProperty("swing.crossplatformlafaddon", "not specified");
+        assertThrows(SecurityException.class, () ->
+            System.getProperty("swing.crossplatformlafaddon", "not specified"));
     }
     
     /**
      * Asserts that a security manager is installed, running the tests
      * here without doesn't make sense.
      */
-    @Override
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
-        assertNotNull("Sandbox test cannot be run, no securityManager", 
-                System.getSecurityManager());
+        assertNotNull(System.getSecurityManager(), 
+                "Sandbox test cannot be run, no securityManager");
     }
     
     /**
@@ -140,7 +136,7 @@ public class LookAndFeelAddonsSandboxOnTest extends LookAndFeelAddonsSandboxTest
      * Note that de-installing the
      * manager might not be allowed, so we can't run these tests automatically.
      */
-    @BeforeClass
+    @BeforeAll
     public static void install() {
         // A - install the default SecurityManager. 
         // Doing so we are not allowed to reverse the install -
@@ -172,7 +168,7 @@ public class LookAndFeelAddonsSandboxOnTest extends LookAndFeelAddonsSandboxTest
         }
     }
 
-    @AfterClass
+    @AfterAll
     public static void uninstall() {
         try {
             System.setSecurityManager(null);

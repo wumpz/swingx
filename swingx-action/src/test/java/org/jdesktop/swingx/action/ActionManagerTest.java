@@ -7,6 +7,9 @@
 
 package org.jdesktop.swingx.action;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.beans.Statement;
@@ -15,37 +18,31 @@ import java.util.Iterator;
 import javax.swing.Action;
 import javax.swing.JButton;
 
-import junit.framework.TestCase;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit test driver for the ActionManager
  *
  * TODO: Should test TargetableActions
  */
-@RunWith(JUnit4.class)
-public class ActionManagerTest extends TestCase {
+public class ActionManagerTest {
 
     private ActionManager manager;
 
-    @Before
+    @BeforeEach
     public void setUpJ4() throws Exception {
         setUp();
     }
     
-    @After
+    @AfterEach
     public void tearDownJ4() throws Exception {
-        tearDown();
     }
-    
+
     // TODO: Add more attributes which represent actions and types.
-    @Override
-    protected void setUp() {
+    @BeforeEach
+    public void setUp() {
         // JW: changed on reorg to remove reference to Application 
         //        manager = Application.getInstance().getActionManager();
         manager = ActionManager.getInstance();
@@ -183,8 +180,8 @@ public class ActionManagerTest extends TestCase {
                 } else {
                     // Simple command action.
                     action.actionPerformed(new ActionEvent(action, 666, "test"));
-                    assertTrue("ERROR: " + manager.getBoundAction(id).toString(),
-                               controller.isInvoked());
+                    assertTrue(controller.isInvoked(),
+                               "ERROR: " + manager.getBoundAction(id).toString());
                 }
 
 
@@ -206,9 +203,9 @@ public class ActionManagerTest extends TestCase {
         Action action = manager.getAction("composite-command");
         action.actionPerformed(new ActionEvent(action, 666, "test"));
 
-        assertTrue("ERROR: Controller was not invoked", controller.isInvoked());
-        assertTrue("ERROR: Controller should have been invoked twice",
-                   controller.getNumInvoked() == 2);
+        assertTrue(controller.isInvoked(), "ERROR: Controller was not invoked");
+        assertTrue(controller.getNumInvoked() == 2,
+                   "ERROR: Controller should have been invoked twice");
     }
 
     /**
@@ -273,8 +270,8 @@ public class ActionManagerTest extends TestCase {
             while (iter.hasNext()) {
                 Object a = iter.next();
                 if (manager.isStateAction(a)) {
-                    assertTrue("Action: " + a + " selected state not " + values[i],
-                               manager.isSelected(a) == values[i]);
+                    assertTrue(manager.isSelected(a) == values[i],
+                               "Action: " + a + " selected state not " + values[i]);
                 } else {
                     // Non StateActions will always return false.
                     assertFalse(manager.isSelected(a));

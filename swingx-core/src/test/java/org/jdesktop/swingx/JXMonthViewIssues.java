@@ -21,6 +21,8 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
@@ -53,7 +55,8 @@ import org.jdesktop.swingx.event.DateSelectionEvent.EventType;
 import org.jdesktop.swingx.test.DateSelectionReport;
 import org.jdesktop.test.PropertyChangeReport;
 import org.jdesktop.test.TestUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test to expose known issues with JXMonthView.
@@ -119,12 +122,12 @@ public class JXMonthViewIssues extends InteractiveTestCase {
         Clock clock = new Clock();
         clock.nextDay();
         JXMonthView monthView = JXMonthViewTest.createMonthViewWithClock(clock);
-        assertEquals("sanity: monthView takes clock current initially", 
-                CalendarUtils.startOfDay(monthView.getCalendar(), clock.getCurrentDate()), monthView.getToday());
+        assertEquals(CalendarUtils.startOfDay(monthView.getCalendar(), clock.getCurrentDate()), 
+                monthView.getToday(), "sanity: monthView takes clock current initially");
         // increment clock
         clock.nextDay();
-        assertEquals(" monthView must update today in addNotify", 
-                CalendarUtils.startOfDay(monthView.getCalendar(), clock.getCurrentDate()), monthView.getToday());
+        assertEquals(CalendarUtils.startOfDay(monthView.getCalendar(), clock.getCurrentDate()), 
+                monthView.getToday(), " monthView must update today in addNotify");
     }
 
     public void interactiveMonthViewAntialisedPaint() {
@@ -320,7 +323,7 @@ public class JXMonthViewIssues extends InteractiveTestCase {
         showInFrame(monthView, "navigate: locked for today beyond bounds");
     }
 
-    
+
 //----------------------
 
     /**
@@ -332,6 +335,7 @@ public class JXMonthViewIssues extends InteractiveTestCase {
      * Configure the monthView with a fixed timezone to clear up the mist ...
      * 
      */
+    @Test
     public void testTimeZoneChangeToday() {
         Locale componentDefault = JComponent.getDefaultLocale();
         try {
@@ -380,8 +384,8 @@ public class JXMonthViewIssues extends InteractiveTestCase {
         // PENDING JW: sure this is the correct direction of the shift?
         // yeah, think so: the anchor is fixed, moving the timezone results
         // in a shift into the opposite direction of the offset
-        assertEquals("first displayed must be offset by real offset", 
-                realOffset,  monthView.getFirstDisplayedDay().getTime() - firstDisplayed.getTime());
+        assertEquals(realOffset, 
+                monthView.getFirstDisplayedDay().getTime() - firstDisplayed.getTime(),  "first displayed must be offset by real offset");
 
         } finally {
             // reset componentLocale
@@ -422,6 +426,7 @@ public class JXMonthViewIssues extends InteractiveTestCase {
      * Configure the monthView with a fixed timezone to clear up the mist ...
      * 
      */
+    @Test
     public void testTimeZoneChangeOffsetFirstDisplayedDate() {
         JXMonthView monthView = new JXMonthView();
         // config with a known timezone and date
@@ -449,68 +454,72 @@ public class JXMonthViewIssues extends InteractiveTestCase {
         // PENDING JW: sure this is the correct direction of the shift?
         // yeah, think so: the anchor is fixed, moving the timezone results
         // in a shift into the opposite direction of the offset
-        assertEquals("first displayed must be offset by real offset", 
-                realOffset,  monthView.getFirstDisplayedDay().getTime() - firstDisplayed.getTime());
+        assertEquals(realOffset, 
+                monthView.getFirstDisplayedDay().getTime() - firstDisplayed.getTime(),  "first displayed must be offset by real offset");
     }
-    
 
-    
+
     /**
      * characterize what a weekinterval selection is meant to do.
      * MultipleIntervalSelection where each interval is one or more weeks?
      * Here: does not snap start/end of week to start/end of day? 
      */
     @SuppressWarnings("deprecation")
+    @Test
     public void testWeekInterval() {
         JXMonthView monthView = new JXMonthView();
         CalendarUtils.startOfWeek(calendar);
         calendar.add(Calendar.WEEK_OF_YEAR, 3);
 //        calendar.add(Calendar.HOUR_OF_DAY, - 3);
         monthView.cleanupWeekSelectionDates(today, calendar.getTime());
-        assertNotNull("not doing anything?", monthView.modifiedEndDate);
+        assertNotNull(monthView.modifiedEndDate, "not doing anything?");
         calendar.setTime(monthView.modifiedStartDate);
         LOG.info("start/end" + monthView.modifiedStartDate + "/" + monthView.modifiedEndDate);
-        assertTrue("interval first must be start of week", CalendarUtils.isStartOfWeek(calendar));
+        assertTrue(CalendarUtils.isStartOfWeek(calendar), "interval first must be start of week");
         calendar.setTime(monthView.modifiedEndDate);
-        assertTrue("interval last must be end of week", CalendarUtils.isEndOfWeek(calendar));
+        assertTrue(CalendarUtils.isEndOfWeek(calendar), "interval last must be end of week");
     }
-    
+
     /**
      * characterize what a weekinterval selection is meant to do.
      * MultipleIntervalSelection where each interval is one or more weeks?
      * Here: does nothing if single day selected?
      */
     @SuppressWarnings("deprecation")
+    @Test
     public void testWeekIntervalOneDay() {
         JXMonthView monthView = new JXMonthView();
         monthView.cleanupWeekSelectionDates(today, today);
         calendar.setTime(monthView.modifiedEndDate);
-        assertTrue("interval last must be end of week", CalendarUtils.isEndOfWeek(calendar));
+        assertTrue(CalendarUtils.isEndOfWeek(calendar), "interval last must be end of week");
         calendar.setTime(monthView.modifiedStartDate);
-        assertTrue("interval first must be start of week", CalendarUtils.isStartOfWeek(calendar));
+        assertTrue(CalendarUtils.isStartOfWeek(calendar), "interval first must be start of week");
         LOG.info("start/end" + monthView.modifiedStartDate + "/" + monthView.modifiedEndDate);
     }
-    
+
     /**
      * characterize what a weekinterval selection is meant to do.
      * MultipleIntervalSelection where each interval is one or more weeks?
      * Here: does nothing if two days interval?
      */
     @SuppressWarnings("deprecation")
+    @Test
     public void testWeekIntervalTwoDays() {
         JXMonthView monthView = new JXMonthView();
         monthView.cleanupWeekSelectionDates(today, tomorrow);
         calendar.setTime(monthView.modifiedEndDate);
-        assertTrue("interval last must be end of week", CalendarUtils.isEndOfWeek(calendar));
+        assertTrue(CalendarUtils.isEndOfWeek(calendar), "interval last must be end of week");
         calendar.setTime(monthView.modifiedStartDate);
-        assertTrue("interval first must be start of week", CalendarUtils.isStartOfWeek(calendar));
+        assertTrue(CalendarUtils.isStartOfWeek(calendar), "interval first must be start of week");
         LOG.info("start/end" + monthView.modifiedStartDate + "/" + monthView.modifiedEndDate);
     }
+
     /**
      * Issue #733-swingx: TimeZone in model and monthView not synched.
      *  
      *  Test that the selected is normalized in the monthView's timezone. 
      */
+    @Test
     public void testCalendarsTimeZoneFlaggedDate() {
         JXMonthView monthView = new JXMonthView();
         // config with a known timezone and date
@@ -528,6 +537,7 @@ public class JXMonthViewIssues extends InteractiveTestCase {
      * Test selected - tells nothing, because it's normalized in the 
      * model's (default) calendar.
      */
+    @Test
     public void testCalendarsTimeZoneSelectedDate() {
         JXMonthView monthView = new JXMonthView();
         // config with a known timezone and date
@@ -539,6 +549,7 @@ public class JXMonthViewIssues extends InteractiveTestCase {
         fail("test passes - but tells nothing");
     }
 
+    @Test
     public void testNoSelectionMode() {
 //        JXMonthView monthView = new JXMonthView();
 //        monthView.setSelectionMode(SelectionMode.NO_SELECTION);
@@ -553,6 +564,7 @@ public class JXMonthViewIssues extends InteractiveTestCase {
      * temporarily removed weekinterval selection.
      * Need to review - why not in selectionModel?
      */
+    @Test
     public void testWeekIntervalSelection() {
 //        // PENDING: simplify to use pre-defined dates
 //        JXMonthView monthView = new JXMonthView(Locale.US);
@@ -588,6 +600,7 @@ public class JXMonthViewIssues extends InteractiveTestCase {
         fail("revisit: week selection");
     }
 
+    @Test
     public void testModelSelectionUpdate() {
 //        JXMonthView monthView = new JXMonthView();
 //
@@ -625,6 +638,7 @@ public class JXMonthViewIssues extends InteractiveTestCase {
      * 
      * Here: test today notification.
      */
+    @Test
     public void testTimeZoneChangeTodayNotification() {
         JXMonthView monthView = new JXMonthView();
         TimeZone other = getTimeZone(monthView.getTimeZone(), CalendarUtils.THREE_HOURS);
@@ -643,26 +657,26 @@ public class JXMonthViewIssues extends InteractiveTestCase {
                 "today", today.getTime(), otherToday.getTime(), false);
         fail("spurious failures - probably wrong assumption in Timezone math");
     }
-   
-   
-   
-   /**
-    * BasicMonthViewUI: use adjusting api in keyboard actions.
-    * Here: test add selection action.
-    * 
-    * TODO: this fails (unrelated to the adjusting) because the
-    * the selectionn changing event type is DATES_SET instead of 
-    * the expected DATES_ADDED.  What's wrong - expectation or type?
-    */
-   public void testAdjustingSetOnAdd() {
+
+
+    /**
+     * BasicMonthViewUI: use adjusting api in keyboard actions.
+     * Here: test add selection action.
+     * 
+     * TODO: this fails (unrelated to the adjusting) because the
+     * the selectionn changing event type is DATES_SET instead of 
+     * the expected DATES_ADDED.  What's wrong - expectation or type?
+     */
+    @Test
+    public void testAdjustingSetOnAdd() {
        JXMonthView view = new JXMonthView();
        // otherwise the add action isn't called
        view.setSelectionMode(SelectionMode.SINGLE_INTERVAL_SELECTION);
        DateSelectionReport report = new DateSelectionReport(view.getSelectionModel());
        Action select = view.getActionMap().get("adjustSelectionNextDay");
        select.actionPerformed(null);
-       assertTrue("ui keyboard action must have started model adjusting", 
-               view.getSelectionModel().isAdjusting());
+       assertTrue(view.getSelectionModel().isAdjusting(), 
+               "ui keyboard action must have started model adjusting");
        assertEquals(2, report.getEventCount());
        // assert that the adjusting is fired before the add
        // only: the ui fires a set instead - bug or feature?
@@ -700,10 +714,10 @@ public class JXMonthViewIssues extends InteractiveTestCase {
        }
        return zoneIds.toArray(new String[zoneIds.size()]);
    }
-   
-  
-    @Override
-    protected void setUp() throws Exception {
+
+
+    @BeforeEach
+    public void setUp() throws Exception {
         setUpCalendar();
     }
     /**

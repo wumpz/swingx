@@ -15,12 +15,10 @@ import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.JXTree;
 import org.jdesktop.test.AncientSwingTeam;
 import org.jdesktop.test.TestUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
-@RunWith(JUnit4.class)
 public class RolloverTest extends InteractiveTestCase {
 
     @SuppressWarnings("unused")
@@ -77,11 +75,10 @@ public class RolloverTest extends InteractiveTestCase {
         TestUtils.assertContainsType(table.getComponentListeners(), 
                 RolloverProducer.class, expected ? 1 : 0);
     }
-    
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+
+    @BeforeEach
+    public void setUp() throws Exception {
         sortableTableModel = new AncientSwingTeam();
 //        listModel = new AbstractListModel() {
 //

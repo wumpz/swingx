@@ -17,11 +17,11 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.Properties;
 
 import javax.swing.JTree;
-
-import junit.framework.TestCase;
 
 import org.jdesktop.swingx.icon.EmptyIcon;
 import org.jdesktop.swingx.tips.DefaultTip;
@@ -29,13 +29,10 @@ import org.jdesktop.swingx.tips.DefaultTipOfTheDayModel;
 import org.jdesktop.swingx.tips.TipLoader;
 import org.jdesktop.swingx.tips.TipOfTheDayModel;
 import org.jdesktop.test.PropertyChangeReport;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 
-@RunWith(JUnit4.class)
-public class JXTipOfTheDayTest extends TestCase {
+public class JXTipOfTheDayTest {
 
     @Test
   public void testBean() {
@@ -135,7 +132,7 @@ public class JXTipOfTheDayTest extends TestCase {
     props.put("tip.3.name", "name3");
     try {
       model = TipLoader.load(props);
-      assertTrue("Must not get here", false);
+      assertTrue(false, "Must not get here");
     } catch (IllegalArgumentException e) {
       // expected
     }

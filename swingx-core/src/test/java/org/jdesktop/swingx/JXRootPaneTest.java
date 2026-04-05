@@ -4,6 +4,8 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
@@ -28,16 +30,12 @@ import org.jdesktop.swingx.JXRootPane.XRootLayout;
 import org.jdesktop.swingx.action.AbstractActionExt;
 import org.jdesktop.test.AncientSwingTeam;
 import org.jdesktop.test.PropertyChangeReport;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 
-    
 /**
  * @author  Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class JXRootPaneTest extends InteractiveTestCase {
  
     @SuppressWarnings("unused")
@@ -196,7 +194,7 @@ public class JXRootPaneTest extends InteractiveTestCase {
         PropertyChangeReport report = new PropertyChangeReport();
         rootPane.addPropertyChangeListener(report);
         rootPane.setStatusBar(new JXStatusBar());
-        assertEquals("set statusBar must have fire exactly one property change", 1, report.getEventCount());
+        assertEquals(1, report.getEventCount(), "set statusBar must have fire exactly one property change");
         assertTrue(report.hasEvents("statusBar"));
     }
 

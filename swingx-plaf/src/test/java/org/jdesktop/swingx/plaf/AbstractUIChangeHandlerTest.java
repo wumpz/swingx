@@ -5,18 +5,18 @@ import java.beans.PropertyChangeEvent;
 import javax.swing.JTextField;
 
 import org.jdesktop.test.EDTRunner;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@RunWith(EDTRunner.class)
+@ExtendWith(EDTRunner.class)
 public class AbstractUIChangeHandlerTest {
 	JTextField tf = new JTextField();
 	AbstractUIChangeHandler ch;
 	private boolean changed;
 	
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		ch = new AbstractUIChangeHandler(){
 			@Override
@@ -29,9 +29,9 @@ public class AbstractUIChangeHandlerTest {
 	@Test
 	public void testInstall(){
 		ch.install(tf);
-		Assert.assertFalse(changed);
+		Assertions.assertFalse(changed);
 		tf.updateUI();
-		Assert.assertTrue(changed);
+		Assertions.assertTrue(changed);
 	}
 	
 	@Test
@@ -39,7 +39,7 @@ public class AbstractUIChangeHandlerTest {
 		ch.install(tf);
 		ch.uninstall(tf);
 		tf.updateUI();
-		Assert.assertFalse(changed);
+		Assertions.assertFalse(changed);
 	}
 	
 	@Test
@@ -48,6 +48,6 @@ public class AbstractUIChangeHandlerTest {
 		ch.install(tf);
 		ch.uninstall(tf);
 		tf.updateUI();
-		Assert.assertFalse(changed);
+		Assertions.assertFalse(changed);
 	}
 }

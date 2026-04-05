@@ -1,6 +1,6 @@
 package org.jdesktop.swingx.plaf.basic;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import javax.swing.UIManager;
 import javax.swing.text.AbstractDocument;
@@ -8,15 +8,15 @@ import javax.swing.text.AbstractDocument;
 import org.jdesktop.swingx.JXSearchField;
 import org.jdesktop.swingx.plaf.SearchFieldUI;
 import org.jdesktop.swingx.search.NativeSearchFieldSupport;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 public class BasicSearchFieldUITest {
 	private JXSearchField sf;
 	private SearchFieldUI ui;
 	
-	@Before
+	@BeforeEach
 	public void setUp() {
 		UIManager.put("SearchField.useSeperatePopupButton", Boolean.FALSE);
 		sf = new JXSearchField();

@@ -21,15 +21,15 @@
  */
 package org.jdesktop.swingx.sort;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import org.jdesktop.swingx.InteractiveTestCase;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests the expose (mis-)behaviour of DefaultSortController. Mainly the aspect
@@ -37,7 +37,6 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class DefaultSortControllerIssues extends InteractiveTestCase {
 
     int rows;
@@ -116,15 +115,10 @@ public class DefaultSortControllerIssues extends InteractiveTestCase {
         return model;
     }
     
-    @Override
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
-        // TODO Auto-generated method stub
-        super.setUp();
         rows = 10;
         model = createAscendingTableModel(rows);
         sorter = new TableSortController<>(model);
     }
-
-    
 }

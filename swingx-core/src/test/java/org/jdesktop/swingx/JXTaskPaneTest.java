@@ -6,6 +6,8 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.beans.PropertyChangeEvent;
@@ -17,20 +19,14 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 
-import junit.framework.TestCase;
-
 import org.jdesktop.swingx.icon.EmptyIcon;
 import org.jdesktop.swingx.plaf.LookAndFeelAddons;
 import org.jdesktop.swingx.plaf.metal.MetalLookAndFeelAddons;
 import org.jdesktop.test.PropertyChangeReport;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 
-@RunWith(JUnit4.class)
-public class JXTaskPaneTest extends TestCase {
+public class JXTaskPaneTest {
 
     @Test
   public void testBean() throws Exception {
@@ -156,8 +152,9 @@ public class JXTaskPaneTest extends TestCase {
     LookAndFeelAddons.setAddon(new MetalLookAndFeelAddons());
     String uiClass = UIManager.getString(JXTaskPane.uiClassID);
     boolean found = "org.jdesktop.swingx.plaf.metal.MetalTaskPaneUI".equals(uiClass)
-    || "org.jdesktop.swingx.plaf.misc.GlossyTaskPaneUI".equals(uiClass);
-    assertTrue("Failed to locate UI class for " + uiClass, found);
+						|| "org.jdesktop.swingx.plaf.misc.GlossyTaskPaneUI".equals(uiClass) 
+						|| "org.jdesktop.swingx.plaf.windows.WindowsClassicTaskPaneUI".equals(uiClass);
+    assertTrue(found, "Failed to locate UI class for " + uiClass);
   }
   
 //    

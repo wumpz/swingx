@@ -21,6 +21,8 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.awt.event.ActionEvent;
 import java.util.Locale;
 import java.util.logging.Logger;
@@ -34,11 +36,9 @@ import javax.swing.UIManager;
 import org.jdesktop.swingx.action.AbstractActionExt;
 import org.jdesktop.swingx.error.ErrorInfo;
 import org.jdesktop.swingx.plaf.LookAndFeelAddons;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test to expose known issues around <code>Locale</code> setting.
@@ -49,7 +49,6 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class XLocalizeIssues extends InteractiveTestCase {
     @SuppressWarnings("all")
     private static final Logger LOG = Logger.getLogger(XLocalizeIssues.class
@@ -79,29 +78,18 @@ public class XLocalizeIssues extends InteractiveTestCase {
       }
 
     }
-
-//    @BeforeClass
-//    public static void classSetUp() {
-//        defaultLocale = Locale.getDefault();
-//    }
     
-    @Override
-    @Before
+		@BeforeEach
     public void setUp() throws Exception {
         originalLocale = defaultLocale;
         alternativeLocale = OTHER_LOCALE.equals(originalLocale) ? A_LOCALE : OTHER_LOCALE;
-        super.setUp();
     }
     
-    
-
-    @Override
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         Locale.setDefault(defaultLocale);
         UIManager.getDefaults().setDefaultLocale(defaultLocale);
         JComponent.setDefaultLocale(defaultLocale);
-        super.tearDown();
     }
 
     @Test
@@ -303,10 +291,11 @@ public class XLocalizeIssues extends InteractiveTestCase {
         addAction(frame, open);
         frame.setVisible(true);
     }
-    
+
     /**
      * do nothing except make the testrunner happy.
      */
+    @Test
     public void testDummy() {
         
     }

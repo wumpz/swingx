@@ -1,11 +1,6 @@
 package org.jdesktop.swingx.plaf;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -17,14 +12,14 @@ import javax.swing.BorderFactory;
 import javax.swing.text.JTextComponent;
 
 import org.jdesktop.swingx.prompt.PromptSupport;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public abstract class PromptTextUITest_Base {
     protected JTextComponent textComponent;
     protected PromptTextUI ui;
 
-    @Before
+    @BeforeEach
     public void setUI() {
         setup();
         TextUIWrapper.getDefaultWrapper().install(textComponent, true);

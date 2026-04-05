@@ -1,9 +1,6 @@
 package org.jdesktop.swingx.geom;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
@@ -11,22 +8,19 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.FlatteningPathIterator;
 import java.awt.geom.Point2D;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Basic tests for Morphing2D
  * @author had
  *
  */
-@RunWith(JUnit4.class)
 public class Morphing2DTest {
 
     Morphing2D morph ;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         morph= new Morphing2D(new Rectangle(0,0,50,50), new Ellipse2D.Double(50,50,50,50));
 

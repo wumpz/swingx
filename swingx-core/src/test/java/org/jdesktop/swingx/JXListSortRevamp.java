@@ -6,6 +6,8 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.awt.event.ActionEvent;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -30,11 +32,9 @@ import org.jdesktop.swingx.sort.RowFilters;
 import org.jdesktop.swingx.sort.RowSorterWrapper;
 import org.jdesktop.swingx.sort.TableSortController;
 import org.jdesktop.test.ListSelectionReport;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -43,7 +43,6 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class JXListSortRevamp extends InteractiveTestCase {
 
     protected ListModel listModel;
@@ -766,7 +765,7 @@ public class JXListSortRevamp extends InteractiveTestCase {
      * @param inside 
      * @return
      */
-//    protected Filter createNumberFilter(final int lowerBound, final int upperBound, final boolean inside) {
+    //    protected Filter createNumberFilter(final int lowerBound, final int upperBound, final boolean inside) {
 //        PatternFilter f = new PatternFilter() {
 //
 //            @Override
@@ -782,9 +781,8 @@ public class JXListSortRevamp extends InteractiveTestCase {
 //        return f;
 //    }
     
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @BeforeEach
+    public void setUp() throws Exception {
         listModel = createListModel();
         ascendingListModel = createAscendingListModel(0, 22);
         list = new JXList(ascendingListModel);
@@ -793,19 +791,14 @@ public class JXListSortRevamp extends InteractiveTestCase {
         list.setRowSorter(controller);
 
     }
-    public JXListSortRevamp() {
-        super("JXList Tests");
-    }
-
     
-    @Before
+    @BeforeEach
     public void setUpJ4() throws Exception {
         setUp();
     }
     
-    @After
+    @AfterEach
     public void tearDownJ4() throws Exception {
-        tearDown();
     }
 
 }

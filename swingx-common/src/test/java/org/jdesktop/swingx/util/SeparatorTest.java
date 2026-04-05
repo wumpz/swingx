@@ -1,20 +1,20 @@
 package org.jdesktop.swingx.util;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("nls")
 public class SeparatorTest {
     private Separator<String> sep;
     private List<String> values;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         sep = new Separator<>("", ",");
         values = Arrays.asList("1", "2", "3");

@@ -21,19 +21,19 @@
  */
 package org.jdesktop.swingx.calendar;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import org.junit.Test;
-
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 /**
  * 
  * @author Jeanette Winzenburg
  */
-public class CalendarUtilsIssues extends TestCase {
+public class CalendarUtilsIssues {
 
     
     @Test
@@ -41,56 +41,60 @@ public class CalendarUtilsIssues extends TestCase {
         // PENDING JW: implement CalendarUtils.sameDecade
         fail("implement CalendarUtils.sameDecade");
     }
-    
+
     /**
      */
+    @Test
     public void testStartOfDSTBerlin() {
         TimeZone berlin = TimeZone.getTimeZone("Europe/Berlin");
         Calendar calendar = Calendar.getInstance(berlin);
         calendar.set(Calendar.YEAR, 2008);
         Date startOfDST = CalendarUtils.getStartOfDST(calendar);
-        assertNotNull("timezone has DST, must have first day of DST", startOfDST);
+        assertNotNull(startOfDST, "timezone has DST, must have first day of DST");
         assertTrue(berlin.inDaylightTime(startOfDST));
         assertEquals(startOfDST, calendar.getTime());
         assertEquals(30, calendar.get(Calendar.DAY_OF_MONTH));
         assertEquals(Calendar.MARCH, calendar.get(Calendar.MONTH));
         assertTrue(CalendarUtils.isEndOfDay(calendar));
     }
-    
+
     /**
      */
+    @Test
     public void testEndOfDSTBerlin() {
         TimeZone berlin = TimeZone.getTimeZone("Europe/Berlin");
         Calendar calendar = Calendar.getInstance(berlin);
         calendar.set(Calendar.YEAR, 2008);
         Date lastOfDST = CalendarUtils.getEndOfDST(calendar);
-        assertNotNull("timezone has DST, must have first day of DST", lastOfDST);
+        assertNotNull(lastOfDST, "timezone has DST, must have first day of DST");
         assertEquals(lastOfDST, calendar.getTime());
         assertEquals(26, calendar.get(Calendar.DAY_OF_MONTH));
         assertEquals(Calendar.OCTOBER, calendar.get(Calendar.MONTH));
         assertFalse(berlin.inDaylightTime(lastOfDST));
         assertTrue(CalendarUtils.isEndOfDay(calendar));
     }
-    
+
+    @Test
     public void testStartOfDSTCairo() {
         TimeZone cairo = TimeZone.getTimeZone("Africa/Cairo");
         Calendar calendar = Calendar.getInstance(cairo);
         calendar.set(Calendar.YEAR, 2008);
         Date startOfDST = CalendarUtils.getStartOfDST(calendar);
-        assertNotNull("timezone has DST, must have first day of DST", startOfDST);
+        assertNotNull(startOfDST, "timezone has DST, must have first day of DST");
         assertEquals(startOfDST, calendar.getTime());
         assertTrue(CalendarUtils.isEndOfDay(calendar));
 //        assertEquals(25, calendar.get(Calendar.DAY_OF_MONTH));
 //        assertEquals(Calendar.APRIL, calendar.get(Calendar.MONTH));
     }
-    
+
+    @Test
     public void testEndOfDSTCairo() {
         TimeZone cairo = TimeZone.getTimeZone("Africa/Cairo");
         Calendar calendar = Calendar.getInstance(cairo);
         calendar.set(Calendar.YEAR, 2008);
         Date startOfDST = CalendarUtils.getEndOfDST(calendar);
         if (calendar.getTimeZone().useDaylightTime()) {
-            assertNotNull("timezone has DST, must have first day of DST", startOfDST);
+            assertNotNull(startOfDST, "timezone has DST, must have first day of DST");
         } 
         assertEquals(startOfDST, calendar.getTime());
         assertTrue(CalendarUtils.isEndOfDay(calendar));

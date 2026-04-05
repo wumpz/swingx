@@ -7,6 +7,8 @@
 
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseListener;
@@ -16,17 +18,13 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.UIResource;
 
-import junit.framework.TestCase;
-
 import org.jdesktop.swingx.hyperlink.AbstractHyperlinkAction;
 import org.jdesktop.swingx.hyperlink.HyperlinkAction;
 import org.jdesktop.swingx.plaf.basic.BasicHyperlinkUI.BasicHyperlinkListener;
 import org.jdesktop.test.PropertyChangeReport;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -35,22 +33,20 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
-public class JXHyperlinkTest extends TestCase {
+public class JXHyperlinkTest {
     @SuppressWarnings("all")
     private static final Logger LOG = Logger.getLogger(JXHyperlinkTest.class
             .getName());
     
     private PropertyChangeReport report;
 
-    @Before
+    @BeforeEach
     public void setUpJ4() throws Exception {
         setUp();
     }
     
-    @After
+    @AfterEach
     public void tearDownJ4() throws Exception {
-        tearDown();
     }
     
     @Test
@@ -76,7 +72,7 @@ public class JXHyperlinkTest extends TestCase {
         Border border = new EmptyBorder(1, 2, 3, 4);
         hyperlink.setBorder(border);
         hyperlink.updateUI();
-        assertSame("border untouched in updateUI ", border, hyperlink.getBorder());
+        assertSame(border, hyperlink.getBorder(), "border untouched in updateUI ");
     }
     
     @Test
@@ -101,20 +97,20 @@ public class JXHyperlinkTest extends TestCase {
        // no action 
        JXHyperlink hyperlink = new JXHyperlink();
        hyperlink.doClick();
-       assertTrue("hyperlink autoClicks if it has no action", hyperlink.isClicked());
+       assertTrue(hyperlink.isClicked(), "hyperlink autoClicks if it has no action");
        
        AbstractHyperlinkAction<Object> emptyAction = createEmptyLinkAction();
        JXHyperlink hyperlink2 = new JXHyperlink(emptyAction);
        hyperlink2.doClick();
        assertFalse(emptyAction.isVisited());
-       assertFalse("hyperlink does nothing if has action", hyperlink2.isClicked());
+       assertFalse(hyperlink2.isClicked(), "hyperlink does nothing if has action");
        
        AbstractHyperlinkAction<?> emptyAction3 = createEmptyLinkAction();
        JXHyperlink hyperlink3 = new JXHyperlink(emptyAction3);
        hyperlink3.setOverrulesActionOnClick(true);
        hyperlink3.doClick();
        assertFalse(emptyAction.isVisited());
-       assertTrue("hyperlink overrules action", hyperlink3.isClicked());
+       assertTrue(hyperlink3.isClicked(), "hyperlink overrules action");
        
     }
     
@@ -195,7 +191,7 @@ public class JXHyperlinkTest extends TestCase {
     public void testSetNullAction() {
         AbstractHyperlinkAction<?> action = createEmptyLinkAction();
         JXHyperlink hyperlink = new JXHyperlink(action);
-        assertEquals("hyperlink action must be equal to linkAction", action, hyperlink.getAction());
+        assertEquals(action, hyperlink.getAction(), "hyperlink action must be equal to linkAction");
         hyperlink.setAction(null);
         assertNull(hyperlink.getAction());
     }
@@ -210,8 +206,8 @@ public class JXHyperlinkTest extends TestCase {
         JXHyperlink hyperlink = new JXHyperlink();
         AbstractHyperlinkAction<?> action = createEmptyLinkAction();
         hyperlink.setAction(action);
-        assertEquals("hyperlink action must be equal to linkAction", 
-                action, hyperlink.getAction());
+        assertEquals(action, 
+                hyperlink.getAction(), "hyperlink action must be equal to linkAction");
     }
 
     /**
@@ -280,9 +276,9 @@ public class JXHyperlinkTest extends TestCase {
         linkAction.setName(name);
         return linkAction;
     }
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+
+    @BeforeEach
+    public void setUp() throws Exception {
         report = new PropertyChangeReport();
     }
 

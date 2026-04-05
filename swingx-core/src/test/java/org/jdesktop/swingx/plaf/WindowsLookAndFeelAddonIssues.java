@@ -21,6 +21,9 @@
  */
 package org.jdesktop.swingx.plaf;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.logging.Logger;
 
 import javax.swing.DefaultCellEditor;
@@ -32,16 +35,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 import org.jdesktop.swingx.InteractiveTestCase;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.util.OS;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test related to WindowsLookAndFeelAddons.
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class WindowsLookAndFeelAddonIssues extends InteractiveTestCase {
 
     @SuppressWarnings("unused")

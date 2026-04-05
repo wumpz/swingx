@@ -21,6 +21,8 @@
  */
 package org.jdesktop.swingx.sort;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.Color;
 import java.util.List;
 import java.util.logging.Logger;
@@ -31,17 +33,14 @@ import javax.swing.RowSorter.SortKey;
 import org.jdesktop.swingx.InteractiveTestCase;
 import org.jdesktop.swingx.renderer.StringValue;
 import org.jdesktop.swingx.renderer.StringValues;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Common unit test for DefaultSortController implementations.
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public abstract class AbstractTestSortController<SC extends DefaultSortController<M>, M> extends InteractiveTestCase {
     @SuppressWarnings("unused")
     private static final Logger LOG = Logger
@@ -76,14 +75,16 @@ public abstract class AbstractTestSortController<SC extends DefaultSortControlle
         controller.toggleSortOrder(getColumnCount() - 1);
     }
     
-    @Test(expected=NullPointerException.class)
+    @Test
     public void testNPEOnNullSortOrderCycle() {
-        controller.setSortOrderCycle((SortOrder[])null);
+        assertThrows(NullPointerException.class, () ->
+            controller.setSortOrderCycle((SortOrder[]) null));
     }
     
-    @Test(expected=NullPointerException.class)
+    @Test
     public void testNPEOnNullSortOrderCycleElements() {
-        controller.setSortOrderCycle((SortOrder) null);
+        assertThrows(NullPointerException.class, () ->
+            controller.setSortOrderCycle((SortOrder) null));
     }
     
     @Test
@@ -105,9 +106,10 @@ public abstract class AbstractTestSortController<SC extends DefaultSortControlle
      * Need to completely take over the toggleSortOrder to support custom cycle.
      * So need to check if the exception is thrown as expected
      */
-    @Test(expected=IndexOutOfBoundsException.class)
+    @Test
     public void testColumnIndexCheckedOnToggle() {
-        controller.toggleSortOrder(getColumnCount());
+        assertThrows(IndexOutOfBoundsException.class, () ->
+            controller.toggleSortOrder(getColumnCount()));
     }
     /**
      * @param string
@@ -116,9 +118,9 @@ public abstract class AbstractTestSortController<SC extends DefaultSortControlle
      */
     private void assertEqualsArrayByElements(Object[] first,
             Object[] second) {
-        assertEquals("must have same size", first.length, second.length);
+        assertEquals(first.length, second.length, "must have same size");
         for (int i = 0; i < second.length; i++) {
-            assertEquals("item must be same at index:  " + i, first[i], second[i]);
+            assertEquals(first[i], second[i], "item must be same at index:  " + i);
         }
     }
 
@@ -128,7 +130,7 @@ public abstract class AbstractTestSortController<SC extends DefaultSortControlle
      */
     @Test
     public void testSortsOnUpdateDefault() {
-       assertEquals("sortsOnUpdates must be true by default", true, controller.getSortsOnUpdates()); 
+       assertEquals(true, controller.getSortsOnUpdates(), "sortsOnUpdates must be true by default"); 
     }
     /**
      * Test that toggle sort order has no effect if column not sortable.
@@ -163,8 +165,8 @@ public abstract class AbstractTestSortController<SC extends DefaultSortControlle
         List<? extends SortKey> keys = controller.getSortKeys();
         assertEquals(2, keys.size());
         controller.resetSortOrders();
-        assertEquals("resetSortOrders must not touch unsortable columns", 
-                keys, controller.getSortKeys());
+        assertEquals(keys, 
+                controller.getSortKeys(), "resetSortOrders must not touch unsortable columns");
     }
    
     /**
@@ -180,8 +182,8 @@ public abstract class AbstractTestSortController<SC extends DefaultSortControlle
         List<? extends SortKey> keys = controller.getSortKeys();
         assertEquals(2, keys.size());
         controller.resetSortOrders();
-        assertEquals("resetSortOrders must not touch unsortable columns", 
-                1, controller.getSortKeys().size());
+        assertEquals(1, 
+                controller.getSortKeys().size(), "resetSortOrders must not touch unsortable columns");
         
     }
     /**
@@ -237,9 +239,9 @@ public abstract class AbstractTestSortController<SC extends DefaultSortControlle
     @Test
     public void testSortableFalse() {
         controller.setSortable(false);
-        assertFalse("controller must not be sortable", controller.isSortable());
+        assertFalse(controller.isSortable(), "controller must not be sortable");
         for (int i = 0; i < getColumnCount(); i++) {
-            assertFalse("columns must not be sortable if controller isn't", controller.isSortable(i));
+            assertFalse(controller.isSortable(i), "columns must not be sortable if controller isn't");
         }
     }
     
@@ -248,7 +250,7 @@ public abstract class AbstractTestSortController<SC extends DefaultSortControlle
      */
     @Test
     public void testSortableDefault() {
-       assertTrue("controller must be sortable by default", controller.isSortable());
+       assertTrue(controller.isSortable(), "controller must be sortable by default");
     }
     
     /**
@@ -257,7 +259,7 @@ public abstract class AbstractTestSortController<SC extends DefaultSortControlle
     @Test
     public void testSortableColumnDefault() {
         for (int i = 0; i < getColumnCount(); i++) {
-            assertTrue("columns must be sortable by default", controller.isSortable(i));
+            assertTrue(controller.isSortable(i), "columns must be sortable by default");
         }
     }
 
@@ -311,8 +313,8 @@ public abstract class AbstractTestSortController<SC extends DefaultSortControlle
         };
         return sv;
     }
-    @Before
-    @Override
+		
+    @BeforeEach
     public void setUp() throws Exception {
         sv = createColorStringValue();
         registry = new StringValueRegistry();

@@ -4,11 +4,6 @@
  */
 package org.jdesktop.swingx.action;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import java.beans.PropertyChangeEvent;
@@ -25,11 +20,15 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JToggleButton;
 
 import org.jdesktop.test.EDTRunner;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@RunWith(EDTRunner.class)
+@ExtendWith(EDTRunner.class)
 @SuppressWarnings("nls")
 public class AbstractActionExtTest {
     @SuppressWarnings("all")
@@ -37,7 +36,7 @@ public class AbstractActionExtTest {
     
     protected ActionContainerFactory factory;
     
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         factory = new ActionContainerFactory(null);
     }
@@ -60,15 +59,15 @@ public class AbstractActionExtTest {
         // invert action selected and assert that the change is taken up
         // by the button
         extAction.setSelected(!actionSelected);
-        assertEquals("button selected must be synched to action", 
-                !actionSelected, button.isSelected());
+        assertEquals(!actionSelected, 
+                button.isSelected(), "button selected must be synched to action");
         // reset button 
         button.setSelected(actionSelected);
         // sanity: the button did take the direct selection change
         assertEquals(actionSelected, button.isSelected());
         // assert that changed selected is taken up by action
-        assertEquals("action selected must be synched to button", 
-                actionSelected, extAction.isSelected());
+        assertEquals(actionSelected, 
+                extAction.isSelected(), "action selected must be synched to button");
     }
 
 
@@ -89,15 +88,15 @@ public class AbstractActionExtTest {
         // invert action selected and assert that the change is taken up
         // by the button
         extAction.setSelected(!actionSelected);
-        assertEquals("button selected must be synched to action", 
-                !actionSelected, button.isSelected());
+        assertEquals(!actionSelected, 
+                button.isSelected(), "button selected must be synched to action");
         // reset button 
         button.setSelected(actionSelected);
         // sanity: the button did take the direct selection change
         assertEquals(actionSelected, button.isSelected());
         // assert that changed selected is taken up by action
-        assertEquals("action selected must be synched to button", 
-                actionSelected, extAction.isSelected());
+        assertEquals(actionSelected, 
+                extAction.isSelected(), "action selected must be synched to button");
     }
 
 
@@ -138,8 +137,8 @@ public class AbstractActionExtTest {
         // invert the old action selected and assert that the change 
         // does not effect the taken up by the button
         extAction.setSelected(!extAction.isSelected());
-        assertEquals("button selected must be uneffected by old action",
-                extActionB.isSelected(), button.isSelected());
+        assertEquals(extActionB.isSelected(),
+                button.isSelected(), "button selected must be uneffected by old action");
     }
 
     /**
@@ -178,8 +177,8 @@ public class AbstractActionExtTest {
         // does not effect the taken up by the button
         boolean oldSelected = button.isSelected();
         extAction.setSelected(!extAction.isSelected());
-        assertEquals("button selected must be uneffected by old action",
-                oldSelected, button.isSelected());
+        assertEquals(oldSelected,
+                button.isSelected(), "button selected must be uneffected by old action");
     }
 
     /**
@@ -202,15 +201,15 @@ public class AbstractActionExtTest {
         // currently this may accidentally pass because the back direction isn't
         // synched!! 
         assertFalse(extActionB.isSelected());
-        assertEquals("button selected must be initialized to new action",
-                extActionB.isSelected(), button.isSelected());
+        assertEquals(extActionB.isSelected(),
+                button.isSelected(), "button selected must be initialized to new action");
         // invert the old action selected and assert that the change 
         // does not effect the taken up by the button
         extAction.setSelected(!actionSelected);
         // need to be done twice, the first toggle produces 
         extAction.setSelected(actionSelected);
-        assertEquals("button selected must be uneffected by old action",
-                extActionB.isSelected(), button.isSelected());
+        assertEquals(extActionB.isSelected(),
+                button.isSelected(), "button selected must be uneffected by old action");
     }
 
     /**
@@ -228,8 +227,8 @@ public class AbstractActionExtTest {
         // sanity: different selected state
         assertTrue(actionSelected != buttonSelected);
         factory.configureSelectableButton(button, extAction, null);
-        assertEquals("action selection must be unchanged", actionSelected, extAction.isSelected());
-        assertEquals("button selected must be initialized", actionSelected, button.isSelected());
+        assertEquals(actionSelected, extAction.isSelected(), "action selection must be unchanged");
+        assertEquals(actionSelected, button.isSelected(), "button selected must be initialized");
     }
 
     /**
@@ -351,7 +350,7 @@ public class AbstractActionExtTest {
                 count++;
             }
         }
-        assertEquals("ItemListener registration count", expectedCount, count);
+        assertEquals(expectedCount, count, "ItemListener registration count");
         
     }
 

@@ -4,6 +4,8 @@
  */
 package org.jdesktop.swingx.table;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.Component;
 
 import javax.swing.BorderFactory;
@@ -18,9 +20,7 @@ import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.BorderHighlighter;
 import org.jdesktop.swingx.decorator.Highlighter;
 import org.jdesktop.test.AncientSwingTeam;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -28,7 +28,6 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class ColumnFactoryTest extends InteractiveTestCase {
     
     /**
@@ -40,15 +39,15 @@ public class ColumnFactoryTest extends InteractiveTestCase {
         JXTable table = new JXTable(1, 1);
         table.setValueAt("just a long string something utterly meaningless", 0, 0);
         table.packColumn(0, 0);
-        assertEquals("sanity: no highlighter", table.prepareRenderer(
-                table.getCellRenderer(0, 0), 0, 0).getPreferredSize().width,
-                table.getColumn(0).getPreferredWidth());
+        assertEquals(table.prepareRenderer(
+                table.getCellRenderer(0, 0), 0, 0).getPreferredSize().width, table.getColumn(0).getPreferredWidth(),
+                "sanity: no highlighter");
         Highlighter hl = new BorderHighlighter(BorderFactory.createEmptyBorder(0, 50, 0, 50));
         table.addHighlighter(hl);
         table.packColumn(0, 0);
-        assertEquals("highlighter which adds 100 px width", table.prepareRenderer(
-                table.getCellRenderer(0, 0), 0, 0).getPreferredSize().width,
-                table.getColumn(0).getPreferredWidth());
+        assertEquals(table.prepareRenderer(
+                table.getCellRenderer(0, 0), 0, 0).getPreferredSize().width, table.getColumn(0).getPreferredWidth(),
+                "highlighter which adds 100 px width");
     }
 
     /**
@@ -71,8 +70,8 @@ public class ColumnFactoryTest extends InteractiveTestCase {
         table.setColumnFactory(factory);
         TableModel model = new DefaultTableModel(0, 10);
         table.setModel(model);
-        assertEquals("factory must have created one less than model columns", 
-                model.getColumnCount() - 1, table.getColumnCount());
+        assertEquals(model.getColumnCount() - 1, 
+                table.getColumnCount(), "factory must have created one less than model columns");
     }
 
     /**
@@ -119,7 +118,7 @@ public class ColumnFactoryTest extends InteractiveTestCase {
         };
         TableModel model = new DefaultTableModel(0, 10);
         TableColumnExt column = factory.createAndConfigureTableColumn(model, 0);
-        assertNull("", column);
+        assertNull(column, "");
         
     }
 
@@ -143,11 +142,11 @@ public class ColumnFactoryTest extends InteractiveTestCase {
         TableColumnExt columnExt = table.getColumnExt(0);
         table.getColumnFactory().packColumn(table, columnExt, -1, -1);
         int prefWidth = columnExt.getPreferredWidth();
-        assertTrue("sanity: ", prefWidth > 10);
+        assertTrue(prefWidth > 10, "sanity: ");
         int max = prefWidth - 5;
         table.getColumnFactory().packColumn(table, columnExt, -1, max);
-        assertEquals("pref width must be bounded by max", 
-                max, columnExt.getPreferredWidth());
+        assertEquals(max, 
+                columnExt.getPreferredWidth(), "pref width must be bounded by max");
     }
     /**
      * packColumn can't handle hidden columns.

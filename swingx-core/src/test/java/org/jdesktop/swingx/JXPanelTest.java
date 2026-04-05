@@ -25,15 +25,16 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assume.assumeThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.junit.MatcherAssume.assumeThat;
 
 import java.awt.Color;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.logging.Logger;
 
 import javax.swing.plaf.ColorUIResource;
-
-import junit.framework.TestCase;
 
 import org.jdesktop.swingx.painter.MattePainter;
 import org.jdesktop.swingx.painter.Painter;
@@ -41,17 +42,17 @@ import org.jdesktop.swingx.plaf.PainterUIResource;
 import org.jdesktop.test.EDTRunner;
 import org.jdesktop.test.PropertyChangeReport;
 import org.jdesktop.test.TestUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * Tests JXPanel.
  * 
  * @author Karl Schaefer
  */
-@RunWith(EDTRunner.class)
+@ExtendWith(EDTRunner.class)
 @SuppressWarnings({"rawtypes", "nls"})
-public class JXPanelTest extends TestCase {
+public class JXPanelTest {
     @SuppressWarnings("unused")
     private static final Logger LOG = Logger.getLogger(JXPanelTest.class
             .getName());
@@ -91,14 +92,16 @@ public class JXPanelTest extends TestCase {
         TestUtils.assertPropertyChangeEvent(report, "scrollableHeightHint", oldTrack, none);
     }
     
-    @Test (expected = NullPointerException.class)
+    @Test
     public void testScrollableHeightTrackNull() {
-        new JXPanel().setScrollableHeightHint(null);
+        assertThrows(NullPointerException.class, () ->
+            new JXPanel().setScrollableHeightHint(null));
     }
     
-    @Test (expected = NullPointerException.class)
+    @Test
     public void testScrollableWidthTrackNull() {
-        new JXPanel().setScrollableWidthHint(null);
+        assertThrows(NullPointerException.class, () ->
+            new JXPanel().setScrollableWidthHint(null));
     }
     
     /**
@@ -208,16 +211,19 @@ public class JXPanelTest extends TestCase {
         assertThat(panel.getBackgroundPainter(), is(sameInstance(painter)));
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetAlphaWithLessThanZero() {
-        new JXPanel().setAlpha(Math.nextAfter(0f, Float.NEGATIVE_INFINITY));
+        assertThrows(IllegalArgumentException.class, () ->
+            new JXPanel().setAlpha(Math.nextAfter(0f, Float.NEGATIVE_INFINITY)));
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetAlphaWithGreaterThanOne() {
-        new JXPanel().setAlpha(Math.nextUp(1f));
+        assertThrows(IllegalArgumentException.class, () ->
+            new JXPanel().setAlpha(Math.nextUp(1f)));
     }
-    
+
+    @Test
     public void testSetAlphaLessThanOneMakesPanelNonOpaque() {
         JXPanel panel = new JXPanel();
         assumeThat(panel.isOpaque(), is(true));
@@ -225,7 +231,8 @@ public class JXPanelTest extends TestCase {
         panel.setAlpha(.99f);
         assertThat(panel.isOpaque(), is(false));
     }
-    
+
+    @Test
     public void testRestoreOpacityWhenAlphaSetToOne() {
         JXPanel panel = new JXPanel();
         assumeThat(panel.isOpaque(), is(true));

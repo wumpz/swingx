@@ -9,12 +9,14 @@ import javax.swing.JButton;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.jdesktop.test.EDTRunner;
-import static org.jdesktop.test.matchers.Matchers.equivalentTo;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 
-@RunWith(EDTRunner.class)
+import static org.jdesktop.test.matchers.Matchers.equivalentTo;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+@ExtendWith(EDTRunner.class)
 public class EquivalentMatcherTest {
     @Test
     public void ensureEqualIsEquivalent() {

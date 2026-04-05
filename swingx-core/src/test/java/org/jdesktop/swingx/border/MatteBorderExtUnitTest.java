@@ -16,16 +16,10 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 
-@RunWith(JUnit4.class)
-public class MatteBorderExtUnitTest extends junit.framework.TestCase {
-    public MatteBorderExtUnitTest() {
-	super("MatteBorderExt unit test");
-    }
+public class MatteBorderExtUnitTest {
 
     // XXX placeholder
     @Test

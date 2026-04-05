@@ -31,8 +31,8 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JLabel;
 
 import org.jdesktop.test.EDTRunner;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import static org.mockito.ArgumentMatchers.argThat;
 
 /**
@@ -43,7 +43,7 @@ import static org.mockito.ArgumentMatchers.argThat;
  * 
  * @author Karl Schaefer
  */
-@RunWith(EDTRunner.class)
+@ExtendWith(EDTRunner.class)
 public class JXCollapsiblePaneTest {
     /**
      * SWINGX-1412: Ensure that we do not animate when not showing.

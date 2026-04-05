@@ -21,14 +21,16 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.net.URL;
 import java.util.regex.Pattern;
 
 import org.jdesktop.swingx.JXEditorPane.DocumentSearchable;
 import org.jdesktop.swingx.search.SearchFactory;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Contains unit test for search related classes which have references to 
@@ -36,13 +38,11 @@ import org.junit.runners.JUnit4;
  * 
  * @author Jeanette Winzenburg
  */
-@RunWith(JUnit4.class)
 public class FindTest extends InteractiveTestCase {
 
-    
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+
+    @BeforeEach
+    public void setUp() throws Exception {
         // sanity: new instance for each test
         SearchFactory.setInstance(new SearchFactory());
     }
@@ -50,7 +50,7 @@ public class FindTest extends InteractiveTestCase {
     @Test
     public void testWrapFindBar() {
         JXFindBar findBar = new JXFindBar();
-        assertTrue("findbar must auto-wrap", findBar.getPatternModel().isWrapping());
+        assertTrue(findBar.getPatternModel().isWrapping(), "findbar must auto-wrap");
     }
     
     /**
@@ -133,7 +133,7 @@ public class FindTest extends InteractiveTestCase {
                 assertTrue(lastIndex != -1);
                 assertTrue(lastIndex != useIndex);
 
-                assertEquals("Error text selection is incorrect", "four", editor.getSelectedText());
+                assertEquals("four", editor.getSelectedText(), "Error text selection is incorrect");
 
                 useIndex = lastIndex;
             }

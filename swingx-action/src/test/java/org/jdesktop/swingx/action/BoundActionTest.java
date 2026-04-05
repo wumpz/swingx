@@ -8,17 +8,17 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.jdesktop.test.EDTRunner;
 import org.jdesktop.test.matchers.Matchers;
-import static org.jdesktop.test.matchers.Matchers.equivalentTo;
-import static org.junit.Assert.assertTrue;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
-@RunWith(EDTRunner.class)
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+@ExtendWith(EDTRunner.class)
 public class BoundActionTest {
     private BoundAction action;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         action = new BoundAction();
     }

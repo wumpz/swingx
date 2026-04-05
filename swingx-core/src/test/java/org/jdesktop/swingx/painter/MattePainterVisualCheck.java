@@ -26,6 +26,7 @@ import java.awt.GradientPaint;
 
 import org.jdesktop.swingx.InteractiveTestCase;
 import org.jdesktop.swingx.JXPanel;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -37,6 +38,7 @@ public class MattePainterVisualCheck extends InteractiveTestCase {
      * (would output a warning without a test fixture).
      *
      */
+    @Test
     public void testDummy() {
         
     }

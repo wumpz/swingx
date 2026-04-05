@@ -20,6 +20,9 @@
  */
 package org.jdesktop.swingx.table;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.text.ParseException;
 import java.util.Date;
 
@@ -29,12 +32,9 @@ import org.jdesktop.swingx.InteractiveTestCase;
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.treetable.DefaultMutableTreeTableNode;
 import org.jdesktop.test.CellEditorReport;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 
-@RunWith(JUnit4.class)
 public class DatePickerCellEditorTest extends InteractiveTestCase {
     public static void main(String[] args) {
         setSystemLF(true);
@@ -60,21 +60,21 @@ public class DatePickerCellEditorTest extends InteractiveTestCase {
     public void testDateEditorValueAsDate() throws ParseException  {
         DatePickerCellEditor editor = new DatePickerCellEditor();
         Date input = new Date();
-        assertEquals("the input date must be unchanged", input, editor.getValueAsDate(input));
-        assertEquals("input as long must be same", input, editor.getValueAsDate(input.getTime()));
+        assertEquals(input, editor.getValueAsDate(input), "the input date must be unchanged");
+        assertEquals(input, editor.getValueAsDate(input.getTime()), "input as long must be same");
         // PENDING: fails on server, moved out off the way into visual check for now
 //        String dateString = editor.getFormats()[0].format(input);
 //        Date fullCycle = editor.getFormats()[0].parse(dateString);
 //        assertEquals("the formatted input date string must be same", fullCycle, editor.getValueAsDate(dateString));
         String nonsenseString = "invalid";
-        assertNull("invalid string maps to null", editor.getValueAsDate(nonsenseString));
-        assertNull("empty String maps to null", editor.getValueAsDate(""));
+        assertNull(editor.getValueAsDate(nonsenseString), "invalid string maps to null");
+        assertNull(editor.getValueAsDate(""), "empty String maps to null");
         // same with date/string wrapped into TreeNode
         DefaultMutableTreeNode node = new DefaultMutableTreeNode(input);
-        assertEquals("date must be user-object", input, editor.getValueAsDate(node));
+        assertEquals(input, editor.getValueAsDate(node), "date must be user-object");
         // same with date/string wrapped into a TreeTableNode
         DefaultMutableTreeTableNode tableNode = new DefaultMutableTreeTableNode(input);
-        assertEquals("date must be user-object", input, editor.getValueAsDate(tableNode));
+        assertEquals(input, editor.getValueAsDate(tableNode), "date must be user-object");
     }
 
 

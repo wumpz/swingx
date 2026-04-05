@@ -21,33 +21,17 @@
 
 package org.jdesktop.swingx.autocomplete;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Arrays;
 
 import javax.swing.JTextField;
 import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
-
-@RunWith(JUnit4.class)
-public class AutoCompleteDocumentTest extends TestCase {
-
-    @Override
-    @Before
-       public void setUp() {
-    }
-
-    @Override
-    @After
-       public void tearDown() {
-    }
-
+public class AutoCompleteDocumentTest {
     @Test
     public void testPreferExactMatchOverCurrentlySelected() throws Exception {
         String[] items = new String[]{"exact", "exacter", "exactest"};

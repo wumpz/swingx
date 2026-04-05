@@ -20,9 +20,7 @@
  */
 package org.jdesktop.beans;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Color;
 import java.beans.PropertyChangeEvent;
@@ -31,10 +29,8 @@ import java.beans.PropertyVetoException;
 import java.beans.VetoableChangeListener;
 import java.io.Serializable;
 
-import junit.framework.TestCase;
-
 import org.jdesktop.test.SerializableSupport;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author <a href="mailto:jesse@swank.ca">Jesse Wilson</a>

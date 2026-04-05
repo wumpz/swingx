@@ -20,6 +20,8 @@ package org.jdesktop.swingx;
 
 import java.util.logging.Logger;
 
+import org.junit.jupiter.api.Test;
+
 /**
  * @author Karl Schaefer
  */
@@ -29,10 +31,6 @@ public class JXGraphVisualCheck extends InteractiveTestCase {
     private static final Logger LOG = Logger
             .getLogger(JXGraphVisualCheck.class.getName());
     
-    public JXGraphVisualCheck() {
-        super("JXGraph Test");
-    }
-
     public static void main(String[] args) throws Exception {
         JXGraphVisualCheck test = new JXGraphVisualCheck();
         
@@ -59,6 +57,7 @@ public class JXGraphVisualCheck extends InteractiveTestCase {
      * (would output a warning without a test fixture).
      *
      */
+    @Test
     public void testDummy() {
     }
 }

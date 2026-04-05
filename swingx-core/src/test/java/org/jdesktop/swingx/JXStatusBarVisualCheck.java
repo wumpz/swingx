@@ -20,6 +20,7 @@ import javax.swing.border.TitledBorder;
 
 import org.jdesktop.swingx.action.AbstractActionExt;
 import org.jdesktop.test.AncientSwingTeam;
+import org.junit.jupiter.api.Test;
 
 public class JXStatusBarVisualCheck extends InteractiveTestCase {
     @SuppressWarnings("unused")
@@ -173,12 +174,13 @@ public class JXStatusBarVisualCheck extends InteractiveTestCase {
         frame.setSize(200, 400);
         frame.setVisible(true);
     }
-    
+
     /**
      * do-nothing method - suppress warning if there are no other
      * test fixtures to run.
      *
      */
+    @Test
     public void testDummy() {
         
     }

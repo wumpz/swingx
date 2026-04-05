@@ -4,26 +4,23 @@
  */
 package org.jdesktop.swingx.plaf;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.logging.Logger;
 
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import junit.framework.TestCase;
-
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * Testing LookAndFeelAddons properties/behaviour that might be effected
  * in a sandbox. This here is the test without SecurityManager, the 
  * subclass actually installs a manager.
  */
-@RunWith(JUnit4.class)
-public class LookAndFeelAddonsSandboxTest extends TestCase {
+public class LookAndFeelAddonsSandboxTest {
     @SuppressWarnings("unused")
     private static final Logger LOG = Logger.getLogger(LookAndFeelAddonsSandboxTest.class
             .getName());
@@ -41,11 +38,11 @@ public class LookAndFeelAddonsSandboxTest extends TestCase {
     public void testMatchingAddon() throws Exception {
         LookAndFeel old = UIManager.getLookAndFeel();
         try {
-            assertTrue("sanity: addon is configured to update on LAF change", 
-                    LookAndFeelAddons.isTrackingLookAndFeelChanges());
+            assertTrue(LookAndFeelAddons.isTrackingLookAndFeelChanges(), 
+                    "sanity: addon is configured to update on LAF change");
             setLookAndFeel("Nimbus");
             LookAndFeelAddons addon = LookAndFeelAddons.getAddon();
-            assertTrue("addon must match Nimbus, but was: " + addon, addon.matches());
+            assertTrue(addon.matches(), "addon must match Nimbus, but was: " + addon);
             
         } finally {
             UIManager.setLookAndFeel(old);
@@ -62,7 +59,7 @@ public class LookAndFeelAddonsSandboxTest extends TestCase {
     @Test
     public void testSystemAddon() {
         LookAndFeelAddons addon = LookAndFeelAddons.getAddon();
-        assertTrue("addon must be system addon, but was: " + addon, addon.isSystemAddon());
+        assertTrue(addon.isSystemAddon(), "addon must be system addon, but was: " + addon);
     }
     
     
@@ -70,7 +67,7 @@ public class LookAndFeelAddonsSandboxTest extends TestCase {
      * Sets the default LAF to system. 
      * 
      */
-    @BeforeClass
+    @BeforeAll
     public static void install() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

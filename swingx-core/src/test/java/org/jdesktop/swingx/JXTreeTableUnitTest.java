@@ -20,6 +20,8 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
@@ -68,13 +70,10 @@ import org.jdesktop.test.PropertyChangeReport;
 import org.jdesktop.test.TableModelReport;
 import org.jdesktop.test.TreeExpansionReport;
 import org.jdesktop.test.TreeSelectionReport;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
-@RunWith(JUnit4.class)
 public class JXTreeTableUnitTest extends InteractiveTestCase {
     @SuppressWarnings ("unused")
     private static final Logger LOG = Logger
@@ -82,10 +81,6 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
     
     protected TreeTableModel treeTableModel;
     protected TreeTableModel simpleTreeTableModel;
-    
-    public JXTreeTableUnitTest() {
-        super("JXTreeTable Unit Test");
-    }
 
     /**
      * Issue swingx-1529: IOOB Exception on delete
@@ -142,7 +137,7 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
     public void testFakeSortable() {
         JXTreeTable table = new FakeSortableTreeTable();
         table.setSortable(true);
-        assertTrue("table sortable must be true", table.isSortable());
+        assertTrue(table.isSortable(), "table sortable must be true");
     }
     
     
@@ -150,7 +145,7 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
     public void testFakeAutoCreateRowSorter() {
         JXTreeTable table = new FakeSortableTreeTable();
         table.setAutoCreateRowSorter(true);
-        assertTrue("table autocreateRowsorter must be true", table.getAutoCreateRowSorter());
+        assertTrue(table.getAutoCreateRowSorter(), "table autocreateRowsorter must be true");
     }
     
     
@@ -159,7 +154,7 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         JXTreeTable table = new FakeSortableTreeTable();
         TableSortController<TableModel> controller = new TableSortController<>(table.getModel());
         table.setRowSorter(controller);
-        assertEquals("table sorter must be set", controller, table.getRowSorter());
+        assertEquals(controller, table.getRowSorter(), "table sorter must be set");
     }
     
     /**
@@ -198,10 +193,12 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
     /**
      * Issue #1379-swingx: support access to the underlying TreeTableModel.
      */
-    @Test (expected= NullPointerException.class)
+    @Test
     public void testTreeTableModelAdapter() {
-        JXTreeTableA table = new JXTreeTableA();
-        table.createAdapter(null);
+        assertThrows(NullPointerException.class, () -> {
+            JXTreeTableA table = new JXTreeTableA();
+            table.createAdapter(null);
+        });
     }
     /**
      * Subclass to test model adapter properties.
@@ -294,7 +291,7 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
     @Test
     public void testAutoCreateRowSorterDisabled() {
         JXTreeTable table = new JXTreeTable();
-        assertEquals("treeTable autoCreateRowSorter must be false", false, table.getAutoCreateRowSorter());
+        assertEquals(false, table.getAutoCreateRowSorter(), "treeTable autoCreateRowSorter must be false");
     }
     /**
      * Issue #1121: most not be sortable
@@ -305,7 +302,7 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
     public void testAutoCreateRowSorterNotSettable() {
         JXTreeTable table = new JXTreeTable();
         table.setAutoCreateRowSorter(true);
-        assertEquals("treeTable autoCreateRowSorter must be false", false, table.getAutoCreateRowSorter());
+        assertEquals(false, table.getAutoCreateRowSorter(), "treeTable autoCreateRowSorter must be false");
     }
 
     /**
@@ -316,8 +313,8 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
     @Test
     public void testRowSorterNull() {
         JXTreeTable table = new JXTreeTable();
-        assertNull("null rowsorter initially, was: " + table.getRowSorter(),
-                table.getRowSorter());
+        assertNull(table.getRowSorter(),
+                "null rowsorter initially, was: " + table.getRowSorter());
     }
     /**
      * Issue #1121: most not be sortable
@@ -328,8 +325,8 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
     public void testRowSorterNotSettable() {
         JXTreeTable table = new JXTreeTable();
         table.setRowSorter(new TableRowSorter<>());
-        assertNull("rowsorter not settable, was: " + table.getRowSorter(), 
-                table.getRowSorter());
+        assertNull(table.getRowSorter(), 
+                "rowsorter not settable, was: " + table.getRowSorter());
     }
 /**
      * Issue #766-swingx: drop image is blinking over hierarchical column.
@@ -341,12 +338,12 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
     @Test
     public void testDropHack() {
         JXTree tree = new JXTree();
-        assertEquals("sanity - default visible", true, tree.isVisible());
+        assertEquals(true, tree.isVisible(), "sanity - default visible");
         JXTreeTable treeTable = new JXTreeTable(new FileSystemModel());
         JXTree renderer = (JXTree) treeTable.getCellRenderer(0, 0);
-        assertEquals("renderer must be invisible by default", false, renderer.isVisible());
+        assertEquals(false, renderer.isVisible(), "renderer must be invisible by default");
         treeTable.putClientProperty(JXTreeTable.DROP_HACK_FLAG_KEY, Boolean.FALSE);
-        assertEquals("renderer must be visible if hack disabled", true, renderer.isVisible());
+        assertEquals(true, renderer.isVisible(), "renderer must be visible if hack disabled");
     }
 
     /**
@@ -415,7 +412,7 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         };
         table.setTreeCellRenderer(new DefaultTreeRenderer(sv));
         String text = sv.getString(table.getValueAt(2, 0));
-        assertTrue("sanity: text not empty", text.length() > 0);
+        assertTrue(text.length() > 0, "sanity: text not empty");
         assertEquals(text, table.getStringAt(2, 0));
     }
     
@@ -431,7 +428,7 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
         renderer.setLeafIcon(null);
         treeTable.setTreeCellRenderer(renderer);
-        assertEquals("renderer must have null leaf icon", null, renderer.getLeafIcon());
+        assertEquals(null, renderer.getLeafIcon(), "renderer must have null leaf icon");
     }
 
     /**
@@ -448,10 +445,10 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         // PENDING: incomplete api - no getter
 //        Icon leaf = treeTable.getLeafIcon();
         DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
-        assertNotNull("sanity - the renderer has a leafIcon ", renderer.getLeafIcon());
+        assertNotNull(renderer.getLeafIcon(), "sanity - the renderer has a leafIcon ");
         treeTable.setTreeCellRenderer(renderer);
-        assertEquals("renderer leaf icon must be overwritten by treeTable's leaf icon", 
-                null, renderer.getLeafIcon());
+        assertEquals(null, 
+                renderer.getLeafIcon(), "renderer leaf icon must be overwritten by treeTable's leaf icon");
     }
 
     /**
@@ -467,7 +464,7 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         assertNotNull(renderer.getLeafIcon());
         treeTable.setTreeCellRenderer(renderer);
         treeTable.setLeafIcon(null);
-        assertEquals("renderer must have null leaf icon", null, renderer.getLeafIcon());
+        assertEquals(null, renderer.getLeafIcon(), "renderer must have null leaf icon");
     }
 
     /**
@@ -484,7 +481,7 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         assertNotNull(renderer.getLeafIcon());
         treeTable.setTreeCellRenderer(renderer);
         treeTable.setLeafIcon(null);
-        assertEquals("renderer must have null leaf icon", null, renderer.getLeafIcon());
+        assertEquals(null, renderer.getLeafIcon(), "renderer must have null leaf icon");
     }
     
     /**
@@ -496,8 +493,8 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
     @Test
     public void testIconOverwriteInitial() {
         JXTreeTable treeTable = new JXTreeTable();
-        assertFalse("initial overwriteRendererIcons must be false", 
-                treeTable.isOverwriteRendererIcons());
+        assertFalse(treeTable.isOverwriteRendererIcons(), 
+                "initial overwriteRendererIcons must be false");
     }
     
 
@@ -528,7 +525,7 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         assertTrue(treeTable.isCellEditable(0, 0));
         KeyEvent e = new KeyEvent(treeTable, KeyEvent.KEY_PRESSED, 0L,
                 0, KeyEvent.VK_T, KeyEvent.CHAR_UNDEFINED);
-        assertTrue("keyEvent must start editing", treeTable.editCellAt(0, 0, e));
+        assertTrue(treeTable.editCellAt(0, 0, e), "keyEvent must start editing");
     }
     
     /**
@@ -570,9 +567,9 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         SwingUtilities.invokeAndWait(new Runnable() {
             @Override
             public void run() {
-                assertEquals("tableModel must have fired", 1, report.getEventCount());
-                assertTrue("event type must be structureChanged " + TableModelReport.printEvent(report.getLastEvent()), 
-                        report.isStructureChanged(report.getLastEvent()));
+                assertEquals(1, report.getEventCount(), "tableModel must have fired");
+                assertTrue(report.isStructureChanged(report.getLastEvent()), 
+                        "event type must be structureChanged " + TableModelReport.printEvent(report.getLastEvent()));
             }
         });        
         
@@ -602,9 +599,9 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         SwingUtilities.invokeAndWait(new Runnable() {
             @Override
             public void run() {
-                assertEquals("tableModel must have fired", 1, report.getEventCount());
-                assertTrue("event type must be structureChanged " + TableModelReport.printEvent(report.getLastEvent()), 
-                        report.isStructureChanged(report.getLastEvent()));
+                assertEquals(1, report.getEventCount(), "tableModel must have fired");
+                assertTrue(report.isStructureChanged(report.getLastEvent()), 
+                        "event type must be structureChanged " + TableModelReport.printEvent(report.getLastEvent()));
             }
         });        
         
@@ -650,9 +647,9 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         SwingUtilities.invokeAndWait(new Runnable() {
             @Override
             public void run() {
-                assertEquals("tableModel must have fired", 1, report.getEventCount());
-                assertTrue("event type must be dataChanged " + TableModelReport.printEvent(report.getLastEvent()), 
-                        report.isDataChanged(report.getLastEvent()));
+                assertEquals(1, report.getEventCount(), "tableModel must have fired");
+                assertTrue(report.isDataChanged(report.getLastEvent()), 
+                        "event type must be dataChanged " + TableModelReport.printEvent(report.getLastEvent()));
             }
         });        
         
@@ -680,9 +677,9 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         SwingUtilities.invokeAndWait(new Runnable() {
             @Override
             public void run() {
-                assertEquals("tableModel must have fired", 1, report.getEventCount());
-                assertTrue("event type must be structureChanged " + TableModelReport.printEvent(report.getLastEvent()), 
-                        report.isStructureChanged(report.getLastEvent()));
+                assertEquals(1, report.getEventCount(), "tableModel must have fired");
+                assertTrue(report.isStructureChanged(report.getLastEvent()), 
+                        "event type must be structureChanged " + TableModelReport.printEvent(report.getLastEvent()));
             }
         });        
         
@@ -749,10 +746,10 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         SwingUtilities.invokeAndWait(new Runnable() {
             @Override
             public void run() {
-                assertEquals("tableModel must have fired", 1, report.getEventCount());
-                assertEquals("the event type must be update", 1, report.getUpdateEventCount());
+                assertEquals(1, report.getEventCount(), "tableModel must have fired");
+                assertEquals(1, report.getUpdateEventCount(), "the event type must be update");
                 TableModelEvent event = report.getLastUpdateEvent();
-                assertEquals("the updated row ", row, event.getFirstRow());
+                assertEquals(row, event.getFirstRow(), "the updated row ");
             }
         });        
     }
@@ -794,10 +791,10 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         SwingUtilities.invokeAndWait(new Runnable() {
             @Override
             public void run() {
-                assertEquals("tableModel must have fired exactly one event", 1, report.getEventCount());
+                assertEquals(1, report.getEventCount(), "tableModel must have fired exactly one event");
                 TableModelEvent event = report.getLastEvent();
-                assertEquals("event type must be delete", TableModelEvent.DELETE, event.getType());
-                assertEquals("the deleted row ", row + 1, event.getFirstRow());
+                assertEquals(TableModelEvent.DELETE, event.getType(), "event type must be delete");
+                assertEquals(row + 1, event.getFirstRow(), "the deleted row ");
             }
         });        
     }
@@ -820,7 +817,7 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         final int row = 6;
         // sanity
         assertEquals("sports", table.getValueAt(row, 0).toString());
-        assertTrue("cell must be editable at row " + row, table.getModel().isCellEditable(row, 0));
+        assertTrue(table.getModel().isCellEditable(row, 0), "cell must be editable at row " + row);
         final TableModelReport report = new TableModelReport();
         table.getModel().addTableModelListener(report);
         // doesn't fire or isn't detectable? 
@@ -829,10 +826,10 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         SwingUtilities.invokeAndWait(new Runnable() {
             @Override
             public void run() {
-                assertEquals("tableModel must have fired", 1, report.getEventCount());
-                assertEquals("the event type must be update", 1, report.getUpdateEventCount());
+                assertEquals(1, report.getEventCount(), "tableModel must have fired");
+                assertEquals(1, report.getUpdateEventCount(), "the event type must be update");
                 TableModelEvent event = report.getLastUpdateEvent();
-                assertEquals("the updated row ", row, event.getFirstRow());
+                assertEquals(row, event.getFirstRow(), "the updated row ");
             }
         });        
     }
@@ -869,24 +866,24 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         root.add(inner);
         TreeTableModel model = new ComponentTreeTableModel(root);
         // sanity 
-        assertTrue("label is leaf", model.isLeaf(label));
+        assertTrue(model.isLeaf(label), "label is leaf");
         JXTreeTable table = new JXTreeTable(model);
         table.expandAll();
         // sanity
-        assertEquals("number of expanded rows", 2, table.getRowCount());
+        assertEquals(2, table.getRowCount(), "number of expanded rows");
         
         // test leafness of last
         int lastRow = table.getRowCount() - 1;
         TreePath leafPath = table.getPathForRow(lastRow);
         assertEquals(label, leafPath.getLastPathComponent());
-        assertEquals("adapter must report same leafness as model", 
-                model.isLeaf(label), table.getComponentAdapter(lastRow, 0).isLeaf());
+        assertEquals(model.isLeaf(label), 
+                table.getComponentAdapter(lastRow, 0).isLeaf(), "adapter must report same leafness as model");
         // test folderness of first
         int firstRow = 0;
         TreePath folderPath = table.getPathForRow(firstRow);
         assertEquals(inner, folderPath.getLastPathComponent());
-        assertEquals("adapter must report same leafness as model", 
-                model.isLeaf(inner), table.getComponentAdapter(firstRow, 0).isLeaf());
+        assertEquals(model.isLeaf(inner), 
+                table.getComponentAdapter(firstRow, 0).isLeaf(), "adapter must report same leafness as model");
     }
     
     /**
@@ -905,17 +902,17 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         root.add(inner);
         TreeTableModel model = new ComponentTreeTableModel(root);
         // sanity 
-        assertTrue("label is leaf", model.isLeaf(label));
+        assertTrue(model.isLeaf(label), "label is leaf");
         JXTreeTable table = new JXTreeTable(model);
         // sanity
-        assertEquals("number of expanded rows", 1, table.getRowCount());
+        assertEquals(1, table.getRowCount(), "number of expanded rows");
         
         // test folderness of first
         int firstRow = 0;
         TreePath folderPath = table.getPathForRow(firstRow);
         assertEquals(inner, folderPath.getLastPathComponent());
-        assertEquals("adapter must report same expansion state as tree", table.isExpanded(firstRow), 
-                table.getComponentAdapter(firstRow, 0).isExpanded());
+        assertEquals(table.isExpanded(firstRow), table.getComponentAdapter(firstRow, 0).isExpanded(), 
+                "adapter must report same expansion state as tree");
     }
     
 
@@ -1025,7 +1022,7 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         int editingRow = treeTable.getEditingRow();
         treeTable.setExpandsSelectedPaths(false);
         treeTable.setRowSelectionInterval(editingRow, editingRow);
-        assertEquals("after selection treeTable editing state must be unchanged", canEdit, treeTable.isEditing());
+        assertEquals(canEdit, treeTable.isEditing(), "after selection treeTable editing state must be unchanged");
     }
 
     
@@ -1175,16 +1172,16 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         JXTreeTable treeTable = new JXTreeTable(simpleTreeTableModel);
         JXTree tree = (JXTree) treeTable.getCellRenderer(0, 0);
         // sanity: same initially
-        assertEquals("table and tree rowHeights must be equal", 
-                treeTable.getRowHeight(), tree.getRowHeight());
+        assertEquals(treeTable.getRowHeight(), 
+                tree.getRowHeight(), "table and tree rowHeights must be equal");
         // change treeTable height
         treeTable.setRowHeight(treeTable.getRowHeight() * 2);
-        assertEquals("table and tree rowHeights must be equal", 
-                treeTable.getRowHeight(), tree.getRowHeight());
+        assertEquals(treeTable.getRowHeight(), 
+                tree.getRowHeight(), "table and tree rowHeights must be equal");
         // change treeTable height
         tree.setRowHeight(tree.getRowHeight() * 2);
-        assertEquals("table and tree rowHeights must be equal", 
-                treeTable.getRowHeight(), tree.getRowHeight());
+        assertEquals(treeTable.getRowHeight(), 
+                tree.getRowHeight(), "table and tree rowHeights must be equal");
 
     }
     /**
@@ -1196,15 +1193,15 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         JXTreeTable treeTable = new JXTreeTable(simpleTreeTableModel);
         int clickCount = treeTable.getToggleClickCount();
         // asserting documented default clickCount == 2
-        assertEquals("default clickCount", 2, clickCount);
+        assertEquals(2, clickCount, "default clickCount");
         int newClickCount = clickCount + 1;
         treeTable.setToggleClickCount(newClickCount);
-        assertEquals("toggleClickCount must be changed", 
-                newClickCount, treeTable.getToggleClickCount());
+        assertEquals(newClickCount, 
+                treeTable.getToggleClickCount(), "toggleClickCount must be changed");
         boolean largeModel = treeTable.isLargeModel();
-        assertFalse("initial largeModel", largeModel);
+        assertFalse(largeModel, "initial largeModel");
         treeTable.setLargeModel(!largeModel);
-        assertTrue("largeModel property must be toggled", treeTable.isLargeModel());
+        assertTrue(treeTable.isLargeModel(), "largeModel property must be toggled");
         
     }
     /**
@@ -1257,11 +1254,11 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         final JXTreeTable treeTable = new JXTreeTable(model);
         // sanity...
         assertFalse(treeTable.isRootVisible());
-        assertEquals("no rows with invisible root", 0, treeTable.getRowCount());
+        assertEquals(0, treeTable.getRowCount(), "no rows with invisible root");
         treeTable.setRootVisible(true);
         // sanity...
         assertTrue(treeTable.isRootVisible());
-        assertEquals("one row with visible root", 1, treeTable.getRowCount());
+        assertEquals(1, treeTable.getRowCount(), "one row with visible root");
 
     }
     
@@ -1362,14 +1359,14 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         treeTable.setTreeTableModel(simpleTreeTableModel);
         int allPropertyCount = report.getEventCount();
         int treeTMPropertyCount = report.getEventCount("treeTableModel");
-        assertEquals("treeTable must have fired exactly one event for property treeTableModel", 
-                1, treeTMPropertyCount);
-        assertEquals("treeTable must have fired event for property treeTableModel only",
-                allPropertyCount, treeTMPropertyCount);
+        assertEquals(1, 
+                treeTMPropertyCount, "treeTable must have fired exactly one event for property treeTableModel");
+        assertEquals(allPropertyCount,
+                treeTMPropertyCount, "treeTable must have fired event for property treeTableModel only");
         // sanity: must not fire when setting to same
         report.clear();
         treeTable.setTreeTableModel(simpleTreeTableModel);
-        assertEquals("treeTable must not have fired", 0, report.getEventCount()); 
+        assertEquals(0, report.getEventCount(), "treeTable must not have fired"); 
     }
     /**
      * Issue #54: hidden columns not removed on setModel.
@@ -1382,11 +1379,11 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         TableColumnExt columnX = table.getColumnExt(1);
         columnX.setVisible(false);
         int columnCount = table.getColumnCount(true);
-        assertEquals("total column count must be same as model", table.getModel().getColumnCount(), columnCount);
-        assertEquals("visible column count must one less as total", columnCount - 1, table.getColumnCount());
+        assertEquals(table.getModel().getColumnCount(), columnCount, "total column count must be same as model");
+        assertEquals(columnCount - 1, table.getColumnCount(), "visible column count must one less as total");
         table.setTreeTableModel(new FileSystemModel());
-        assertEquals("visible columns must be same as total", 
-                table.getColumnCount(), table.getColumnCount(true));
+        assertEquals(table.getColumnCount(), 
+                table.getColumnCount(true), "visible columns must be same as total");
       }
 
     /**
@@ -1427,21 +1424,21 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         int rowCount = treeTable.getRowCount();
         int row = 2;
         TreePath path = treeTable.getPathForRow(row);
-        assertEquals("original row must be retrieved", row, treeTable.getRowForPath(path));
+        assertEquals(row, treeTable.getRowForPath(path), "original row must be retrieved");
         treeTable.expandRow(row - 1);
         // sanity assert
-        assertTrue("really expanded", treeTable.getRowCount() > rowCount);
+        assertTrue(treeTable.getRowCount() > rowCount, "really expanded");
         TreePath expanded = treeTable.getPathForRow(row);
-        assertNotSame("path at original row must be different when expanded", path, expanded);
-        assertEquals("original row must be retrieved", row, treeTable.getRowForPath(expanded));
+        assertNotSame(path, expanded, "path at original row must be different when expanded");
+        assertEquals(row, treeTable.getRowForPath(expanded), "original row must be retrieved");
         
     }
     
     @Test
     public void testPathForRowContract() {
         JXTreeTable treeTable = new JXTreeTable(treeTableModel);
-        assertNull("row < 0 must return null path", treeTable.getPathForRow(-1));
-        assertNull("row >= getRowCount must return null path", treeTable.getPathForRow(treeTable.getRowCount()));
+        assertNull(treeTable.getPathForRow(-1), "row < 0 must return null path");
+        assertNull(treeTable.getPathForRow(treeTable.getRowCount()), "row >= getRowCount must return null path");
     }
     
     @Test
@@ -1450,12 +1447,12 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         int negativeYRowHeight = - treeTable.getRowHeight();
         int negativeYRowHeightPlusOne = negativeYRowHeight + 1;
         int negativeYMinimal = -1;
-        assertEquals("negative y location rowheight " + negativeYRowHeight + " must return row -1", 
-                -1,  treeTable.rowAtPoint(new Point(-1, negativeYRowHeight)));
-        assertEquals("negative y location " + negativeYRowHeightPlusOne +" must return row -1", 
-                -1,  treeTable.rowAtPoint(new Point(-1, negativeYRowHeightPlusOne)));
-        assertEquals("minimal negative y location must return row -1", 
-                -1,  treeTable.rowAtPoint(new Point(-1, negativeYMinimal)));
+        assertEquals(-1, 
+                treeTable.rowAtPoint(new Point(-1, negativeYRowHeight)),  "negative y location rowheight " + negativeYRowHeight + " must return row -1");
+        assertEquals(-1, 
+                treeTable.rowAtPoint(new Point(-1, negativeYRowHeightPlusOne)),  "negative y location " + negativeYRowHeightPlusOne +" must return row -1");
+        assertEquals(-1, 
+                treeTable.rowAtPoint(new Point(-1, negativeYMinimal)),  "minimal negative y location must return row -1");
         
     }
 
@@ -1470,12 +1467,12 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         int negativeYRowHeight = - treeTable.getRowHeight();
         int negativeYRowHeightPlusOne = negativeYRowHeight + 1;
         int negativeYMinimal = -1;
-        assertEquals("negative y location rowheight " + negativeYRowHeight + " must return row -1", 
-                -1,  treeTable.rowAtPoint(new Point(-1, negativeYRowHeight)));
-        assertEquals("negative y location " + negativeYRowHeightPlusOne +" must return row -1", 
-                -1,  treeTable.rowAtPoint(new Point(-1, negativeYRowHeightPlusOne)));
-        assertEquals("minimal negative y location must return row -1", 
-                -1,  treeTable.rowAtPoint(new Point(-1, negativeYMinimal)));
+        assertEquals(-1, 
+                treeTable.rowAtPoint(new Point(-1, negativeYRowHeight)),  "negative y location rowheight " + negativeYRowHeight + " must return row -1");
+        assertEquals(-1, 
+                treeTable.rowAtPoint(new Point(-1, negativeYRowHeightPlusOne)),  "negative y location " + negativeYRowHeightPlusOne +" must return row -1");
+        assertEquals(-1, 
+                treeTable.rowAtPoint(new Point(-1, negativeYMinimal)),  "minimal negative y location must return row -1");
     }
     /**
      * Issue #151: renderer properties ignored after setting treeTableModel.
@@ -1495,23 +1492,23 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         treeTable.setShowsRootHandles(showRootHandles);
         treeTable.setRootVisible(rootVisible);
         // assert negates are set - sanity assert
-        assertEquals("expand selected", expandsSelected, treeTable
-                .getExpandsSelectedPaths());
-        assertEquals("scrolls expand", scrollsOnExpand, treeTable
-                .getScrollsOnExpand());
-        assertEquals("shows handles", showRootHandles, treeTable
-                .getShowsRootHandles());
-        assertEquals("root visible", rootVisible, treeTable.isRootVisible());
+        assertEquals(expandsSelected, treeTable
+                .getExpandsSelectedPaths(), "expand selected");
+        assertEquals(scrollsOnExpand, treeTable
+                .getScrollsOnExpand(), "scrolls expand");
+        assertEquals(showRootHandles, treeTable
+                .getShowsRootHandles(), "shows handles");
+        assertEquals(rootVisible, treeTable.isRootVisible(), "root visible");
         // setting a new model
         treeTable.setTreeTableModel(new DefaultTreeTableModel());
         // assert negates are set
-        assertEquals("expand selected", expandsSelected, treeTable
-                .getExpandsSelectedPaths());
-        assertEquals("scrolls expand", scrollsOnExpand, treeTable
-                .getScrollsOnExpand());
-        assertEquals("shows handles", showRootHandles, treeTable
-                .getShowsRootHandles());
-        assertEquals("root visible", rootVisible, treeTable.isRootVisible());
+        assertEquals(expandsSelected, treeTable
+                .getExpandsSelectedPaths(), "expand selected");
+        assertEquals(scrollsOnExpand, treeTable
+                .getScrollsOnExpand(), "scrolls expand");
+        assertEquals(showRootHandles, treeTable
+                .getShowsRootHandles(), "shows handles");
+        assertEquals(rootVisible, treeTable.isRootVisible(), "root visible");
 
     }
 
@@ -1525,8 +1522,8 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         String propertyName = "JTree.lineStyle";
         treeTable.putClientProperty(propertyName, "Horizontal");
         JXTree renderer = (JXTree) treeTable.getCellRenderer(0, 0);
-        assertEquals(propertyName + " set on renderer", "Horizontal", renderer
-                .getClientProperty(propertyName));
+        assertEquals("Horizontal", renderer
+                .getClientProperty(propertyName), propertyName + " set on renderer");
     }
 
     /**
@@ -1539,8 +1536,8 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
         String propertyName = "someproperty";
         treeTable.putClientProperty(propertyName, "Horizontal");
         JXTree renderer = (JXTree) treeTable.getCellRenderer(0, 0);
-        assertNull(propertyName + " not set on renderer", renderer
-                .getClientProperty(propertyName));
+        assertNull(renderer
+                .getClientProperty(propertyName), propertyName + " not set on renderer");
 
     }
 
@@ -1599,10 +1596,8 @@ public class JXTreeTableUnitTest extends InteractiveTestCase {
 
 
     // ------------------ init
-    @Override
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
-        super.setUp();
         simpleTreeTableModel = getDefaultTreeTableModel();
         this.treeTableModel = new FileSystemModel();
     }

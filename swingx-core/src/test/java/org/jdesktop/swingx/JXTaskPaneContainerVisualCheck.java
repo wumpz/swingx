@@ -18,6 +18,8 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -39,6 +41,7 @@ import javax.swing.JSplitPane;
 
 import org.jdesktop.swingx.action.AbstractActionExt;
 import org.jdesktop.swingx.painter.Painter;
+import org.junit.jupiter.api.Test;
 
 /**
  * Simple tests to ensure that the {@code JXTaskPane} can be instantiated and
@@ -47,10 +50,6 @@ import org.jdesktop.swingx.painter.Painter;
  * @author rah003
  */
 public class JXTaskPaneContainerVisualCheck extends InteractiveTestCase {
-    public JXTaskPaneContainerVisualCheck() {
-        super("JXLoginPane Test");
-    }
-
     public static void main(String[] args) throws Exception {
 //        setLookAndFeel("Nimbus");
 //        setSystemLF(true);
@@ -308,6 +307,7 @@ public class JXTaskPaneContainerVisualCheck extends InteractiveTestCase {
      * (would output a warning without a test fixture).
      *
      */
+    @Test
     public void testDummy() {
         
     }

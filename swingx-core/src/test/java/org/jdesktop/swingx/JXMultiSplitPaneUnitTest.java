@@ -3,19 +3,17 @@
  */
 package org.jdesktop.swingx;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.awt.Component;
 import java.awt.Container;
 import java.lang.reflect.Field;
 import java.util.Map;
 
-import junit.framework.TestCase;
-
 import org.jdesktop.swingx.multisplitpane.DefaultSplitPaneModel;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -24,22 +22,20 @@ import org.junit.runners.JUnit4;
  * 
  * @author Bruce Alspaugh
  */
-@RunWith(JUnit4.class)
-public class JXMultiSplitPaneUnitTest extends TestCase {
+public class JXMultiSplitPaneUnitTest {
     private JXMultiSplitPane multiSplitPane;
 
-    @Before
+    @BeforeEach
     public void setUpJ4() throws Exception {
         setUp();
     }
     
-    @After
+    @AfterEach
     public void tearDownJ4() throws Exception {
-        tearDown();
     }
-    
-    @Override
-    protected void setUp() throws Exception {
+
+    @BeforeEach
+    public void setUp() throws Exception {
         DefaultSplitPaneModel model = new DefaultSplitPaneModel();
         MultiSplitLayout layout = new MultiSplitLayout(model);
         multiSplitPane = new JXMultiSplitPane();

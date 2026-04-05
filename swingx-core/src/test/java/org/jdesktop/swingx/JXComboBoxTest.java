@@ -24,17 +24,17 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.awt.Color;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import javax.swing.ListCellRenderer;
 
 import org.jdesktop.swingx.JXComboBox.DelegatingRenderer;
 import org.jdesktop.swingx.JXListTest.CustomDefaultRenderer;
 import org.jdesktop.swingx.decorator.ComponentAdapter;
-import org.jdesktop.swingx.decorator.ComponentAdapterTest.JXListT;
 import org.jdesktop.swingx.renderer.DefaultListRenderer;
 import org.jdesktop.swingx.renderer.StringValue;
 import org.jdesktop.swingx.renderer.StringValues;
@@ -43,15 +43,15 @@ import org.jdesktop.test.AncientSwingTeam;
 import org.jdesktop.test.EDTRunner;
 import org.jdesktop.test.PropertyChangeReport;
 import org.jdesktop.test.TestUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * Unit tests for JXComboBox.
  * 
  * @author kschaefer
  */
-@RunWith(EDTRunner.class)
+@ExtendWith(EDTRunner.class)
 public class JXComboBoxTest {
     /**
      * test convenience method accessing the configured adapter.
