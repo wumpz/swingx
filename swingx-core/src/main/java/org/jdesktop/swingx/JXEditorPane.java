@@ -678,7 +678,7 @@ public class JXEditorPane extends JEditorPane implements /*Searchable, */Targeta
             Matcher matcher = pattern.matcher(segment.toString());
             MatchResult currentResult = getMatchResult(matcher, !backwards);
             if (currentResult != null) {
-                updateStateAfterFound(currentResult, start);
+                updateStateAfterFound(pattern, currentResult, start);
             } else {
                 updateStateAfterNotFound();
             }
@@ -720,7 +720,7 @@ public class JXEditorPane extends JEditorPane implements /*Searchable, */Targeta
                 // better check pattern?
                 if ((currentResult.start() == 0) && 
                    (!lastMatchResult.group().equals(currentResult.group()))) {
-                    updateStateAfterFound(currentResult, start);
+                    updateStateAfterFound(pattern, currentResult, start);
                     return true;
                 } 
             }
@@ -743,14 +743,14 @@ public class JXEditorPane extends JEditorPane implements /*Searchable, */Targeta
          * @param offset
          * @return the start position of the selected text
          */
-        private int updateStateAfterFound(MatchResult currentResult, final int offset) {
+        private int updateStateAfterFound(Pattern pattern, MatchResult currentResult, final int offset) {
             int end = currentResult.end() + offset;
             int found = currentResult.start() + offset; 
             select(found, end);
             getCaret().setSelectionVisible(true);
             lastFoundIndex = found;
             lastMatchResult = currentResult;
-            lastRegEx = ((Matcher) lastMatchResult).pattern().pattern();
+            lastRegEx = pattern.pattern();
             return found;
         }
 
