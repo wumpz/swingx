@@ -27,7 +27,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9</version>
+				<version>3.12.0</version>
 				<configuration>
 					<tags>
 						<tag>
@@ -48,7 +48,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version>
+				<version>3.15.0</version>
 				<configuration>
 					<source>17</source>
 					<target>17</target>
@@ -59,7 +59,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.1</version>
+				<version>3.5.5</version>
 				<inherited>true</inherited>
 				<configuration>
 					<!-- parallel>classes</parallel -->
@@ -67,7 +67,7 @@
 					<includes>
 						<include>**/*Test.java</include>
 					</includes>
-					<forkMode>always</forkMode>
+					<!-- <forkMode>always</forkMode> -->
 					<!--reportFormat>xml</reportFormat -->
 					<!--classesDirectory>${project.build.directory}/emma-classes</classesDirectory -->
 				</configuration>
@@ -75,7 +75,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.1.1</version>
+				<version>3.5.0</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -110,10 +110,9 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>commons-lang</groupId>
-				<artifactId>commons-lang</artifactId>
-				<version>2.6</version>
-				<scope>test</scope>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.20.0</version>
 			</dependency>
 			<dependency>
 				<groupId>junit</groupId>
