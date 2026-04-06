@@ -62,6 +62,8 @@ public abstract class AbstractBeanInfoTest<T> {
     public final void testBoundProperties() throws Exception {
         for (PropertyDescriptor descriptor : beanInfo.getPropertyDescriptors()) {
             if (descriptor.isBound()) {
+								System.out.println("bound property " + descriptor.getDisplayName());
+							
                 if (descriptor.isHidden()) {
                     continue;
                 }
