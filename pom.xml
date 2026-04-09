@@ -84,7 +84,7 @@
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 				</configuration>
 			</plugin>
-			<plugin>
+			<!--plugin>
 				<groupId>org.openrewrite.maven</groupId>
 				<artifactId>rewrite-maven-plugin</artifactId>
 				<version>6.35.0</version>
@@ -100,7 +100,7 @@
             <version>3.33.0</version>
           </dependency>
         </dependencies>
-			</plugin>
+			</plugin-->
 		</plugins>
 	</build>
 	<dependencies>
