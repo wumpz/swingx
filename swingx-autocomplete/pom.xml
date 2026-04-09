@@ -4,7 +4,6 @@
     <artifactId>swingx-project</artifactId>
     <groupId>org.swinglabs.swingx</groupId>
     <version>2.0-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>swingx-autocomplete</artifactId>
   <packaging>jar</packaging>
