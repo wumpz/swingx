@@ -126,6 +126,7 @@
         <executions>
           <execution>
             <goals>
+							<goal>check</goal>
               <goal>apply</goal>
             </goals>
           </execution>
