@@ -11,169 +11,161 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.ServiceLoader;
 import java.util.logging.Logger;
-
 import javax.swing.UIManager;
-
 import org.junit.jupiter.api.*;
 
 /**
  * "hand test" sandbox restrictions  for LookAndFeelAddons. Behaviour
  * (mainly of looking up an appropriate addon) should be the same as
  * in an unrestricted context - tested to work in super.
- * 
- * Note: to run this test manually, remove the ignore annotation 
- * can't automatically run tests that install a securityManager 
+ *
+ * Note: to run this test manually, remove the ignore annotation
+ * can't automatically run tests that install a securityManager
  * (because I found no way to uninstall it when the test class is done)
- * 
+ *
  */
 @Disabled
 public class LookAndFeelAddonsSandboxOnTest extends LookAndFeelAddonsSandboxTest {
-    private static final Logger LOG = Logger.getLogger(LookAndFeelAddonsSandboxOnTest.class
-            .getName());
-    
-    /**
-     * Accessing the services inside a privileged action.
-     */
-    @Test
-    public void testAccessMetaInfPriviledged() {
-        final Class<?> clazz = LookAndFeelAddons.class;
-        // JW: just a reminder (to myself)
-        // class.getResource interprets path as relative without 
-        // leading slash
-        // classloader.getResource always absolute
-        final String services = "META-INF/services/" + clazz.getName();
-        // using the classloader (just as ServiceLoader does)
-        // absolute path always
-        URL url = AccessController.doPrivileged(new PrivilegedAction<URL>() {
-            @Override
-            public URL run() {
-                return clazz.getClassLoader().getResource(services);
-            }
-        });
-        assertNotNull(url, "services must be found");
-    }
-    
-    /**
-     * Testing privileged access to the ServiceLoader.
-     * 
-     * Here we access the iterator inside the priviledged access, thus 
-     * forcing the load.
-     */
-    @Test
-    public void testServiceLoaderIteratorPrivileged() {
-        final ServiceLoader<LookAndFeelAddons> loader = ServiceLoader
-                .load(LookAndFeelAddons.class);
-        // need to access the iterator inside the priviledge
-        // action
-        // probably because it's lazily loaded
-        AccessController
-                .doPrivileged(new PrivilegedAction<Iterable<LookAndFeelAddons>>() {
-                    @Override
-                    public Iterable<LookAndFeelAddons> run() {
-                        loader.iterator().hasNext();
-                        return loader;
-                    }
-                });
-        int count = 0;
-        for (@SuppressWarnings("unused") LookAndFeelAddons addons : loader) {
-            count++;
-        }
+	private static final Logger LOG = Logger.getLogger(LookAndFeelAddonsSandboxOnTest.class.getName());
 
-        assertEquals(7, count, "loader must have addons");
-    }
-    
-    /**
-     * Issue #1568-swingx: accessing LookAndFeelAddons throws
-     * ExceptionInInitializationError.
-     * 
-     * This is caused by a typo in getCrossPlatFormAddon in the fallback
-     * branch, that is if accessing the property isn't allowed
-     * (packagename was swing instead of swingx).
-     * 
-     * Actually, with the fix to #1567, this is not really testing 
-     * because, as ultimate fallback, it is never reached if the
-     * lookup is working. 
-     *
-     */
-    @Test
-    public void testCrossPlatformTypo() {
-        LookAndFeelAddons.getAddon();
-    }
-    
-    /**
-     * Sanity: verify access to swing.addon denied.
-     *
-     */
-    @Test
-    public void testPropertySwingAddonDenied() {
-        assertThrows(SecurityException.class, () ->
-            System.getProperty("swing.addon", "not specified"));
-    }
-    
-    /**
-     * Sanity: verify access to swing.crossplatformaddon denied.
-     *
-     */
-    @Test
-    public void testPropertySwingCrossplatformAddonDenied() {
-        assertThrows(SecurityException.class, () ->
-            System.getProperty("swing.crossplatformlafaddon", "not specified"));
-    }
-    
-    /**
-     * Asserts that a security manager is installed, running the tests
-     * here without doesn't make sense.
-     */
-    @BeforeEach
-    public void setUp() throws Exception {
-        assertNotNull(System.getSecurityManager(), 
-                "Sandbox test cannot be run, no securityManager");
-    }
-    
-    /**
-     * Install a security manager and sets the default LAF to system. 
-     * 
-     * Note that de-installing the
-     * manager might not be allowed, so we can't run these tests automatically.
-     */
-    @BeforeAll
-    public static void install() {
-        // A - install the default SecurityManager. 
-        // Doing so we are not allowed to reverse the install -
-        // which makes this testCase to a manual-run-only affair
-        // (the securityManager is not uninstalled when running 
-        // other test cases - in Eclipse, when running the 
-        // bulk "all tests" of a projects. 
-        System.setSecurityManager(new SecurityManager());
-        // B- if we install a SecurityManager we need to be sure
-        // that we are allowed to uninstall it.
-        // BUT: with this custom manager on, test running 
-        // fails with a rather weird stack-trace. Gave up for now...
-//        System.setSecurityManager(new SecurityManager() {
-//
-//            @Override
-//            public void checkPermission(Permission perm) {
-//                if ("setSecurityManager".equals(perm.getName())) return;
-//                super.checkPermission(perm);    
-//                //  java.security.AccessController.checkPermission(perm);
-//
-//            }
-//
-//        });
-              
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	/**
+	 * Accessing the services inside a privileged action.
+	 */
+	@Test
+	public void testAccessMetaInfPriviledged() {
+		final Class<?> clazz = LookAndFeelAddons.class;
+		// JW: just a reminder (to myself)
+		// class.getResource interprets path as relative without
+		// leading slash
+		// classloader.getResource always absolute
+		final String services = "META-INF/services/" + clazz.getName();
+		// using the classloader (just as ServiceLoader does)
+		// absolute path always
+		URL url = AccessController.doPrivileged(new PrivilegedAction<URL>() {
+			@Override
+			public URL run() {
+				return clazz.getClassLoader().getResource(services);
+			}
+		});
+		assertNotNull(url, "services must be found");
+	}
 
-    @AfterAll
-    public static void uninstall() {
-        try {
-            System.setSecurityManager(null);
-        } catch (Exception e) {
-            LOG.info("can't remove the security manager");
-        }
-    }
+	/**
+	 * Testing privileged access to the ServiceLoader.
+	 *
+	 * Here we access the iterator inside the priviledged access, thus
+	 * forcing the load.
+	 */
+	@Test
+	public void testServiceLoaderIteratorPrivileged() {
+		final ServiceLoader<LookAndFeelAddons> loader = ServiceLoader.load(LookAndFeelAddons.class);
+		// need to access the iterator inside the priviledge
+		// action
+		// probably because it's lazily loaded
+		AccessController.doPrivileged(new PrivilegedAction<Iterable<LookAndFeelAddons>>() {
+			@Override
+			public Iterable<LookAndFeelAddons> run() {
+				loader.iterator().hasNext();
+				return loader;
+			}
+		});
+		int count = 0;
+		for (@SuppressWarnings("unused") LookAndFeelAddons addons : loader) {
+			count++;
+		}
+
+		assertEquals(7, count, "loader must have addons");
+	}
+
+	/**
+	 * Issue #1568-swingx: accessing LookAndFeelAddons throws
+	 * ExceptionInInitializationError.
+	 *
+	 * This is caused by a typo in getCrossPlatFormAddon in the fallback
+	 * branch, that is if accessing the property isn't allowed
+	 * (packagename was swing instead of swingx).
+	 *
+	 * Actually, with the fix to #1567, this is not really testing
+	 * because, as ultimate fallback, it is never reached if the
+	 * lookup is working.
+	 *
+	 */
+	@Test
+	public void testCrossPlatformTypo() {
+		LookAndFeelAddons.getAddon();
+	}
+
+	/**
+	 * Sanity: verify access to swing.addon denied.
+	 *
+	 */
+	@Test
+	public void testPropertySwingAddonDenied() {
+		assertThrows(SecurityException.class, () -> System.getProperty("swing.addon", "not specified"));
+	}
+
+	/**
+	 * Sanity: verify access to swing.crossplatformaddon denied.
+	 *
+	 */
+	@Test
+	public void testPropertySwingCrossplatformAddonDenied() {
+		assertThrows(SecurityException.class, () -> System.getProperty("swing.crossplatformlafaddon", "not specified"));
+	}
+
+	/**
+	 * Asserts that a security manager is installed, running the tests
+	 * here without doesn't make sense.
+	 */
+	@BeforeEach
+	public void setUp() throws Exception {
+		assertNotNull(System.getSecurityManager(), "Sandbox test cannot be run, no securityManager");
+	}
+
+	/**
+	 * Install a security manager and sets the default LAF to system.
+	 *
+	 * Note that de-installing the
+	 * manager might not be allowed, so we can't run these tests automatically.
+	 */
+	@BeforeAll
+	public static void install() {
+		// A - install the default SecurityManager.
+		// Doing so we are not allowed to reverse the install -
+		// which makes this testCase to a manual-run-only affair
+		// (the securityManager is not uninstalled when running
+		// other test cases - in Eclipse, when running the
+		// bulk "all tests" of a projects.
+		System.setSecurityManager(new SecurityManager());
+		// B- if we install a SecurityManager we need to be sure
+		// that we are allowed to uninstall it.
+		// BUT: with this custom manager on, test running
+		// fails with a rather weird stack-trace. Gave up for now...
+		//        System.setSecurityManager(new SecurityManager() {
+		//
+		//            @Override
+		//            public void checkPermission(Permission perm) {
+		//                if ("setSecurityManager".equals(perm.getName())) return;
+		//                super.checkPermission(perm);
+		//                //  java.security.AccessController.checkPermission(perm);
+		//
+		//            }
+		//
+		//        });
+
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@AfterAll
+	public static void uninstall() {
+		try {
+			System.setSecurityManager(null);
+		} catch (Exception e) {
+			LOG.info("can't remove the security manager");
+		}
+	}
 }

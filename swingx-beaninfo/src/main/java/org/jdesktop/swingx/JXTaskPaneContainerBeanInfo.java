@@ -21,26 +21,24 @@
 package org.jdesktop.swingx;
 
 import java.beans.BeanDescriptor;
-
 import org.jdesktop.beans.BeanInfoSupport;
 
 /**
  * BeanInfo class for JXTaskPaneContainer.
  */
 public class JXTaskPaneContainerBeanInfo extends BeanInfoSupport {
-    
-    /** Constructor for the JXTaskPaneContainerBeanInfo object */
-    public JXTaskPaneContainerBeanInfo() {
-        super(JXTaskPaneContainer.class);
-    }
-    
-    @Override
-    protected void initialize() {
-        BeanDescriptor bd = getBeanDescriptor();
-        // setup bean descriptor in constructor.
-        bd.setName("JXTaskPaneContainer");
-        bd.setShortDescription("A component that contains JXTaskPanes.");
-        bd.setValue("isContainer", Boolean.TRUE);
-        
-    }
+
+	/** Constructor for the JXTaskPaneContainerBeanInfo object */
+	public JXTaskPaneContainerBeanInfo() {
+		super(JXTaskPaneContainer.class);
+	}
+
+	@Override
+	protected void initialize() {
+		BeanDescriptor bd = getBeanDescriptor();
+		// setup bean descriptor in constructor.
+		bd.setName("JXTaskPaneContainer");
+		bd.setShortDescription("A component that contains JXTaskPanes.");
+		bd.setValue("isContainer", Boolean.TRUE);
+	}
 }

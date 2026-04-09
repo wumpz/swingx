@@ -5,10 +5,8 @@
 package org.jdesktop.swingx.rollover;
 
 import java.util.logging.Logger;
-
 import javax.swing.JComponent;
 import javax.swing.table.TableModel;
-
 import org.jdesktop.swingx.InteractiveTestCase;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTable;
@@ -18,90 +16,80 @@ import org.jdesktop.test.TestUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 public class RolloverTest extends InteractiveTestCase {
 
-    @SuppressWarnings("unused")
-    private static final Logger LOG = Logger.getLogger(RolloverTest.class
-            .getName());
-    
-    private TableModel sortableTableModel;
-//    private Highlighter backgroundHighlighter;
-//    private Highlighter foregroundHighlighter;
-//    private ListModel listModel;
-//    private FileSystemModel treeTableModel;
+	@SuppressWarnings("unused")
+	private static final Logger LOG = Logger.getLogger(RolloverTest.class.getName());
 
-    
-    /**
-     * Issue #1193-swingx: fix rollover mouse to cell mapping on scrolling/resizing.
-     *  
-     */
-    @Test
-    public void testTableRolloverProducerComponentListener() {
-        JXTable table = new JXTable();
-        assertComponentListener(table, true);
-        table.setRolloverEnabled(false);
-        assertComponentListener(table, false);
-    }
-    /**
-     * Issue #1193-swingx: fix rollover mouse to cell mapping on scrolling/resizing.
-     *  
-     */
-    @Test
-    public void testTreeRolloverProducerComponentListener() {
-        JXTree table = new JXTree();
-        assertComponentListener(table, false);
-        table.setRolloverEnabled(true);
-        assertComponentListener(table, true);
-    }
-    
-    /**
-     * Issue #1193-swingx: fix rollover mouse to cell mapping on scrolling/resizing.
-     *  
-     */
-    @Test
-    public void testListRolloverProducerComponentListener() {
-        JXList table = new JXList();
-        assertComponentListener(table, false);
-        table.setRolloverEnabled(true);
-        assertComponentListener(table, true);
-    }
-    
+	private TableModel sortableTableModel;
+	//    private Highlighter backgroundHighlighter;
+	//    private Highlighter foregroundHighlighter;
+	//    private ListModel listModel;
+	//    private FileSystemModel treeTableModel;
 
-    /**
-     * @param table
-     */
-    private void assertComponentListener(JComponent table, boolean expected) {
-        TestUtils.assertContainsType(table.getComponentListeners(), 
-                RolloverProducer.class, expected ? 1 : 0);
-    }
+	/**
+	 * Issue #1193-swingx: fix rollover mouse to cell mapping on scrolling/resizing.
+	 *
+	 */
+	@Test
+	public void testTableRolloverProducerComponentListener() {
+		JXTable table = new JXTable();
+		assertComponentListener(table, true);
+		table.setRolloverEnabled(false);
+		assertComponentListener(table, false);
+	}
+	/**
+	 * Issue #1193-swingx: fix rollover mouse to cell mapping on scrolling/resizing.
+	 *
+	 */
+	@Test
+	public void testTreeRolloverProducerComponentListener() {
+		JXTree table = new JXTree();
+		assertComponentListener(table, false);
+		table.setRolloverEnabled(true);
+		assertComponentListener(table, true);
+	}
 
+	/**
+	 * Issue #1193-swingx: fix rollover mouse to cell mapping on scrolling/resizing.
+	 *
+	 */
+	@Test
+	public void testListRolloverProducerComponentListener() {
+		JXList table = new JXList();
+		assertComponentListener(table, false);
+		table.setRolloverEnabled(true);
+		assertComponentListener(table, true);
+	}
 
-    @BeforeEach
-    public void setUp() throws Exception {
-        sortableTableModel = new AncientSwingTeam();
-//        listModel = new AbstractListModel() {
-//
-//            public int getSize() {
-//                return sortableTableModel.getRowCount();
-//            }
-//
-//            public Object getElementAt(int index) {
-//                return sortableTableModel.getValueAt(index, 0);
-//            }
-//            
-//        };
-//        treeTableModel = new FileSystemModel();
-//        foregroundHighlighter = new ColorHighlighter(HighlightPredicate.ROLLOVER_ROW, null,
-//                Color.MAGENTA);
-//        backgroundHighlighter = new ColorHighlighter(HighlightPredicate.ROLLOVER_ROW, Color.YELLOW,
-//                null);
-     }
-    
+	/**
+	 * @param table
+	 */
+	private void assertComponentListener(JComponent table, boolean expected) {
+		TestUtils.assertContainsType(table.getComponentListeners(), RolloverProducer.class, expected ? 1 : 0);
+	}
 
-    @Test
-    public void testXDummy() {
-        
-    }
+	@BeforeEach
+	public void setUp() throws Exception {
+		sortableTableModel = new AncientSwingTeam();
+		//        listModel = new AbstractListModel() {
+		//
+		//            public int getSize() {
+		//                return sortableTableModel.getRowCount();
+		//            }
+		//
+		//            public Object getElementAt(int index) {
+		//                return sortableTableModel.getValueAt(index, 0);
+		//            }
+		//
+		//        };
+		//        treeTableModel = new FileSystemModel();
+		//        foregroundHighlighter = new ColorHighlighter(HighlightPredicate.ROLLOVER_ROW, null,
+		//                Color.MAGENTA);
+		//        backgroundHighlighter = new ColorHighlighter(HighlightPredicate.ROLLOVER_ROW, Color.YELLOW,
+		//                null);
+	}
 
+	@Test
+	public void testXDummy() {}
 }

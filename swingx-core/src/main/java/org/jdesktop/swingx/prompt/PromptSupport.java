@@ -2,9 +2,7 @@ package org.jdesktop.swingx.prompt;
 
 import java.awt.Color;
 import java.awt.Font;
-
 import javax.swing.text.JTextComponent;
-
 import org.jdesktop.swingx.JXFormattedTextField;
 import org.jdesktop.swingx.JXTextArea;
 import org.jdesktop.swingx.JXTextField;
@@ -21,18 +19,18 @@ import org.jdesktop.swingx.plaf.TextUIWrapper;
  * are used by {@link PromptTextUI} instances to render the prompt of a text
  * component.
  * </p>
- * 
+ *
  * <p>
  * This class is used by {@link JXTextField}, {@link JXFormattedTextField} and
  * {@link JXTextArea} to get and set prompt properties. {@link PromptTextUI}
  * retrieves these properties using PromptSupport.
  * </p>
- * 
+ *
  * @see JXTextField
  * @see JXFormattedTextField
  * @see JXTextArea
  * @see PromptTextUI
- * 
+ *
  * @author Peter Weishapl <petw@gmx.net>
  * @author Karl Schaefer
  */
@@ -51,7 +49,7 @@ public final class PromptSupport {
 	 * The prompt background property.
 	 */
 	public static final String BACKGROUND = "promptBackground";
-	
+
 	/**
 	 * The prompt background property.
 	 */
@@ -87,9 +85,9 @@ public final class PromptSupport {
 		 */
 		HIDE_PROMPT
 	};
-	
+
 	private PromptSupport() {
-	    //prevent instantiation
+		// prevent instantiation
 	}
 
 	/**
@@ -102,14 +100,14 @@ public final class PromptSupport {
 	 * installed, even when the text components UI changes. See
 	 * {@link #install(JTextComponent, boolean)}.
 	 * </p>
-	 * 
+	 *
 	 * @param promptText
 	 * @param promptForeground
 	 * @param promptBackground
 	 * @param textComponent
 	 */
-	public static void init(String promptText, Color promptForeground, Color promptBackground,
-			final JTextComponent textComponent) {
+	public static void init(
+			String promptText, Color promptForeground, Color promptBackground, final JTextComponent textComponent) {
 		if (promptText != null && promptText.length() > 0) {
 			setPrompt(promptText, textComponent);
 		}
@@ -123,7 +121,7 @@ public final class PromptSupport {
 
 	/**
 	 * Get the {@link FocusBehavior} of <code>textComponent</code>.
-	 * 
+	 *
 	 * @param textComponent
 	 * @return the {@link FocusBehavior} or {@link FocusBehavior#HIDE_PROMPT} if
 	 *         none is set
@@ -139,7 +137,7 @@ public final class PromptSupport {
 	/**
 	 * Sets the {@link FocusBehavior} on <code>textComponent</code> and
 	 * repaints the component to reflect the changes, if it is the focus owner.
-	 * 
+	 *
 	 * @param focusBehavior
 	 * @param textComponent
 	 */
@@ -152,7 +150,7 @@ public final class PromptSupport {
 
 	/**
 	 * Get the prompt text of <code>textComponent</code>.
-	 * 
+	 *
 	 * @param textComponent
 	 * @return the prompt text
 	 */
@@ -172,7 +170,7 @@ public final class PromptSupport {
 	 * <code>textComponent</code>s UI is wrapped by the appropriate
 	 * {@link PromptTextUI}.
 	 * </p>
-	 * 
+	 *
 	 * @param promptText
 	 * @param textComponent
 	 */
@@ -180,7 +178,8 @@ public final class PromptSupport {
 		TextUIWrapper.getDefaultWrapper().install(textComponent, true);
 
 		// display prompt as tooltip by default
-		if (textComponent.getToolTipText() == null || textComponent.getToolTipText().equals(getPrompt(textComponent))) {
+		if (textComponent.getToolTipText() == null
+				|| textComponent.getToolTipText().equals(getPrompt(textComponent))) {
 			textComponent.setToolTipText(promptText);
 		}
 
@@ -191,7 +190,7 @@ public final class PromptSupport {
 	/**
 	 * Get the foreground color of the prompt text. If no color has been set,
 	 * the <code>textComponent</code>s disabled text color will be returned.
-	 * 
+	 *
 	 * @param textComponent
 	 * @return the color of the prompt text or
 	 *         {@link JTextComponent#getDisabledTextColor()} if none is set
@@ -207,7 +206,7 @@ public final class PromptSupport {
 	 * Sets the foreground color of the prompt on <code>textComponent</code>
 	 * and repaints the component to reflect the changes. This color will be
 	 * used when no text is present.
-	 * 
+	 *
 	 * @param promptTextColor
 	 * @param textComponent
 	 */
@@ -220,7 +219,7 @@ public final class PromptSupport {
 	 * Get the background color of the <code>textComponent</code>, when no
 	 * text is present. If no color has been set, the <code>textComponent</code>s
 	 * background color color will be returned.
-	 * 
+	 *
 	 * @param textComponent
 	 * @return the the background color of the text component, when no text is
 	 *         present
@@ -243,7 +242,7 @@ public final class PromptSupport {
 	 * <code>textComponent</code>s UI is wrapped by the appropriate
 	 * {@link PromptTextUI}.
 	 * </p>
-	 * 
+	 *
 	 * @param background
 	 * @param textComponent
 	 */
@@ -253,25 +252,25 @@ public final class PromptSupport {
 		textComponent.putClientProperty(BACKGROUND, background);
 		textComponent.repaint();
 	}
-	
+
 	/**
 	 * Get the background painter of the <code>textComponent</code>, when no
 	 * text is present. If no painter has been set, then {@code null} will be returned.
-	 * 
+	 *
 	 * @param textComponent
 	 * @return the background painter of the text component
 	 */
 	@SuppressWarnings("unchecked")
-    public static <T extends JTextComponent> Painter<? super T> getBackgroundPainter(T textComponent) {
-	    Painter<? super T> painter = (Painter<? super T>) textComponent.getClientProperty(BACKGROUND_PAINTER);
-	    
-	    if (painter == null) {
-	        painter = Painters.EMPTY_PAINTER;
-	    }
-	    
-	    return painter;
+	public static <T extends JTextComponent> Painter<? super T> getBackgroundPainter(T textComponent) {
+		Painter<? super T> painter = (Painter<? super T>) textComponent.getClientProperty(BACKGROUND_PAINTER);
+
+		if (painter == null) {
+			painter = Painters.EMPTY_PAINTER;
+		}
+
+		return painter;
 	}
-	
+
 	/**
 	 * <p>
 	 * Sets the prompts background painter on <code>textComponent</code> and
@@ -283,15 +282,15 @@ public final class PromptSupport {
 	 * <code>textComponent</code>s UI is wrapped by the appropriate
 	 * {@link PromptTextUI}.
 	 * </p>
-	 * 
+	 *
 	 * @param background
 	 * @param textComponent
 	 */
 	public static <T extends JTextComponent> void setBackgroundPainter(Painter<? super T> background, T textComponent) {
-	    TextUIWrapper.getDefaultWrapper().install(textComponent, true);
-	    
-	    textComponent.putClientProperty(BACKGROUND_PAINTER, background);
-	    textComponent.repaint();
+		TextUIWrapper.getDefaultWrapper().install(textComponent, true);
+
+		textComponent.putClientProperty(BACKGROUND_PAINTER, background);
+		textComponent.repaint();
 	}
 
 	/**
@@ -305,7 +304,7 @@ public final class PromptSupport {
 	 * {@link Font#ITALIC} or <code>null</code> if the prompt font should be
 	 * the same as the <code>textComponent</code>s font.
 	 * </p>
-	 * 
+	 *
 	 * @param fontStyle
 	 * @param textComponent
 	 */
@@ -319,7 +318,7 @@ public final class PromptSupport {
 	 * Returns the font style of the prompt text, or <code>null</code> if the
 	 * prompt's font style should not differ from the <code>textComponent</code>s
 	 * font.
-	 * 
+	 *
 	 * @param textComponent
 	 * @return font style of the prompt text
 	 */

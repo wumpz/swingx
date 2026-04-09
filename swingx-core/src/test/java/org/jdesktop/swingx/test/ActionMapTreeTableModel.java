@@ -6,219 +6,202 @@
  */
 package org.jdesktop.swingx.test;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Vector;
-
 import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.JComponent;
 import javax.swing.tree.TreeNode;
-
 import org.jdesktop.swingx.treetable.DefaultTreeTableModel;
 import org.jdesktop.swingx.treetable.TreeTableNode;
 
 /**
  * Convenience TreeTableModel for wrapping an ActionMap hierarchy.
- * 
+ *
  * @author Jeanette Winzenburg, Berlin
  */
 public class ActionMapTreeTableModel extends DefaultTreeTableModel {
 
-    
-    public ActionMapTreeTableModel(JComponent comp) {
-        super();
-        setRoot(createRootNodeExt(comp));
-        Vector<String> names = new Vector<>();
-        names.add("Key Name");
-        names.add("Action Name");
-        names.add("Action Command");
-        setColumnIdentifiers(names);
-    }
+	public ActionMapTreeTableModel(JComponent comp) {
+		super();
+		setRoot(createRootNodeExt(comp));
+		Vector<String> names = new Vector<>();
+		names.add("Key Name");
+		names.add("Action Name");
+		names.add("Action Command");
+		setColumnIdentifiers(names);
+	}
 
+	private ActionEntryNode createRootNodeExt(JComponent comp) {
+		ActionMap map = comp.getActionMap();
+		if (map == null) throw new IllegalArgumentException("Component must have ActionMap");
+		List<ActionMap> actionMaps = new ArrayList<>();
+		actionMaps.add(map);
+		while ((map = map.getParent()) != null) {
+			actionMaps.add(0, map);
+		}
+		return createActionEntryNodes(actionMaps);
+	}
 
-    private ActionEntryNode createRootNodeExt(JComponent comp) {
-        ActionMap map = comp.getActionMap();
-        if (map == null)
-            throw new IllegalArgumentException("Component must have ActionMap");
-        List<ActionMap> actionMaps = new ArrayList<>();
-        actionMaps.add(map);
-        while ((map = map.getParent()) != null) {
-            actionMaps.add(0, map);
-        }
-        return createActionEntryNodes(actionMaps);
-    }
+	private ActionEntryNode createActionEntryNodes(List<ActionMap> actionMaps) {
+		ActionMap topLevel = (ActionMap) actionMaps.get(0);
+		ActionEntryNode mapRoot = new ActionEntryNode("topLevel", topLevel, null);
+		ActionEntryNode current = mapRoot;
+		for (int i = 1; i < actionMaps.size(); i++) {
+			current = current.addActionMapAsChild("childMap " + i, (ActionMap) actionMaps.get(i));
+		}
+		return mapRoot;
+	}
 
-    private ActionEntryNode createActionEntryNodes(List<ActionMap> actionMaps) {
-        ActionMap topLevel = (ActionMap) actionMaps.get(0);
-        ActionEntryNode mapRoot = new ActionEntryNode("topLevel", topLevel, null);
-        ActionEntryNode current = mapRoot;
-        for (int i = 1; i < actionMaps.size(); i++) {
-            current = current.addActionMapAsChild("childMap " + i,
-                    (ActionMap) actionMaps.get(i));
-        }
-        return mapRoot;
-    }
+	private static class ActionEntryNode implements TreeTableNode {
+		ActionEntryNode parent;
 
-    private static class ActionEntryNode implements TreeTableNode {
-        ActionEntryNode parent;
-        
-        Object key;
+		Object key;
 
-        Action action;
+		Action action;
 
-        ActionMap actionMap;
+		ActionMap actionMap;
 
-        List<ActionEntryNode> children;
+		List<ActionEntryNode> children;
 
-        public ActionEntryNode(Object key, Action action, ActionEntryNode parent) {
-            this.parent = parent;
-            this.key = key;
-            this.action = action;
-            children = Collections.emptyList();
-        }
+		public ActionEntryNode(Object key, Action action, ActionEntryNode parent) {
+			this.parent = parent;
+			this.key = key;
+			this.action = action;
+			children = Collections.emptyList();
+		}
 
-        public ActionEntryNode(Object key, ActionMap map, ActionEntryNode parent) {
-            this.parent = parent;
-            this.key = key;
-            this.actionMap = map;
-            children = new ArrayList<>();
-            Object[] keys = map.keys();
-            for (Object key1 : keys) {
-                children.add(new ActionEntryNode(key1, (Action) map.get(key1), this));
-            }
-        }
+		public ActionEntryNode(Object key, ActionMap map, ActionEntryNode parent) {
+			this.parent = parent;
+			this.key = key;
+			this.actionMap = map;
+			children = new ArrayList<>();
+			Object[] keys = map.keys();
+			for (Object key1 : keys) {
+				children.add(new ActionEntryNode(key1, (Action) map.get(key1), this));
+			}
+		}
 
-        /**
-         * pre: !isLeaf
-         * 
-         * @param key
-         * @param map
-         */
-        public ActionEntryNode addActionMapAsChild(Object key, ActionMap map) {
-            ActionEntryNode actionEntryNode = new ActionEntryNode(key, map, this);
-            getChildren().add(0, actionEntryNode);
-            return actionEntryNode;
-        }
+		/**
+		 * pre: !isLeaf
+		 *
+		 * @param key
+		 * @param map
+		 */
+		public ActionEntryNode addActionMapAsChild(Object key, ActionMap map) {
+			ActionEntryNode actionEntryNode = new ActionEntryNode(key, map, this);
+			getChildren().add(0, actionEntryNode);
+			return actionEntryNode;
+		}
 
-        public List<ActionEntryNode> getChildren() {
-            return children;
-        }
+		public List<ActionEntryNode> getChildren() {
+			return children;
+		}
 
+		public ActionMap getActionMap() {
+			return actionMap;
+		}
 
-        public ActionMap getActionMap() {
-            return actionMap;
-        }
+		public Action getAction() {
+			return action;
+		}
 
-        public Action getAction() {
-            return action;
-        }
+		@Override
+		public String toString() {
+			return key.toString();
+		}
 
+		// --------------- implement TreeNode
+		@Override
+		public boolean isLeaf() {
+			return action != null;
+		}
 
-        @Override
-        public String toString() {
-            return key.toString();
-        }
+		@Override
+		public boolean getAllowsChildren() {
+			return !isLeaf();
+		}
 
-        // --------------- implement TreeNode
-        @Override
-        public boolean isLeaf() {
-            return action != null;
-        }
-        
-        @Override
-        public boolean getAllowsChildren() {
-            return !isLeaf();
-        }
+		@Override
+		public int getChildCount() {
+			return children.size();
+		}
 
-        @Override
-        public int getChildCount() {
-            return children.size();
-        }
+		@Override
+		public int getIndex(TreeNode node) {
+			return children.indexOf(node);
+		}
 
-        @Override
-        public int getIndex(TreeNode node) {
-            return children.indexOf(node);
-        }
-        
-        
-        //------------- implement re-defined methods of TreeNode
-        
-        @Override
-        public Enumeration<? extends TreeTableNode> children() {
-            return Collections.enumeration(children);
-        }
+		// ------------- implement re-defined methods of TreeNode
 
-        
-        @Override
-        public TreeTableNode getChildAt(int childIndex) {
-            return children.get(childIndex);
-        }
+		@Override
+		public Enumeration<? extends TreeTableNode> children() {
+			return Collections.enumeration(children);
+		}
 
-        @Override
-        public TreeTableNode getParent() {
-            return parent;
-        }
+		@Override
+		public TreeTableNode getChildAt(int childIndex) {
+			return children.get(childIndex);
+		}
 
-        //---------------- implement TreeTableNode
-        
-        public Class<?> getColumnClass(int index) {
-            return Object.class;
-        }
-        
-        @Override
-        public int getColumnCount() {
-            return 2;
-        }
-        
-        @Override
-        public Object getValueAt(int column) {
-            ActionEntryNode actionNode = this;
+		@Override
+		public TreeTableNode getParent() {
+			return parent;
+		}
 
-            switch (column) {
-            case 0:
-                return actionNode.key;
-            case 1:
-                if (actionNode.isLeaf())
-                    return actionNode.getAction().getValue(Action.NAME);
-                return null;
-            case 2:
-                if (actionNode.isLeaf())
-                    return actionNode.getAction().getValue(
-                            Action.ACTION_COMMAND_KEY);
-            // case 3:
-            // return "Modification Date";
-            default:
-                return null;
-            }
-        }
+		// ---------------- implement TreeTableNode
 
-        @Override
-        public boolean isEditable(int column) {
-            return false;
-        }
+		public Class<?> getColumnClass(int index) {
+			return Object.class;
+		}
 
-        @Override
-        public void setValueAt(Object aValue, int column) {
-            // do nothing
-            
-        }
+		@Override
+		public int getColumnCount() {
+			return 2;
+		}
 
-        @Override
-        public Object getUserObject() {
-             return getAction();
-        }
+		@Override
+		public Object getValueAt(int column) {
+			ActionEntryNode actionNode = this;
 
-        @Override
-        public void setUserObject(Object userObject) {
-            // TODO Auto-generated method stub
-            
-        }
+			switch (column) {
+				case 0:
+					return actionNode.key;
+				case 1:
+					if (actionNode.isLeaf()) return actionNode.getAction().getValue(Action.NAME);
+					return null;
+				case 2:
+					if (actionNode.isLeaf()) return actionNode.getAction().getValue(Action.ACTION_COMMAND_KEY);
+				// case 3:
+				// return "Modification Date";
+				default:
+					return null;
+			}
+		}
 
-        
-    }
+		@Override
+		public boolean isEditable(int column) {
+			return false;
+		}
 
+		@Override
+		public void setValueAt(Object aValue, int column) {
+			// do nothing
+
+		}
+
+		@Override
+		public Object getUserObject() {
+			return getAction();
+		}
+
+		@Override
+		public void setUserObject(Object userObject) {
+			// TODO Auto-generated method stub
+
+		}
+	}
 }

@@ -21,7 +21,6 @@
 package org.jdesktop.swingx.action;
 
 import java.net.MalformedURLException;
-
 import javax.swing.Action;
 
 /**
@@ -29,9 +28,9 @@ import javax.swing.Action;
  * @author Karl George Schaefer
  */
 public class OpenBrowserActionVisualCheck {
-    public static void main(String ... args) throws MalformedURLException {
-        //System.out.println("trying to open a URL on the current platform");
-        Action action = new OpenBrowserAction("http://sun.com/");
-        action.actionPerformed(null);
-    }
+	public static void main(String... args) throws MalformedURLException {
+		// System.out.println("trying to open a URL on the current platform");
+		Action action = new OpenBrowserAction("http://sun.com/");
+		action.actionPerformed(null);
+	}
 }

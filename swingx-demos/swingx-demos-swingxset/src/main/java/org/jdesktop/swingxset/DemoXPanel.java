@@ -31,6 +31,9 @@
 
 package org.jdesktop.swingxset;
 
+import com.sun.swingset3.Demo;
+import com.sun.swingset3.utilities.RoundedBorder;
+import com.sun.swingset3.utilities.Utilities;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -40,20 +43,14 @@ import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.geom.Rectangle2D;
 import java.util.logging.Logger;
-
 import javax.swing.JComponent;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
-
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.interpolation.PropertySetter;
 import org.jdesktop.animation.timing.triggers.TimingTrigger;
 import org.jdesktop.animation.timing.triggers.TimingTriggerEvent;
 import org.jdesktop.swingx.JXPanel;
-
-import com.sun.swingset3.Demo;
-import com.sun.swingset3.utilities.RoundedBorder;
-import com.sun.swingset3.utilities.Utilities;
 
 /**
  *
@@ -61,148 +58,139 @@ import com.sun.swingset3.utilities.Utilities;
  * @author Jeanette Winzenburg (SwingX adaption)
  */
 public class DemoXPanel extends JXPanel {
-    
-    @SuppressWarnings("unused")
-    private static final Logger LOG = Logger.getLogger(DemoXPanel.class
-            .getName());
-    
-    static final Border roundedBorder = new RoundedBorder(10);
-    
-    // insets for description editorpane
-    static final Insets margin = new Insets(8, 10, 8, 8);
 
-    private Demo demo;
+	@SuppressWarnings("unused")
+	private static final Logger LOG = Logger.getLogger(DemoXPanel.class.getName());
 
-    public DemoXPanel(Demo demo) throws Exception  {
-        LoadedXDemoPanel demoPanel = new LoadedXDemoPanel(demo);
-        this.demo = demo;
-        setLayout(new BorderLayout());
-        // remind(aim): how to access resourceMap?
-        //resourceMap = getContext().getResourceMap();
+	static final Border roundedBorder = new RoundedBorder(10);
 
-        // JW: adding is done in end of fade-out
-        // getting even weirder layout if prematurely adding here ...
-//        add(demoPanel);
-        LoadAnimationPanel loadAnimationPanel = new LoadAnimationPanel();
+	// insets for description editorpane
+	static final Insets margin = new Insets(8, 10, 8, 8);
 
-        add(loadAnimationPanel);
-        loadAnimationPanel.setAnimating(true);
+	private Demo demo;
 
-        Animator fadeOutAnimator = null;
-        Animator fadeInAnimator = null;
-        try {
-            loadAnimationPanel.setAnimating(false);
-            fadeOutAnimator = new Animator(400,
-                    new FadeOut(DemoXPanel.this,
-                            loadAnimationPanel, demoPanel));
-            fadeOutAnimator.setAcceleration(.2f);
-            fadeOutAnimator.setDeceleration(.3f);
-            fadeInAnimator = new Animator(400,
-                    new PropertySetter(DemoXPanel.this, "alpha", 0.3f, 1.0f));
-            TimingTrigger.addTrigger(fadeOutAnimator, fadeInAnimator, TimingTriggerEvent.STOP);
-            fadeOutAnimator.start();
-        } catch (Exception ignore) {
-            if (fadeOutAnimator != null) fadeOutAnimator.stop();
-            if (fadeInAnimator != null) fadeInAnimator.stop();
-            if (loadAnimationPanel != null)
-               loadAnimationPanel.setAnimating(false);
-            
-            System.err.println(ignore);
-            ignore.printStackTrace();
-        }
-    }
+	public DemoXPanel(Demo demo) throws Exception {
+		LoadedXDemoPanel demoPanel = new LoadedXDemoPanel(demo);
+		this.demo = demo;
+		setLayout(new BorderLayout());
+		// remind(aim): how to access resourceMap?
+		// resourceMap = getContext().getResourceMap();
 
-    public Demo getDemo() {
-        return demo;
-    }
+		// JW: adding is done in end of fade-out
+		// getting even weirder layout if prematurely adding here ...
+		//        add(demoPanel);
+		LoadAnimationPanel loadAnimationPanel = new LoadAnimationPanel();
 
-    private static class FadeOut extends PropertySetter {
-        private JXPanel parent;
-        private JXPanel out;
-        private JComponent in;
+		add(loadAnimationPanel);
+		loadAnimationPanel.setAnimating(true);
 
-        public FadeOut(JXPanel parent, JXPanel out, JComponent in) {
-            super(out, "alpha", 1.0f, 0.3f);
-            this.parent = parent;
-            this.out = out;
-            this.in = in;
-        }
+		Animator fadeOutAnimator = null;
+		Animator fadeInAnimator = null;
+		try {
+			loadAnimationPanel.setAnimating(false);
+			fadeOutAnimator = new Animator(400, new FadeOut(DemoXPanel.this, loadAnimationPanel, demoPanel));
+			fadeOutAnimator.setAcceleration(.2f);
+			fadeOutAnimator.setDeceleration(.3f);
+			fadeInAnimator = new Animator(400, new PropertySetter(DemoXPanel.this, "alpha", 0.3f, 1.0f));
+			TimingTrigger.addTrigger(fadeOutAnimator, fadeInAnimator, TimingTriggerEvent.STOP);
+			fadeOutAnimator.start();
+		} catch (Exception ignore) {
+			if (fadeOutAnimator != null) fadeOutAnimator.stop();
+			if (fadeInAnimator != null) fadeInAnimator.stop();
+			if (loadAnimationPanel != null) loadAnimationPanel.setAnimating(false);
 
-        public void end() {
-            parent.setAlpha(0.3f);
-            parent.remove(out);
-            parent.add(in);
-            parent.revalidate();
-        }
-    } // Fader
+			System.err.println(ignore);
+			ignore.printStackTrace();
+		}
+	}
 
-    private static class LoadAnimationPanel extends JXPanel {
-        private String message;
-        private int triState = 0;
-        private boolean animating = false;
-        private Animator animator;
+	public Demo getDemo() {
+		return demo;
+	}
 
-        public LoadAnimationPanel() {
-            setBorder(roundedBorder);
-            setBackground(Utilities.deriveColorHSB(
-                    UIManager.getColor("Panel.background"), 0, 0, -.06f));
+	private static class FadeOut extends PropertySetter {
+		private JXPanel parent;
+		private JXPanel out;
+		private JComponent in;
 
-            // remind(aim): get from resource map
-            message = "demo loading";
+		public FadeOut(JXPanel parent, JXPanel out, JComponent in) {
+			super(out, "alpha", 1.0f, 0.3f);
+			this.parent = parent;
+			this.out = out;
+			this.in = in;
+		}
 
-            PropertySetter rotator = new PropertySetter(this, "triState", 0, 3);
-            animator = new Animator(500, Animator.INFINITE,
-                    Animator.RepeatBehavior.LOOP, rotator);
-            // Don't animate gears if loading is quick
-            animator.setStartDelay(200);
-        }
+		public void end() {
+			parent.setAlpha(0.3f);
+			parent.remove(out);
+			parent.add(in);
+			parent.revalidate();
+		}
+	} // Fader
 
-        public void setAnimating(boolean animating) {
-            this.animating = animating;
-            if (animating) {
-                animator.start();
-            } else {
-                animator.stop();
-            }
-        }
+	private static class LoadAnimationPanel extends JXPanel {
+		private String message;
+		private int triState = 0;
+		private boolean animating = false;
+		private Animator animator;
 
-        public boolean isAnimating() {
-            return animating;
-        }
+		public LoadAnimationPanel() {
+			setBorder(roundedBorder);
+			setBackground(Utilities.deriveColorHSB(UIManager.getColor("Panel.background"), 0, 0, -.06f));
 
-        public void setTriState(int triState) {
-            this.triState = triState;
-            repaint();
-        }
+			// remind(aim): get from resource map
+			message = "demo loading";
 
-        public int getTriState() {
-            return triState;
-        }
+			PropertySetter rotator = new PropertySetter(this, "triState", 0, 3);
+			animator = new Animator(500, Animator.INFINITE, Animator.RepeatBehavior.LOOP, rotator);
+			// Don't animate gears if loading is quick
+			animator.setStartDelay(200);
+		}
 
-        public void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            Graphics2D g2 = (Graphics2D) g.create();
-            Dimension size = getSize();
+		public void setAnimating(boolean animating) {
+			this.animating = animating;
+			if (animating) {
+				animator.start();
+			} else {
+				animator.stop();
+			}
+		}
 
-            Color textColor = Utilities.deriveColorHSB(getBackground(), 0, 0, -.3f);
-            Color dotColor = Utilities.deriveColorHSB(textColor, 0, .2f, -.08f);
-            g2.setColor(textColor);
-            g2.setFont(UIManager.getFont("Label.font").deriveFont(32f));
-            FontMetrics metrics = g2.getFontMetrics();
-            Rectangle2D rect = metrics.getStringBounds(message, g2);
-            Rectangle2D dotRect = metrics.getStringBounds(".", g2);
-            float x = (float) (size.width - (rect.getWidth() + 3 * dotRect.getWidth())) / 2;
-            float y = (float) (size.height - rect.getHeight()) / 2;
-            g2.drawString(message, x, y);
-            int tri = getTriState();
-            float dx = 0;
-            for (int i = 0; i < 3; i++) {
-                g2.setColor(animator.isRunning() && i == tri ?
-                        dotColor :
-                        textColor);
-                g2.drawString(".", x + (float) (rect.getWidth() + dx), y);
-                dx += dotRect.getWidth();
-            }
-        }
-    } // LoadAnimationPanel
+		public boolean isAnimating() {
+			return animating;
+		}
+
+		public void setTriState(int triState) {
+			this.triState = triState;
+			repaint();
+		}
+
+		public int getTriState() {
+			return triState;
+		}
+
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			Graphics2D g2 = (Graphics2D) g.create();
+			Dimension size = getSize();
+
+			Color textColor = Utilities.deriveColorHSB(getBackground(), 0, 0, -.3f);
+			Color dotColor = Utilities.deriveColorHSB(textColor, 0, .2f, -.08f);
+			g2.setColor(textColor);
+			g2.setFont(UIManager.getFont("Label.font").deriveFont(32f));
+			FontMetrics metrics = g2.getFontMetrics();
+			Rectangle2D rect = metrics.getStringBounds(message, g2);
+			Rectangle2D dotRect = metrics.getStringBounds(".", g2);
+			float x = (float) (size.width - (rect.getWidth() + 3 * dotRect.getWidth())) / 2;
+			float y = (float) (size.height - rect.getHeight()) / 2;
+			g2.drawString(message, x, y);
+			int tri = getTriState();
+			float dx = 0;
+			for (int i = 0; i < 3; i++) {
+				g2.setColor(animator.isRunning() && i == tri ? dotColor : textColor);
+				g2.drawString(".", x + (float) (rect.getWidth() + dx), y);
+				dx += dotRect.getWidth();
+			}
+		}
+	} // LoadAnimationPanel
 }

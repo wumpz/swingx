@@ -10,13 +10,13 @@ import org.junit.jupiter.api.Test;
 
 public class ServerActionTest {
 
-    /**
-     * Issue #206-swingx: NPE in addHeader.
-     *
-     */
-    @Test
-    public void testNPEAddHeader() {
-       ServerAction action = new ServerAction();
-       action.addHeader("key", "value");
-    }
+	/**
+	 * Issue #206-swingx: NPE in addHeader.
+	 *
+	 */
+	@Test
+	public void testNPEAddHeader() {
+		ServerAction action = new ServerAction();
+		action.addHeader("key", "value");
+	}
 }

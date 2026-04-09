@@ -8,55 +8,55 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 /**
- *  Contains classes related to the JDNC actions architecture. The Actions 
- * architecture maintains the set of user initiated commands (referred to as 
- * <i>user actions</i>) in an application. These commands are represented as an 
- * {@link javax.swing.Action} and have properties like name and icon. The 
+ *  Contains classes related to the JDNC actions architecture. The Actions
+ * architecture maintains the set of user initiated commands (referred to as
+ * <i>user actions</i>) in an application. These commands are represented as an
+ * {@link javax.swing.Action} and have properties like name and icon. The
  * user actions
- * are represented in the user interface by controls like menu items and 
+ * are represented in the user interface by controls like menu items and
  * toolbar buttons.
  * <p>
- * The other type of actions used by the architecture are the internal 
+ * The other type of actions used by the architecture are the internal
  * swing Actions (refered to as <i>behaviour actions</i>) that are embedded
  * within the {@link javax.swing.ActionMap} of a {@link javax.swing.JComponent}.
  * <p>
  * These two types of actions are distinct from each other: user actions
- * have a lot of properties but very little semantics by default 
+ * have a lot of properties but very little semantics by default
  * (unless explicity bound). Behavior actions have no properties but have
- * semantics. These two types of actions are linked by the action id 
+ * semantics. These two types of actions are linked by the action id
  * which is the value of the <code>Action.ACTION_COMMAND_KEY</code>
  * <p>
  * The {@link org.jdesktop.swingx.action.AbstractActionExt} class extends the Swing
  * concept of the Action by adding support for toggle or two state actions.
  * Toggle type actions may be grouped into a set of mutually exclusive actions.
  * This binary actions are represented in the user interface as JToggleButtons,
- * JCheckBoxMenuItems or JRadioButtonMenuItems. 
+ * JCheckBoxMenuItems or JRadioButtonMenuItems.
  * <p>
- * There are two types of user actions: A {@link org.jdesktop.swingx.action.BoundAction} 
+ * There are two types of user actions: A {@link org.jdesktop.swingx.action.BoundAction}
  * is an action that will invoke a specific method. It may be bound to an explict
- * component, a callback method on an object instance or one or more listeners. 
+ * component, a callback method on an object instance or one or more listeners.
  * A {@link org.jdesktop.swingx.action.TargetableAction} is an action that doesn't have an
- * explicit binding and the invocation will be sent to an arbitrator 
- * (the {@link org.jdesktop.swingx.action.TargetManager}) which dispatches the Action 
- * to the "current component" - represented by a Targetable instance. 
- * The current component may be explictly set by some programmatic 
+ * explicit binding and the invocation will be sent to an arbitrator
+ * (the {@link org.jdesktop.swingx.action.TargetManager}) which dispatches the Action
+ * to the "current component" - represented by a Targetable instance.
+ * The current component may be explictly set by some programmatic
  * policy (for example, changes in state).
  * <p>
- * By defalt, the current component will be driven by the focus policy as dictated 
- * by the current FocusManager. If the current component cannot handle the action 
- * then the action will be dispatched up the containment hierarchy until the action 
- * is consumed. If the action is not consumed then it will be dispatched to the 
+ * By defalt, the current component will be driven by the focus policy as dictated
+ * by the current FocusManager. If the current component cannot handle the action
+ * then the action will be dispatched up the containment hierarchy until the action
+ * is consumed. If the action is not consumed then it will be dispatched to the
  * Application instance which manages an application global set of actions.
  * <p>
  * These are the key classes or the actions architecture:

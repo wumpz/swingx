@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -24,7 +24,6 @@ package org.jdesktop.swingx.calendar;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.logging.Logger;
-
 import org.jdesktop.swingx.JXDatePicker;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,37 +31,34 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for <code>DatePickerFormatter</code>.
- * 
+ *
  * @author Jeanette Winzenburg
  */
 public class DatePickerFormatterIssues {
-    @SuppressWarnings("unused")
-    private static final Logger LOG = Logger
-            .getLogger(DatePickerFormatterIssues.class.getName());
-    
-    @SuppressWarnings("unused")
-    private Calendar cal;
-    private Locale originalLocale;
+	@SuppressWarnings("unused")
+	private static final Logger LOG = Logger.getLogger(DatePickerFormatterIssues.class.getName());
 
-    @BeforeEach
-    public void setUp() {
-        originalLocale = Locale.getDefault();
-        cal = Calendar.getInstance();
-        // force loading of resources
-        new JXDatePicker();
-    }
+	@SuppressWarnings("unused")
+	private Calendar cal;
 
-    @AfterEach
-    public void tearDown() {
-        Locale.setDefault(originalLocale);
-    }
+	private Locale originalLocale;
 
-    /**
-     * Dummy method to keep the testRunner happy ...
-     */
-    @Test
-    public void testDummy() {
-        
-    }
+	@BeforeEach
+	public void setUp() {
+		originalLocale = Locale.getDefault();
+		cal = Calendar.getInstance();
+		// force loading of resources
+		new JXDatePicker();
+	}
 
+	@AfterEach
+	public void tearDown() {
+		Locale.setDefault(originalLocale);
+	}
+
+	/**
+	 * Dummy method to keep the testRunner happy ...
+	 */
+	@Test
+	public void testDummy() {}
 }

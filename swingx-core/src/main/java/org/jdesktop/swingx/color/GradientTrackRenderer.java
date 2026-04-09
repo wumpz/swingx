@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -30,9 +30,7 @@ import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
-
 import javax.swing.JComponent;
-
 import org.jdesktop.swingx.JXMultiThumbSlider;
 import org.jdesktop.swingx.multislider.Thumb;
 import org.jdesktop.swingx.multislider.TrackRenderer;
@@ -43,69 +41,65 @@ import org.jdesktop.swingx.util.PaintUtils;
  * RadialGradientPaint, it requires the optional MultipleGradientPaint.jar</p>
  */
 public class GradientTrackRenderer extends JComponent implements TrackRenderer {
-    private Paint checker_paint;
+	private Paint checker_paint;
 
-    public GradientTrackRenderer() {
-        checker_paint = PaintUtils.getCheckerPaint();
-    }
-    
-    private JXMultiThumbSlider slider;
-    
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        paintComponent(g);
-    }
+	public GradientTrackRenderer() {
+		checker_paint = PaintUtils.getCheckerPaint();
+	}
 
-    @Override
-    protected void paintComponent(Graphics gfx) {
-        Graphics2D g = (Graphics2D)gfx;
-        
-        // get the list of colors
-        List<Thumb<Color>> stops = slider.getModel().getSortedThumbs();
-        int len = stops.size();
+	private JXMultiThumbSlider slider;
 
-        // set up the data for the gradient
-        float[] fractions = new float[len];
-        Color[] colors = new Color[len];
-        int i = 0;
-        for(Thumb<Color> thumb : stops) {
-            colors[i] = (Color)thumb.getObject();
-            fractions[i] = thumb.getPosition();
-            i++;
-        }
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		paintComponent(g);
+	}
 
-        // calculate the track area
-        int thumb_width = 12;
-        int track_width = slider.getWidth() - thumb_width;
-        g.translate(thumb_width / 2, 12);
-        Rectangle2D rect = new Rectangle(0, 0, track_width, 20);
+	@Override
+	protected void paintComponent(Graphics gfx) {
+		Graphics2D g = (Graphics2D) gfx;
 
-        // fill in the checker
-        g.setPaint(checker_paint);
-        g.fill(rect);
+		// get the list of colors
+		List<Thumb<Color>> stops = slider.getModel().getSortedThumbs();
+		int len = stops.size();
 
-        // fill in the gradient
-        Point2D start = new Point2D.Float(0,0);
-        Point2D end = new Point2D.Float(track_width,0);
-        MultipleGradientPaint paint = new LinearGradientPaint(
-                (float)start.getX(),
-                (float)start.getY(),
-                (float)end.getX(),
-                (float)end.getY(),
-                fractions,colors);
-        g.setPaint(paint);
-        g.fill(rect);
+		// set up the data for the gradient
+		float[] fractions = new float[len];
+		Color[] colors = new Color[len];
+		int i = 0;
+		for (Thumb<Color> thumb : stops) {
+			colors[i] = (Color) thumb.getObject();
+			fractions[i] = thumb.getPosition();
+			i++;
+		}
 
-        // draw a border
-        g.setColor(Color.black);
-        g.draw(rect);
-        g.translate(-thumb_width / 2, -12);
-    }
+		// calculate the track area
+		int thumb_width = 12;
+		int track_width = slider.getWidth() - thumb_width;
+		g.translate(thumb_width / 2, 12);
+		Rectangle2D rect = new Rectangle(0, 0, track_width, 20);
 
-    @Override
-    public JComponent getRendererComponent(JXMultiThumbSlider slider) {
-        this.slider = slider;
-        return this;
-    }
+		// fill in the checker
+		g.setPaint(checker_paint);
+		g.fill(rect);
+
+		// fill in the gradient
+		Point2D start = new Point2D.Float(0, 0);
+		Point2D end = new Point2D.Float(track_width, 0);
+		MultipleGradientPaint paint = new LinearGradientPaint(
+				(float) start.getX(), (float) start.getY(), (float) end.getX(), (float) end.getY(), fractions, colors);
+		g.setPaint(paint);
+		g.fill(rect);
+
+		// draw a border
+		g.setColor(Color.black);
+		g.draw(rect);
+		g.translate(-thumb_width / 2, -12);
+	}
+
+	@Override
+	public JComponent getRendererComponent(JXMultiThumbSlider slider) {
+		this.slider = slider;
+		return this;
+	}
 }

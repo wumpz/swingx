@@ -2,17 +2,15 @@ package org.jdesktop.swingx.search;
 
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
-
 import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
-
 import org.jdesktop.swingx.plaf.AbstractUIChangeHandler;
 import org.jdesktop.swingx.util.OS;
 
 /**
  * TODO: comment
- * 
+ *
  * @author Peter Weishapl <petw@gmx.net>
  */
 public class NativeSearchFieldSupport {
@@ -35,7 +33,8 @@ public class NativeSearchFieldSupport {
 			// only the part 10.x is important
 			versionString = versionString.substring(0, 4);
 
-			return OS.isMacOSX() && Float.parseFloat(versionString) >= 10.5
+			return OS.isMacOSX()
+					&& Float.parseFloat(versionString) >= 10.5
 					&& UIManager.getLookAndFeel().getName().equals("Mac OS X");
 		} catch (Exception e) {
 			// in case the os.version cannot be parsed, we are surely not
@@ -91,7 +90,7 @@ public class NativeSearchFieldSupport {
 	public static ActionListener getFindAction(JTextField txt) {
 		return (ActionListener) txt.getClientProperty(FIND_ACTION_PROPERTY);
 	}
-	
+
 	public static void setCancelAction(JTextField txt, ActionListener cancelAction) {
 		txt.putClientProperty(CANCEL_ACTION_PROPERTY, cancelAction);
 	}
@@ -104,7 +103,7 @@ public class NativeSearchFieldSupport {
 
 	private static final class SearchFieldUIChangeHandler extends AbstractUIChangeHandler {
 		@Override
-        public void propertyChange(PropertyChangeEvent evt) {
+		public void propertyChange(PropertyChangeEvent evt) {
 			JTextField txt = (JTextField) evt.getSource();
 			// Leopard hack to make appear correctly in search variant when
 			// changing LnF.

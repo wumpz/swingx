@@ -19,14 +19,12 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 package org.jdesktop.beans.editors;
 
 import java.awt.Graphics2D;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import org.jdesktop.swingx.painter.CompoundPainter;
 import org.jdesktop.swingx.painter.Painter;
 
@@ -35,69 +33,67 @@ import org.jdesktop.swingx.painter.Painter;
  * @author joshy
  */
 public class URLPainter extends CompoundPainter {
-    URL url;
-    /**
-     * Creates a new instance of URLPainter
-     */
-    public URLPainter() {
-        this.url = null;
-    }
-    
-    public URLPainter(URL url) {
-        this.url = url;
-    }
-    
-    public URLPainter(File file) {
-        try {
-            this.url = file.toURI().toURL();
-        } catch (MalformedURLException exception) {
-            exception.printStackTrace();
-            this.url = null;
-        }
-    }
-        
-    public URLPainter(String url) {
-        try {
-            this.url = new URL(url);
-        } catch (MalformedURLException ex) {
-            ex.printStackTrace();
-            this.url = null;
-        }
-    }
-    
-    public URLPainter(Class<?> baseClass, String resource) {
-        url = baseClass.getResource(resource);
-    }
-    
-    public void setURL(URL url) {
-        URL old = this.url;
-        this.url = url;
-        firePropertyChange("file", old, this.url);
-    }
-    
-    public URL getURL() {
-        return this.url;
-    }
-    
-    private boolean loaded = false;
-    
-    private void load() {
-        try {
-            Painter painter = PainterUtil.loadPainter(url);
-            this.setPainters(painter);
-            loaded = true;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+	URL url;
+	/**
+	 * Creates a new instance of URLPainter
+	 */
+	public URLPainter() {
+		this.url = null;
+	}
 
-    @Override
-    protected void doPaint(Graphics2D g, Object component, int width, int height) {
-        if(!loaded) {
-            load();
-        }
-        super.doPaint(g, component, width, height);
-    }
-    
-    
+	public URLPainter(URL url) {
+		this.url = url;
+	}
+
+	public URLPainter(File file) {
+		try {
+			this.url = file.toURI().toURL();
+		} catch (MalformedURLException exception) {
+			exception.printStackTrace();
+			this.url = null;
+		}
+	}
+
+	public URLPainter(String url) {
+		try {
+			this.url = new URL(url);
+		} catch (MalformedURLException ex) {
+			ex.printStackTrace();
+			this.url = null;
+		}
+	}
+
+	public URLPainter(Class<?> baseClass, String resource) {
+		url = baseClass.getResource(resource);
+	}
+
+	public void setURL(URL url) {
+		URL old = this.url;
+		this.url = url;
+		firePropertyChange("file", old, this.url);
+	}
+
+	public URL getURL() {
+		return this.url;
+	}
+
+	private boolean loaded = false;
+
+	private void load() {
+		try {
+			Painter painter = PainterUtil.loadPainter(url);
+			this.setPainters(painter);
+			loaded = true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void doPaint(Graphics2D g, Object component, int width, int height) {
+		if (!loaded) {
+			load();
+		}
+		super.doPaint(g, component, width, height);
+	}
 }

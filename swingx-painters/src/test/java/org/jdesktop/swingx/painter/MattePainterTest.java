@@ -24,11 +24,11 @@ package org.jdesktop.swingx.painter;
  * Test for MattePainter.
  */
 public class MattePainterTest extends AbstractAreaPainterTest {
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected MattePainter createTestingPainter() {
-        return new MattePainter();
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected MattePainter createTestingPainter() {
+		return new MattePainter();
+	}
 }

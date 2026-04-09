@@ -21,50 +21,46 @@
 package org.jdesktop.swingx.graphics;
 
 import java.awt.image.BufferedImage;
-
 import javax.imageio.ImageIO;
-
-import org.jdesktop.swingx.JXImageView;
 import org.jdesktop.swingx.InteractiveTestCase;
+import org.jdesktop.swingx.JXImageView;
 import org.jdesktop.swingx.util.GraphicsUtilities;
 import org.junit.jupiter.api.Test;
 
 /**
  * GraphicsUtilities visual checks.
- * 
+ *
  * @author rah003
  */
 public class GraphicsUtilitiesVisualCheck extends InteractiveTestCase {
 
-    public static void main(String[] args) {
-        GraphicsUtilitiesVisualCheck test = new GraphicsUtilitiesVisualCheck();
-        try {
-            test.runInteractiveTests();
-        } catch (Exception e) {
-            System.err.println("exception when executing interactive tests:");
-            e.printStackTrace();
-        }
-    }
+	public static void main(String[] args) {
+		GraphicsUtilitiesVisualCheck test = new GraphicsUtilitiesVisualCheck();
+		try {
+			test.runInteractiveTests();
+		} catch (Exception e) {
+			System.err.println("exception when executing interactive tests:");
+			e.printStackTrace();
+		}
+	}
 
-    /**
-     * Issue #524-swingx: Thumbnails not generated correctly.
-     * 
-     */
-    public void interactiveMistargetedKeyStrokes() throws Exception {
-        BufferedImage im = ImageIO.read(getClass().getResourceAsStream(
-                "/org/jdesktop/swingx/resources/images/500by500.png"));
-        System.out.println("size:" + im.getWidth() + ", " + im.getHeight());
-        BufferedImage im2 = GraphicsUtilities.createThumbnail(im, 100);
-        JXImageView ipa = new JXImageView();
-        ipa.setImage(im2);
-        showInFrame(ipa, "default - for debugging only");
-    }
+	/**
+	 * Issue #524-swingx: Thumbnails not generated correctly.
+	 *
+	 */
+	public void interactiveMistargetedKeyStrokes() throws Exception {
+		BufferedImage im =
+				ImageIO.read(getClass().getResourceAsStream("/org/jdesktop/swingx/resources/images/500by500.png"));
+		System.out.println("size:" + im.getWidth() + ", " + im.getHeight());
+		BufferedImage im2 = GraphicsUtilities.createThumbnail(im, 100);
+		JXImageView ipa = new JXImageView();
+		ipa.setImage(im2);
+		showInFrame(ipa, "default - for debugging only");
+	}
 
-    /**
-     * do nothing test - keep the test runner happy.
-     */
-    @Test
-    public void testDummy() {
-    }
-
+	/**
+	 * do nothing test - keep the test runner happy.
+	 */
+	@Test
+	public void testDummy() {}
 }

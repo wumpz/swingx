@@ -4,22 +4,20 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Insets;
 import java.util.List;
-
 import javax.swing.JTextField;
-
 import org.jdesktop.beans.JavaBean;
 import org.jdesktop.swingx.prompt.BuddySupport;
-import org.jdesktop.swingx.prompt.PromptSupport;
 import org.jdesktop.swingx.prompt.BuddySupport.Position;
+import org.jdesktop.swingx.prompt.PromptSupport;
 import org.jdesktop.swingx.prompt.PromptSupport.FocusBehavior;
 
 /**
  * {@link JTextField}, with integrated support for prompts and buddies.
- * 
+ *
  * @see PromptSupport
  * @see BuddySupport
  * @author Peter Weishapl <petw@gmx.net>
- * 
+ *
  */
 @JavaBean
 public class JXTextField extends JTextField {
@@ -35,10 +33,8 @@ public class JXTextField extends JTextField {
 		this(promptText, promptForeground, null);
 	}
 
-	public JXTextField(String promptText, Color promptForeground,
-			Color promptBackground) {
-		PromptSupport.init(promptText, promptForeground, promptBackground,
-				this);
+	public JXTextField(String promptText, Color promptForeground, Color promptBackground) {
+		PromptSupport.init(promptText, promptForeground, promptBackground, this);
 	}
 
 	/**

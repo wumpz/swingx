@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -23,7 +23,6 @@ package org.jdesktop.swingx.binding;
 import java.awt.Component;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-
 import org.jdesktop.beansbinding.ext.BeanAdapterProvider;
 import org.jdesktop.swingbinding.adapters.BeanAdapterBase;
 
@@ -33,83 +32,82 @@ import org.jdesktop.swingbinding.adapters.BeanAdapterBase;
  */
 public final class ComponentAdapterProvider implements BeanAdapterProvider {
 
-    private static final String VISIBLE_P = "visible";
+	private static final String VISIBLE_P = "visible";
 
-    public final class Adapter extends BeanAdapterBase {
-        private Component comp;
+	public final class Adapter extends BeanAdapterBase {
+		private Component comp;
 
-        private Handler handler;
+		private Handler handler;
 
-        private boolean visible;
+		private boolean visible;
 
-        private Adapter(Component comp, String property) {
-            super(property);
-            this.comp = comp;
-            visible = comp.isVisible();
-        }
+		private Adapter(Component comp, String property) {
+			super(property);
+			this.comp = comp;
+			visible = comp.isVisible();
+		}
 
-        public boolean isVisible() {
-            return visible;
-        }
-        
-        public void setVisible(boolean visible) {
-            comp.setVisible(visible);
-        }
-        
-        @Override
-        protected void listeningStarted() {
-            handler = new Handler();
-            comp.addComponentListener(handler);
-        }
+		public boolean isVisible() {
+			return visible;
+		}
 
-        @Override
-        protected void listeningStopped() {
-            comp.removeComponentListener(handler);
-            visible = false;
-            handler = null;
-        }
+		public void setVisible(boolean visible) {
+			comp.setVisible(visible);
+		}
 
-        private class Handler implements ComponentListener {
-            @Override
-            public void componentShown(ComponentEvent e) {
-                visible = true;
-                firePropertyChange(false, true);
-            }
-            
-            @Override
-            public void componentHidden(ComponentEvent e) {
-                visible = false;
-                firePropertyChange(true, false);
-            }
+		@Override
+		protected void listeningStarted() {
+			handler = new Handler();
+			comp.addComponentListener(handler);
+		}
 
-            @Override
-            public void componentMoved(ComponentEvent e) { }
+		@Override
+		protected void listeningStopped() {
+			comp.removeComponentListener(handler);
+			visible = false;
+			handler = null;
+		}
 
-            @Override
-            public void componentResized(ComponentEvent e) { }
-        }
-    }
+		private class Handler implements ComponentListener {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				visible = true;
+				firePropertyChange(false, true);
+			}
 
-    public boolean providesAdapter(Class<?> type, String property) {
-        if (!Component.class.isAssignableFrom(type)) {
-            return false;
-        }
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				visible = false;
+				firePropertyChange(true, false);
+			}
 
-        property = property.intern();
+			@Override
+			public void componentMoved(ComponentEvent e) {}
 
-        return property == VISIBLE_P;
-    }
+			@Override
+			public void componentResized(ComponentEvent e) {}
+		}
+	}
 
-    public Object createAdapter(Object source, String property) {
-        if (!providesAdapter(source.getClass(), property)) {
-            throw new IllegalArgumentException();
-        }
+	public boolean providesAdapter(Class<?> type, String property) {
+		if (!Component.class.isAssignableFrom(type)) {
+			return false;
+		}
 
-        return new Adapter((Component) source, property);
-    }
+		property = property.intern();
 
-    public Class<?> getAdapterClass(Class<?> type) {
-        return Component.class.isAssignableFrom(type) ? ComponentAdapterProvider.Adapter.class : null;
-    }
+		return property == VISIBLE_P;
+	}
 
+	public Object createAdapter(Object source, String property) {
+		if (!providesAdapter(source.getClass(), property)) {
+			throw new IllegalArgumentException();
+		}
+
+		return new Adapter((Component) source, property);
+	}
+
+	public Class<?> getAdapterClass(Class<?> type) {
+		return Component.class.isAssignableFrom(type) ? ComponentAdapterProvider.Adapter.class : null;
+	}
 }

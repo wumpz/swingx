@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -24,30 +24,28 @@ package org.jdesktop.swingx.autocomplete;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
-
 import javax.swing.JTextField;
 import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
-
 import org.junit.jupiter.api.Test;
 
 public class AutoCompleteDocumentTest {
-    @Test
-    public void testPreferExactMatchOverCurrentlySelected() throws Exception {
-        String[] items = new String[]{"exact", "exacter", "exactest"};
+	@Test
+	public void testPreferExactMatchOverCurrentlySelected() throws Exception {
+		String[] items = new String[] {"exact", "exacter", "exactest"};
 
-        JTextComponent textComponent = new JTextField();
-        TextComponentAdaptor adaptor = new TextComponentAdaptor(textComponent, Arrays.asList(items));
-        Document document = new AutoCompleteDocument(adaptor, true);
-        textComponent.setDocument(document);
-        
-        textComponent.setText("exacter");
-        assertTrue(adaptor.getSelectedItem().equals("exacter"));
-        
-        document.remove(4, 3);
-        assertTrue(adaptor.getSelectedItem().equals("exacter"));
-        
-        document.insertString(4, "t", null);
-        assertTrue(adaptor.getSelectedItem().equals("exact"));
-    }
+		JTextComponent textComponent = new JTextField();
+		TextComponentAdaptor adaptor = new TextComponentAdaptor(textComponent, Arrays.asList(items));
+		Document document = new AutoCompleteDocument(adaptor, true);
+		textComponent.setDocument(document);
+
+		textComponent.setText("exacter");
+		assertTrue(adaptor.getSelectedItem().equals("exacter"));
+
+		document.remove(4, 3);
+		assertTrue(adaptor.getSelectedItem().equals("exacter"));
+
+		document.insertString(4, "t", null);
+		assertTrue(adaptor.getSelectedItem().equals("exact"));
+	}
 }

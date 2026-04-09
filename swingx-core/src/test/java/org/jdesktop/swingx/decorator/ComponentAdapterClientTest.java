@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -26,12 +26,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.Color;
 import java.util.logging.Logger;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.jdesktop.swingx.InteractiveTestCase;
 import org.jdesktop.swingx.JXFrame;
 import org.jdesktop.swingx.JXList;
@@ -52,306 +50,294 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 /**
- * Testing clients of ComponentAdapter, mainly clients which rely on uniform string 
+ * Testing clients of ComponentAdapter, mainly clients which rely on uniform string
  * representation across functionality. Not the optimal location, but where would
- * that be? 
- * 
+ * that be?
+ *
  * @author Jeanette Winzenburg
  */
 public class ComponentAdapterClientTest extends InteractiveTestCase {
 
-    @SuppressWarnings("unused")
-    private static final Logger LOG = Logger
-            .getLogger(ComponentAdapterClientTest.class.getName());
-    public static void main(String[] args) {
-        ComponentAdapterClientTest test = new ComponentAdapterClientTest();
-        try {
-            test.runInteractiveTests();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	@SuppressWarnings("unused")
+	private static final Logger LOG = Logger.getLogger(ComponentAdapterClientTest.class.getName());
 
-    /**
-     * A custom StringValue for Color. Maps to a string composed of the
-     * prefix "R/G/B: " and the Color's rgb value.
-     */
-    private StringValue sv;
+	public static void main(String[] args) {
+		ComponentAdapterClientTest test = new ComponentAdapterClientTest();
+		try {
+			test.runInteractiveTests();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-    @BeforeEach
-    public void setUpJ4() throws Exception {
-        setUp();
-    }
-    
-    @AfterEach
-    public void tearDownJ4() throws Exception {
-    }
+	/**
+	 * A custom StringValue for Color. Maps to a string composed of the
+	 * prefix "R/G/B: " and the Color's rgb value.
+	 */
+	private StringValue sv;
 
-    /**
-     * Issue #1156-swingx: sort must use comparable
-     * 
-     * visually check that the custom string value for the color column is
-     * used for sorting.
-     */
-    public void interactiveTableSortComparableAndStringValue() {
-        JXTable table = new JXTable(new AncientSwingTeam());
-        table.setDefaultRenderer(Color.class, new DefaultTableRenderer(sv));
-        
-        JTable core = new JTable(table.getModel());
-        core.setAutoCreateRowSorter(true);
-        JXFrame frame = wrapWithScrollingInFrame(table, core, "JXTable <--> JTable: Compare sorting of color column");
-        
-        show(frame);
-    }
+	@BeforeEach
+	public void setUpJ4() throws Exception {
+		setUp();
+	}
 
+	@AfterEach
+	public void tearDownJ4() throws Exception {}
 
-    /**
-     * Issue #767-swingx: consistent string representation.
-     * 
-     * used in find/highlight
-     */
-    public void interactiveTableGetStringUsedInFind() {
-        JXTable table = new JXTable(new AncientSwingTeam());
-        table.setDefaultRenderer(Color.class, new DefaultTableRenderer(sv));
-        HighlightPredicate predicate = new PatternPredicate("R/G/B: -2", 2, 2);
-        table.addHighlighter(new ColorHighlighter(predicate, null, Color.RED));
-        table.setColumnControlVisible(true);
-        
-        JXFrame frame = wrapWithScrollingInFrame(table, "Find/Highlight use adapter string value");
-        addSearchModeToggle(frame);
-        addMessage(frame, "Press ctrl-F to open search widget");
-        show(frame);
-    }
+	/**
+	 * Issue #1156-swingx: sort must use comparable
+	 *
+	 * visually check that the custom string value for the color column is
+	 * used for sorting.
+	 */
+	public void interactiveTableSortComparableAndStringValue() {
+		JXTable table = new JXTable(new AncientSwingTeam());
+		table.setDefaultRenderer(Color.class, new DefaultTableRenderer(sv));
 
-    /**
-     * Issue #767-swingx: consistent string representation.
-     * 
-     * used in find/highlight
-     */
-    public void interactiveListGetStringUsedInFind() {
-        JXList table = new JXList(AncientSwingTeam.createNamedColorListModel());
-        table.setCellRenderer(new DefaultListRenderer(sv));
-        HighlightPredicate predicate = new PatternPredicate("R/G/B: -2", 2, 2);
-        table.addHighlighter(new ColorHighlighter(predicate, null, Color.RED));
-        JXFrame frame = wrapWithScrollingInFrame(table, "Find/Highlight use adapter string value");
-        addSearchModeToggle(frame);
-        addMessage(frame, "Press ctrl-F to open search widget");
-        show(frame);
-    }
+		JTable core = new JTable(table.getModel());
+		core.setAutoCreateRowSorter(true);
+		JXFrame frame = wrapWithScrollingInFrame(table, core, "JXTable <--> JTable: Compare sorting of color column");
 
-    /**
-     * Issue #767-swingx: consistent string representation.
-     * 
-     * used in find/highlight
-     */
-    public void interactiveTreeGetStringUsedInFind() {
-        JXTree table = new JXTree(AncientSwingTeam.createNamedColorTreeModel());
-        table.setCellRenderer(new DefaultTreeRenderer(sv));
-        HighlightPredicate predicate = new PatternPredicate("R/G/B: -2", 2, 2);
-        table.addHighlighter(new ColorHighlighter(predicate, null, Color.RED));
-        JXFrame frame = wrapWithScrollingInFrame(table, "Find/Highlight use adapter string value");
-        addSearchModeToggle(frame);
-        addMessage(frame, "Press ctrl-F to open search widget");
-        show(frame);
-    }
-    
-//--------------- unit tests
+		show(frame);
+	}
 
-    /**
-     * Issue #979-swingx: JXTreeTable broken string rep of hierarchical column
-     * 
-     * The breakage is visible in models with 
-     * (node.toString) != (value for hierarchical column). 
-     */
-    @Test
-    public void testTreeTableGetStringAtClippedTextRenderer() {
-        JPanel panel = new JPanel();
-        JButton button = new JButton();
-        String buttonName = "buttonName";
-        button.setName(buttonName);
-        panel.add(button);
-        TreeTableModel model = new ComponentTreeTableModel(panel);
-        JXTreeTableT table = new JXTreeTableT(model);
-        table.setRootVisible(true);
-        table.expandAll();
-        assertEquals(table.getValueAt(1, 0), table.getStringAt(1, 0),  "string rep must be button name");
-    }
-    
-    /**
-     * Issue #979-swingx: JXTreeTable broken string rep of hierarchical column
-     * 
-     * here: test search (accidentally passing because node is instanceof NamedColor
-     * with its toString the same as the value returned for the hierarchical column)
-     */
-    @Test
-    public void testTreeTableGetStringUsedInSearchClippedTextRenderer() {
-        JXTreeTableT table = new JXTreeTableT(AncientSwingTeam.createNamedColorTreeTableModel());
-        table.expandAll();
-        String text = table.getStringAt(2, 0);
-        int matchRow = table.getSearchable().search(text);
-        assertEquals(2, matchRow);
-    }
+	/**
+	 * Issue #767-swingx: consistent string representation.
+	 *
+	 * used in find/highlight
+	 */
+	public void interactiveTableGetStringUsedInFind() {
+		JXTable table = new JXTable(new AncientSwingTeam());
+		table.setDefaultRenderer(Color.class, new DefaultTableRenderer(sv));
+		HighlightPredicate predicate = new PatternPredicate("R/G/B: -2", 2, 2);
+		table.addHighlighter(new ColorHighlighter(predicate, null, Color.RED));
+		table.setColumnControlVisible(true);
 
+		JXFrame frame = wrapWithScrollingInFrame(table, "Find/Highlight use adapter string value");
+		addSearchModeToggle(frame);
+		addMessage(frame, "Press ctrl-F to open search widget");
+		show(frame);
+	}
 
-    /**
-     * Issue #979-swingx: JXTreeTable broken string rep of hierarchical column
-     * 
-     * here: test highlight (accidentally passing because node is instanceof NamedColor
-     * with its toString the same as the value returned for the hierarchical column)
-     */
-    @Test
-    public void testTreeTableGetStringUsedInPatternPredicateClippedTextRenderer() {
-        JXTreeTableT table = new JXTreeTableT(AncientSwingTeam.createNamedColorTreeTableModel());
-        int matchRow = 2;
-        int matchColumn = 0;
-        String text = table.getStringAt(matchRow, matchColumn);
-        ComponentAdapter adapter = table.getComponentAdapter(matchRow, matchColumn);
-        HighlightPredicate predicate = new PatternPredicate(text, matchColumn, PatternPredicate.ALL);
-        assertTrue(predicate.isHighlighted(null, adapter));
-    }
+	/**
+	 * Issue #767-swingx: consistent string representation.
+	 *
+	 * used in find/highlight
+	 */
+	public void interactiveListGetStringUsedInFind() {
+		JXList table = new JXList(AncientSwingTeam.createNamedColorListModel());
+		table.setCellRenderer(new DefaultListRenderer(sv));
+		HighlightPredicate predicate = new PatternPredicate("R/G/B: -2", 2, 2);
+		table.addHighlighter(new ColorHighlighter(predicate, null, Color.RED));
+		JXFrame frame = wrapWithScrollingInFrame(table, "Find/Highlight use adapter string value");
+		addSearchModeToggle(frame);
+		addMessage(frame, "Press ctrl-F to open search widget");
+		show(frame);
+	}
 
-    /**
-     * Issue #821-swingx: JXTreeTable broken string rep of hierarchical column
-     * 
-     * here: test highlight
-     */
-    @Test
-    public void testTreeTableGetStringUsedInPatternPredicate() {
-        JXTreeTableT table = new JXTreeTableT(AncientSwingTeam.createNamedColorTreeTableModel());
-        table.setTreeCellRenderer(new DefaultTreeRenderer(sv));
-        int matchRow = 2;
-        int matchColumn = 0;
-        String text = sv.getString(table.getValueAt(matchRow, matchColumn));
-        ComponentAdapter adapter = table.getComponentAdapter(matchRow, matchColumn);
-        HighlightPredicate predicate = new PatternPredicate(text, matchColumn, PatternPredicate.ALL);
-        assertTrue(predicate.isHighlighted(null, adapter));
-    }
+	/**
+	 * Issue #767-swingx: consistent string representation.
+	 *
+	 * used in find/highlight
+	 */
+	public void interactiveTreeGetStringUsedInFind() {
+		JXTree table = new JXTree(AncientSwingTeam.createNamedColorTreeModel());
+		table.setCellRenderer(new DefaultTreeRenderer(sv));
+		HighlightPredicate predicate = new PatternPredicate("R/G/B: -2", 2, 2);
+		table.addHighlighter(new ColorHighlighter(predicate, null, Color.RED));
+		JXFrame frame = wrapWithScrollingInFrame(table, "Find/Highlight use adapter string value");
+		addSearchModeToggle(frame);
+		addMessage(frame, "Press ctrl-F to open search widget");
+		show(frame);
+	}
 
-    /**
-     * Issue #821-swingx: JXTreeTable broken string rep of hierarchical column
-     * 
-     * here: test search
-     */
-    @Test
-    public void testTreeTableGetStringUsedInSearch() {
-        JXTreeTableT table = new JXTreeTableT(AncientSwingTeam.createNamedColorTreeTableModel());
-        table.setTreeCellRenderer(new DefaultTreeRenderer(sv));
-        String text = sv.getString(table.getValueAt(2, 0));
-        int matchRow = table.getSearchable().search(text);
-        assertEquals(2, matchRow);
-    }
+	// --------------- unit tests
 
+	/**
+	 * Issue #979-swingx: JXTreeTable broken string rep of hierarchical column
+	 *
+	 * The breakage is visible in models with
+	 * (node.toString) != (value for hierarchical column).
+	 */
+	@Test
+	public void testTreeTableGetStringAtClippedTextRenderer() {
+		JPanel panel = new JPanel();
+		JButton button = new JButton();
+		String buttonName = "buttonName";
+		button.setName(buttonName);
+		panel.add(button);
+		TreeTableModel model = new ComponentTreeTableModel(panel);
+		JXTreeTableT table = new JXTreeTableT(model);
+		table.setRootVisible(true);
+		table.expandAll();
+		assertEquals(table.getValueAt(1, 0), table.getStringAt(1, 0), "string rep must be button name");
+	}
 
+	/**
+	 * Issue #979-swingx: JXTreeTable broken string rep of hierarchical column
+	 *
+	 * here: test search (accidentally passing because node is instanceof NamedColor
+	 * with its toString the same as the value returned for the hierarchical column)
+	 */
+	@Test
+	public void testTreeTableGetStringUsedInSearchClippedTextRenderer() {
+		JXTreeTableT table = new JXTreeTableT(AncientSwingTeam.createNamedColorTreeTableModel());
+		table.expandAll();
+		String text = table.getStringAt(2, 0);
+		int matchRow = table.getSearchable().search(text);
+		assertEquals(2, matchRow);
+	}
 
-    /**
-     * Issue #767-swingx: consistent string representation.
-     * 
-     * Here: test TableSearchable uses getStringXX
-     */
-    @Test
-    public void testTreeGetStringAtUsedInSearch() {
-        JXTreeT tree = new JXTreeT(AncientSwingTeam.createNamedColorTreeModel());
-        tree.expandAll();
-        tree.setCellRenderer(new DefaultTreeRenderer(sv));
-        String text = sv.getString(((DefaultMutableTreeNode) tree.getPathForRow(2).getLastPathComponent()).getUserObject());
-        int matchRow = tree.getSearchable().search(text);
-        assertEquals(2, matchRow);
-    }
+	/**
+	 * Issue #979-swingx: JXTreeTable broken string rep of hierarchical column
+	 *
+	 * here: test highlight (accidentally passing because node is instanceof NamedColor
+	 * with its toString the same as the value returned for the hierarchical column)
+	 */
+	@Test
+	public void testTreeTableGetStringUsedInPatternPredicateClippedTextRenderer() {
+		JXTreeTableT table = new JXTreeTableT(AncientSwingTeam.createNamedColorTreeTableModel());
+		int matchRow = 2;
+		int matchColumn = 0;
+		String text = table.getStringAt(matchRow, matchColumn);
+		ComponentAdapter adapter = table.getComponentAdapter(matchRow, matchColumn);
+		HighlightPredicate predicate = new PatternPredicate(text, matchColumn, PatternPredicate.ALL);
+		assertTrue(predicate.isHighlighted(null, adapter));
+	}
 
+	/**
+	 * Issue #821-swingx: JXTreeTable broken string rep of hierarchical column
+	 *
+	 * here: test highlight
+	 */
+	@Test
+	public void testTreeTableGetStringUsedInPatternPredicate() {
+		JXTreeTableT table = new JXTreeTableT(AncientSwingTeam.createNamedColorTreeTableModel());
+		table.setTreeCellRenderer(new DefaultTreeRenderer(sv));
+		int matchRow = 2;
+		int matchColumn = 0;
+		String text = sv.getString(table.getValueAt(matchRow, matchColumn));
+		ComponentAdapter adapter = table.getComponentAdapter(matchRow, matchColumn);
+		HighlightPredicate predicate = new PatternPredicate(text, matchColumn, PatternPredicate.ALL);
+		assertTrue(predicate.isHighlighted(null, adapter));
+	}
 
-    /**
-     * Issue #767-swingx: consistent string representation.
-     * 
-     * Here: test TableSearchable uses getStringXX
-     */
-    @Test
-    public void testListGetStringUsedInSearch() {
-        JXList table = new JXList(AncientSwingTeam.createNamedColorListModel());
-        table.setCellRenderer(new DefaultListRenderer(sv));
-        String text = sv.getString(table.getElementAt(2));
-        int matchRow = table.getSearchable().search(text);
-        assertEquals(2, matchRow);
-    }
+	/**
+	 * Issue #821-swingx: JXTreeTable broken string rep of hierarchical column
+	 *
+	 * here: test search
+	 */
+	@Test
+	public void testTreeTableGetStringUsedInSearch() {
+		JXTreeTableT table = new JXTreeTableT(AncientSwingTeam.createNamedColorTreeTableModel());
+		table.setTreeCellRenderer(new DefaultTreeRenderer(sv));
+		String text = sv.getString(table.getValueAt(2, 0));
+		int matchRow = table.getSearchable().search(text);
+		assertEquals(2, matchRow);
+	}
 
+	/**
+	 * Issue #767-swingx: consistent string representation.
+	 *
+	 * Here: test TableSearchable uses getStringXX
+	 */
+	@Test
+	public void testTreeGetStringAtUsedInSearch() {
+		JXTreeT tree = new JXTreeT(AncientSwingTeam.createNamedColorTreeModel());
+		tree.expandAll();
+		tree.setCellRenderer(new DefaultTreeRenderer(sv));
+		String text =
+				sv.getString(((DefaultMutableTreeNode) tree.getPathForRow(2).getLastPathComponent()).getUserObject());
+		int matchRow = tree.getSearchable().search(text);
+		assertEquals(2, matchRow);
+	}
 
-    
-    /**
-     * Issue #767-swingx: consistent string representation.
-     * 
-     * Here: test TableSearchable uses getStringXX
-     */
-    @Test
-    public void testTableGetStringUsedInSearch() {
-        JXTable table = new JXTable(new AncientSwingTeam());
-        table.setDefaultRenderer(Color.class, new DefaultTableRenderer(sv));
-        String text = sv.getString(table.getValueAt(2, 2));
-        int matchRow = table.getSearchable().search(text);
-        assertEquals(2, matchRow);
-    }
+	/**
+	 * Issue #767-swingx: consistent string representation.
+	 *
+	 * Here: test TableSearchable uses getStringXX
+	 */
+	@Test
+	public void testListGetStringUsedInSearch() {
+		JXList table = new JXList(AncientSwingTeam.createNamedColorListModel());
+		table.setCellRenderer(new DefaultListRenderer(sv));
+		String text = sv.getString(table.getElementAt(2));
+		int matchRow = table.getSearchable().search(text);
+		assertEquals(2, matchRow);
+	}
 
- 
-    /**
-     * Issue #767-swingx: consistent string representation.
-     * 
-     * Here: test SearchPredicate uses getStringXX.
-     */
-    @Test
-    public void testTableGetStringUsedInSearchPredicate() {
-        JXTableT table = new JXTableT(new AncientSwingTeam());
-        table.setDefaultRenderer(Color.class, new DefaultTableRenderer(sv));
-        int matchRow = 3;
-        int matchColumn = 2;
-        String text = sv.getString(table.getValueAt(matchRow, matchColumn));
-        ComponentAdapter adapter = table.getComponentAdapter(matchRow, matchColumn);
-        SearchPredicate predicate = new SearchPredicate(text, matchRow, matchColumn);
-        assertTrue(predicate.isHighlighted(null, adapter));
-    }
+	/**
+	 * Issue #767-swingx: consistent string representation.
+	 *
+	 * Here: test TableSearchable uses getStringXX
+	 */
+	@Test
+	public void testTableGetStringUsedInSearch() {
+		JXTable table = new JXTable(new AncientSwingTeam());
+		table.setDefaultRenderer(Color.class, new DefaultTableRenderer(sv));
+		String text = sv.getString(table.getValueAt(2, 2));
+		int matchRow = table.getSearchable().search(text);
+		assertEquals(2, matchRow);
+	}
 
-    /**
-     * Issue #767-swingx: consistent string representation.
-     * 
-     * Here: test PatternPredicate uses getStringxx().
-     */
-    @Test
-    public void testTableGetStringUsedInPatternPredicate() {
-        JXTableT table = new JXTableT(new AncientSwingTeam());
-        table.setDefaultRenderer(Color.class, new DefaultTableRenderer(sv));
-        int matchRow = 3;
-        int matchColumn = 2;
-        String text = sv.getString(table.getValueAt(matchRow, matchColumn));
-        ComponentAdapter adapter = table.getComponentAdapter(matchRow, matchColumn);
-        HighlightPredicate predicate = new PatternPredicate(text, matchColumn, PatternPredicate.ALL);
-        assertTrue(predicate.isHighlighted(null, adapter));
-    }
+	/**
+	 * Issue #767-swingx: consistent string representation.
+	 *
+	 * Here: test SearchPredicate uses getStringXX.
+	 */
+	@Test
+	public void testTableGetStringUsedInSearchPredicate() {
+		JXTableT table = new JXTableT(new AncientSwingTeam());
+		table.setDefaultRenderer(Color.class, new DefaultTableRenderer(sv));
+		int matchRow = 3;
+		int matchColumn = 2;
+		String text = sv.getString(table.getValueAt(matchRow, matchColumn));
+		ComponentAdapter adapter = table.getComponentAdapter(matchRow, matchColumn);
+		SearchPredicate predicate = new SearchPredicate(text, matchRow, matchColumn);
+		assertTrue(predicate.isHighlighted(null, adapter));
+	}
 
-    /**
-     * Creates and returns a StringValue which maps a Color to it's R/G/B rep, 
-     * prepending "R/G/B: "
-     * 
-     * @return the StringValue for color.
-     */
-    private StringValue createColorStringValue() {
-        StringValue sv = new StringValue() {
+	/**
+	 * Issue #767-swingx: consistent string representation.
+	 *
+	 * Here: test PatternPredicate uses getStringxx().
+	 */
+	@Test
+	public void testTableGetStringUsedInPatternPredicate() {
+		JXTableT table = new JXTableT(new AncientSwingTeam());
+		table.setDefaultRenderer(Color.class, new DefaultTableRenderer(sv));
+		int matchRow = 3;
+		int matchColumn = 2;
+		String text = sv.getString(table.getValueAt(matchRow, matchColumn));
+		ComponentAdapter adapter = table.getComponentAdapter(matchRow, matchColumn);
+		HighlightPredicate predicate = new PatternPredicate(text, matchColumn, PatternPredicate.ALL);
+		assertTrue(predicate.isHighlighted(null, adapter));
+	}
 
-            @Override
-            public String getString(Object value) {
-                if (value instanceof Color) {
-                    Color color = (Color) value;
-                    return "R/G/B: " + color.getRGB();
-                }
-                return StringValues.TO_STRING.getString(value);
-            }
-            
-        };
-        return sv;
-    }
+	/**
+	 * Creates and returns a StringValue which maps a Color to it's R/G/B rep,
+	 * prepending "R/G/B: "
+	 *
+	 * @return the StringValue for color.
+	 */
+	private StringValue createColorStringValue() {
+		StringValue sv = new StringValue() {
 
-    @BeforeEach
-    public void setUp() throws Exception {
-        sv = createColorStringValue();
-    }
-    
-    
+			@Override
+			public String getString(Object value) {
+				if (value instanceof Color) {
+					Color color = (Color) value;
+					return "R/G/B: " + color.getRGB();
+				}
+				return StringValues.TO_STRING.getString(value);
+			}
+		};
+		return sv;
+	}
+
+	@BeforeEach
+	public void setUp() throws Exception {
+		sv = createColorStringValue();
+	}
 }

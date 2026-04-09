@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -30,26 +30,32 @@ import org.jdesktop.beans.editors.Rectangle2DPropertyEditor;
  * @author Romain Guy <romain.guy@mac.com>
  */
 public class JXGraphBeanInfo extends BeanInfoSupport {
-    public JXGraphBeanInfo() {
-        super(JXGraph.class);
-    }
+	public JXGraphBeanInfo() {
+		super(JXGraph.class);
+	}
 
-    @Override
-    protected void initialize() {
-        setCategory("Graph View", "majorX", "majorY", "minorCountX", "minorCountY",
-                    "origin", "view");
-        setCategory("Graph Appearance", "axisColor", "axisPainted", "backgroundPainted", 
-                    "gridPainted", "majorGridColor", "minorGridColor", "textPainted");
-        setCategory("Graph Input", "inputEnabled");
-        
-        setPropertyEditor(Point2DPropertyEditor.class, "origin");
-        setPropertyEditor(Rectangle2DPropertyEditor.class, "view");
-        
-        setDisplayName("vertical lines spacing", "majorX");
-        setDisplayName("horizontal lines spacing", "majorY");
-        setDisplayName("sub-vertical lines count", "minorCountX");
-        setDisplayName("sub-horizontal lines count", "minorCountY");
-        setDisplayName("major grid lines color", "majorGridColor");
-        setDisplayName("minor grid lines color", "minorGridColor");
-    }
+	@Override
+	protected void initialize() {
+		setCategory("Graph View", "majorX", "majorY", "minorCountX", "minorCountY", "origin", "view");
+		setCategory(
+				"Graph Appearance",
+				"axisColor",
+				"axisPainted",
+				"backgroundPainted",
+				"gridPainted",
+				"majorGridColor",
+				"minorGridColor",
+				"textPainted");
+		setCategory("Graph Input", "inputEnabled");
+
+		setPropertyEditor(Point2DPropertyEditor.class, "origin");
+		setPropertyEditor(Rectangle2DPropertyEditor.class, "view");
+
+		setDisplayName("vertical lines spacing", "majorX");
+		setDisplayName("horizontal lines spacing", "majorY");
+		setDisplayName("sub-vertical lines count", "minorCountX");
+		setDisplayName("sub-horizontal lines count", "minorCountY");
+		setDisplayName("major grid lines color", "majorGridColor");
+		setDisplayName("minor grid lines color", "minorGridColor");
+	}
 }

@@ -12,9 +12,9 @@ import java.lang.annotation.Target;
  * occasionally run these tests to determine if a fix addresses a known issue. This is often the
  * case when two seemingly unrelated bugs have the same source issue. Solving the second bug
  * resolves both, so we need to know when that happens.
- * 
+ *
  * @author kschaefer
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target({})
-public @interface Issue { }
+public @interface Issue {}

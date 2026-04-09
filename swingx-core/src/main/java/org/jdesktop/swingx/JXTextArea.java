@@ -1,9 +1,7 @@
 package org.jdesktop.swingx;
 
 import java.awt.Color;
-
 import javax.swing.JTextArea;
-
 import org.jdesktop.beans.JavaBean;
 import org.jdesktop.swingx.prompt.BuddySupport;
 import org.jdesktop.swingx.prompt.PromptSupport;
@@ -11,11 +9,11 @@ import org.jdesktop.swingx.prompt.PromptSupport.FocusBehavior;
 
 /**
  * {@link JTextArea}, with integrated support for prompts.
- * 
+ *
  * @see PromptSupport
  * @see BuddySupport
  * @author Peter Weishapl <petw@gmx.net>
- * 
+ *
  */
 @JavaBean
 public class JXTextArea extends JTextArea {
@@ -31,10 +29,8 @@ public class JXTextArea extends JTextArea {
 		this(promptText, promptForeground, null);
 	}
 
-	public JXTextArea(String promptText, Color promptForeground,
-			Color promptBackground) {
-		PromptSupport.init(promptText, promptForeground, promptBackground,
-				this);
+	public JXTextArea(String promptText, Color promptForeground, Color promptBackground) {
+		PromptSupport.init(promptText, promptForeground, promptBackground, this);
 	}
 
 	/**

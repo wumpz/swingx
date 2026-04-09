@@ -41,7 +41,6 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.awt.image.ColorModel;
-
 import org.jdesktop.beans.AbstractBean;
 
 /**
@@ -51,48 +50,47 @@ import org.jdesktop.beans.AbstractBean;
  *
  * @author Romain Guy <romain.guy@mac.com>
  */
-
 public abstract class AbstractFilter extends AbstractBean implements BufferedImageOp {
-    @Override
-    public abstract BufferedImage filter(BufferedImage src, BufferedImage dest);
+	@Override
+	public abstract BufferedImage filter(BufferedImage src, BufferedImage dest);
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Rectangle2D getBounds2D(BufferedImage src) {
-        return new Rectangle(0, 0, src.getWidth(), src.getHeight());
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Rectangle2D getBounds2D(BufferedImage src) {
+		return new Rectangle(0, 0, src.getWidth(), src.getHeight());
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public BufferedImage createCompatibleDestImage(BufferedImage src,
-                                                   ColorModel destCM) {
-        if (destCM == null) {
-            destCM = src.getColorModel();
-        }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public BufferedImage createCompatibleDestImage(BufferedImage src, ColorModel destCM) {
+		if (destCM == null) {
+			destCM = src.getColorModel();
+		}
 
-        return new BufferedImage(destCM,
-                                 destCM.createCompatibleWritableRaster(
-                                         src.getWidth(), src.getHeight()),
-                                 destCM.isAlphaPremultiplied(), null);
-    }
+		return new BufferedImage(
+				destCM,
+				destCM.createCompatibleWritableRaster(src.getWidth(), src.getHeight()),
+				destCM.isAlphaPremultiplied(),
+				null);
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Point2D getPoint2D(Point2D srcPt, Point2D dstPt) {
-        return (Point2D) srcPt.clone();
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Point2D getPoint2D(Point2D srcPt, Point2D dstPt) {
+		return (Point2D) srcPt.clone();
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public RenderingHints getRenderingHints() {
-        return null;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public RenderingHints getRenderingHints() {
+		return null;
+	}
 }

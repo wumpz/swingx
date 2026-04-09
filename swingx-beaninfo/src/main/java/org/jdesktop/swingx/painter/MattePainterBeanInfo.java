@@ -8,15 +8,14 @@ import org.jdesktop.beans.BeanInfoSupport;
  * @author joshy, Jan Stola
  */
 public class MattePainterBeanInfo extends BeanInfoSupport {
-    
-    /** Creates a new instance of MattePainterBeanInfo */
-    public MattePainterBeanInfo() {
-        super(MattePainter.class);
-    }
 
-    @Override
-    protected void initialize() {
-        setPreferred(true, "fillPaint");
-    }
-    
+	/** Creates a new instance of MattePainterBeanInfo */
+	public MattePainterBeanInfo() {
+		super(MattePainter.class);
+	}
+
+	@Override
+	protected void initialize() {
+		setPreferred(true, "fillPaint");
+	}
 }

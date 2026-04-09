@@ -23,4 +23,3 @@
  * when applying the autocomplete decorators.
  */
 package org.jdesktop.swingx.autocomplete.workarounds;
-

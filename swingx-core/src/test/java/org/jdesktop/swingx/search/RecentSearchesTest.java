@@ -3,7 +3,6 @@ package org.jdesktop.swingx.search;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.prefs.Preferences;
-
 import org.jdesktop.swingx.JXSearchField;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,9 +18,9 @@ public class RecentSearchesTest {
 
 	@Test
 	public void testNullName() throws Exception {
-	 	RecentSearches rs = new RecentSearches(null);
-	 	rs.put("test");
-	 	rs.removeAll();
+		RecentSearches rs = new RecentSearches(null);
+		rs.put("test");
+		rs.removeAll();
 	}
 
 	@Test

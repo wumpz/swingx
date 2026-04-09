@@ -29,70 +29,71 @@ import java.beans.PropertyEditorSupport;
  * @author rbair
  */
 public class Point2DPropertyEditor extends PropertyEditorSupport {
-    
-    /** Creates a new instance of Point2DPropertyEditor */
-    public Point2DPropertyEditor() {
-    }
-    
-    @Override
-    public Point2D getValue() {
-        return (Point2D)super.getValue();
-    }
-    
-    @Override
-    public String getJavaInitializationString() {
-        Point2D point = getValue();
-        return point == null ? "null" : "new java.awt.geom.Point2D.Double(" + point.getX() + ", " + point.getY() + ")";
-    }
-    
-    @Override
-    public void setAsText(String text) throws IllegalArgumentException {
-        
-        String originalParam = text;
-        try {
-            Point2D val = (Point2D)PropertyEditorUtil.createValueFromString(
-                    text, 2, Point2D.Double.class, double.class);
-            setValue(val);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-            throw new IllegalArgumentException("The input value " + originalParam + " is not formatted correctly. Please " +
-                    "try something of the form [x,y] or [x , y] or [x y]", e);
-        }
-    }
-    
-    @Override
-    public String getAsText() {
-        Point2D point = getValue();
-        return point == null ? "[]" : "[" + point.getX() + ", " + point.getY() + "]";
-    }
-    
-    public static void main(String... args) {
-        test("[1.5,1.2]");
-        test("1.5,1.2]");
-        test("[1.5,1.2");
-        test("[ 1.5 , 1.2 ]");
-        test(" 1.5 , 1.2 ]");
-        test("[ 1.5 , 1.2");
-        test("1.5,1.2");
-        test(" 1.5 , 1.2 ");
-        test("1.5 1.2");
-        test("");
-        test("null");
-        test("[]");
-        test("[ ]");
-        test("[1.5 1.2]");
-    }
-    
-    private static void test(String input) {
-        System.out.print("Input '" + input + "'");
-        try {
-            Point2DPropertyEditor ed = new Point2DPropertyEditor();
-            ed.setAsText(input);
-            Point2D point = ed.getValue();
-            System.out.println(" succeeded: " + point);
-        } catch (Exception e) {
-            System.out.println(" failed: " + e.getMessage());
-        }
-    }
+
+	/** Creates a new instance of Point2DPropertyEditor */
+	public Point2DPropertyEditor() {}
+
+	@Override
+	public Point2D getValue() {
+		return (Point2D) super.getValue();
+	}
+
+	@Override
+	public String getJavaInitializationString() {
+		Point2D point = getValue();
+		return point == null ? "null" : "new java.awt.geom.Point2D.Double(" + point.getX() + ", " + point.getY() + ")";
+	}
+
+	@Override
+	public void setAsText(String text) throws IllegalArgumentException {
+
+		String originalParam = text;
+		try {
+			Point2D val =
+					(Point2D) PropertyEditorUtil.createValueFromString(text, 2, Point2D.Double.class, double.class);
+			setValue(val);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			throw new IllegalArgumentException(
+					"The input value " + originalParam + " is not formatted correctly. Please "
+							+ "try something of the form [x,y] or [x , y] or [x y]",
+					e);
+		}
+	}
+
+	@Override
+	public String getAsText() {
+		Point2D point = getValue();
+		return point == null ? "[]" : "[" + point.getX() + ", " + point.getY() + "]";
+	}
+
+	public static void main(String... args) {
+		test("[1.5,1.2]");
+		test("1.5,1.2]");
+		test("[1.5,1.2");
+		test("[ 1.5 , 1.2 ]");
+		test(" 1.5 , 1.2 ]");
+		test("[ 1.5 , 1.2");
+		test("1.5,1.2");
+		test(" 1.5 , 1.2 ");
+		test("1.5 1.2");
+		test("");
+		test("null");
+		test("[]");
+		test("[ ]");
+		test("[1.5 1.2]");
+	}
+
+	private static void test(String input) {
+		System.out.print("Input '" + input + "'");
+		try {
+			Point2DPropertyEditor ed = new Point2DPropertyEditor();
+			ed.setAsText(input);
+			Point2D point = ed.getValue();
+			System.out.println(" succeeded: " + point);
+		} catch (Exception e) {
+			System.out.println(" failed: " + e.getMessage());
+		}
+	}
 }

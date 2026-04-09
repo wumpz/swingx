@@ -5,17 +5,16 @@ import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import javax.swing.Box;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicTextUI;
-
 import org.jdesktop.swingx.plaf.TextUIWrapper;
 
 public class BuddySupport {
 	public enum Position {
-		LEFT, RIGHT
+		LEFT,
+		RIGHT
 	};
 
 	public static final String OUTER_MARGIN = "outerMargin";
@@ -51,7 +50,7 @@ public class BuddySupport {
 
 		addToComponentHierarchy(c, pos, textField);
 	}
-	
+
 	public static void addGap(int width, Position pos, JTextField textField) {
 		add(createGap(width), pos, textField);
 	}
@@ -95,13 +94,14 @@ public class BuddySupport {
 	}
 
 	public static boolean isBuddy(Component c, JTextField textField) {
-		return buddies(Position.LEFT, textField).contains(c) || buddies(Position.RIGHT, textField).contains(c);
+		return buddies(Position.LEFT, textField).contains(c)
+				|| buddies(Position.RIGHT, textField).contains(c);
 	}
 
 	/**
 	 * Because {@link BasicTextUI} removes all components when uninstalled and
 	 * therefore all buddies are removed when the LnF changes.
-	 * 
+	 *
 	 * @param c
 	 * @param textField
 	 */
@@ -123,7 +123,6 @@ public class BuddySupport {
 			textField.remove(c);
 		}
 		right.clear();
-		
 	}
 
 	public static void setOuterMargin(JTextField buddyField, Insets margin) {
@@ -145,7 +144,7 @@ public class BuddySupport {
 
 	/**
 	 * Create a gap to insert between to buddies.
-	 * 
+	 *
 	 * @param width
 	 * @return
 	 */

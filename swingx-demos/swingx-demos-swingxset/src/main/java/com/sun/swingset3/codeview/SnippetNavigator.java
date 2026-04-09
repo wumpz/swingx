@@ -31,6 +31,7 @@
 
 package com.sun.swingset3.codeview;
 
+import com.sun.swingset3.utilities.ArrowIcon;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -43,7 +44,6 @@ import java.beans.PropertyChangeListener;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-
 import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -51,10 +51,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
-
 import org.jdesktop.swingx.util.GraphicsUtilities;
-
-import com.sun.swingset3.utilities.ArrowIcon;
 
 /**
  *
@@ -65,261 +62,270 @@ import com.sun.swingset3.utilities.ArrowIcon;
 // this integration is temporarily turned off due to visual problems with focus
 // and enabled state of the buttons
 public class SnippetNavigator extends JPanel {
-    private String NO_SNIPPET;
-    private SnippetMap snippetMap;
-    private JLabel statusLabel;
-    private JButton prevButton;
-    private JButton nextButton;
-    private int arrowSize = 8;
-    private int overlap = 0;
-    private int labelPad = 6;
-    private boolean needLabelBorder = true;
+	private String NO_SNIPPET;
+	private SnippetMap snippetMap;
+	private JLabel statusLabel;
+	private JButton prevButton;
+	private JButton nextButton;
+	private int arrowSize = 8;
+	private int overlap = 0;
+	private int labelPad = 6;
+	private boolean needLabelBorder = true;
 
-    public SnippetNavigator(SnippetMap snippetMap) {
-        this.snippetMap = snippetMap;
-        snippetMap.addPropertyChangeListener(new SnippetHighlightListener());
+	public SnippetNavigator(SnippetMap snippetMap) {
+		this.snippetMap = snippetMap;
+		snippetMap.addPropertyChangeListener(new SnippetHighlightListener());
 
-        setLayout(null);
+		setLayout(null);
 
-        NO_SNIPPET = getString("CodeViewer.snippets.noCodeHighlighted",
-                "No Code highlight selected");
+		NO_SNIPPET = getString("CodeViewer.snippets.noCodeHighlighted", "No Code highlight selected");
 
-        statusLabel = new JLabel(NO_SNIPPET);
-        statusLabel.setHorizontalAlignment(JLabel.CENTER);
-        add(statusLabel);
+		statusLabel = new JLabel(NO_SNIPPET);
+		statusLabel.setHorizontalAlignment(JLabel.CENTER);
+		add(statusLabel);
 
-        prevButton = (JButton) add(new NavButton());
-        prevButton.setDefaultCapable(false);
-        prevButton.setVisible(false);
+		prevButton = (JButton) add(new NavButton());
+		prevButton.setDefaultCapable(false);
+		prevButton.setVisible(false);
 
-        nextButton = (JButton) add(new NavButton());
-        nextButton.setDefaultCapable(false);
-        nextButton.setVisible(false);
+		nextButton = (JButton) add(new NavButton());
+		nextButton.setDefaultCapable(false);
+		nextButton.setVisible(false);
 
-        applyDefaults();
+		applyDefaults();
+	}
 
-    }
-    
-    protected String getString(String key, String fallback) {
-        String value = fallback;
-        String bundleName = getClass().getPackage().getName()+".resources.CodeViewer";
-        ResourceBundle bundle = ResourceBundle.getBundle(bundleName);        
-        try {
-            value = bundle != null? bundle.getString(key) : fallback;
-        
-        } catch (MissingResourceException e) {
-            CodeViewer.logger.log(Level.WARNING, "missing String resource " + key + 
-                    "; using fallback \"" +fallback + "\"");
-        }
-        return value;
-    }
-    
-    @Override
-    public void doLayout() {
-        Dimension size = getSize();
-        Insets insets = getInsets();
-        Dimension labelSize = statusLabel.getPreferredSize();
+	protected String getString(String key, String fallback) {
+		String value = fallback;
+		String bundleName = getClass().getPackage().getName() + ".resources.CodeViewer";
+		ResourceBundle bundle = ResourceBundle.getBundle(bundleName);
+		try {
+			value = bundle != null ? bundle.getString(key) : fallback;
 
-        if (prevButton.isVisible()) {
-            if (needLabelBorder) {
-                matchLabelBorderToButtons();
-            }
-            Dimension buttonSize = prevButton.getPreferredSize();
+		} catch (MissingResourceException e) {
+			CodeViewer.logger.log(
+					Level.WARNING, "missing String resource " + key + "; using fallback \"" + fallback + "\"");
+		}
+		return value;
+	}
 
-            prevButton.setBounds(insets.left, insets.top,
-                    buttonSize.width, size.height - insets.top - insets.bottom);
+	@Override
+	public void doLayout() {
+		Dimension size = getSize();
+		Insets insets = getInsets();
+		Dimension labelSize = statusLabel.getPreferredSize();
 
-            statusLabel.setBounds(insets.left + buttonSize.width - overlap,
-                    insets.top,
-                    labelSize.width + (2 * overlap) + labelPad,
-                    size.height - insets.top - insets.bottom);
+		if (prevButton.isVisible()) {
+			if (needLabelBorder) {
+				matchLabelBorderToButtons();
+			}
+			Dimension buttonSize = prevButton.getPreferredSize();
 
-            nextButton.setBounds(size.width - buttonSize.width,
-                    insets.top,
-                    buttonSize.width, size.height - insets.top - insets.bottom);
-        } else {
-            statusLabel.setBounds(insets.left, insets.top,
-                    size.width - insets.left - insets.right,
-                    size.height - insets.top - insets.bottom);
-        }
-    }
+			prevButton.setBounds(insets.left, insets.top, buttonSize.width, size.height - insets.top - insets.bottom);
 
-    @Override
-    public Dimension getPreferredSize() {
-        Dimension prefSize;
-        Insets insets = getInsets();
-        Dimension buttonSize = prevButton.getPreferredSize();
-        Dimension labelSize = statusLabel.getPreferredSize();
-        if (prevButton.isVisible()) {
-            prefSize = new Dimension(buttonSize.width * 2 + labelSize.width +
-                    labelPad +
-                    insets.left + insets.right,
-                    buttonSize.height + insets.top + insets.bottom);
-        } else {
-            prefSize = new Dimension(labelSize.width + insets.left + insets.right,
-                    buttonSize.height + insets.top + insets.bottom);
-        }
-        return prefSize;
-    }
+			statusLabel.setBounds(
+					insets.left + buttonSize.width - overlap,
+					insets.top,
+					labelSize.width + (2 * overlap) + labelPad,
+					size.height - insets.top - insets.bottom);
 
-    @Override
-    public void updateUI() {
-        super.updateUI();
-        applyDefaults();
-    }
+			nextButton.setBounds(
+					size.width - buttonSize.width,
+					insets.top,
+					buttonSize.width,
+					size.height - insets.top - insets.bottom);
+		} else {
+			statusLabel.setBounds(
+					insets.left,
+					insets.top,
+					size.width - insets.left - insets.right,
+					size.height - insets.top - insets.bottom);
+		}
+	}
 
-    protected void applyDefaults() {
-        if (prevButton != null) {
-            Color arrowColor = UIManager.getColor("Label.foreground");
-            Color inactiveColor = UIManager.getColor("Label.disabledText");
-            Dimension buttonSize = new Dimension(arrowSize + 12 + overlap,
-                    arrowSize + 12);
+	@Override
+	public Dimension getPreferredSize() {
+		Dimension prefSize;
+		Insets insets = getInsets();
+		Dimension buttonSize = prevButton.getPreferredSize();
+		Dimension labelSize = statusLabel.getPreferredSize();
+		if (prevButton.isVisible()) {
+			prefSize = new Dimension(
+					buttonSize.width * 2 + labelSize.width + labelPad + insets.left + insets.right,
+					buttonSize.height + insets.top + insets.bottom);
+		} else {
+			prefSize = new Dimension(
+					labelSize.width + insets.left + insets.right, buttonSize.height + insets.top + insets.bottom);
+		}
+		return prefSize;
+	}
 
-            prevButton.setIcon(new ArrowIcon(ArrowIcon.WEST, arrowSize, arrowColor));
-            prevButton.setDisabledIcon(new ArrowIcon(ArrowIcon.WEST, arrowSize, inactiveColor));
-            prevButton.setPreferredSize(buttonSize);
-            nextButton.setIcon(new ArrowIcon(ArrowIcon.EAST, arrowSize, arrowColor));
-            nextButton.setDisabledIcon(new ArrowIcon(ArrowIcon.EAST, arrowSize, inactiveColor));
-            nextButton.setPreferredSize(buttonSize);
+	@Override
+	public void updateUI() {
+		super.updateUI();
+		applyDefaults();
+	}
 
-            statusLabel.setOpaque(true);
-            statusLabel.setFont(UIManager.getFont("Label.font").deriveFont(12f));
-            
-            //needLabelBorder = true;
-            needLabelBorder = false;
-        }
-    }
-    // this doesn't get called because label integration is disabled
-    private void matchLabelBorderToButtons() {
-        Insets insets = new Insets(4, 6, 4, 6);
-        Dimension buttonSize = prevButton.getPreferredSize();
-        prevButton.setSize(buttonSize);
+	protected void applyDefaults() {
+		if (prevButton != null) {
+			Color arrowColor = UIManager.getColor("Label.foreground");
+			Color inactiveColor = UIManager.getColor("Label.disabledText");
+			Dimension buttonSize = new Dimension(arrowSize + 12 + overlap, arrowSize + 12);
 
-        BufferedImage image = GraphicsUtilities.
-                createCompatibleTranslucentImage(
-                     buttonSize.width, buttonSize.height);
-        prevButton.paint(image.getGraphics());
-        BufferedImage labelTopImage = GraphicsUtilities.
-                createCompatibleTranslucentImage(
-                     buttonSize.width - insets.left - insets.right,
-                     insets.top);
-        labelTopImage.getGraphics().drawImage(image, 0, 0,
-                buttonSize.width - insets.left - insets.right,
-                insets.top,
-                insets.left, 0,
-                buttonSize.width - insets.right, insets.top,
-                null,
-                null);
+			prevButton.setIcon(new ArrowIcon(ArrowIcon.WEST, arrowSize, arrowColor));
+			prevButton.setDisabledIcon(new ArrowIcon(ArrowIcon.WEST, arrowSize, inactiveColor));
+			prevButton.setPreferredSize(buttonSize);
+			nextButton.setIcon(new ArrowIcon(ArrowIcon.EAST, arrowSize, arrowColor));
+			nextButton.setDisabledIcon(new ArrowIcon(ArrowIcon.EAST, arrowSize, inactiveColor));
+			nextButton.setPreferredSize(buttonSize);
 
-        BufferedImage labelBottomImage = GraphicsUtilities.createCompatibleTranslucentImage(buttonSize.width - insets.left - insets.right,
-                insets.bottom);
-        labelBottomImage.getGraphics().drawImage(image, 0, 0,
-                buttonSize.width - insets.left - insets.right, insets.top,
-                insets.left, buttonSize.height - insets.bottom,
-                buttonSize.width - insets.right, buttonSize.height,
-                null,
-                null);
+			statusLabel.setOpaque(true);
+			statusLabel.setFont(UIManager.getFont("Label.font").deriveFont(12f));
 
-        statusLabel.setBorder(new CenterLabelBorder(labelTopImage, labelBottomImage));
-        needLabelBorder = false;
-    }
+			// needLabelBorder = true;
+			needLabelBorder = false;
+		}
+	}
+	// this doesn't get called because label integration is disabled
+	private void matchLabelBorderToButtons() {
+		Insets insets = new Insets(4, 6, 4, 6);
+		Dimension buttonSize = prevButton.getPreferredSize();
+		prevButton.setSize(buttonSize);
 
-    public void setNavigatePreviousAction(Action action) {
-        setButtonAction(prevButton, action);
-    }
+		BufferedImage image = GraphicsUtilities.createCompatibleTranslucentImage(buttonSize.width, buttonSize.height);
+		prevButton.paint(image.getGraphics());
+		BufferedImage labelTopImage = GraphicsUtilities.createCompatibleTranslucentImage(
+				buttonSize.width - insets.left - insets.right, insets.top);
+		labelTopImage
+				.getGraphics()
+				.drawImage(
+						image,
+						0,
+						0,
+						buttonSize.width - insets.left - insets.right,
+						insets.top,
+						insets.left,
+						0,
+						buttonSize.width - insets.right,
+						insets.top,
+						null,
+						null);
 
-    public void setNavigateNextAction(Action action) {
-        setButtonAction(nextButton, action);
-    }
+		BufferedImage labelBottomImage = GraphicsUtilities.createCompatibleTranslucentImage(
+				buttonSize.width - insets.left - insets.right, insets.bottom);
+		labelBottomImage
+				.getGraphics()
+				.drawImage(
+						image,
+						0,
+						0,
+						buttonSize.width - insets.left - insets.right,
+						insets.top,
+						insets.left,
+						buttonSize.height - insets.bottom,
+						buttonSize.width - insets.right,
+						buttonSize.height,
+						null,
+						null);
 
-    private void setButtonAction(JButton button, Action action) {
-        Icon icon = button.getIcon();
-        button.setAction(action);
-        button.setHideActionText(true);
-        button.setIcon(icon); // icon gets obliterated when action set!
-    }
+		statusLabel.setBorder(new CenterLabelBorder(labelTopImage, labelBottomImage));
+		needLabelBorder = false;
+	}
 
-    private class SnippetHighlightListener implements PropertyChangeListener {
+	public void setNavigatePreviousAction(Action action) {
+		setButtonAction(prevButton, action);
+	}
 
-        public void propertyChange(PropertyChangeEvent e) {
-            String propertyName = e.getPropertyName();
-            if (propertyName.equals("currentSet")) {
-                String key = (String) e.getNewValue();
-                setComponentState(key);
+	public void setNavigateNextAction(Action action) {
+		setButtonAction(nextButton, action);
+	}
 
-            } else if (propertyName.equals("currentSnippet")) {
-                setComponentState(snippetMap.getCurrentSet());
-            }
-        }
+	private void setButtonAction(JButton button, Action action) {
+		Icon icon = button.getIcon();
+		button.setAction(action);
+		button.setHideActionText(true);
+		button.setIcon(icon); // icon gets obliterated when action set!
+	}
 
-        private void setComponentState(String currentKey) {
-            if (currentKey == null) {
-                statusLabel.setText(NO_SNIPPET);
+	private class SnippetHighlightListener implements PropertyChangeListener {
 
-            } else {
+		public void propertyChange(PropertyChangeEvent e) {
+			String propertyName = e.getPropertyName();
+			if (propertyName.equals("currentSet")) {
+				String key = (String) e.getNewValue();
+				setComponentState(key);
 
-                String place = "<html><b>" +
-                        snippetMap.getIndexForSnippet(snippetMap.getCurrentSnippet()) +
-                        "</b>" +
-                        " of " + snippetMap.getSnippetCountForSet(currentKey) + "</html>";
-                statusLabel.setText(place);
+			} else if (propertyName.equals("currentSnippet")) {
+				setComponentState(snippetMap.getCurrentSet());
+			}
+		}
 
-            }
-            boolean moreThanOne = snippetMap.getSnippetCountForSet(currentKey) > 1;
+		private void setComponentState(String currentKey) {
+			if (currentKey == null) {
+				statusLabel.setText(NO_SNIPPET);
 
-            prevButton.setVisible(moreThanOne);
-            nextButton.setVisible(moreThanOne);
-        }
-    }
-    
-    private class NavButton extends JButton {
-        public NavButton() {
-            super();
-        }        
-        protected void paintComponent(Graphics g) {
-            // need to make sure overlapping label paints after buttons otherwise
-            // the buttons paint over the label when they gain focus (which is really
-            // a Swing bug, as the clip should be properly set based on zorder
-            // within the container)
-            super.paintComponent(g);
-            statusLabel.repaint();
-        }        
-    }
+			} else {
 
-    private class CenterLabelBorder implements Border {
-        private Image topImage;
-        private Image bottomImage;
+				String place = "<html><b>" + snippetMap.getIndexForSnippet(snippetMap.getCurrentSnippet())
+						+ "</b>"
+						+ " of "
+						+ snippetMap.getSnippetCountForSet(currentKey) + "</html>";
+				statusLabel.setText(place);
+			}
+			boolean moreThanOne = snippetMap.getSnippetCountForSet(currentKey) > 1;
 
-        public CenterLabelBorder(Image topImage, Image bottomImage) {
-            this.topImage = topImage;
-            this.bottomImage = bottomImage;
-        }
+			prevButton.setVisible(moreThanOne);
+			nextButton.setVisible(moreThanOne);
+		}
+	}
 
-        public Insets getBorderInsets(Component c) {
-            return new Insets(topImage.getHeight(null),
-                    0, bottomImage.getHeight(null), 0);
-        }
+	private class NavButton extends JButton {
+		public NavButton() {
+			super();
+		}
 
-        public boolean isBorderOpaque() {
-            return false;
-        }
+		protected void paintComponent(Graphics g) {
+			// need to make sure overlapping label paints after buttons otherwise
+			// the buttons paint over the label when they gain focus (which is really
+			// a Swing bug, as the clip should be properly set based on zorder
+			// within the container)
+			super.paintComponent(g);
+			statusLabel.repaint();
+		}
+	}
 
-        public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
-            if (prevButton.isVisible()) {
-                int xx = x;
-                int imageWidth = topImage.getWidth(c);
-                while (xx < x + w) {
-                    g.drawImage(topImage, xx, y, c);
-                    xx += imageWidth;
-                }
-                xx = x;
-                imageWidth = bottomImage.getWidth(c);
-                while (xx < x + w) {
-                    g.drawImage(bottomImage, xx, y + h - bottomImage.getHeight(c), c);
-                    xx += imageWidth;
-                }
-            }
-        }
-    }
+	private class CenterLabelBorder implements Border {
+		private Image topImage;
+		private Image bottomImage;
+
+		public CenterLabelBorder(Image topImage, Image bottomImage) {
+			this.topImage = topImage;
+			this.bottomImage = bottomImage;
+		}
+
+		public Insets getBorderInsets(Component c) {
+			return new Insets(topImage.getHeight(null), 0, bottomImage.getHeight(null), 0);
+		}
+
+		public boolean isBorderOpaque() {
+			return false;
+		}
+
+		public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
+			if (prevButton.isVisible()) {
+				int xx = x;
+				int imageWidth = topImage.getWidth(c);
+				while (xx < x + w) {
+					g.drawImage(topImage, xx, y, c);
+					xx += imageWidth;
+				}
+				xx = x;
+				imageWidth = bottomImage.getWidth(c);
+				while (xx < x + w) {
+					g.drawImage(bottomImage, xx, y + h - bottomImage.getHeight(c), c);
+					xx += imageWidth;
+				}
+			}
+		}
+	}
 }
-    

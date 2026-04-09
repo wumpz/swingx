@@ -8,9 +8,8 @@ import org.junit.jupiter.api.Test;
 
 public class HighlightPredicateIssues extends HighlightPredicateTest {
 
-    
-    @Test
-    public void testDummy() {
-        // keep runner happy if we have solved all issues
-    }
+	@Test
+	public void testDummy() {
+		// keep runner happy if we have solved all issues
+	}
 }

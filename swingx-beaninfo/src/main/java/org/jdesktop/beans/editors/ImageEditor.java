@@ -22,60 +22,57 @@ import java.beans.PropertyEditorSupport;
  * @author joshy
  */
 public class ImageEditor extends PropertyEditorSupport {
-    Image image = null;
-    ImagePicker picker = new ImagePicker();
-    /** Creates a new instance of ImageEditor */
-    public ImageEditor() {
-        picker.imageView.addPropertyChangeListener("image",new PropertyChangeListener() {
-            public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-                image = picker.imageView.getImage();
-                firePropertyChange();
-            }
-        });
-    }
-    
-    @Override
-    public Image getValue() {
-        return image;
-    }
-    
-    @Override
-    public void setValue(Object object) {
-        image = (Image)object;
-        super.setValue(image);
-        picker.imageView.setImage(image);
-    }
+	Image image = null;
+	ImagePicker picker = new ImagePicker();
+	/** Creates a new instance of ImageEditor */
+	public ImageEditor() {
+		picker.imageView.addPropertyChangeListener("image", new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+				image = picker.imageView.getImage();
+				firePropertyChange();
+			}
+		});
+	}
 
-    @Override
-    public void setAsText(String text) throws IllegalArgumentException {
-        // do nothing right now
-    }
-    
-    @Override
-    public String getAsText() {
-        return "an Image";
-    }
+	@Override
+	public Image getValue() {
+		return image;
+	}
 
-    @Override
-    public void paintValue(Graphics graphics, Rectangle r) {
-        graphics.drawImage(image, (int)r.getX(), (int)r.getY(),
-                (int)r.getWidth(), (int)r.getHeight(), null);   
-    }
-    
+	@Override
+	public void setValue(Object object) {
+		image = (Image) object;
+		super.setValue(image);
+		picker.imageView.setImage(image);
+	}
 
-    @Override
-    public boolean isPaintable() {
-        return true;
-    }
+	@Override
+	public void setAsText(String text) throws IllegalArgumentException {
+		// do nothing right now
+	}
 
-    @Override
-    public boolean supportsCustomEditor() {
-        return true;
-    }
+	@Override
+	public String getAsText() {
+		return "an Image";
+	}
 
-    @Override
-    public Component getCustomEditor() {
-        return picker;
-    }
-    
+	@Override
+	public void paintValue(Graphics graphics, Rectangle r) {
+		graphics.drawImage(image, (int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight(), null);
+	}
+
+	@Override
+	public boolean isPaintable() {
+		return true;
+	}
+
+	@Override
+	public boolean supportsCustomEditor() {
+		return true;
+	}
+
+	@Override
+	public Component getCustomEditor() {
+		return picker;
+	}
 }

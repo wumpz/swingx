@@ -19,41 +19,40 @@ import java.util.List;
  * @author joshy
  */
 public class EnumPropertyEditor<E extends Enum<E>> extends PropertyEditorSupport {
-    private Class<E> en;
-    private EnumSet<E> set;
-    
-    /** Creates a new instance of EnumPropertyEditor */
-    public EnumPropertyEditor(Class<E> en) {
-        this.en = en;
-        set = EnumSet.allOf(en);
-    }
-    
-    @Override
-    public String[] getTags() {
-        List<String> strs = new ArrayList<String>();
-        for(E e : set) {
-            strs.add(e.toString());
-        }
-        return strs.toArray(new String[0]);
-    }
-    
-    @Override
-    public String getAsText() {
-        return getValue().toString();
-    }
-    
-    @Override
-    public void setAsText(String text) throws IllegalArgumentException {
-//        u.p("setting as text: " + text);
-        Enum<E> e = Enum.valueOf(en, text);
-        setValue(e);
-    }
+	private Class<E> en;
+	private EnumSet<E> set;
 
-    @Override
-    public String getJavaInitializationString() {
-        //org.jdesktop.stuff.Stuff.InsideEnum.VALUE;
-        // the '$' must be converted to '.' to deal with public inner classes
-        return new String(en.getName()+"."+getAsText()).replace("$",".");
-    }
-    
+	/** Creates a new instance of EnumPropertyEditor */
+	public EnumPropertyEditor(Class<E> en) {
+		this.en = en;
+		set = EnumSet.allOf(en);
+	}
+
+	@Override
+	public String[] getTags() {
+		List<String> strs = new ArrayList<String>();
+		for (E e : set) {
+			strs.add(e.toString());
+		}
+		return strs.toArray(new String[0]);
+	}
+
+	@Override
+	public String getAsText() {
+		return getValue().toString();
+	}
+
+	@Override
+	public void setAsText(String text) throws IllegalArgumentException {
+		//        u.p("setting as text: " + text);
+		Enum<E> e = Enum.valueOf(en, text);
+		setValue(e);
+	}
+
+	@Override
+	public String getJavaInitializationString() {
+		// org.jdesktop.stuff.Stuff.InsideEnum.VALUE;
+		// the '$' must be converted to '.' to deal with public inner classes
+		return new String(en.getName() + "." + getAsText()).replace("$", ".");
+	}
 }

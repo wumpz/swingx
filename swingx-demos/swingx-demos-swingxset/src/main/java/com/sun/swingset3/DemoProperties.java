@@ -40,9 +40,13 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DemoProperties {
-    String value(); // Name
-    String category();
-    String description();
-    String iconFile() default ""; 
-    String[] sourceFiles() default "";
+	String value(); // Name
+
+	String category();
+
+	String description();
+
+	String iconFile() default "";
+
+	String[] sourceFiles() default "";
 }

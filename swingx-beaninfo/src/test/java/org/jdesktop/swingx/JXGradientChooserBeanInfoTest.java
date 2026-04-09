@@ -5,18 +5,18 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class JXGradientChooserBeanInfoTest extends AbstractBeanInfoTest<JXGradientChooser> {
-    @Override
-    protected JXGradientChooser createInstance() {
-        return new JXGradientChooser();
-    }
+	@Override
+	protected JXGradientChooser createInstance() {
+		return new JXGradientChooser();
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Test
-    @Override
-    @Disabled("serialization fails")
-    public void testSerialization() {
-        super.testSerialization();
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Test
+	@Override
+	@Disabled("serialization fails")
+	public void testSerialization() {
+		super.testSerialization();
+	}
 }

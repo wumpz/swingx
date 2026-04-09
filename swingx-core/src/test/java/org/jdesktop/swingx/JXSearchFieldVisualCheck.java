@@ -22,37 +22,34 @@ package org.jdesktop.swingx;
 
 import org.junit.jupiter.api.Test;
 
-
 /**
  * Visual tests of JXSearchField issues.
  * @author Karl Schaefer
  *
  */
 public class JXSearchFieldVisualCheck extends InteractiveTestCase {
-    public void interactiveRenderingCheck() {
-        JXSearchField search = new JXSearchField();
-        
-        showInFrame(search, "Painter testing");
-    }
-    
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        JXSearchFieldVisualCheck test = new JXSearchFieldVisualCheck();
-        try {
-            test.runInteractiveTests("interactiveRenderingCheck");
-          } catch (Exception e) {
-              System.err.println("exception when executing interactive tests:");
-              e.printStackTrace();
-          }
-    }
+	public void interactiveRenderingCheck() {
+		JXSearchField search = new JXSearchField();
 
-    /**
-     * do nothing test - keep the testrunner happy.
-     */
-    @Test
-    public void testDummy() {
-    }
+		showInFrame(search, "Painter testing");
+	}
 
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		JXSearchFieldVisualCheck test = new JXSearchFieldVisualCheck();
+		try {
+			test.runInteractiveTests("interactiveRenderingCheck");
+		} catch (Exception e) {
+			System.err.println("exception when executing interactive tests:");
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * do nothing test - keep the testrunner happy.
+	 */
+	@Test
+	public void testDummy() {}
 }

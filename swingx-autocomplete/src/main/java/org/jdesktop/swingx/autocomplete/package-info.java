@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -62,7 +62,7 @@
  * column.<b>setCellEditor</b>(<span class="keyword">new</span> <b>ComboBoxCellEditor</b>(comboBox));
  * </code></p>
  * <p>
- * If you want to enable automatic completion for a component that is not 
+ * If you want to enable automatic completion for a component that is not
  * supported by the {@link org.jdesktop.swingx.autocomplete.AutoCompleteDecorator AutoCompleteDecorator}, you
  * need to implement {@link org.jdesktop.swingx.autocomplete.AbstractAutoCompleteAdaptor AbstractAutoCompleteAdaptor}. For
  * an example see {@link org.jdesktop.swingx.autocomplete.ComboBoxAdaptor ComboBoxAdaptor}

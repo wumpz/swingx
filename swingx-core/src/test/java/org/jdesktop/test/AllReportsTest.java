@@ -11,48 +11,44 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Contains unit tests around the xxReport classes.
- * 
+ *
  * @author Jeanette Winzenburg, Berlin
  */
 public class AllReportsTest {
 
+	/**
+	 * Multicast events not counted properly.
+	 */
+	@Test
+	public void testPropertyEventCount() {
+		DummyBean bean = new DummyBean();
+		PropertyReport report = new PropertyReport(bean);
+		bean.fireMulticastChange();
+		bean.fireNameChange("myProperty");
+		assertEquals(2, report.getEventCount());
+		assertEquals(1, report.getMultiCastEventCount());
+		assertEquals(1, report.getNamedEventCount());
+	}
 
-    /**
-     * Multicast events not counted properly.
-     */
-    @Test
-    public void testPropertyEventCount() {
-        DummyBean bean = new DummyBean();
-        PropertyReport report = new PropertyReport(bean);
-        bean.fireMulticastChange();
-        bean.fireNameChange("myProperty");
-        assertEquals(2, report.getEventCount());
-        assertEquals(1, report.getMultiCastEventCount());
-        assertEquals(1, report.getNamedEventCount());
-    }
-    
-    @Test
-    public void testPropertyMultipleMulticastCount() {
-        DummyBean bean = new DummyBean();
-        PropertyReport report = new PropertyReport(bean);
-        bean.fireMulticastChange();
-        bean.fireNameChange("myProperty");
-        bean.fireMulticastChange();
-        assertEquals(2, report.getMultiCastEventCount());
-        assertEquals(1, report.getNamedEventCount());
-        
-    }
-    
-    public static class DummyBean extends AbstractBean {
-        
-        public void fireNameChange(String name) {
-            firePropertyChange(name, null, "somevalue");
-        }
-        
-        public void fireMulticastChange() {
-            firePropertyChange(null, null, null);
-        }
-    }
-    
+	@Test
+	public void testPropertyMultipleMulticastCount() {
+		DummyBean bean = new DummyBean();
+		PropertyReport report = new PropertyReport(bean);
+		bean.fireMulticastChange();
+		bean.fireNameChange("myProperty");
+		bean.fireMulticastChange();
+		assertEquals(2, report.getMultiCastEventCount());
+		assertEquals(1, report.getNamedEventCount());
+	}
 
+	public static class DummyBean extends AbstractBean {
+
+		public void fireNameChange(String name) {
+			firePropertyChange(name, null, "somevalue");
+		}
+
+		public void fireMulticastChange() {
+			firePropertyChange(null, null, null);
+		}
+	}
 }

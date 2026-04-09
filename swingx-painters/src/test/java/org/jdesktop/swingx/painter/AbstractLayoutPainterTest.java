@@ -24,33 +24,31 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.awt.Insets;
-
 import org.junit.jupiter.api.Test;
-
 
 /**
  * Test for AbstractLayoutPainter.
  */
 @SuppressWarnings({"rawtypes"})
 public class AbstractLayoutPainterTest extends AbstractPainterTest {
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected AbstractLayoutPainter createTestingPainter() {
-        return new DummyLayoutPainter();
-    }
-    
-    @Test
-    @Override
-    public void testDefaults() {
-        super.testDefaults();
-        
-        AbstractLayoutPainter alp = (AbstractLayoutPainter) p;
-        assertThat(alp.getHorizontalAlignment(), is(AbstractLayoutPainter.HorizontalAlignment.CENTER));
-        assertThat(alp.getInsets(), is(new Insets(0, 0, 0, 0)));
-        assertThat(alp.getVerticalAlignment(), is(AbstractLayoutPainter.VerticalAlignment.CENTER));
-        assertThat(alp.isFillHorizontal(), is(false));
-        assertThat(alp.isFillVertical(), is(false));
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected AbstractLayoutPainter createTestingPainter() {
+		return new DummyLayoutPainter();
+	}
+
+	@Test
+	@Override
+	public void testDefaults() {
+		super.testDefaults();
+
+		AbstractLayoutPainter alp = (AbstractLayoutPainter) p;
+		assertThat(alp.getHorizontalAlignment(), is(AbstractLayoutPainter.HorizontalAlignment.CENTER));
+		assertThat(alp.getInsets(), is(new Insets(0, 0, 0, 0)));
+		assertThat(alp.getVerticalAlignment(), is(AbstractLayoutPainter.VerticalAlignment.CENTER));
+		assertThat(alp.isFillHorizontal(), is(false));
+		assertThat(alp.isFillVertical(), is(false));
+	}
 }

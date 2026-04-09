@@ -8,14 +8,13 @@ import org.jdesktop.beans.BeanInfoSupport;
  * @author Jan Stola
  */
 public class AlphaPainterBeanInfo extends BeanInfoSupport {
-    
-    public AlphaPainterBeanInfo() {
-        super(AlphaPainter.class);
-    }
-    
-    @Override
-    protected void initialize() {
-        setPreferred(true, "alpha");
-    }
 
+	public AlphaPainterBeanInfo() {
+		super(AlphaPainter.class);
+	}
+
+	@Override
+	protected void initialize() {
+		setPreferred(true, "alpha");
+	}
 }

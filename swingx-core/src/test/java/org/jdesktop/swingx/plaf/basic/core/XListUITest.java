@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -25,140 +25,137 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.logging.Logger;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
-
 import org.jdesktop.swingx.InteractiveTestCase;
 import org.jdesktop.swingx.JXList;
 import org.junit.jupiter.api.Test;
 
 /**
  * Contains base tests for extended ui-delegates of JXList.
- * 
+ *
  * @author Jeanette Winzenburg
  */
 public class XListUITest extends InteractiveTestCase {
-    
-    @SuppressWarnings("unused")
-    private static final Logger LOG = Logger.getLogger(XListUITest.class
-            .getName());
-    
-    /**
-     * Issue #1495-swingx: NPE in getBaseline()
-     */
-    @Test
-    public void testBaselineNPE() {
-        JXList list = new JXList();
-        list.getUI().getBaseline(list, 1, 1);
-    }
-    
-    /**
-     * Issue #1495-swingx: NPE in getBaseline()
-     */
-    @Test
-    public void testBaselineNPEFixThrowsOnNullComponent() {
-        assertThrows(NullPointerException.class, () -> {
-            JXList list = new JXList();
-            list.getUI().getBaseline(null, 1, 1);
-        });
-    }
 
+	@SuppressWarnings("unused")
+	private static final Logger LOG = Logger.getLogger(XListUITest.class.getName());
 
-    /**
-     * Issue 1152-swingx: JXList re-enable sorting.
-     * 
-     * here: add managing ListSortUI to responsibility of XListUI. 
-     */
-    @Test
-    public void testSortUIUpdateOnSetModel() {
-        JXList list = new JXList(true);
-        BasicXListUI ui = (BasicXListUI) list.getUI();
-        ListSortUI sortUI = ui.getSortUI();
-        list.setModel(new DefaultListModel());
-        assertNotSame(sortUI, ui.getSortUI());
-    }
-    /**
-     * Issue 1152-swingx: JXList re-enable sorting.
-     * 
-     * here: add managing ListSortUI to responsibility of XListUI. 
-     */
-    @Test
-    public void testSortUIInstalled() {
-        JXList list = new JXList(true);
-        BasicXListUI ui = (BasicXListUI) list.getUI();
-        assertNotNull(ui.getSortUI());
-    }
-    
-    /**
-     * For SynthLF, mapping of ui-delegate happens statically in Region: for all
-     * known regions it registers the SynthLookAndFeel as delegate factory. First
-     * time around, Region.XLIST is not yet known - xdelegate used. Second time
-     * around, the new region is known, factory replaced with SynthLF which can't
-     * handle ... so need to hide XLIST from registration.<p>
-     * 
-     * PENDING JW: not entirely sure as to the why, could be special to our 
-     * addon mechanism?
-     * 
-     * @throws Exception
-     */
-    @Test
-    public void testSynthXUIFound() throws Exception {
-        if (!hasLookAndFeel("Nimbus")) {
-            LOG.info("can't run - no Nimbus");
-            return;
-        }
-        LookAndFeel lf = UIManager.getLookAndFeel();
-        try {
-            setLookAndFeel("Nimbus");
-            JXList list = new JXList();
-            setLookAndFeel("Metal");
-            list.updateUI();
-            setLookAndFeel("Nimbus");
-            list.updateUI();
-        } finally {
-            UIManager.setLookAndFeel(lf);
-        }
-    }
+	/**
+	 * Issue #1495-swingx: NPE in getBaseline()
+	 */
+	@Test
+	public void testBaselineNPE() {
+		JXList list = new JXList();
+		list.getUI().getBaseline(list, 1, 1);
+	}
 
-    @Test
-    public void testExtendedClassID() {
-        JXList list = new JXList();
-        assertSame(JXList.uiClassID, list.getUIClassID());
-    }
-    
-    @Test
-    public void testHasExtendedUI() {
-        JXList list = new JXList();
-        assertTrue(list.getUI() instanceof BasicXListUI,
-                "xlist must have BasicXListUI instead of " + list.getUI().getClass().getSimpleName());
-        
-    }
-    
-    /**
-     * Test that there are different actions installed for base JList and JXList.
-     */
-    @Test
-    public void testActionMaps() {
-        JXList list = new JXList();
-        JList core = new JList();
-        Object key = list.getActionMap().getParent().keys()[0];
-        assertTrue(Arrays.asList(core.getActionMap().allKeys()).contains(key), "sanity: key contained in core actionMap " + key);
-        assertSame(list.getActionMap().get(key), new JXList().getActionMap().get(key), "sanity: xlist share actions");
-        assertNotSame(list.getActionMap().get(key), core.getActionMap().get(key), "core has different action");
-    }
-    
-    /**
-     * Test that ui-installed ActionMaps shared by different instances of JXList.
-     */
-    @Test
-    public void testSharedActionMaps() {
-        JXList list = new JXList();
-        assertNotNull(list.getActionMap().getParent());
-        assertSame(list.getActionMap().getParent(), new JXList().getActionMap().getParent());
-    }
+	/**
+	 * Issue #1495-swingx: NPE in getBaseline()
+	 */
+	@Test
+	public void testBaselineNPEFixThrowsOnNullComponent() {
+		assertThrows(NullPointerException.class, () -> {
+			JXList list = new JXList();
+			list.getUI().getBaseline(null, 1, 1);
+		});
+	}
 
-    
+	/**
+	 * Issue 1152-swingx: JXList re-enable sorting.
+	 *
+	 * here: add managing ListSortUI to responsibility of XListUI.
+	 */
+	@Test
+	public void testSortUIUpdateOnSetModel() {
+		JXList list = new JXList(true);
+		BasicXListUI ui = (BasicXListUI) list.getUI();
+		ListSortUI sortUI = ui.getSortUI();
+		list.setModel(new DefaultListModel());
+		assertNotSame(sortUI, ui.getSortUI());
+	}
+	/**
+	 * Issue 1152-swingx: JXList re-enable sorting.
+	 *
+	 * here: add managing ListSortUI to responsibility of XListUI.
+	 */
+	@Test
+	public void testSortUIInstalled() {
+		JXList list = new JXList(true);
+		BasicXListUI ui = (BasicXListUI) list.getUI();
+		assertNotNull(ui.getSortUI());
+	}
+
+	/**
+	 * For SynthLF, mapping of ui-delegate happens statically in Region: for all
+	 * known regions it registers the SynthLookAndFeel as delegate factory. First
+	 * time around, Region.XLIST is not yet known - xdelegate used. Second time
+	 * around, the new region is known, factory replaced with SynthLF which can't
+	 * handle ... so need to hide XLIST from registration.<p>
+	 *
+	 * PENDING JW: not entirely sure as to the why, could be special to our
+	 * addon mechanism?
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testSynthXUIFound() throws Exception {
+		if (!hasLookAndFeel("Nimbus")) {
+			LOG.info("can't run - no Nimbus");
+			return;
+		}
+		LookAndFeel lf = UIManager.getLookAndFeel();
+		try {
+			setLookAndFeel("Nimbus");
+			JXList list = new JXList();
+			setLookAndFeel("Metal");
+			list.updateUI();
+			setLookAndFeel("Nimbus");
+			list.updateUI();
+		} finally {
+			UIManager.setLookAndFeel(lf);
+		}
+	}
+
+	@Test
+	public void testExtendedClassID() {
+		JXList list = new JXList();
+		assertSame(JXList.uiClassID, list.getUIClassID());
+	}
+
+	@Test
+	public void testHasExtendedUI() {
+		JXList list = new JXList();
+		assertTrue(
+				list.getUI() instanceof BasicXListUI,
+				"xlist must have BasicXListUI instead of "
+						+ list.getUI().getClass().getSimpleName());
+	}
+
+	/**
+	 * Test that there are different actions installed for base JList and JXList.
+	 */
+	@Test
+	public void testActionMaps() {
+		JXList list = new JXList();
+		JList core = new JList();
+		Object key = list.getActionMap().getParent().keys()[0];
+		assertTrue(
+				Arrays.asList(core.getActionMap().allKeys()).contains(key),
+				"sanity: key contained in core actionMap " + key);
+		assertSame(list.getActionMap().get(key), new JXList().getActionMap().get(key), "sanity: xlist share actions");
+		assertNotSame(list.getActionMap().get(key), core.getActionMap().get(key), "core has different action");
+	}
+
+	/**
+	 * Test that ui-installed ActionMaps shared by different instances of JXList.
+	 */
+	@Test
+	public void testSharedActionMaps() {
+		JXList list = new JXList();
+		assertNotNull(list.getActionMap().getParent());
+		assertSame(list.getActionMap().getParent(), new JXList().getActionMap().getParent());
+	}
 }

@@ -26,28 +26,27 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-
 /**
  * Test for PinstripePainter.
  */
 public class PinstripePainterTest extends AbstractPainterTest {
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected PinstripePainter createTestingPainter() {
-        return new PinstripePainter();
-    }
-    
-    @Test
-    @Override
-    public void testDefaults() {
-        super.testDefaults();
-        
-        PinstripePainter pp = (PinstripePainter) p;
-        assertThat(pp.getAngle(), is(45d));
-        assertThat(pp.getPaint(), is(nullValue()));
-        assertThat(pp.getSpacing(), is(8d));
-        assertThat(pp.getStripeWidth(), is(1d));
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected PinstripePainter createTestingPainter() {
+		return new PinstripePainter();
+	}
+
+	@Test
+	@Override
+	public void testDefaults() {
+		super.testDefaults();
+
+		PinstripePainter pp = (PinstripePainter) p;
+		assertThat(pp.getAngle(), is(45d));
+		assertThat(pp.getPaint(), is(nullValue()));
+		assertThat(pp.getSpacing(), is(8d));
+		assertThat(pp.getStripeWidth(), is(1d));
+	}
 }

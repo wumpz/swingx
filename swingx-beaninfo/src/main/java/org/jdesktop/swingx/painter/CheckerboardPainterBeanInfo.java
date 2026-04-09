@@ -9,15 +9,15 @@ import org.jdesktop.beans.editors.PaintPropertyEditor;
  * @author Richard, Jan Stola
  */
 public class CheckerboardPainterBeanInfo extends BeanInfoSupport {
-    
-    /** Creates a new instance of CheckerboardPainterBeanInfo */
-    public CheckerboardPainterBeanInfo() {
-        super(CheckerboardPainter.class);
-    }
 
-    @Override
-    protected void initialize() {
-        setPreferred(true, "darkPaint", "lightPaint", "squareSize");
-        setPropertyEditor(PaintPropertyEditor.class, "darkPaint", "lightPaint");
-    }
+	/** Creates a new instance of CheckerboardPainterBeanInfo */
+	public CheckerboardPainterBeanInfo() {
+		super(CheckerboardPainter.class);
+	}
+
+	@Override
+	protected void initialize() {
+		setPreferred(true, "darkPaint", "lightPaint", "squareSize");
+		setPropertyEditor(PaintPropertyEditor.class, "darkPaint", "lightPaint");
+	}
 }

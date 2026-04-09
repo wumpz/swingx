@@ -32,7 +32,6 @@ import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -41,7 +40,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-
 import org.jdesktop.swingx.JXLoginPane.JXLoginFrame;
 import org.jdesktop.swingx.JXLoginPane.SaveMode;
 import org.jdesktop.swingx.auth.LoginService;
@@ -60,298 +58,295 @@ import org.junit.jupiter.api.Test;
  */
 public class JXLoginPaneVisualCheck extends InteractiveTestCase {
 
-    public static void main(String[] args) throws Exception {
-        // setSystemLF(true);
-        JXLoginPaneVisualCheck test = new JXLoginPaneVisualCheck();
+	public static void main(String[] args) throws Exception {
+		// setSystemLF(true);
+		JXLoginPaneVisualCheck test = new JXLoginPaneVisualCheck();
 
-        try {
-//            test.runInteractiveTests();
-            test.runInteractiveTests("interactiveDisplay");
-        } catch (Exception e) {
-            System.err.println("exception when executing interactive tests:");
-            e.printStackTrace();
-        }
-    }
+		try {
+			//            test.runInteractiveTests();
+			test.runInteractiveTests("interactiveDisplay");
+		} catch (Exception e) {
+			System.err.println("exception when executing interactive tests:");
+			e.printStackTrace();
+		}
+	}
 
+	/**
+	 * Issue #538-swingx Failure to set locale at runtime
+	 *
+	 */
+	public void interactiveDisplay() {
+		JComponent.setDefaultLocale(Locale.FRANCE);
+		JXLoginPane panel = new JXLoginPane();
+		JFrame frame = JXLoginPane.showLoginFrame(panel);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setJMenuBar(createAndFillMenuBar(panel));
 
-    /**
-     * Issue #538-swingx Failure to set locale at runtime
-     *
-     */
-    public void interactiveDisplay() {
-        JComponent.setDefaultLocale(Locale.FRANCE);
-        JXLoginPane panel = new JXLoginPane();
-        JFrame frame = JXLoginPane.showLoginFrame(panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setJMenuBar(createAndFillMenuBar(panel));
+		panel.setSaveMode(SaveMode.BOTH);
 
-        panel.setSaveMode(SaveMode.BOTH);
+		frame.pack();
+		frame.setVisible(true);
+	}
 
-        frame.pack();
-        frame.setVisible(true);
-    }
+	/**
+	 * Issue #538-swingx Failure to set locale at runtime
+	 *
+	 */
+	public void interactiveDisplayFixedUser() {
+		JComponent.setDefaultLocale(Locale.FRANCE);
+		JXLoginPane panel = new JXLoginPane();
+		JFrame frame = JXLoginPane.showLoginFrame(panel);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setJMenuBar(createAndFillMenuBar(panel));
 
-    /**
-     * Issue #538-swingx Failure to set locale at runtime
-     *
-     */
-    public void interactiveDisplayFixedUser() {
-        JComponent.setDefaultLocale(Locale.FRANCE);
-        JXLoginPane panel = new JXLoginPane();
-        JFrame frame = JXLoginPane.showLoginFrame(panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setJMenuBar(createAndFillMenuBar(panel));
+		panel.setSaveMode(SaveMode.BOTH);
+		panel.setUserName("aGuy");
+		panel.setUserNameEnabled(false);
 
-        panel.setSaveMode(SaveMode.BOTH);
-        panel.setUserName("aGuy");
-        panel.setUserNameEnabled(false);
+		frame.pack();
+		frame.setVisible(true);
+	}
 
-        frame.pack();
-        frame.setVisible(true);
-    }
+	/**
+	 * Issue #538-swingx Failure to set locale at runtime
+	 *
+	 */
+	public void interactiveSetBackground() {
+		JXLoginPane panel = new JXLoginPane();
+		panel.setBackgroundPainter(new MattePainter(Color.RED, true));
+		JFrame frame = JXLoginPane.showLoginFrame(panel);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setJMenuBar(createAndFillMenuBar(panel));
 
-    /**
-     * Issue #538-swingx Failure to set locale at runtime
-     *
-     */
-    public void interactiveSetBackground() {
-        JXLoginPane panel = new JXLoginPane();
-        panel.setBackgroundPainter(new MattePainter(Color.RED, true));
-        JFrame frame = JXLoginPane.showLoginFrame(panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setJMenuBar(createAndFillMenuBar(panel));
+		panel.setSaveMode(SaveMode.BOTH);
 
-        panel.setSaveMode(SaveMode.BOTH);
+		frame.pack();
+		frame.setVisible(true);
+	}
 
-        frame.pack();
-        frame.setVisible(true);
-    }
+	/**
+	 * Issue #777-swingx Custom banner not picked up due to double updateUI() call
+	 *
+	 */
+	public void interactiveCustomBannerDisplay() {
+		JXLoginPane panel = new JXLoginPane();
+		panel.setUI(new DummyLoginPaneUI(panel));
+		JFrame frame = JXLoginPane.showLoginFrame(panel);
+		frame.setJMenuBar(createAndFillMenuBar(panel));
 
-    /**
-     * Issue #777-swingx Custom banner not picked up due to double updateUI() call
-     *
-     */
-    public void interactiveCustomBannerDisplay() {
-        JXLoginPane panel = new JXLoginPane();
-        panel.setUI(new DummyLoginPaneUI(panel));
-        JFrame frame = JXLoginPane.showLoginFrame(panel);
-        frame.setJMenuBar(createAndFillMenuBar(panel));
+		panel.setSaveMode(SaveMode.BOTH);
 
-        panel.setSaveMode(SaveMode.BOTH);
+		frame.pack();
+		frame.setVisible(true);
+	}
 
-        frame.pack();
-        frame.setVisible(true);
-    }
-
-    /**
-     * Issue #636-swingx Unexpected resize on long exception message.
-     *
-     */
-    public void interactiveError() {
-        JComponent.setDefaultLocale(Locale.FRANCE);
-        final JXLoginPane panel = new JXLoginPane(new LoginService() {
-
-                        @Override
-                        public boolean authenticate(String name, char[] password,
-                                        String server) throws Exception {
-                                        throw new Exception("Ex.");
-                        }});
-        final JXLoginFrame frame = JXLoginPane.showLoginFrame(panel);
-        // if uncommented dialog will disappear immediately due to invocation of login action
-        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setJMenuBar(createAndFillMenuBar(panel));
-        panel.setErrorMessage("TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO Unexpected resize on long exception message. Unexpected resize on long exception message.");
-
-        panel.setSaveMode(SaveMode.BOTH);
-
-        frame.pack();
-        frame.setVisible(true);
-        SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                                evaluateChildren(frame.getContentPane().getComponents());
-                        }});
-
-    }
-
-    /**
-     * Issue #636-swingx Unexpected resize on long exception message.
-     *
-     */
-    public void interactiveBackground() {
-        JComponent.setDefaultLocale(Locale.FRANCE);
-        final JXLoginPane panel = new JXLoginPane(new LoginService() {
-
-                        @Override
-                        public boolean authenticate(String name, char[] password,
-                                        String server) throws Exception {
-                                        throw new Exception("Ex.");
-                        }});
-        final JXLoginFrame frame = JXLoginPane.showLoginFrame(panel);
-        // if uncomented dialog will disappear immediatelly dou to invocation of login action
-        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setJMenuBar(createAndFillMenuBar(panel));
-        panel.setErrorMessage("TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO Unexpected resize on long exception message. Unexpected resize on long exception message.");
-
-        panel.setSaveMode(SaveMode.BOTH);
-        frame.getContentPane().setBackgroundPainter(new MattePainter(
-                new GradientPaint(0, 0, Color.BLUE, 1, 0, Color.YELLOW), true));
-
-        frame.pack();
-        frame.setVisible(true);
-        SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                                evaluateChildren(frame.getContentPane().getComponents());
-                        }});
-
-    }
-
-    /**
-     * Progress message test.
-     */
-    public void interactiveProgress() {
-        final JXLoginPane panel = new JXLoginPane();
-        final JFrame frame = JXLoginPane.showLoginFrame(panel);
-        panel.setLoginService(new LoginService() {
+	/**
+	 * Issue #636-swingx Unexpected resize on long exception message.
+	 *
+	 */
+	public void interactiveError() {
+		JComponent.setDefaultLocale(Locale.FRANCE);
+		final JXLoginPane panel = new JXLoginPane(new LoginService() {
 
 			@Override
-            public boolean authenticate(String name, char[] password,
-					String server) throws Exception {
+			public boolean authenticate(String name, char[] password, String server) throws Exception {
+				throw new Exception("Ex.");
+			}
+		});
+		final JXLoginFrame frame = JXLoginPane.showLoginFrame(panel);
+		// if uncommented dialog will disappear immediately due to invocation of login action
+		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setJMenuBar(createAndFillMenuBar(panel));
+		panel.setErrorMessage(
+				"TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO Unexpected resize on long exception message. Unexpected resize on long exception message.");
+
+		panel.setSaveMode(SaveMode.BOTH);
+
+		frame.pack();
+		frame.setVisible(true);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				evaluateChildren(frame.getContentPane().getComponents());
+			}
+		});
+	}
+
+	/**
+	 * Issue #636-swingx Unexpected resize on long exception message.
+	 *
+	 */
+	public void interactiveBackground() {
+		JComponent.setDefaultLocale(Locale.FRANCE);
+		final JXLoginPane panel = new JXLoginPane(new LoginService() {
+
+			@Override
+			public boolean authenticate(String name, char[] password, String server) throws Exception {
+				throw new Exception("Ex.");
+			}
+		});
+		final JXLoginFrame frame = JXLoginPane.showLoginFrame(panel);
+		// if uncomented dialog will disappear immediatelly dou to invocation of login action
+		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setJMenuBar(createAndFillMenuBar(panel));
+		panel.setErrorMessage(
+				"TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO TO Unexpected resize on long exception message. Unexpected resize on long exception message.");
+
+		panel.setSaveMode(SaveMode.BOTH);
+		frame.getContentPane()
+				.setBackgroundPainter(new MattePainter(new GradientPaint(0, 0, Color.BLUE, 1, 0, Color.YELLOW), true));
+
+		frame.pack();
+		frame.setVisible(true);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				evaluateChildren(frame.getContentPane().getComponents());
+			}
+		});
+	}
+
+	/**
+	 * Progress message test.
+	 */
+	public void interactiveProgress() {
+		final JXLoginPane panel = new JXLoginPane();
+		final JFrame frame = JXLoginPane.showLoginFrame(panel);
+		panel.setLoginService(new LoginService() {
+
+			@Override
+			public boolean authenticate(String name, char[] password, String server) throws Exception {
 				panel.startLogin();
 				Thread.sleep(5000);
 				return true;
-			}});
+			}
+		});
 
-        frame.setJMenuBar(createAndFillMenuBar(panel));
+		frame.setJMenuBar(createAndFillMenuBar(panel));
 
-        panel.setSaveMode(SaveMode.BOTH);
+		panel.setSaveMode(SaveMode.BOTH);
 
-        frame.pack();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
+		frame.pack();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				evaluateChildren(frame.getContentPane().getComponents());
-			}});
-
-    }
-
-    private boolean evaluateChildren(Component[] components) {
-        for (Component c: components) {
-        	if (c instanceof JButton && "login".equals(((JButton) c).getActionCommand())) {
-        		((JButton) c).doClick();
-
-        		return true;
-        	} else if (c instanceof Container) {
-        		if (evaluateChildren(((Container) c).getComponents()) ){
-        			return true;
-        		}
-        	}
-        }
-        return false;
-
+			}
+		});
 	}
 
+	private boolean evaluateChildren(Component[] components) {
+		for (Component c : components) {
+			if (c instanceof JButton && "login".equals(((JButton) c).getActionCommand())) {
+				((JButton) c).doClick();
 
-    public class DummyLoginPaneUI extends BasicLoginPaneUI {
+				return true;
+			} else if (c instanceof Container) {
+				if (evaluateChildren(((Container) c).getComponents())) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
-        public DummyLoginPaneUI(JXLoginPane dlg) {
-            super(dlg);
-        }
+	public class DummyLoginPaneUI extends BasicLoginPaneUI {
 
-        @Override
-        public Image getBanner() {
-            Image banner = super.getBanner();
-            BufferedImage im = GraphicsUtilities.createCompatibleTranslucentImage(banner.getWidth(null), banner.getHeight(null));
-            Graphics2D g = im.createGraphics();
-            
-            try {
-                g.setComposite(AlphaComposite.Src);
-                g.drawImage(banner, 0, 0, 100, 100, null);
-            } finally {
-                g.dispose();
-            }
-            
-            return im;
-        }
-    }
+		public DummyLoginPaneUI(JXLoginPane dlg) {
+			super(dlg);
+		}
 
+		@Override
+		public Image getBanner() {
+			Image banner = super.getBanner();
+			BufferedImage im =
+					GraphicsUtilities.createCompatibleTranslucentImage(banner.getWidth(null), banner.getHeight(null));
+			Graphics2D g = im.createGraphics();
 
-    @Override
-    protected void createAndAddMenus(JMenuBar menuBar, final JComponent component) {
-        super.createAndAddMenus(menuBar, component);
-        JMenu menu = new JMenu("Locales");
-        menu.add(new AbstractAction("Change Locale") {
+			try {
+				g.setComposite(AlphaComposite.Src);
+				g.drawImage(banner, 0, 0, 100, 100, null);
+			} finally {
+				g.dispose();
+			}
 
-            private static final long serialVersionUID = 1L;
+			return im;
+		}
+	}
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (component.getLocale() == Locale.FRANCE) {
-                    component.setLocale(Locale.ENGLISH);
-                } else {
-                    component.setLocale(Locale.FRANCE);
-                }
-            }});
-        menuBar.add(menu);
-    }
+	@Override
+	protected void createAndAddMenus(JMenuBar menuBar, final JComponent component) {
+		super.createAndAddMenus(menuBar, component);
+		JMenu menu = new JMenu("Locales");
+		menu.add(new AbstractAction("Change Locale") {
 
-    /**
-     * swingx-917
-     * @throws Exception
-     */
-    public void interactiveBrokenLayoutAfterFailedLogin() throws Exception {
-        // PENDING JW: removed while fixing #1186-swingx (no dependency on sun packages)
-        // revisit: why do we do this at all? If really needed replace
-//        sun.awt.AppContext.getAppContext().put("JComponent.defaultLocale", Locale.FRANCE);
-        Map<String, char[]> aMap = new HashMap<>();
-        aMap.put("asdf", "asdf".toCharArray());
-        JXLoginPane panel = new JXLoginPane(new SimpleLoginService(aMap));
-        panel.setSaveMode(JXLoginPane.SaveMode.BOTH);
-        panel.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(
-                    PropertyChangeEvent thePropertyChangeEvent) {
-                System.err.println(thePropertyChangeEvent.getPropertyName()
-                        + " " + thePropertyChangeEvent.getOldValue()
-                        + " -> " + thePropertyChangeEvent.getNewValue());
-            }
-        });
-        JFrame frame = JXLoginPane.showLoginFrame(panel);
+			private static final long serialVersionUID = 1L;
 
-        frame.pack();
-        frame.setVisible(true);
-    }
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (component.getLocale() == Locale.FRANCE) {
+					component.setLocale(Locale.ENGLISH);
+				} else {
+					component.setLocale(Locale.FRANCE);
+				}
+			}
+		});
+		menuBar.add(menu);
+	}
 
-    public void interactiveComparativeDialogs() {
-        JXDialog dialog = new JXDialog(new JXLoginPane());
-        dialog.pack();
-        dialog.setVisible(true);
-        JXLoginPane.showLoginDialog(null, new JXLoginPane());
-    }
+	/**
+	 * swingx-917
+	 * @throws Exception
+	 */
+	public void interactiveBrokenLayoutAfterFailedLogin() throws Exception {
+		// PENDING JW: removed while fixing #1186-swingx (no dependency on sun packages)
+		// revisit: why do we do this at all? If really needed replace
+		//        sun.awt.AppContext.getAppContext().put("JComponent.defaultLocale", Locale.FRANCE);
+		Map<String, char[]> aMap = new HashMap<>();
+		aMap.put("asdf", "asdf".toCharArray());
+		JXLoginPane panel = new JXLoginPane(new SimpleLoginService(aMap));
+		panel.setSaveMode(JXLoginPane.SaveMode.BOTH);
+		panel.addPropertyChangeListener(new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent thePropertyChangeEvent) {
+				System.err.println(thePropertyChangeEvent.getPropertyName()
+						+ " " + thePropertyChangeEvent.getOldValue()
+						+ " -> " + thePropertyChangeEvent.getNewValue());
+			}
+		});
+		JFrame frame = JXLoginPane.showLoginFrame(panel);
 
-    public void interactiveCapsLockTest() {
-        CapsLockSupport cls = CapsLockSupport.getInstance();
-        cls.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                System.out.println(evt);
-                System.out.println(CapsLockSupport.getInstance().isCapsLockEnabled());
-                System.out.println();
-            }
-        });
-        showInFrame(new JTextField(), "Caps Lock Test");
-    }
+		frame.pack();
+		frame.setVisible(true);
+	}
 
-    /**
-     * Do nothing, make the test runner happy
-     * (would output a warning without a test fixture).
-     *  
-     */
-    @Test
-    public void testDummy() {
+	public void interactiveComparativeDialogs() {
+		JXDialog dialog = new JXDialog(new JXLoginPane());
+		dialog.pack();
+		dialog.setVisible(true);
+		JXLoginPane.showLoginDialog(null, new JXLoginPane());
+	}
 
-    }
+	public void interactiveCapsLockTest() {
+		CapsLockSupport cls = CapsLockSupport.getInstance();
+		cls.addPropertyChangeListener(new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				System.out.println(evt);
+				System.out.println(CapsLockSupport.getInstance().isCapsLockEnabled());
+				System.out.println();
+			}
+		});
+		showInFrame(new JTextField(), "Caps Lock Test");
+	}
+
+	/**
+	 * Do nothing, make the test runner happy
+	 * (would output a warning without a test fixture).
+	 *
+	 */
+	@Test
+	public void testDummy() {}
 }

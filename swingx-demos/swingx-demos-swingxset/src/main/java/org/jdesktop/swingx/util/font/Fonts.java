@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2001-2006 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of JGoodies Karsten Lentzsch nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of JGoodies Karsten Lentzsch nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package org.jdesktop.swingx.util.font;
@@ -39,21 +39,21 @@ import java.util.Locale;
  * constants are specified in <em>typographic points</em>, approximately 1/72
  * of an inch.
  * <p>
- * 
+ *
  * TODO: Consider changing the visibility of the package private methods to
  * public. As an alternative we may provide a FontPolicy that can emulate the
  * font choice on Windows XP/2000 and Windows Vista for different software
  * resolutions (96dpi/120dpi) and desktop font size settings (Normal/Large/Extra
  * Large).
- * 
+ *
  * @author Karsten Lentzsch
  * @version $Revision$
- * 
+ *
  * @see FontSet
  * @see FontSets
  * @see FontPolicy
  * @see FontPolicies
- * 
+ *
  * @since 2.0
  */
 public final class Fonts {
@@ -90,20 +90,17 @@ public final class Fonts {
 	 * This is Segoe UI 9pt, the default font on western Vista with 96dpi.
 	 * Ascent=13, descent=4, height=17, dbuX=7, dbuY=13, 13dluY=21.125px.
 	 */
-	public static final Font SEGOE_UI_12PT = new Font(SEGOE_UI_NAME,
-			Font.PLAIN, 12);
+	public static final Font SEGOE_UI_12PT = new Font(SEGOE_UI_NAME, Font.PLAIN, 12);
 
 	/**
 	 * Ascent=14, descent=4, height=18, dbuX=8, dbuY=14, 13dluY=22.75px.
 	 */
-	public static final Font SEGOE_UI_13PT = new Font(SEGOE_UI_NAME,
-			Font.PLAIN, 13);
+	public static final Font SEGOE_UI_13PT = new Font(SEGOE_UI_NAME, Font.PLAIN, 13);
 
 	/**
 	 * Ascent=16, descent=5, height=21, dbuX=9, dbuY=16, 13dluY=26px.
 	 */
-	public static final Font SEGOE_UI_15PT = new Font(SEGOE_UI_NAME,
-			Font.PLAIN, 15);
+	public static final Font SEGOE_UI_15PT = new Font(SEGOE_UI_NAME, Font.PLAIN, 15);
 
 	// Default Windows Fonts **************************************************
 
@@ -153,7 +150,7 @@ public final class Fonts {
 	 * The default icon font on western Windows Vista with 101dpi and the dialog
 	 * font desktop setting "Normal".
 	 * <P>
-	 * 
+	 *
 	 * TODO: Check if this shall be removed or not.
 	 */
 	static final Font WINDOWS_VISTA_101DPI_NORMAL = SEGOE_UI_13PT;
@@ -170,7 +167,7 @@ public final class Fonts {
 	 * The desktop property key used to lookup the DEFAULTGUI font. This font
 	 * scales with the software resolution only but works in western and
 	 * non-western Windows environments.
-	 * 
+	 *
 	 * @see #getWindowsControlFont()
 	 */
 	static final String WINDOWS_DEFAULT_GUI_FONT_KEY = "win.defaultGUI.font";
@@ -181,11 +178,11 @@ public final class Fonts {
 	 * (Normal/Large/Extra Large). However, in some non-western Windows
 	 * environments this font cannot display the locale's glyphs.
 	 * <p>
-	 * 
+	 *
 	 * Implementation Note: Windows uses the icon font to label icons in the
 	 * Windows Explorer and other places. It seems to me that this works in
 	 * non-western environments due to font chaining.
-	 * 
+	 *
 	 * @see #getWindowsControlFont()
 	 */
 	static final String WINDOWS_ICON_FONT_KEY = "win.icon.font";
@@ -199,18 +196,15 @@ public final class Fonts {
 	// Font Lookup ************************************************************
 
 	static Font getDefaultGUIFontWesternModernWindowsNormal() {
-		return LookUtils.IS_LOW_RESOLUTION ? WINDOWS_XP_96DPI_DEFAULT_GUI
-				: WINDOWS_XP_120DPI_DEFAULT_GUI;
+		return LookUtils.IS_LOW_RESOLUTION ? WINDOWS_XP_96DPI_DEFAULT_GUI : WINDOWS_XP_120DPI_DEFAULT_GUI;
 	}
 
 	static Font getDefaultIconFontWesternModernWindowsNormal() {
-		return LookUtils.IS_LOW_RESOLUTION ? WINDOWS_XP_96DPI_NORMAL
-				: WINDOWS_XP_120DPI_NORMAL;
+		return LookUtils.IS_LOW_RESOLUTION ? WINDOWS_XP_96DPI_NORMAL : WINDOWS_XP_120DPI_NORMAL;
 	}
 
 	static Font getDefaultIconFontWesternWindowsVistaNormal() {
-		return LookUtils.IS_LOW_RESOLUTION ? WINDOWS_VISTA_96DPI_NORMAL
-				: WINDOWS_VISTA_120DPI_NORMAL;
+		return LookUtils.IS_LOW_RESOLUTION ? WINDOWS_VISTA_96DPI_NORMAL : WINDOWS_VISTA_120DPI_NORMAL;
 	}
 
 	/**
@@ -220,18 +214,17 @@ public final class Fonts {
 	 * etc) but not with the desktop font size settings (normal, large, extra
 	 * large).
 	 * <p>
-	 * 
+	 *
 	 * On Windows Vista, the font may be completely wrong.
-	 * 
+	 *
 	 * @return the Windows default GUI font that scales with the resolution, but
 	 *         not the desktop font size setting
-	 * 
+	 *
 	 * @throws UnsupportedOperationException
 	 *             on non-Windows platforms
 	 */
 	static Font getLooks1xWindowsControlFont() {
-		if (!LookUtils.IS_OS_WINDOWS)
-			throw new UnsupportedOperationException();
+		if (!LookUtils.IS_OS_WINDOWS) throw new UnsupportedOperationException();
 
 		return getDesktopFont(WINDOWS_DEFAULT_GUI_FONT_KEY);
 	}
@@ -241,47 +234,47 @@ public final class Fonts {
 	 * title font unless it is inappropriate for the Windows version, Java
 	 * renderer, or locale.
 	 * <p>
-	 * 
+	 *
 	 * The icon title font scales with the resolution (96dpi, 101dpi, 120dpi,
 	 * etc) and the desktop font size settings (normal, large, extra large).
 	 * Older versions may return a poor font. Also, since Java 1.4 and Java 5
 	 * render the Windows Vista icon font Segoe UI poorly, we return the default
 	 * GUI font in these environments.
 	 * <p>
-	 * 
+	 *
 	 * The last check is, if the icon font can display text in the default
 	 * locale. Therefore we test if the locale's localized display name can be
 	 * displayed by the icon font. For example, Tahoma can display "English",
 	 * "Deutsch", but not the display name for "Chinese" in Chinese.
-	 * 
+	 *
 	 * @return the Windows control font
-	 * 
+	 *
 	 * @throws UnsupportedOperationException
 	 *             on non-Windows platforms
 	 */
 	public static Font getWindowsControlFont() {
-		if (!LookUtils.IS_OS_WINDOWS)
-			throw new UnsupportedOperationException();
+		if (!LookUtils.IS_OS_WINDOWS) throw new UnsupportedOperationException();
 
 		Font defaultGUIFont = getDefaultGUIFont();
 		// Return the default GUI font on older Windows versions.
-		if (LookUtils.IS_OS_WINDOWS_95 || LookUtils.IS_OS_WINDOWS_98
-				|| LookUtils.IS_OS_WINDOWS_NT || LookUtils.IS_OS_WINDOWS_ME)
-			return defaultGUIFont;
+		if (LookUtils.IS_OS_WINDOWS_95
+				|| LookUtils.IS_OS_WINDOWS_98
+				|| LookUtils.IS_OS_WINDOWS_NT
+				|| LookUtils.IS_OS_WINDOWS_ME) return defaultGUIFont;
 
 		// Java 1.4 and Java 5 raster the Segoe UI poorly,
 		// so we use the older Tahoma, if it can display the localized text.
 		if (LookUtils.IS_OS_WINDOWS_VISTA) {
 			if (LookUtils.IS_JAVA_1_4_OR_5) {
 				Font tahoma = getDefaultGUIFontWesternModernWindowsNormal();
-				return Boolean.TRUE.equals(canDisplayLocalizedText(tahoma,
-						Locale.getDefault())) ? tahoma : defaultGUIFont;
+				return Boolean.TRUE.equals(canDisplayLocalizedText(tahoma, Locale.getDefault()))
+						? tahoma
+						: defaultGUIFont;
 			}
 		}
 
 		Font iconFont = getDesktopFont(WINDOWS_ICON_FONT_KEY);
-		return Boolean.TRUE.equals(canDisplayLocalizedText(iconFont, Locale
-				.getDefault())) ? iconFont : defaultGUIFont;
+		return Boolean.TRUE.equals(canDisplayLocalizedText(iconFont, Locale.getDefault())) ? iconFont : defaultGUIFont;
 	}
 
 	/**
@@ -289,13 +282,12 @@ public final class Fonts {
 	 * Java 1.4.2_11, 1.5.0_07, and 1.6 b89 in the Vista Beta2, where the
 	 * win.defaultGUI.font desktop property returns null. In this case a logical
 	 * "Dialog" font is used as fallback.
-	 * 
+	 *
 	 * @return the Windows defaultGUI font, or a dialog font as fallback.
 	 */
 	private static Font getDefaultGUIFont() {
 		Font font = getDesktopFont(WINDOWS_DEFAULT_GUI_FONT_KEY);
-		if (font != null)
-			return font;
+		if (font != null) return font;
 		return new Font("Dialog", Font.PLAIN, 12);
 	}
 
@@ -304,17 +296,17 @@ public final class Fonts {
 	 * localized for the specified locale. Returns <code>null</code> if we
 	 * can't test it.
 	 * <p>
-	 * 
+	 *
 	 * First checks, if the locale's display language is available in localized
 	 * form, for example "Deutsch" for the German locale. If so, we check if the
 	 * given font can display the localized display language.
 	 * <p>
-	 * 
+	 *
 	 * Otherwise we check some known combinations of fonts and locales and
 	 * return the associated results. For all other combinations,
 	 * <code>null</code> is returned to indicate that we don't know whether
 	 * the font can display text in the given locale.
-	 * 
+	 *
 	 * @param font
 	 *            the font to be tested
 	 * @param locale
@@ -322,33 +314,25 @@ public final class Fonts {
 	 * @return <code>Boolean.TRUE</code> if the font can display the locale's
 	 *         text, <code>Boolean.FALSE</code> if not, <code>null</code> if
 	 *         we don't know
-	 * 
+	 *
 	 * @since 2.0.4
 	 */
 	public static Boolean canDisplayLocalizedText(Font font, Locale locale) {
 		if (localeHasLocalizedDisplayLanguage(locale)) {
-			return Boolean.valueOf(canDisplayLocalizedDisplayLanguage(font,
-					locale));
+			return Boolean.valueOf(canDisplayLocalizedDisplayLanguage(font, locale));
 		}
 		String fontName = font.getName();
 		String language = locale.getLanguage();
 		if ("Tahoma".equals(fontName)) {
-			if ("hi".equals(language))
-				return Boolean.FALSE;
-			else if ("ja".equals(language))
-				return Boolean.FALSE;
-			else if ("ko".equals(language))
-				return Boolean.FALSE;
-			else if ("zh".equals(language))
-				return Boolean.FALSE;
+			if ("hi".equals(language)) return Boolean.FALSE;
+			else if ("ja".equals(language)) return Boolean.FALSE;
+			else if ("ko".equals(language)) return Boolean.FALSE;
+			else if ("zh".equals(language)) return Boolean.FALSE;
 		}
 		if ("Microsoft Sans Serif".equals(fontName)) {
-			if ("ja".equals(language))
-				return Boolean.FALSE;
-			else if ("ko".equals(language))
-				return Boolean.FALSE;
-			else if ("zh".equals(language))
-				return Boolean.FALSE;
+			if ("ja".equals(language)) return Boolean.FALSE;
+			else if ("ko".equals(language)) return Boolean.FALSE;
+			else if ("zh".equals(language)) return Boolean.FALSE;
 		}
 		return null;
 	}
@@ -359,7 +343,7 @@ public final class Fonts {
 	 * German, etc. The test invokes <code>Font#canDisplayUpTo</code> on the
 	 * localized display language. In a Chinese locale this test will check if
 	 * the font can display Chinese glyphs.
-	 * 
+	 *
 	 * @param font
 	 *            the font to be tested
 	 * @param locale
@@ -367,8 +351,7 @@ public final class Fonts {
 	 * @return true if the font can display the locale's localized display
 	 *         language, false otherwise
 	 */
-	private static boolean canDisplayLocalizedDisplayLanguage(Font font,
-			Locale locale) {
+	private static boolean canDisplayLocalizedDisplayLanguage(Font font, Locale locale) {
 		String testString = locale.getDisplayLanguage(locale);
 		int index = font.canDisplayUpTo(testString);
 		return index == -1;
@@ -377,16 +360,14 @@ public final class Fonts {
 	/**
 	 * Checks and answers whether the locale's display language is available in
 	 * a localized form, for example "Deutsch" for the German locale.
-	 * 
+	 *
 	 * @param locale
 	 *            the Locale to test
 	 * @return true if the display language is localized, false if not
 	 */
 	private static boolean localeHasLocalizedDisplayLanguage(Locale locale) {
-		if (locale.getLanguage().equals(Locale.ENGLISH.getLanguage()))
-			return true;
-		String englishDisplayLanguage = locale
-				.getDisplayLanguage(Locale.ENGLISH);
+		if (locale.getLanguage().equals(Locale.ENGLISH.getLanguage())) return true;
+		String englishDisplayLanguage = locale.getDisplayLanguage(Locale.ENGLISH);
 		String localizedDisplayLanguage = locale.getDisplayLanguage(locale);
 		return !(englishDisplayLanguage.equals(localizedDisplayLanguage));
 	}
@@ -394,7 +375,7 @@ public final class Fonts {
 	/**
 	 * Looks up and returns a font using the default toolkit's desktop
 	 * properties.
-	 * 
+	 *
 	 * @param fontName
 	 *            the name of the font to return
 	 * @return the font
@@ -403,5 +384,4 @@ public final class Fonts {
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		return (Font) toolkit.getDesktopProperty(fontName);
 	}
-
 }

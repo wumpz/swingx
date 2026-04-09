@@ -22,11 +22,10 @@
  * Provides pluggable look-and-feel for SwingX components together with a
  * mechanism to support custom component look-and-feels.
  * <p>
- * The addons are loaded with {@link java.util.ServiceLoader}.  As such we 
- * maintain, a services file for our implementations.  SwingX uses the 
+ * The addons are loaded with {@link java.util.ServiceLoader}.  As such we
+ * maintain, a services file for our implementations.  SwingX uses the
  * <a href="http://metainf-services.kohsuke.org/">MetaInf/services</a>
  * generator API. This add a compile time dependency to the plaf module.
  * The services generator, however, is not required at runtime.
  */
 package org.jdesktop.swingx.plaf;
-

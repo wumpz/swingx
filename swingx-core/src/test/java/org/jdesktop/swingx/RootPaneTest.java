@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JLabel;
@@ -21,7 +20,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,290 +31,289 @@ import org.junit.jupiter.api.Test;
  */
 public class RootPaneTest {
 
-    private Action[] actions;
-    private JLabel[] comps;
+	private Action[] actions;
+	private JLabel[] comps;
 
-    private static final int HEAD = 0;
-    private static final int BODY = 1;
-    private static final int ARMS = 2;
-    private static final int LEGS = 3;
+	private static final int HEAD = 0;
+	private static final int BODY = 1;
+	private static final int ARMS = 2;
+	private static final int LEGS = 3;
 
-    @BeforeEach
-    public void setUp() {
-	actions =  new Action[4];
-	actions[0] = new TestAction("New", 'N', "Create a new item");
-	actions[1] = new TestAction("Open", 'O', "Opens an item");
-	actions[2] = new TestAction("Save", 'S', "Saves an item");
-	actions[3] = new TestAction("Exit", 'X', "Exits the application");
+	@BeforeEach
+	public void setUp() {
+		actions = new Action[4];
+		actions[0] = new TestAction("New", 'N', "Create a new item");
+		actions[1] = new TestAction("Open", 'O', "Opens an item");
+		actions[2] = new TestAction("Save", 'S', "Saves an item");
+		actions[3] = new TestAction("Exit", 'X', "Exits the application");
 
-	comps = new JLabel[4];
-	comps[0] = new JLabel("Head");
-	comps[1] = new JLabel("Body");
-	comps[2] = new JLabel("Arms");
-	comps[3] = new JLabel("Legs");
-    }
-
-    @AfterEach
-    public void tearDown() {
-	for (int i = 0; i < actions.length; i++) {
-	    actions[i] = null;
-	    comps[i] = null;
-	}
-	actions = null;
-	comps = null;
-    }
-
-    /**
-     * Simple test to ensure that components are added/removed
-     * and registered/unregistered correctly.
-     */
-    public void JPanelRegistration() {
-	JXRootPane rootPane = new JXRootPane();
-	JXStatusBar statusBar = new JXStatusBar();
-	rootPane.setStatusBar(statusBar);
-
-        for (JLabel comp : comps) {
-            rootPane.getContentPane().add(comp);
-        }
-
-	Component[] cs = rootPane.getContentPane().getComponents();
-	assertEquals(cs.length, comps.length);
-
-//	// Ensure that messages are passed to the
-//	// status bar. The PERSISTENT message is sent to the
-//	// trailing message location.
-//	for (int i = 0; i < comps.length; i++) {
-//	    JPanel comp = comps[i];
-//	    comp.sendMessage();
-//	    assertEquals(comp.getMessage(), statusBar.getTrailingMessage());
-//	}
-//
-        // Remove all components.
-        for (JLabel comp : comps) {
-            rootPane.getContentPane().remove(comp);
-        }
-	cs = rootPane.getContentPane().getComponents();
-	assertEquals(cs.length, 0);
-
-//	// Ensure that the status bar has been unregistered.
-//	statusBar.setTrailingMessage("");
-//	for (int i = 0; i < comps.length; i++) {
-//	    JPanel comp = comps[i];
-//	    comp.sendMessage();
-//	    assertEquals("", statusBar.getTrailingMessage());
-//	}
-    }
-
-    /**
-     * Test to ensure that all MessageSources in a containment hierarchy
-     * are registered.
-     */
-    @Test
-    public void testAggregateContainerRegistration() {
-	// Create an aggregate.
-	comps[HEAD].add(comps[BODY]);
-	comps[BODY].add(comps[ARMS]);
-	comps[BODY].add(comps[LEGS]);
-
-	JXRootPane rootPane = new JXRootPane();
-	JXStatusBar statusBar = new JXStatusBar();
-	rootPane.setStatusBar(statusBar);
-
-	rootPane.getContentPane().add(comps[HEAD]);
-
-	Component[] cs = rootPane.getContentPane().getComponents();
-	assertEquals(1, cs.length);
-
-//	// The status bar should get all messages send to all
-//	// components.
-//	for (int i = 0; i < comps.length; i++) {
-//	    JPanel comp = comps[i];
-//	    comp.sendMessage();
-//	    assertEquals(comp.getMessage(), statusBar.getTrailingMessage());
-//	}
-
-	// Remove the head. There shouldn't be any components.
-	rootPane.getContentPane().remove(comps[HEAD]);
-	cs = rootPane.getContentPane().getComponents();
-	assertEquals(0, cs.length);
-
-//	// Ensure that the status bar has been unregistered.
-//	statusBar.setTrailingMessage("");
-//	for (int i = 0; i < comps.length; i++) {
-//	    JPanel comp = comps[i];
-//	    comp.sendMessage();
-//	    assertEquals("", statusBar.getTrailingMessage());
-//	}
-    }
-
-    /**
-     * A test to ensure that the status bar is correctly registered with
-     * existing components and will be unregistered when removed.
-     */
-    @Test
-    public void testStatusBar() {
-	JXRootPane rootPane = new JXRootPane();
-        for (JLabel comp : comps) {
-            rootPane.add(comp);
-        }
-
-	JXStatusBar statusBar = new JXStatusBar();
-	rootPane.setStatusBar(statusBar);
-
-//	// The status bar should get all messages send to all
-//	// components.
-//	for (int i = 0; i < comps.length; i++) {
-//	    JPanel comp = comps[i];
-//	    comp.sendMessage();
-//	    assertEquals(comp.getMessage(), statusBar.getTrailingMessage());
-//	}
-
-	// Change the status bar. Reset the old status bar. It shouldn't get
-	// any messages.
-	rootPane.setStatusBar(new JXStatusBar());
-	assertNotSame(statusBar, rootPane.getStatusBar());
-
-//	// Ensure that the status bar has been unregistered.
-//	statusBar.setTrailingMessage("");
-//	for (int i = 0; i < comps.length; i++) {
-//	    JPanel comp = comps[i];
-//	    comp.sendMessage();
-//	    assertEquals("", statusBar.getTrailingMessage());
-//	}
-    }
-
-    /**
-     * Given a root pane with a status bar, a toolbar with components
-     * should get mouse listeners added to the components when added.
-     */
-    @Test
-    public void testToolBar() {
-	JXRootPane rootPane = new JXRootPane();
-	rootPane.setStatusBar(new JXStatusBar());
-
-	JToolBar toolBar = new JToolBar();
-        for (Action action : actions) {
-            toolBar.add(action);
-        }
-
-	// set the baseline number of mouse listeners
-	Component[] comps = toolBar.getComponents();
-	int[] original = new int[comps.length];
-	for (int i = 0; i < comps.length; i++) {
-	    MouseListener[] listeners = comps[i].getMouseListeners();
-	    original[i] = listeners.length;
+		comps = new JLabel[4];
+		comps[0] = new JLabel("Head");
+		comps[1] = new JLabel("Body");
+		comps[2] = new JLabel("Arms");
+		comps[3] = new JLabel("Legs");
 	}
 
-	// Add the toolbar and mouse listeners should be registered
-	rootPane.setToolBar(toolBar);
-
-	comps = toolBar.getComponents();
-//	for (int i = 0; i < comps.length; i++) {
-//	    MouseListener[] listeners = comps[i].getMouseListeners();
-//	    assertEquals(original[i] + 1, listeners.length);
-//	}
-
-	// the toolbar is replaces. MouseListeners should be unregistered
-	rootPane.setToolBar(new JToolBar());
-
-	comps = toolBar.getComponents();
-	for (int i = 0; i < comps.length; i++) {
-	    MouseListener[] listeners = comps[i].getMouseListeners();
-	    assertEquals(original[i], listeners.length);
-	}
-    }
-
-    @Test
-    public void testMenuBar() {
-	JXRootPane rootPane = new JXRootPane();
-	rootPane.setStatusBar(new JXStatusBar());
-
-	JMenuBar menuBar = new JMenuBar();
-	JMenu menu = new JMenu("File");
-
-        for (Action action : actions) {
-            menu.add(action);
-        }
-	menuBar.add(menu);
-
-	// set the baseline number of mouse listeners
-	Component[] comps = menu.getComponents();
-	int[] original = new int[comps.length];
-	for (int i = 0; i < comps.length; i++) {
-	    MouseListener[] listeners = comps[i].getMouseListeners();
-	    original[i] = listeners.length;
+	@AfterEach
+	public void tearDown() {
+		for (int i = 0; i < actions.length; i++) {
+			actions[i] = null;
+			comps[i] = null;
+		}
+		actions = null;
+		comps = null;
 	}
 
-	// Add the toolbar and mouse listeners should be registered
-	rootPane.setJMenuBar(menuBar);
+	/**
+	 * Simple test to ensure that components are added/removed
+	 * and registered/unregistered correctly.
+	 */
+	public void JPanelRegistration() {
+		JXRootPane rootPane = new JXRootPane();
+		JXStatusBar statusBar = new JXStatusBar();
+		rootPane.setStatusBar(statusBar);
 
-	comps = menu.getComponents();
-	for (int i = 0; i < comps.length; i++) {
-	    MouseListener[] listeners = comps[i].getMouseListeners();
-	    assertEquals(original[i] + 1, listeners.length);
+		for (JLabel comp : comps) {
+			rootPane.getContentPane().add(comp);
+		}
+
+		Component[] cs = rootPane.getContentPane().getComponents();
+		assertEquals(cs.length, comps.length);
+
+		//	// Ensure that messages are passed to the
+		//	// status bar. The PERSISTENT message is sent to the
+		//	// trailing message location.
+		//	for (int i = 0; i < comps.length; i++) {
+		//	    JPanel comp = comps[i];
+		//	    comp.sendMessage();
+		//	    assertEquals(comp.getMessage(), statusBar.getTrailingMessage());
+		//	}
+		//
+		// Remove all components.
+		for (JLabel comp : comps) {
+			rootPane.getContentPane().remove(comp);
+		}
+		cs = rootPane.getContentPane().getComponents();
+		assertEquals(cs.length, 0);
+
+		//	// Ensure that the status bar has been unregistered.
+		//	statusBar.setTrailingMessage("");
+		//	for (int i = 0; i < comps.length; i++) {
+		//	    JPanel comp = comps[i];
+		//	    comp.sendMessage();
+		//	    assertEquals("", statusBar.getTrailingMessage());
+		//	}
 	}
 
-	// the toolbar is replaces. MouseListeners should be unregistered
-	rootPane.setJMenuBar(new JMenuBar());
+	/**
+	 * Test to ensure that all MessageSources in a containment hierarchy
+	 * are registered.
+	 */
+	@Test
+	public void testAggregateContainerRegistration() {
+		// Create an aggregate.
+		comps[HEAD].add(comps[BODY]);
+		comps[BODY].add(comps[ARMS]);
+		comps[BODY].add(comps[LEGS]);
 
-	for (int i = 0; i < comps.length; i++) {
-	    MouseListener[] listeners = comps[i].getMouseListeners();
-	    original[i] = listeners.length;
+		JXRootPane rootPane = new JXRootPane();
+		JXStatusBar statusBar = new JXStatusBar();
+		rootPane.setStatusBar(statusBar);
+
+		rootPane.getContentPane().add(comps[HEAD]);
+
+		Component[] cs = rootPane.getContentPane().getComponents();
+		assertEquals(1, cs.length);
+
+		//	// The status bar should get all messages send to all
+		//	// components.
+		//	for (int i = 0; i < comps.length; i++) {
+		//	    JPanel comp = comps[i];
+		//	    comp.sendMessage();
+		//	    assertEquals(comp.getMessage(), statusBar.getTrailingMessage());
+		//	}
+
+		// Remove the head. There shouldn't be any components.
+		rootPane.getContentPane().remove(comps[HEAD]);
+		cs = rootPane.getContentPane().getComponents();
+		assertEquals(0, cs.length);
+
+		//	// Ensure that the status bar has been unregistered.
+		//	statusBar.setTrailingMessage("");
+		//	for (int i = 0; i < comps.length; i++) {
+		//	    JPanel comp = comps[i];
+		//	    comp.sendMessage();
+		//	    assertEquals("", statusBar.getTrailingMessage());
+		//	}
 	}
-    }
 
-    public static void main(String[] args) {
-	Action[] actions =  new Action[4];
-	actions[0] = new TestAction("New", 'N', "Create a new item");
-	actions[1] = new TestAction("Open", 'O', "Opens an item");
-	actions[2] = new TestAction("Save", 'S', "Saves an item");
-	actions[3] = new TestAction("Exit", 'X', "Exits the application");
+	/**
+	 * A test to ensure that the status bar is correctly registered with
+	 * existing components and will be unregistered when removed.
+	 */
+	@Test
+	public void testStatusBar() {
+		JXRootPane rootPane = new JXRootPane();
+		for (JLabel comp : comps) {
+			rootPane.add(comp);
+		}
 
-	JToolBar toolBar = new JToolBar();
-	JMenuBar menuBar = new JMenuBar();
-	JMenu menu = new JMenu("File");
+		JXStatusBar statusBar = new JXStatusBar();
+		rootPane.setStatusBar(statusBar);
 
-        for (Action action : actions) {
-            toolBar.add(action);
-            menu.add(action);
-        }
-	menuBar.add(menu);
+		//	// The status bar should get all messages send to all
+		//	// components.
+		//	for (int i = 0; i < comps.length; i++) {
+		//	    JPanel comp = comps[i];
+		//	    comp.sendMessage();
+		//	    assertEquals(comp.getMessage(), statusBar.getTrailingMessage());
+		//	}
 
-	JXRootPane rootPane = new JXRootPane();
+		// Change the status bar. Reset the old status bar. It shouldn't get
+		// any messages.
+		rootPane.setStatusBar(new JXStatusBar());
+		assertNotSame(statusBar, rootPane.getStatusBar());
 
-	Component[] comps = new Component[4];
-	comps[0] = new JLabel("Head");
-	comps[1] = new JLabel("Body");
-	comps[2] = new JLabel("Arms");
-	comps[3] = new JLabel("Legs");
-
-	rootPane.setStatusBar(new JXStatusBar());
-	rootPane.setToolBar(toolBar);
-	rootPane.setJMenuBar(menuBar);
-
-        for (Component comp : comps) {
-            rootPane.add(comp);
-        }
-	rootPane.add(new JPanel());
-
-	JXFrame frame = new JXFrame();
-	frame.setRootPane(rootPane);
-	frame.setVisible(true);
-    }
-
-    /**
-     * A simple action which can be used for creating components.
-     */
-    public static class TestAction extends AbstractAction {
-
-	public TestAction(String name, int mnemonic,
-			  String description) {
-	    super(name);
-	    putValue(Action.MNEMONIC_KEY, mnemonic);
-	    putValue(Action.LONG_DESCRIPTION, description);
+		//	// Ensure that the status bar has been unregistered.
+		//	statusBar.setTrailingMessage("");
+		//	for (int i = 0; i < comps.length; i++) {
+		//	    JPanel comp = comps[i];
+		//	    comp.sendMessage();
+		//	    assertEquals("", statusBar.getTrailingMessage());
+		//	}
 	}
-    @Override
-	public void actionPerformed(ActionEvent evt) {}
-    }
 
+	/**
+	 * Given a root pane with a status bar, a toolbar with components
+	 * should get mouse listeners added to the components when added.
+	 */
+	@Test
+	public void testToolBar() {
+		JXRootPane rootPane = new JXRootPane();
+		rootPane.setStatusBar(new JXStatusBar());
+
+		JToolBar toolBar = new JToolBar();
+		for (Action action : actions) {
+			toolBar.add(action);
+		}
+
+		// set the baseline number of mouse listeners
+		Component[] comps = toolBar.getComponents();
+		int[] original = new int[comps.length];
+		for (int i = 0; i < comps.length; i++) {
+			MouseListener[] listeners = comps[i].getMouseListeners();
+			original[i] = listeners.length;
+		}
+
+		// Add the toolbar and mouse listeners should be registered
+		rootPane.setToolBar(toolBar);
+
+		comps = toolBar.getComponents();
+		//	for (int i = 0; i < comps.length; i++) {
+		//	    MouseListener[] listeners = comps[i].getMouseListeners();
+		//	    assertEquals(original[i] + 1, listeners.length);
+		//	}
+
+		// the toolbar is replaces. MouseListeners should be unregistered
+		rootPane.setToolBar(new JToolBar());
+
+		comps = toolBar.getComponents();
+		for (int i = 0; i < comps.length; i++) {
+			MouseListener[] listeners = comps[i].getMouseListeners();
+			assertEquals(original[i], listeners.length);
+		}
+	}
+
+	@Test
+	public void testMenuBar() {
+		JXRootPane rootPane = new JXRootPane();
+		rootPane.setStatusBar(new JXStatusBar());
+
+		JMenuBar menuBar = new JMenuBar();
+		JMenu menu = new JMenu("File");
+
+		for (Action action : actions) {
+			menu.add(action);
+		}
+		menuBar.add(menu);
+
+		// set the baseline number of mouse listeners
+		Component[] comps = menu.getComponents();
+		int[] original = new int[comps.length];
+		for (int i = 0; i < comps.length; i++) {
+			MouseListener[] listeners = comps[i].getMouseListeners();
+			original[i] = listeners.length;
+		}
+
+		// Add the toolbar and mouse listeners should be registered
+		rootPane.setJMenuBar(menuBar);
+
+		comps = menu.getComponents();
+		for (int i = 0; i < comps.length; i++) {
+			MouseListener[] listeners = comps[i].getMouseListeners();
+			assertEquals(original[i] + 1, listeners.length);
+		}
+
+		// the toolbar is replaces. MouseListeners should be unregistered
+		rootPane.setJMenuBar(new JMenuBar());
+
+		for (int i = 0; i < comps.length; i++) {
+			MouseListener[] listeners = comps[i].getMouseListeners();
+			original[i] = listeners.length;
+		}
+	}
+
+	public static void main(String[] args) {
+		Action[] actions = new Action[4];
+		actions[0] = new TestAction("New", 'N', "Create a new item");
+		actions[1] = new TestAction("Open", 'O', "Opens an item");
+		actions[2] = new TestAction("Save", 'S', "Saves an item");
+		actions[3] = new TestAction("Exit", 'X', "Exits the application");
+
+		JToolBar toolBar = new JToolBar();
+		JMenuBar menuBar = new JMenuBar();
+		JMenu menu = new JMenu("File");
+
+		for (Action action : actions) {
+			toolBar.add(action);
+			menu.add(action);
+		}
+		menuBar.add(menu);
+
+		JXRootPane rootPane = new JXRootPane();
+
+		Component[] comps = new Component[4];
+		comps[0] = new JLabel("Head");
+		comps[1] = new JLabel("Body");
+		comps[2] = new JLabel("Arms");
+		comps[3] = new JLabel("Legs");
+
+		rootPane.setStatusBar(new JXStatusBar());
+		rootPane.setToolBar(toolBar);
+		rootPane.setJMenuBar(menuBar);
+
+		for (Component comp : comps) {
+			rootPane.add(comp);
+		}
+		rootPane.add(new JPanel());
+
+		JXFrame frame = new JXFrame();
+		frame.setRootPane(rootPane);
+		frame.setVisible(true);
+	}
+
+	/**
+	 * A simple action which can be used for creating components.
+	 */
+	public static class TestAction extends AbstractAction {
+
+		public TestAction(String name, int mnemonic, String description) {
+			super(name);
+			putValue(Action.MNEMONIC_KEY, mnemonic);
+			putValue(Action.LONG_DESCRIPTION, description);
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent evt) {}
+	}
 }

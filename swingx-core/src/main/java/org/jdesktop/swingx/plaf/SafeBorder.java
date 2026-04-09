@@ -5,11 +5,10 @@
 package org.jdesktop.swingx.plaf;
 
 import java.awt.Component;
+import java.awt.Component.BaselineResizeBehavior;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.Rectangle;
-import java.awt.Component.BaselineResizeBehavior;
-
 import javax.swing.border.AbstractBorder;
 import javax.swing.plaf.UIResource;
 
@@ -20,80 +19,76 @@ import javax.swing.plaf.UIResource;
  */
 public class SafeBorder extends AbstractBorder implements UIResource {
 
-    private AbstractBorder delegate;
+	private AbstractBorder delegate;
 
-    public SafeBorder(AbstractBorder delegate) {
-        this.delegate = delegate;
-    }
+	public SafeBorder(AbstractBorder delegate) {
+		this.delegate = delegate;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getBaseline(Component c, int width, int height) {
-        return delegate.getBaseline(c, width, height);
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int getBaseline(Component c, int width, int height) {
+		return delegate.getBaseline(c, width, height);
+	}
 
-    /** 
-     * {@inheritDoc}
-     */
-    @Override
-    public BaselineResizeBehavior getBaselineResizeBehavior(Component c) {
-        return delegate.getBaselineResizeBehavior(c);
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public BaselineResizeBehavior getBaselineResizeBehavior(Component c) {
+		return delegate.getBaselineResizeBehavior(c);
+	}
 
-    /** 
-     * {@inheritDoc}
-     */
-    @Override
-    public Insets getBorderInsets(Component c, Insets insets) {
-        Insets result = delegate.getBorderInsets(c, safeInsets(insets));
-        return safeInsets(result);
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Insets getBorderInsets(Component c, Insets insets) {
+		Insets result = delegate.getBorderInsets(c, safeInsets(insets));
+		return safeInsets(result);
+	}
 
-    /**
-     * @param insets
-     *            the insets to query
-     * @return the insets supplied or an empty insets if the value is {@code null}
-     */
-    private Insets safeInsets(Insets insets) {
-        return insets != null ? insets : new Insets(0, 0, 0, 0);
-    }
+	/**
+	 * @param insets
+	 *            the insets to query
+	 * @return the insets supplied or an empty insets if the value is {@code null}
+	 */
+	private Insets safeInsets(Insets insets) {
+		return insets != null ? insets : new Insets(0, 0, 0, 0);
+	}
 
-    /** 
-     * {@inheritDoc}
-     */
-    @Override
-    public Insets getBorderInsets(Component c) {
-        Insets result = delegate.getBorderInsets(c);
-        return safeInsets(result);
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Insets getBorderInsets(Component c) {
+		Insets result = delegate.getBorderInsets(c);
+		return safeInsets(result);
+	}
 
-    /** 
-     * {@inheritDoc}
-     */
-    @Override
-    public Rectangle getInteriorRectangle(Component c, int x, int y, int width,
-            int height) {
-        return delegate.getInteriorRectangle(c, x, y, width, height);
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Rectangle getInteriorRectangle(Component c, int x, int y, int width, int height) {
+		return delegate.getInteriorRectangle(c, x, y, width, height);
+	}
 
-    /** 
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isBorderOpaque() {
-        return delegate.isBorderOpaque();
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isBorderOpaque() {
+		return delegate.isBorderOpaque();
+	}
 
-    /** 
-     * {@inheritDoc}
-     */
-    @Override
-    public void paintBorder(Component c, Graphics g, int x, int y, int width,
-            int height) {
-        delegate.paintBorder(c, g, x, y, width, height);
-    }
-   
-    
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+		delegate.paintBorder(c, g, x, y, width, height);
+	}
 }

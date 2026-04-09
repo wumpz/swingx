@@ -8,15 +8,14 @@ import org.jdesktop.beans.BeanInfoSupport;
  * @author joshy, Jan Stola
  */
 public class RectanglePainterBeanInfo extends BeanInfoSupport {
-    
-    /** Creates a new instance of RectanglePainterBeanInfo */
-    public RectanglePainterBeanInfo() {
-        super(RectanglePainter.class);
-    }
-    
-    @Override
-    protected void initialize() {
-        setPreferred(true, "roundHeight", "roundWidth", "rounded");
-    }
 
+	/** Creates a new instance of RectanglePainterBeanInfo */
+	public RectanglePainterBeanInfo() {
+		super(RectanglePainter.class);
+	}
+
+	@Override
+	protected void initialize() {
+		setPreferred(true, "roundHeight", "roundWidth", "rounded");
+	}
 }

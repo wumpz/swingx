@@ -10,30 +10,31 @@ import org.jdesktop.beans.editors.EnumPropertyEditor;
  */
 public class AbstractLayoutPainterBeanInfo extends BeanInfoSupport {
 
-    public AbstractLayoutPainterBeanInfo() {
-        super(AbstractLayoutPainter.class);
-    }
-    
-    public AbstractLayoutPainterBeanInfo(Class clazz) {
-        super(clazz);
-    }
+	public AbstractLayoutPainterBeanInfo() {
+		super(AbstractLayoutPainter.class);
+	}
 
-    @Override
-    protected void initialize() {
-        setPropertyEditor(HorizontalAlignmentPropertyEditor.class, "horizontalAlignment");
-        setPropertyEditor(VerticalAlignmentPropertyEditor.class, "verticalAlignment");
-    }
+	public AbstractLayoutPainterBeanInfo(Class clazz) {
+		super(clazz);
+	}
 
-    public static final class HorizontalAlignmentPropertyEditor extends EnumPropertyEditor<AbstractLayoutPainter.HorizontalAlignment> {
-        public HorizontalAlignmentPropertyEditor() {
-            super(AbstractLayoutPainter.HorizontalAlignment.class);
-        }
-    }
+	@Override
+	protected void initialize() {
+		setPropertyEditor(HorizontalAlignmentPropertyEditor.class, "horizontalAlignment");
+		setPropertyEditor(VerticalAlignmentPropertyEditor.class, "verticalAlignment");
+	}
 
-    public static final class VerticalAlignmentPropertyEditor extends EnumPropertyEditor<AbstractLayoutPainter.VerticalAlignment> {
-        public VerticalAlignmentPropertyEditor() {
-            super(AbstractLayoutPainter.VerticalAlignment.class);
-        }
-    }
+	public static final class HorizontalAlignmentPropertyEditor
+			extends EnumPropertyEditor<AbstractLayoutPainter.HorizontalAlignment> {
+		public HorizontalAlignmentPropertyEditor() {
+			super(AbstractLayoutPainter.HorizontalAlignment.class);
+		}
+	}
 
+	public static final class VerticalAlignmentPropertyEditor
+			extends EnumPropertyEditor<AbstractLayoutPainter.VerticalAlignment> {
+		public VerticalAlignmentPropertyEditor() {
+			super(AbstractLayoutPainter.VerticalAlignment.class);
+		}
+	}
 }

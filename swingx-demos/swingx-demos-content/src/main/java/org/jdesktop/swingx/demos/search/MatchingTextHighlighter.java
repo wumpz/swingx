@@ -8,16 +8,16 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- * 
+ *
  */
 package org.jdesktop.swingx.demos.search;
 
@@ -33,11 +33,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
-
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-
 import org.jdesktop.swingx.decorator.AbstractHighlighter;
 import org.jdesktop.swingx.decorator.ComponentAdapter;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
@@ -56,13 +54,13 @@ import org.jdesktop.swingx.renderer.PainterAware;
  * This highlighter is designed to work with a {@link SearchPredicate}. All
  * other predicate types will be ignored and no highlighting will be performed.
  * </p>
- * 
+ *
  * <p>
  * <strong>NOTE: This highlighter is designed to work with renderers that both
  * extend {@link JLabel} and implements {@link PainterAware}. Other renderers
  * will be left undecorated.</strong>
  * </p>
- * 
+ *
  * @author gregtan
  * @author Jeanette Winzenburg
  * @author Thorsten Klimpel
@@ -112,7 +110,7 @@ public class MatchingTextHighlighter extends AbstractHighlighter {
 	/**
 	 * Instantiates a <code>MatchingTextHighlighter</code> with no highlight
 	 * predicate that paints with the specified painter.
-	 * 
+	 *
 	 * @param painter the painter used to render matching text
 	 */
 	public MatchingTextHighlighter(Painter<JLabel> painter) {
@@ -125,12 +123,11 @@ public class MatchingTextHighlighter extends AbstractHighlighter {
 	 * predicate that matches text with the specified pattern with the specified
 	 * highlight color.
 	 * </p>
-	 * 
+	 *
 	 * @param predicate the HighlightPredicate to use
 	 * @param painter the painter used to render matching text
 	 */
-	public MatchingTextHighlighter(HighlightPredicate predicate,
-			Painter<JLabel> painter) {
+	public MatchingTextHighlighter(HighlightPredicate predicate, Painter<JLabel> painter) {
 		super(predicate);
 		setPainter(painter);
 	}
@@ -142,7 +139,8 @@ public class MatchingTextHighlighter extends AbstractHighlighter {
 	// Check if Painter applicable
 	@Override
 	protected boolean canHighlight(Component component, ComponentAdapter adapter) {
-		return component instanceof JLabel && component instanceof PainterAware
+		return component instanceof JLabel
+				&& component instanceof PainterAware
 				&& painter != null
 				&& getHighlightPredicate() instanceof SearchPredicate;
 	}
@@ -153,8 +151,7 @@ public class MatchingTextHighlighter extends AbstractHighlighter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Component doHighlight(Component component,
-			ComponentAdapter adapter) {
+	protected Component doHighlight(Component component, ComponentAdapter adapter) {
 		((PainterAware) component).setPainter(delegatingPainter);
 
 		return component;
@@ -162,7 +159,7 @@ public class MatchingTextHighlighter extends AbstractHighlighter {
 
 	/**
 	 * Returns the painter used for highlighting matching characters.
-	 * 
+	 *
 	 * @return a <code>Painter</code>
 	 */
 	public Painter<JLabel> getPainter() {
@@ -171,7 +168,7 @@ public class MatchingTextHighlighter extends AbstractHighlighter {
 
 	/**
 	 * Sets the painter used for highlighting matching characters.
-	 * 
+	 *
 	 * @param painter a <code>Painter</code>
 	 */
 	public void setPainter(Painter<JLabel> painter) {
@@ -190,8 +187,7 @@ public class MatchingTextHighlighter extends AbstractHighlighter {
 	 */
 	protected void installPainterListener() {
 		if (getPainter() instanceof AbstractPainter) {
-			((AbstractPainter<?>) getPainter())
-					.addPropertyChangeListener(getPainterListener());
+			((AbstractPainter<?>) getPainter()).addPropertyChangeListener(getPainterListener());
 		}
 	}
 
@@ -202,15 +198,14 @@ public class MatchingTextHighlighter extends AbstractHighlighter {
 	 */
 	protected void uninstallPainterListener() {
 		if (getPainter() instanceof AbstractPainter) {
-			((AbstractPainter<?>) getPainter())
-					.removePropertyChangeListener(painterListener);
+			((AbstractPainter<?>) getPainter()).removePropertyChangeListener(painterListener);
 		}
 	}
 
 	/**
 	 * Lazily creates and returns the property change listener used to listen to
 	 * changes of the painter.
-	 * 
+	 *
 	 * @return the property change listener used to listen to changes of the
 	 *         painter.
 	 */
@@ -225,10 +220,10 @@ public class MatchingTextHighlighter extends AbstractHighlighter {
 	 * Creates and returns the property change listener used to listen to
 	 * changes of the painter.
 	 * <p>
-	 * 
+	 *
 	 * This implementation fires a stateChanged on receiving any propertyChange,
 	 * if the isAdjusting flag is false. Otherwise does nothing.
-	 * 
+	 *
 	 * @return the property change listener used to listen to changes of the
 	 *         painter.
 	 */
@@ -246,15 +241,14 @@ public class MatchingTextHighlighter extends AbstractHighlighter {
 	/**
 	 * Finds the rectangles that contain rendered characters that match the
 	 * pattern.
-	 * 
+	 *
 	 * @param object an optional configuration parameter. This may be null.
 	 * @param width width of the area to paint.
 	 * @param height height of the area to paint.
 	 * @return a <code>List</code> of <code>Rectangle</code>s marking characters
 	 *         to highlight
 	 */
-	protected List<Rectangle> findHighlightAreas(JLabel object, int width,
-			int height) {
+	protected List<Rectangle> findHighlightAreas(JLabel object, int width, int height) {
 		insets = object.getInsets(insets);
 		viewR.x = 0 + insets.left;
 		viewR.y = 0 + insets.bottom;
@@ -272,29 +266,33 @@ public class MatchingTextHighlighter extends AbstractHighlighter {
 		// textR to an old value. While resizing a centered or right aligned
 		// tableColumn, the calculated width of the text-rectangle seems to be
 		// "one event behind". Perhaps Anti-Aliasing draws different?
-		String clippedText = SwingUtilities.layoutCompoundLabel(object, fm,
-				object.getText(), object.getIcon(),
-				object.getVerticalAlignment(), object.getHorizontalAlignment(),
+		String clippedText = SwingUtilities.layoutCompoundLabel(
+				object,
+				fm,
+				object.getText(),
+				object.getIcon(),
+				object.getVerticalAlignment(),
+				object.getHorizontalAlignment(),
 				object.getVerticalTextPosition(),
-				object.getHorizontalTextPosition(), viewR, iconR, textR,
+				object.getHorizontalTextPosition(),
+				viewR,
+				iconR,
+				textR,
 				object.getIconTextGap());
 
-		int xOffset = calculateXOffset(object, viewR, textR, iconR,
-				object.getIconTextGap());
-		int yOffset = textR.y - 1;// magic -1 for a nicer look
-		int highlightHeight = textR.height + 1;// magic +1 for a nicer look
+		int xOffset = calculateXOffset(object, viewR, textR, iconR, object.getIconTextGap());
+		int yOffset = textR.y - 1; // magic -1 for a nicer look
+		int highlightHeight = textR.height + 1; // magic +1 for a nicer look
 
 		String clippedTextToSearch = clippedText;
 		// Check to see if the text will be clipped
 		if (!object.getText().equals(clippedText)) {
 			// TODO There has to be a better way that assuming ellipsis are the
 			// last characters of the text
-			clippedTextToSearch = clippedText.substring(0,
-					clippedText.length() - 3);
+			clippedTextToSearch = clippedText.substring(0, clippedText.length() - 3);
 		}
 
-		return createHighlightAreas(object.getText(), clippedTextToSearch, fm,
-				xOffset, yOffset, highlightHeight);
+		return createHighlightAreas(object.getText(), clippedTextToSearch, fm, xOffset, yOffset, highlightHeight);
 	}
 
 	/**
@@ -304,7 +302,7 @@ public class MatchingTextHighlighter extends AbstractHighlighter {
 	 * is clipped, the remaining characters lose their highlight; just the
 	 * ellipsis is highlighted.
 	 * </p>
-	 * 
+	 *
 	 * @param fullText useful for highlighting if matches exist in clipped text
 	 *        and in the ellipsis
 	 * @param clippedText the clipped text to search (could be the same as
@@ -316,9 +314,8 @@ public class MatchingTextHighlighter extends AbstractHighlighter {
 	 * @param height the height of painted highlights
 	 * @return a <code>List</code> of highlight areas to paint
 	 */
-	protected List<Rectangle> createHighlightAreas(String fullText,
-			String clippedText, FontMetrics fm, int xOffset, int yOffset,
-			int height) {
+	protected List<Rectangle> createHighlightAreas(
+			String fullText, String clippedText, FontMetrics fm, int xOffset, int yOffset, int height) {
 		SearchPredicate predicate = (SearchPredicate) getHighlightPredicate();
 		Matcher matcher = predicate.getPattern().matcher(clippedText);
 
@@ -356,9 +353,8 @@ public class MatchingTextHighlighter extends AbstractHighlighter {
 			String highlightText = clippedText.substring(start, end);
 			highlightWidth = fm.stringWidth(highlightText);
 
-			highlightAreas.add(new Rectangle(highlightx, yOffset,
-					highlightWidth, height));
-		}// while ( startFrom < text.length() && matcher.find( startFrom ) )
+			highlightAreas.add(new Rectangle(highlightx, yOffset, highlightWidth, height));
+		} // while ( startFrom < text.length() && matcher.find( startFrom ) )
 
 		if (highlightAreas == null) {
 			highlightAreas = Collections.emptyList();
@@ -374,7 +370,7 @@ public class MatchingTextHighlighter extends AbstractHighlighter {
 	 * single rectangles. This is useful to renderers that vary horizontally,
 	 * such a horizontal gradient - the gradient will not restart when there are
 	 * two adjacent highlight areas.
-	 * 
+	 *
 	 * @param highlightAreas a <code>List</code> of <code>Rectangle</code>s.
 	 */
 	protected void coalesceHighlightAreas(List<Rectangle> highlightAreas) {
@@ -397,55 +393,53 @@ public class MatchingTextHighlighter extends AbstractHighlighter {
 	/**
 	 * Calculates the x offset of highlights based on component orientation and
 	 * text direction.
-	 * 
+	 *
 	 * @param component the renderer component
 	 * @param viewR the view rectangle of the renderer component
 	 * @param textR the text rectangle of the renderer component
 	 * @return the number of pixels to offset the highlight from the left edge
 	 *         of the component
 	 */
-	protected int calculateXOffset(JLabel component, Rectangle viewR,
-			Rectangle textR, Rectangle iconR, int iconTextGap) {
+	protected int calculateXOffset(
+			JLabel component, Rectangle viewR, Rectangle textR, Rectangle iconR, int iconTextGap) {
 		int horizAlignment = component.getHorizontalAlignment();
-		boolean leftToRight = component.getComponentOrientation()
-				.isLeftToRight();
+		boolean leftToRight = component.getComponentOrientation().isLeftToRight();
 
 		if (horizAlignment == SwingConstants.LEFT
 				|| (horizAlignment == SwingConstants.LEADING && leftToRight)
 				|| (horizAlignment == SwingConstants.TRAILING && !leftToRight)) {
-			return textR.x;// respect the icon and start the highlight at the
+			return textR.x; // respect the icon and start the highlight at the
 			// beginning of the text not at 0
 		} else if (horizAlignment == SwingConstants.RIGHT
 				|| (horizAlignment == SwingConstants.TRAILING && leftToRight)
 				|| (horizAlignment == SwingConstants.LEADING && !leftToRight)) {
 			int offsetWhenRight;
-			if (leftToRight)
-				offsetWhenRight = viewR.width - textR.width;
+			if (leftToRight) offsetWhenRight = viewR.width - textR.width;
 			else {
-				int currentIconTextGap = component.getIcon() != null ? iconTextGap
-						: 0;// The gap between the icon and the text of the
-							// JLabel has to be included, if an icon is set
-				offsetWhenRight = viewR.width - textR.width - iconR.width
-						- currentIconTextGap;
+				int currentIconTextGap =
+						component.getIcon() != null ? iconTextGap : 0; // The gap between the icon and the text of the
+				// JLabel has to be included, if an icon is set
+				offsetWhenRight = viewR.width - textR.width - iconR.width - currentIconTextGap;
 			}
 			return offsetWhenRight;
 
 		} else if (horizAlignment == SwingConstants.CENTER) {
-			int currentIconTextGap = component.getIcon() != null ? iconTextGap
-					: 0;// The gap between the icon and the text of the JLabel
+			int currentIconTextGap = component.getIcon() != null
+					? iconTextGap
+					: 0; // The gap between the icon and the text of the JLabel
 			// has to be included, if an icon is set/ visible
 			int offsetWhenCentered;
 			if (leftToRight)
-				offsetWhenCentered = Math.round((viewR.width - textR.width
-						+ iconR.width + currentIconTextGap) / 2f);// round a
+				offsetWhenCentered =
+						Math.round((viewR.width - textR.width + iconR.width + currentIconTextGap) / 2f); // round a
 			// float to prevent a jumping (see ColumnHeader for example)
 			// Highlighter (most of the time...(because of Anti-Aliased-Text?
 			// Even or uneven width of text to paint?))
 			else
 				// if the orientation is RightToLeft the icon and the gap is at
 				// the right side of the text:
-				offsetWhenCentered = Math.round((viewR.width - textR.width
-						- iconR.width - currentIconTextGap) / 2f);// round a
+				offsetWhenCentered =
+						Math.round((viewR.width - textR.width - iconR.width - currentIconTextGap) / 2f); // round a
 			// float to prevent a jumping (see ColumnHeader for example)
 			// Highlighter (most of the time...( because of Anti-Aliased-Text?
 			// Even or uneven Width of text to paint?))
@@ -453,8 +447,7 @@ public class MatchingTextHighlighter extends AbstractHighlighter {
 			return offsetWhenCentered;
 		}
 
-		throw new AssertionError("Unknown horizonal alignment "
-				+ horizAlignment);
+		throw new AssertionError("Unknown horizonal alignment " + horizAlignment);
 	}
 
 	/**
@@ -468,16 +461,13 @@ public class MatchingTextHighlighter extends AbstractHighlighter {
 		// delegate to painter to paint the matches
 		@Override
 		public void paint(Graphics2D g, JLabel object, int width, int height) {
-			List<Rectangle> highlightAreas = findHighlightAreas(object, width,
-					height);
+			List<Rectangle> highlightAreas = findHighlightAreas(object, width, height);
 			for (Rectangle r : highlightAreas) {
-				Graphics2D scratchGraphics = (Graphics2D) g.create(r.x, r.y,
-						r.width, r.height);
+				Graphics2D scratchGraphics = (Graphics2D) g.create(r.x, r.y, r.width, r.height);
 				painter.paint(scratchGraphics, object, r.width, r.height);
 				scratchGraphics.dispose();
 			}
 		}
 		// </snip>
 	}
-
 }

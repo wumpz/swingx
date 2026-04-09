@@ -3,28 +3,27 @@ package org.jdesktop.swingx.plaf;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
 import java.util.WeakHashMap;
-
 import javax.swing.JComponent;
 
 @SuppressWarnings("nls")
 public abstract class AbstractUIChangeHandler implements PropertyChangeListener {
-	//prevent double installation.
+	// prevent double installation.
 	private final Map<JComponent, Boolean> installed = new WeakHashMap<>();
-	
-	public void install(JComponent c){
-		if(isInstalled(c)){
+
+	public void install(JComponent c) {
+		if (isInstalled(c)) {
 			return;
 		}
-		
+
 		c.addPropertyChangeListener("UI", this);
 		installed.put(c, Boolean.FALSE);
 	}
-	
+
 	public boolean isInstalled(JComponent c) {
 		return installed.containsKey(c);
 	}
 
-    public void uninstall(JComponent c){
+	public void uninstall(JComponent c) {
 		c.removePropertyChangeListener("UI", this);
 		installed.remove(c);
 	}

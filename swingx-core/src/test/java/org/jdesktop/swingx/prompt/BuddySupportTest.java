@@ -3,10 +3,8 @@ package org.jdesktop.swingx.prompt;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Component;
-
 import javax.swing.JButton;
 import javax.swing.JTextField;
-
 import org.jdesktop.swingx.plaf.BuddyLayoutAndBorder;
 import org.jdesktop.swingx.plaf.BuddyTextFieldUI;
 import org.jdesktop.swingx.prompt.BuddySupport.Position;
@@ -32,13 +30,13 @@ public class BuddySupportTest {
 			BuddySupport.addLeft(button, tf);
 			fail();
 		} catch (IllegalStateException e) {
-			
+
 		}
 		try {
 			BuddySupport.addRight(button, tf);
 			fail();
 		} catch (IllegalStateException e) {
-			
+
 		}
 	}
 
@@ -49,7 +47,7 @@ public class BuddySupportTest {
 		BuddySupport.addLeft(button, tf);
 		assertSame(1, BuddySupport.getLeft(tf).size());
 	}
-	
+
 	@Test
 	public void testRemove() throws Exception {
 		JButton button = new JButton();
@@ -58,7 +56,7 @@ public class BuddySupportTest {
 		assertSame(0, BuddySupport.getLeft(tf).size());
 		assertSame(0, tf.getComponentCount());
 	}
-	
+
 	@Test
 	public void testRemoveAll() throws Exception {
 		JButton button1 = new JButton();
@@ -70,7 +68,7 @@ public class BuddySupportTest {
 		assertSame(0, BuddySupport.getRight(tf).size());
 		assertSame(0, tf.getComponentCount());
 	}
-	
+
 	@Test
 	public void testEnsureBuddiesInComponentHierarchy() throws Exception {
 		JButton button = new JButton();
@@ -80,14 +78,14 @@ public class BuddySupportTest {
 		assertSame(1, BuddySupport.getLeft(tf).size());
 		assertSame(1, tf.getComponentCount());
 	}
-	
+
 	@Test
 	public void testGetAfterPlainRemove() throws Exception {
 		JButton button = new JButton();
 		BuddySupport.addLeft(button, tf);
 		tf.remove(button);
 	}
-	
+
 	@Test
 	public void testIsBuddy() throws Exception {
 		JButton button = new JButton();
@@ -123,5 +121,4 @@ public class BuddySupportTest {
 		Component c = BuddySupport.createGap(-1);
 		assertSame(-1, c.getPreferredSize().width);
 	}
-
 }

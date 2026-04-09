@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -22,7 +22,6 @@
 package org.jdesktop.swingx.plaf;
 
 import java.beans.PropertyChangeListener;
-
 import javax.swing.Action;
 
 /**
@@ -57,56 +56,52 @@ import javax.swing.Action;
  * @author Scott Violet
  */
 public abstract class UIAction implements Action {
-    private String name;
+	private String name;
 
-    public UIAction(String name) {
-        this.name = name;
-    }
+	public UIAction(String name) {
+		this.name = name;
+	}
 
-    public final String getName() {
-        return name;
-    }
+	public final String getName() {
+		return name;
+	}
 
-    @Override
-    public Object getValue(String key) {
-        return NAME.equals(key) ? name : null;
-    }
+	@Override
+	public Object getValue(String key) {
+		return NAME.equals(key) ? name : null;
+	}
 
-    // UIAction is not mutable, this does nothing.
-    @Override
-    public void putValue(String key, Object value) {
-    }
+	// UIAction is not mutable, this does nothing.
+	@Override
+	public void putValue(String key, Object value) {}
 
-    // UIAction is not mutable, this does nothing.
-    @Override
-    public void setEnabled(boolean b) {
-    }
+	// UIAction is not mutable, this does nothing.
+	@Override
+	public void setEnabled(boolean b) {}
 
-    /**
-     * Cover method for <code>isEnabled(null)</code>.
-     */
-    @Override
-    public final boolean isEnabled() {
-        return isEnabled(null);
-    }
+	/**
+	 * Cover method for <code>isEnabled(null)</code>.
+	 */
+	@Override
+	public final boolean isEnabled() {
+		return isEnabled(null);
+	}
 
-    /**
-     * Subclasses that need to conditionalize the enabled state should
-     * override this. Be aware that <code>sender</code> may be null.
-     *
-     * @param sender Widget enabled state is being asked for, may be null.
-     */
-    public boolean isEnabled(Object sender) {
-        return true;
-    }
+	/**
+	 * Subclasses that need to conditionalize the enabled state should
+	 * override this. Be aware that <code>sender</code> may be null.
+	 *
+	 * @param sender Widget enabled state is being asked for, may be null.
+	 */
+	public boolean isEnabled(Object sender) {
+		return true;
+	}
 
-    // UIAction is not mutable, this does nothing.
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-    }
+	// UIAction is not mutable, this does nothing.
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {}
 
-    // UIAction is not mutable, this does nothing.
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-    }
+	// UIAction is not mutable, this does nothing.
+	@Override
+	public void removePropertyChangeListener(PropertyChangeListener listener) {}
 }

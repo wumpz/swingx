@@ -9,13 +9,11 @@ import java.awt.LayoutManager;
 import java.awt.Rectangle;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.BasicBorders.MarginBorder;
-
 import org.jdesktop.swingx.prompt.BuddySupport;
 import org.jdesktop.swingx.prompt.BuddySupport.Position;
 
@@ -59,20 +57,19 @@ public class BuddyLayoutAndBorder implements LayoutManager, Border, PropertyChan
 
 	/**
 	 * Does nothing.
-	 * 
+	 *
 	 * @see BuddySupport#add(javax.swing.JComponent, Position, JTextField)
 	 */
 	@Override
-    public void addLayoutComponent(String name, Component comp) {
-	}
+	public void addLayoutComponent(String name, Component comp) {}
 
 	@Override
-    public Dimension minimumLayoutSize(Container parent) {
+	public Dimension minimumLayoutSize(Container parent) {
 		return preferredLayoutSize(parent);
 	}
 
 	@Override
-    public Dimension preferredLayoutSize(Container parent) {
+	public Dimension preferredLayoutSize(Container parent) {
 		Dimension d = new Dimension();
 
 		// height of highest buddy.
@@ -98,15 +95,14 @@ public class BuddyLayoutAndBorder implements LayoutManager, Border, PropertyChan
 
 	/**
 	 * Does nothing.
-	 * 
+	 *
 	 * @see BuddySupport#remove(javax.swing.JComponent, JTextField)
 	 */
 	@Override
-    public void removeLayoutComponent(Component comp) {
-	}
+	public void removeLayoutComponent(Component comp) {}
 
 	@Override
-    public void layoutContainer(Container parent) {
+	public void layoutContainer(Container parent) {
 		Rectangle visibleRect = getVisibleRect();
 		Dimension size;
 
@@ -127,7 +123,10 @@ public class BuddyLayoutAndBorder implements LayoutManager, Border, PropertyChan
 			}
 
 			size = comp.getPreferredSize();
-			comp.setBounds(visibleRect.x + visibleRect.width - size.width, centerY(visibleRect, size), size.width,
+			comp.setBounds(
+					visibleRect.x + visibleRect.width - size.width,
+					centerY(visibleRect, size),
+					size.width,
 					size.height);
 			visibleRect.width -= size.width;
 		}
@@ -141,7 +140,7 @@ public class BuddyLayoutAndBorder implements LayoutManager, Border, PropertyChan
 	 * @return the rectangle allocated by the text field, including the space
 	 *         allocated by the child components left and right, the text fields
 	 *         original border insets and the outer margin.
-	 * 
+	 *
 	 */
 	protected Rectangle getVisibleRect() {
 		Rectangle alloc = SwingUtilities.getLocalBounds(textField);
@@ -164,11 +163,11 @@ public class BuddyLayoutAndBorder implements LayoutManager, Border, PropertyChan
 	/**
 	 * Returns the {@link Insets} of the original {@link Border} plus the space
 	 * required by the child components.
-	 * 
+	 *
 	 * @see javax.swing.border.Border#getBorderInsets(java.awt.Component)
 	 */
 	@Override
-    public Insets getBorderInsets(Component c) {
+	public Insets getBorderInsets(Component c) {
 		Insets insets = null;
 		if (borderDelegate != null) {
 			// Original insets are cloned to make it work in Mac OS X Aqua LnF.
@@ -179,11 +178,11 @@ public class BuddyLayoutAndBorder implements LayoutManager, Border, PropertyChan
 		} else {
 			insets = new Insets(0, 0, 0, 0);
 		}
-		//somehow this happens sometimes
+		// somehow this happens sometimes
 		if (textField == null) {
 			return insets;
 		}
-		
+
 		for (Component comp : BuddySupport.getLeft(textField)) {
 			insets.left += comp.isVisible() ? comp.getPreferredSize().width : 0;
 		}
@@ -205,12 +204,12 @@ public class BuddyLayoutAndBorder implements LayoutManager, Border, PropertyChan
 	/**
 	 * Returns the insets of the original border (without the margin! Beware of
 	 * {@link MarginBorder}!).
-	 * 
+	 *
 	 * @return the insets of the border delegate
 	 */
 	public Insets getRealBorderInsets() {
 		if (borderDelegate == null) {
-		    //SwingX 1287: null borders are possible and give no insets
+			// SwingX 1287: null borders are possible and give no insets
 			return new Insets(0, 0, 0, 0);
 		}
 
@@ -235,7 +234,7 @@ public class BuddyLayoutAndBorder implements LayoutManager, Border, PropertyChan
 	}
 
 	@Override
-    public boolean isBorderOpaque() {
+	public boolean isBorderOpaque() {
 		if (borderDelegate == null) {
 			return false;
 		}
@@ -243,14 +242,14 @@ public class BuddyLayoutAndBorder implements LayoutManager, Border, PropertyChan
 	}
 
 	@Override
-    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+	public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
 		if (borderDelegate != null) {
 			borderDelegate.paintBorder(c, g, x, y, width, height);
 		}
 	}
 
 	@Override
-    public void propertyChange(PropertyChangeEvent evt) {
+	public void propertyChange(PropertyChangeEvent evt) {
 		replaceBorderIfNecessary();
 	}
 

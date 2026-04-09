@@ -19,7 +19,6 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 package org.jdesktop.swingx.painter.effects;
 
 import java.awt.Color;
@@ -30,16 +29,15 @@ import java.awt.Point;
  * @author joshy
  */
 public class InnerGlowPathEffect extends AbstractAreaEffect {
-    
-    /** Creates a new instance of InnerGlowPathEffect */
-    public InnerGlowPathEffect() {
-        super();
-        setBrushColor(Color.WHITE);
-        setBrushSteps(10);
-        setEffectWidth(10);
-        setShouldFillShape(false);
-        setOffset(new Point(0,0));
-        setRenderInsideShape(true);
-    }
-    
+
+	/** Creates a new instance of InnerGlowPathEffect */
+	public InnerGlowPathEffect() {
+		super();
+		setBrushColor(Color.WHITE);
+		setBrushSteps(10);
+		setEffectWidth(10);
+		setShouldFillShape(false);
+		setOffset(new Point(0, 0));
+		setRenderInsideShape(true);
+	}
 }

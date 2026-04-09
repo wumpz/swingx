@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -28,7 +28,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyVetoException;
 import java.beans.VetoableChangeListener;
 import java.io.Serializable;
-
 import org.jdesktop.test.SerializableSupport;
 import org.junit.jupiter.api.Test;
 
@@ -37,78 +36,78 @@ import org.junit.jupiter.api.Test;
  */
 @SuppressWarnings({"nls", "serial"})
 public class AbstractSerializableBeanTest {
-    private static class ShoeSizeCap implements VetoableChangeListener, Serializable {
-        @Override
-        public void vetoableChange(PropertyChangeEvent event) throws PropertyVetoException {
-            if("size".equals(event.getPropertyName()) && ((Integer)event.getNewValue()) > 13) {
-                throw new PropertyVetoException("Feet too big!", event);
-            }
-        }
-    }
+	private static class ShoeSizeCap implements VetoableChangeListener, Serializable {
+		@Override
+		public void vetoableChange(PropertyChangeEvent event) throws PropertyVetoException {
+			if ("size".equals(event.getPropertyName()) && ((Integer) event.getNewValue()) > 13) {
+				throw new PropertyVetoException("Feet too big!", event);
+			}
+		}
+	}
 
-    private static class ShoeColorListener implements PropertyChangeListener, Serializable {
-        @Override
-        public void propertyChange(PropertyChangeEvent evt) {
-            //does nothing
-        }
-    }
-    
-    public static class Shoe extends AbstractSerializableBean {
-        private Color color;
-        private int size;
+	private static class ShoeColorListener implements PropertyChangeListener, Serializable {
+		@Override
+		public void propertyChange(PropertyChangeEvent evt) {
+			// does nothing
+		}
+	}
 
-        public Color getColor() {
-            return color;
-        }
+	public static class Shoe extends AbstractSerializableBean {
+		private Color color;
+		private int size;
 
-        public void setColor(Color color) throws PropertyVetoException {
-            fireVetoableChange("color", this.color, color);
-            Color oldColor = getColor();
-            this.color = color;
-            firePropertyChange("color", oldColor, getColor());
-        }
+		public Color getColor() {
+			return color;
+		}
 
-        public int getSize() {
-            return size;
-        }
+		public void setColor(Color color) throws PropertyVetoException {
+			fireVetoableChange("color", this.color, color);
+			Color oldColor = getColor();
+			this.color = color;
+			firePropertyChange("color", oldColor, getColor());
+		}
 
-        public void setSize(int size) throws PropertyVetoException {
-            fireVetoableChange("size", this.size, size);
-            int oldSize = getSize();
-            this.size = size;
-            firePropertyChange("size", oldSize, getSize());
-        }
-    }
+		public int getSize() {
+			return size;
+		}
 
-    @Test
-    public void testShoeSerialize() throws Exception {
+		public void setSize(int size) throws PropertyVetoException {
+			fireVetoableChange("size", this.size, size);
+			int oldSize = getSize();
+			this.size = size;
+			firePropertyChange("size", oldSize, getSize());
+		}
+	}
 
-        Shoe leftShoe = new Shoe();
-        leftShoe.addVetoableChangeListener(new ShoeSizeCap());
-        leftShoe.addPropertyChangeListener(new ShoeColorListener());
-        leftShoe.setColor(Color.GREEN);
-        leftShoe.setSize(10);
-        try {
-            leftShoe.setSize(20);
-            fail("Expected property veto exception");
-        } catch(PropertyVetoException e) {
-            // expected
-        }
+	@Test
+	public void testShoeSerialize() throws Exception {
 
-        Shoe rightShoe = SerializableSupport.serialize(leftShoe);
-        assertEquals(Color.GREEN, rightShoe.getColor());
-        
-        PropertyChangeListener[] pcls = rightShoe.getPropertyChangeListeners();
-        assertEquals(1, pcls.length);
-        assertTrue(pcls[0] instanceof ShoeColorListener);
-        
-        assertEquals(10, rightShoe.getSize());
-        
-        try {
-            rightShoe.setSize(20);
-            fail("Expected property veto exception");
-        } catch(PropertyVetoException e) {
-            // expected
-        }
-    }
+		Shoe leftShoe = new Shoe();
+		leftShoe.addVetoableChangeListener(new ShoeSizeCap());
+		leftShoe.addPropertyChangeListener(new ShoeColorListener());
+		leftShoe.setColor(Color.GREEN);
+		leftShoe.setSize(10);
+		try {
+			leftShoe.setSize(20);
+			fail("Expected property veto exception");
+		} catch (PropertyVetoException e) {
+			// expected
+		}
+
+		Shoe rightShoe = SerializableSupport.serialize(leftShoe);
+		assertEquals(Color.GREEN, rightShoe.getColor());
+
+		PropertyChangeListener[] pcls = rightShoe.getPropertyChangeListeners();
+		assertEquals(1, pcls.length);
+		assertTrue(pcls[0] instanceof ShoeColorListener);
+
+		assertEquals(10, rightShoe.getSize());
+
+		try {
+			rightShoe.setSize(20);
+			fail("Expected property veto exception");
+		} catch (PropertyVetoException e) {
+			// expected
+		}
+	}
 }

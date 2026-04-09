@@ -20,148 +20,147 @@ import org.junit.jupiter.api.Test;
  */
 public class TargetManagerTest {
 
-    @BeforeEach
-    public void setUpJ4() throws Exception {
-    }
-    
-    @AfterEach
-    public void tearDownJ4() throws Exception {
-        tearDown();
-    }
+	@BeforeEach
+	public void setUpJ4() throws Exception {}
 
-    @AfterEach
-    public void tearDown() {
-        TargetManager manager = TargetManager.getInstance();
-        manager.reset();
-    }
+	@AfterEach
+	public void tearDownJ4() throws Exception {
+		tearDown();
+	}
 
-    /**
-     * By default, there are no targets.
-     */
-    @Test
-    public void testGetTargets() {
-        TargetManager manager = TargetManager.getInstance();
+	@AfterEach
+	public void tearDown() {
+		TargetManager manager = TargetManager.getInstance();
+		manager.reset();
+	}
 
-        assertNull(manager.getTarget());
-        Targetable[] targets = manager.getTargets();
+	/**
+	 * By default, there are no targets.
+	 */
+	@Test
+	public void testGetTargets() {
+		TargetManager manager = TargetManager.getInstance();
 
-        assertNotNull(targets);
-        assertTrue(targets.length == 0);
-    }
+		assertNull(manager.getTarget());
+		Targetable[] targets = manager.getTargets();
 
-    /**
-     * Test Target registration methods.
-     */
-    @Test
-    public void testAddRemoveTargets() {
-        FooTarget foo = new FooTarget();
-        BarTarget bar = new BarTarget();
+		assertNotNull(targets);
+		assertTrue(targets.length == 0);
+	}
 
-        TargetManager manager = TargetManager.getInstance();
+	/**
+	 * Test Target registration methods.
+	 */
+	@Test
+	public void testAddRemoveTargets() {
+		FooTarget foo = new FooTarget();
+		BarTarget bar = new BarTarget();
 
-        // append targets
-        manager.addTarget(foo);
-        manager.addTarget(bar);
+		TargetManager manager = TargetManager.getInstance();
 
-        Targetable[] targets = manager.getTargets();
-        assertNotNull(targets);
-        assertTrue(targets.length == 2);
-        // by default, targets are appended to the list.
-        assertTrue(targets[0] == foo);
-        assertTrue(targets[1] == bar);
+		// append targets
+		manager.addTarget(foo);
+		manager.addTarget(bar);
 
-        // Test removal
-        manager.removeTarget(foo);
-        manager.removeTarget(bar);
+		Targetable[] targets = manager.getTargets();
+		assertNotNull(targets);
+		assertTrue(targets.length == 2);
+		// by default, targets are appended to the list.
+		assertTrue(targets[0] == foo);
+		assertTrue(targets[1] == bar);
 
-        targets = manager.getTargets();
-        assertNotNull(targets);
-        assertTrue(targets.length == 0);
+		// Test removal
+		manager.removeTarget(foo);
+		manager.removeTarget(bar);
 
-        // add targets, prepend bar
-        manager.addTarget(foo);
-        manager.addTarget(bar, true);
+		targets = manager.getTargets();
+		assertNotNull(targets);
+		assertTrue(targets.length == 0);
 
-        targets = manager.getTargets();
-        assertNotNull(targets);
-        assertTrue(targets.length == 2);
-        assertTrue(targets[0] == bar);
-        assertTrue(targets[1] == foo);
-    }
+		// add targets, prepend bar
+		manager.addTarget(foo);
+		manager.addTarget(bar, true);
 
-    /**
-     * Tests doCommand for both explicit targets and the targets in the list.
-     */
-    @Test
-    public void testDoCommand() {
-        FooTarget foo = new FooTarget();
-        BarTarget bar = new BarTarget();
-        TargetManager manager = TargetManager.getInstance();
+		targets = manager.getTargets();
+		assertNotNull(targets);
+		assertTrue(targets.length == 2);
+		assertTrue(targets[0] == bar);
+		assertTrue(targets[1] == foo);
+	}
 
-        // set explicit targets
-        manager.setTarget(foo);
-        assertTrue(manager.doCommand("foo", null));
-        assertFalse(manager.doCommand("bar", null));
+	/**
+	 * Tests doCommand for both explicit targets and the targets in the list.
+	 */
+	@Test
+	public void testDoCommand() {
+		FooTarget foo = new FooTarget();
+		BarTarget bar = new BarTarget();
+		TargetManager manager = TargetManager.getInstance();
 
-        manager.setTarget(bar);
-        assertTrue(manager.doCommand("bar", null));
-        assertFalse(manager.doCommand("foo", null));
+		// set explicit targets
+		manager.setTarget(foo);
+		assertTrue(manager.doCommand("foo", null));
+		assertFalse(manager.doCommand("bar", null));
 
-        // Add both of the targets all commands are valid
-        manager.setTarget(null);
-        manager.addTarget(foo);
-        manager.addTarget(bar);
+		manager.setTarget(bar);
+		assertTrue(manager.doCommand("bar", null));
+		assertFalse(manager.doCommand("foo", null));
 
-        assertTrue(manager.doCommand("bar", null));
-        assertTrue(manager.doCommand("foo", null));
-    }
+		// Add both of the targets all commands are valid
+		manager.setTarget(null);
+		manager.addTarget(foo);
+		manager.addTarget(bar);
 
-    //
-    // Some examples of Targets
-    //
+		assertTrue(manager.doCommand("bar", null));
+		assertTrue(manager.doCommand("foo", null));
+	}
 
-    private class FooTarget implements Targetable {
+	//
+	// Some examples of Targets
+	//
 
-        public String FOO_ACTION = "foo";
+	private class FooTarget implements Targetable {
 
-        @Override
-        public boolean doCommand(Object command, Object value) {
-            return hasCommand(command);
-        }
+		public String FOO_ACTION = "foo";
 
-        @Override
-        public boolean hasCommand(Object command) {
-            if (command.equals(FOO_ACTION)) {
-                return true;
-            }
-            return false;
-        }
+		@Override
+		public boolean doCommand(Object command, Object value) {
+			return hasCommand(command);
+		}
 
-        @Override
-        public Object[] getCommands() {
-            return new Object[] { FOO_ACTION };
-        }
-    }
+		@Override
+		public boolean hasCommand(Object command) {
+			if (command.equals(FOO_ACTION)) {
+				return true;
+			}
+			return false;
+		}
 
-    private class BarTarget implements Targetable {
-        public String BAR_ACTION = "bar";
+		@Override
+		public Object[] getCommands() {
+			return new Object[] {FOO_ACTION};
+		}
+	}
 
-        @Override
-        public boolean doCommand(Object command, Object value) {
-            return hasCommand(command);
-        }
+	private class BarTarget implements Targetable {
+		public String BAR_ACTION = "bar";
 
-        @Override
-        public boolean hasCommand(Object command) {
-            if (command.equals(BAR_ACTION)) {
-                return true;
-            }
-            return false;
-        }
+		@Override
+		public boolean doCommand(Object command, Object value) {
+			return hasCommand(command);
+		}
 
-        @Override
-        public Object[] getCommands() {
-            return new Object[] { BAR_ACTION };
-        }
-    }
+		@Override
+		public boolean hasCommand(Object command) {
+			if (command.equals(BAR_ACTION)) {
+				return true;
+			}
+			return false;
+		}
+
+		@Override
+		public Object[] getCommands() {
+			return new Object[] {BAR_ACTION};
+		}
+	}
 }

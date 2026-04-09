@@ -23,4 +23,3 @@
  * {@code java.beans} package.
  */
 package org.jdesktop.beans;
-

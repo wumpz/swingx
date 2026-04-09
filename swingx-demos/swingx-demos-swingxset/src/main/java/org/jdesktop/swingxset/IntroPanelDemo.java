@@ -31,6 +31,7 @@
 
 package org.jdesktop.swingxset;
 
+import com.sun.swingset3.DemoProperties;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -39,10 +40,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.logging.Logger;
-
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.interpolation.PropertySetter;
 import org.jdesktop.application.Action;
@@ -54,169 +53,165 @@ import org.jdesktop.swingx.painter.CompoundPainter;
 import org.jdesktop.swingx.painter.ImagePainter;
 import org.jdesktop.swingx.util.GraphicsUtilities;
 
-import com.sun.swingset3.DemoProperties;
-
 /**
  *
  * @author Amy Fowler
  */
 @DemoProperties(
-        value = "IntroSplash",
-        category = "Intro",
-        description = "Demonstrates an in-application splash with animation effect.",
-        sourceFiles = {                
-                "org/jdesktop/swingxset/IntroPanelDemo.java",
-                "org/jdesktop/swingxset/SwingXSet.java",
-                "org/jdesktop/swingx/appframework/SingleXFrameApplication.java", 
-                "org/jdesktop/swingx/appframework/XProperties.java"
-                
-                }
-)
+		value = "IntroSplash",
+		category = "Intro",
+		description = "Demonstrates an in-application splash with animation effect.",
+		sourceFiles = {
+			"org/jdesktop/swingxset/IntroPanelDemo.java",
+			"org/jdesktop/swingxset/SwingXSet.java",
+			"org/jdesktop/swingx/appframework/SingleXFrameApplication.java",
+			"org/jdesktop/swingx/appframework/XProperties.java"
+		})
 /**
  * Intro panel which uses compound, animated painters to show the app image.
  */
 public class IntroPanelDemo extends JXPanel {
-    @SuppressWarnings("unused")
-    private static final Logger LOG = Logger.getLogger(IntroPanelDemo.class
-            .getName());
+	@SuppressWarnings("unused")
+	private static final Logger LOG = Logger.getLogger(IntroPanelDemo.class.getName());
 
-    private SlidingPainter textImagePainter;
+	private SlidingPainter textImagePainter;
 
-    private ImagePainter introImagePainter;
-    
-    public IntroPanelDemo() {
-        setName("introPanel");
-        
-        // <snip> ImagePainters for intro
-        introImagePainter = new ImagePainter();
-        introImagePainter.setFillHorizontal(true);
-        introImagePainter.setVerticalAlignment(VerticalAlignment.TOP);
-        
-        textImagePainter = new SlidingPainter();
-        textImagePainter.setVisible(false);
-        textImagePainter.setHorizontalAlignment(HorizontalAlignment.LEFT);
-        textImagePainter.setVerticalAlignment(VerticalAlignment.TOP);
-        
-        setBackgroundPainter(new CompoundPainter<Object>(introImagePainter, textImagePainter));
-        // </snip>
-        
+	private ImagePainter introImagePainter;
 
-        Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
+	public IntroPanelDemo() {
+		setName("introPanel");
 
-        bind();
-        
-    }
+		// <snip> ImagePainters for intro
+		introImagePainter = new ImagePainter();
+		introImagePainter.setFillHorizontal(true);
+		introImagePainter.setVerticalAlignment(VerticalAlignment.TOP);
 
-    /**
-     * 
-     */
-    private void bind() {
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent event) {
-                slideTextIn();
-            }
-        });
-    }
-    
-    /**
-     * Configures the intro image painter with the given image, converting
-     * to a BufferedImage if necessary.
-     * 
-     * @param image
-     */
-    public void setIntroImage(Image image) {
-        introImagePainter.setImage(image instanceof BufferedImage ? 
-                (BufferedImage) image : GraphicsUtilities.convertToBufferedImage(image));
-    }
-    
-    /**
-     * Configures the text image painter with the given image, converting
-     * to a BufferedImage if necessary.
-     *  
-     * @param image
-     */
-    // <snip> ImagePainters for intro
-    // the image is loaded via resource injection
-    public void setTextImage(Image image) {
-        textImagePainter.setImage(image instanceof BufferedImage ? 
-                (BufferedImage) image : GraphicsUtilities.convertToBufferedImage(image));
-    }
-    // </snip>
-    
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        // <snip> ImagePainters for intro
-        // start animation of text
-        if (!textImagePainter.isVisible()) {
-            slideTextIn();
-            textImagePainter.setVisible(true);
-        }
-    }
-    
-    // create, configure and start an animator on the painter's
-    // horizontal location
-    @Action
-    public void slideTextIn() {
-        Animator animator = new Animator(800, 
-                new PropertySetter(textImagePainter, "x", getWidth(), 30));
-        animator.setStartDelay(800);
-        animator.setAcceleration(.2f);
-        animator.setDeceleration(.5f);
-        animator.start();
-        // </snip>
-    }
-    
-    public void slideTextOut() {
-        Animator animator = new Animator(600, 
-                new PropertySetter(textImagePainter, "x", textImagePainter.getX(), -getWidth()));
-        animator.setStartDelay(10);
-        animator.setAcceleration(.5f);
-        animator.setDeceleration(.2f);
-        animator.start();        
-    }
-    
-    public class SlidingPainter extends ImagePainter {
-        public SlidingPainter(BufferedImage image) {
-            super(image);
-            // move out of the way ;-)
-            setX(2000);
-        }
-        
-        public SlidingPainter() {
-            this(null);
-        }
+		textImagePainter = new SlidingPainter();
+		textImagePainter.setVisible(false);
+		textImagePainter.setHorizontalAlignment(HorizontalAlignment.LEFT);
+		textImagePainter.setVerticalAlignment(VerticalAlignment.TOP);
 
-        public void setX(int x) {
-            setInsets(new Insets(110, x, 0, 0));
-            // hack around an open issue in swingx:
-            // CompoundPainter doesn't propagate property changes of contained
-            // painters
-            repaint();
-        }
-        
-        public int getX() {
-            return getInsets() != null ? getInsets().left : 0;
-        }
-    }
+		setBackgroundPainter(new CompoundPainter<Object>(introImagePainter, textImagePainter));
+		// </snip>
 
-    /**
-     * main method allows us to run as a standalone demo.
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                JFrame frame = new JFrame(IntroPanelDemo.class.getAnnotation(DemoProperties.class).value());
-                
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.getContentPane().add(new IntroPanelDemo());
-                frame.setPreferredSize(new Dimension(800, 600));
-                frame.pack();
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
-            }
-        });
-    }
+		Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 
+		bind();
+	}
+
+	/**
+	 *
+	 */
+	private void bind() {
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent event) {
+				slideTextIn();
+			}
+		});
+	}
+
+	/**
+	 * Configures the intro image painter with the given image, converting
+	 * to a BufferedImage if necessary.
+	 *
+	 * @param image
+	 */
+	public void setIntroImage(Image image) {
+		introImagePainter.setImage(
+				image instanceof BufferedImage
+						? (BufferedImage) image
+						: GraphicsUtilities.convertToBufferedImage(image));
+	}
+
+	/**
+	 * Configures the text image painter with the given image, converting
+	 * to a BufferedImage if necessary.
+	 *
+	 * @param image
+	 */
+	// <snip> ImagePainters for intro
+	// the image is loaded via resource injection
+	public void setTextImage(Image image) {
+		textImagePainter.setImage(
+				image instanceof BufferedImage
+						? (BufferedImage) image
+						: GraphicsUtilities.convertToBufferedImage(image));
+	}
+	// </snip>
+
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		// <snip> ImagePainters for intro
+		// start animation of text
+		if (!textImagePainter.isVisible()) {
+			slideTextIn();
+			textImagePainter.setVisible(true);
+		}
+	}
+
+	// create, configure and start an animator on the painter's
+	// horizontal location
+	@Action
+	public void slideTextIn() {
+		Animator animator = new Animator(800, new PropertySetter(textImagePainter, "x", getWidth(), 30));
+		animator.setStartDelay(800);
+		animator.setAcceleration(.2f);
+		animator.setDeceleration(.5f);
+		animator.start();
+		// </snip>
+	}
+
+	public void slideTextOut() {
+		Animator animator =
+				new Animator(600, new PropertySetter(textImagePainter, "x", textImagePainter.getX(), -getWidth()));
+		animator.setStartDelay(10);
+		animator.setAcceleration(.5f);
+		animator.setDeceleration(.2f);
+		animator.start();
+	}
+
+	public class SlidingPainter extends ImagePainter {
+		public SlidingPainter(BufferedImage image) {
+			super(image);
+			// move out of the way ;-)
+			setX(2000);
+		}
+
+		public SlidingPainter() {
+			this(null);
+		}
+
+		public void setX(int x) {
+			setInsets(new Insets(110, x, 0, 0));
+			// hack around an open issue in swingx:
+			// CompoundPainter doesn't propagate property changes of contained
+			// painters
+			repaint();
+		}
+
+		public int getX() {
+			return getInsets() != null ? getInsets().left : 0;
+		}
+	}
+
+	/**
+	 * main method allows us to run as a standalone demo.
+	 */
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				JFrame frame = new JFrame(
+						IntroPanelDemo.class.getAnnotation(DemoProperties.class).value());
+
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				frame.getContentPane().add(new IntroPanelDemo());
+				frame.setPreferredSize(new Dimension(800, 600));
+				frame.pack();
+				frame.setLocationRelativeTo(null);
+				frame.setVisible(true);
+			}
+		});
+	}
 }

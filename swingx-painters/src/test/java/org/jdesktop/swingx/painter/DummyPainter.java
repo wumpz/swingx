@@ -27,11 +27,10 @@ import java.awt.Graphics2D;
  * @author rbair
  */
 class DummyPainter extends AbstractPainter<Object> {
-    public DummyPainter() {
-        super();
-    }
+	public DummyPainter() {
+		super();
+	}
 
-    @Override
-    protected void doPaint(Graphics2D g, Object obj, int width, int height) {
-    }
+	@Override
+	protected void doPaint(Graphics2D g, Object obj, int width, int height) {}
 }

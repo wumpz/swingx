@@ -8,19 +8,18 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
 package org.jdesktop.swingx.multislider;
-
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,88 +32,88 @@ import java.util.List;
  * @author joshy
  */
 public class DefaultMultiThumbModel<E> extends AbstractMultiThumbModel<E> {
-    
-    protected List<Thumb<E>>thumbs = new ArrayList<>();
-    
-    /** Creates a new instance of DefaultMultiThumbModel */
-    public DefaultMultiThumbModel() {
-        setMinimumValue(0.0f);
-        setMaximumValue(1.0f);
-    }
-    // returns the index of the newly added thumb
-    @Override
-    public int addThumb(float value, E obj) {
-        Thumb<E> thumb = new Thumb<>(this);
-        thumb.setPosition(value);
-        thumb.setObject(obj);
-        thumbs.add(thumb);
-        int n = thumbs.size();
-        ThumbDataEvent evt = new ThumbDataEvent(this,-1,thumbs.size()-1,thumb);
-        for(ThumbDataListener tdl : thumbDataListeners) {
-            tdl.thumbAdded(evt);
-        }
-        return n-1;
-    }
 
-    @Override
-    public void insertThumb(float value, E obj, int index) {
-        Thumb<E> thumb = new Thumb<>(this);
-        thumb.setPosition(value);
-        thumb.setObject(obj);
-        thumbs.add(index,thumb);
-        ThumbDataEvent evt = new ThumbDataEvent(this,-1,index,thumb);
-        for(ThumbDataListener tdl : thumbDataListeners) {
-            tdl.thumbAdded(evt);
-        }
-    }
+	protected List<Thumb<E>> thumbs = new ArrayList<>();
 
-    @Override
-    public void removeThumb(int index) {
-        Thumb<E> thumb = thumbs.remove(index);
-        ThumbDataEvent evt = new ThumbDataEvent(this,-1,index,thumb);
-        for(ThumbDataListener tdl : thumbDataListeners) {
-            tdl.thumbRemoved(evt);
-        }
-    }
+	/** Creates a new instance of DefaultMultiThumbModel */
+	public DefaultMultiThumbModel() {
+		setMinimumValue(0.0f);
+		setMaximumValue(1.0f);
+	}
+	// returns the index of the newly added thumb
+	@Override
+	public int addThumb(float value, E obj) {
+		Thumb<E> thumb = new Thumb<>(this);
+		thumb.setPosition(value);
+		thumb.setObject(obj);
+		thumbs.add(thumb);
+		int n = thumbs.size();
+		ThumbDataEvent evt = new ThumbDataEvent(this, -1, thumbs.size() - 1, thumb);
+		for (ThumbDataListener tdl : thumbDataListeners) {
+			tdl.thumbAdded(evt);
+		}
+		return n - 1;
+	}
 
-    @Override
-    public int getThumbCount() {
-        return thumbs.size();
-    }
+	@Override
+	public void insertThumb(float value, E obj, int index) {
+		Thumb<E> thumb = new Thumb<>(this);
+		thumb.setPosition(value);
+		thumb.setObject(obj);
+		thumbs.add(index, thumb);
+		ThumbDataEvent evt = new ThumbDataEvent(this, -1, index, thumb);
+		for (ThumbDataListener tdl : thumbDataListeners) {
+			tdl.thumbAdded(evt);
+		}
+	}
 
-    @Override
-    public Thumb<E> getThumbAt(int index) {
-        return thumbs.get(index);
-    }
+	@Override
+	public void removeThumb(int index) {
+		Thumb<E> thumb = thumbs.remove(index);
+		ThumbDataEvent evt = new ThumbDataEvent(this, -1, index, thumb);
+		for (ThumbDataListener tdl : thumbDataListeners) {
+			tdl.thumbRemoved(evt);
+		}
+	}
 
-    @Override
-    public List<Thumb<E>> getSortedThumbs() {
-        List<Thumb<E>> list = new ArrayList<>();
-        list.addAll(thumbs);
-        Collections.sort(list, new Comparator<Thumb<E>>() {
-            @Override
-            public int compare(Thumb<E> o1, Thumb<E> o2) {
-                float f1 = o1.getPosition();
-                float f2 = o2.getPosition();
-                if(f1<f2) {
-                    return -1;
-                }
-                if(f1>f2) {
-                    return 1;
-                }
-                return 0;
-            }
-        });
-        return list;
-    }
+	@Override
+	public int getThumbCount() {
+		return thumbs.size();
+	}
 
-    @Override
-    public Iterator<Thumb<E>> iterator() {
-        return thumbs.iterator();
-    }
+	@Override
+	public Thumb<E> getThumbAt(int index) {
+		return thumbs.get(index);
+	}
 
-    @Override
-    public int getThumbIndex(Thumb<E> thumb) {
-        return thumbs.indexOf(thumb);
-    }
+	@Override
+	public List<Thumb<E>> getSortedThumbs() {
+		List<Thumb<E>> list = new ArrayList<>();
+		list.addAll(thumbs);
+		Collections.sort(list, new Comparator<Thumb<E>>() {
+			@Override
+			public int compare(Thumb<E> o1, Thumb<E> o2) {
+				float f1 = o1.getPosition();
+				float f2 = o2.getPosition();
+				if (f1 < f2) {
+					return -1;
+				}
+				if (f1 > f2) {
+					return 1;
+				}
+				return 0;
+			}
+		});
+		return list;
+	}
+
+	@Override
+	public Iterator<Thumb<E>> iterator() {
+		return thumbs.iterator();
+	}
+
+	@Override
+	public int getThumbIndex(Thumb<E> thumb) {
+		return thumbs.indexOf(thumb);
+	}
 }

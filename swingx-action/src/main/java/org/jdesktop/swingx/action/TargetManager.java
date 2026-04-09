@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -29,12 +29,9 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.JComponent;
-
-
 
 /**
  * The target manager dispatches commands to {@link Targetable} objects
@@ -84,201 +81,199 @@ import javax.swing.JComponent;
  */
 public class TargetManager {
 
-    private static TargetManager INSTANCE;
-    private List<Targetable> targetList;
-    private Targetable target;
-    private PropertyChangeSupport propertySupport;
+	private static TargetManager INSTANCE;
+	private List<Targetable> targetList;
+	private Targetable target;
+	private PropertyChangeSupport propertySupport;
 
-    /**
-     * Create a target manager. Use this constructor if the application
-     * may support many target managers. Otherwise, using the getInstance method
-     * will return a singleton.
-     */
-    public TargetManager() {
-        propertySupport = new PropertyChangeSupport(this);
-    }
+	/**
+	 * Create a target manager. Use this constructor if the application
+	 * may support many target managers. Otherwise, using the getInstance method
+	 * will return a singleton.
+	 */
+	public TargetManager() {
+		propertySupport = new PropertyChangeSupport(this);
+	}
 
-    /**
-     * Return the singleton instance.
-     */
-    public static TargetManager getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new TargetManager();
-        }
-        return INSTANCE;
-    }
+	/**
+	 * Return the singleton instance.
+	 */
+	public static TargetManager getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new TargetManager();
+		}
+		return INSTANCE;
+	}
 
-    /**
-     * Add a target to the target list. Will be appended
-     * to the list by default. If the prepend flag is true then
-     * the target will be added at the head of the list.
-     * <p>
-     * Targets added to the head of the list will will be the first
-     * to handle the command.
-     *
-     * @param target the targeted object to add
-     * @param prepend if true add at the head of the list; false append
-     */
-    public void addTarget(Targetable target, boolean prepend) {
-        if (targetList == null) {
-            targetList = new ArrayList<>();
-        }
-        if (prepend) {
-            targetList.add(0, target);
-        } else {
-            targetList.add(target);
-        }
-        // Should add focus listener to the component.
-    }
+	/**
+	 * Add a target to the target list. Will be appended
+	 * to the list by default. If the prepend flag is true then
+	 * the target will be added at the head of the list.
+	 * <p>
+	 * Targets added to the head of the list will will be the first
+	 * to handle the command.
+	 *
+	 * @param target the targeted object to add
+	 * @param prepend if true add at the head of the list; false append
+	 */
+	public void addTarget(Targetable target, boolean prepend) {
+		if (targetList == null) {
+			targetList = new ArrayList<>();
+		}
+		if (prepend) {
+			targetList.add(0, target);
+		} else {
+			targetList.add(target);
+		}
+		// Should add focus listener to the component.
+	}
 
-    /**
-     * Appends the target to the target list.
-     * @param target the targeted object to add
-     */
-    public void addTarget(Targetable target) {
-        addTarget(target, false);
-    }
+	/**
+	 * Appends the target to the target list.
+	 * @param target the targeted object to add
+	 */
+	public void addTarget(Targetable target) {
+		addTarget(target, false);
+	}
 
-    /**
-     * Remove the target from the list
-     */
-    public void removeTarget(Targetable target) {
-        if (targetList != null) {
-            targetList.remove(target);
-        }
-    }
+	/**
+	 * Remove the target from the list
+	 */
+	public void removeTarget(Targetable target) {
+		if (targetList != null) {
+			targetList.remove(target);
+		}
+	}
 
-    /**
-     * Returns an array of managed targets that were added with the
-     * <code>addTarget</code> methods.
-     *
-     * @return all the <code>Targetable</code> added or an empty array if no
-     *         targets have been added
-     */
-    public Targetable[] getTargets() {
-        Targetable[] targets;
-        if (targetList == null) {
-            targets = new Targetable[0];
-        } else {
-            targets = new Targetable[targetList.size()];
-            targets = (Targetable[])targetList.toArray(new Targetable[targetList.size()]);
-        }
-        return targets;
-    }
+	/**
+	 * Returns an array of managed targets that were added with the
+	 * <code>addTarget</code> methods.
+	 *
+	 * @return all the <code>Targetable</code> added or an empty array if no
+	 *         targets have been added
+	 */
+	public Targetable[] getTargets() {
+		Targetable[] targets;
+		if (targetList == null) {
+			targets = new Targetable[0];
+		} else {
+			targets = new Targetable[targetList.size()];
+			targets = (Targetable[]) targetList.toArray(new Targetable[targetList.size()]);
+		}
+		return targets;
+	}
 
-    /**
-     * Gets the current targetable component. May or may not
-     * in the target list. If the current target is null then
-     * the the current targetable component will be the first one
-     * in the target list which can execute the command.
-     *
-     * This is a bound property and will fire a property change event
-     * if the value changes.
-     *
-     * @param newTarget the current targetable component to set or null if
-     *       the TargetManager shouldn't have a current targetable component.
-     */
-    public void setTarget(Targetable newTarget) {
-        Targetable oldTarget = target;
-        if (oldTarget != newTarget) {
-            target = newTarget;
-            propertySupport.firePropertyChange("target", oldTarget, newTarget);
-        }
-    }
+	/**
+	 * Gets the current targetable component. May or may not
+	 * in the target list. If the current target is null then
+	 * the the current targetable component will be the first one
+	 * in the target list which can execute the command.
+	 *
+	 * This is a bound property and will fire a property change event
+	 * if the value changes.
+	 *
+	 * @param newTarget the current targetable component to set or null if
+	 *       the TargetManager shouldn't have a current targetable component.
+	 */
+	public void setTarget(Targetable newTarget) {
+		Targetable oldTarget = target;
+		if (oldTarget != newTarget) {
+			target = newTarget;
+			propertySupport.firePropertyChange("target", oldTarget, newTarget);
+		}
+	}
 
-    /**
-     * Return the current targetable component. The curent targetable component
-     * is the first place where commands will be dispatched.
-     *
-     * @return the current targetable component or null
-     */
-    public Targetable getTarget() {
-        return target;
-    }
+	/**
+	 * Return the current targetable component. The curent targetable component
+	 * is the first place where commands will be dispatched.
+	 *
+	 * @return the current targetable component or null
+	 */
+	public Targetable getTarget() {
+		return target;
+	}
 
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        propertySupport.addPropertyChangeListener(listener);
-    }
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		propertySupport.addPropertyChangeListener(listener);
+	}
 
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        propertySupport.removePropertyChangeListener(listener);
-    }
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		propertySupport.removePropertyChangeListener(listener);
+	}
 
-    /**
-     * Executes the command on the current targetable component.
-     * If there isn't current targetable component then the list
-     * of targetable components are searched and the first component
-     * which can execute the command. If none of the targetable
-     * components handle the command then the ActionMaps of the
-     * focused components are searched.
-     *
-     * @param command the key of the command
-     * @param value the value of the command; depends on context
-     * @return true if the command has been handled otherwise false
-     */
-    public boolean doCommand(Object command, Object value) {
-        // Try to invoked the explicit target.
-        if (target != null) {
-            if (target.hasCommand(command) && target.doCommand(command, value)) {
-                return true;
-            }
-        }
+	/**
+	 * Executes the command on the current targetable component.
+	 * If there isn't current targetable component then the list
+	 * of targetable components are searched and the first component
+	 * which can execute the command. If none of the targetable
+	 * components handle the command then the ActionMaps of the
+	 * focused components are searched.
+	 *
+	 * @param command the key of the command
+	 * @param value the value of the command; depends on context
+	 * @return true if the command has been handled otherwise false
+	 */
+	public boolean doCommand(Object command, Object value) {
+		// Try to invoked the explicit target.
+		if (target != null) {
+			if (target.hasCommand(command) && target.doCommand(command, value)) {
+				return true;
+			}
+		}
 
-        // The target list has the next chance to handle the command.
-        if (targetList != null) {
-            Iterator<Targetable> iter = targetList.iterator();
-            while (iter.hasNext()) {
-                Targetable target = iter.next();
-                if (target.hasCommand(command) &&
-                    target.doCommand(command, value)) {
-                    return true;
-                }
-            }
-        }
+		// The target list has the next chance to handle the command.
+		if (targetList != null) {
+			Iterator<Targetable> iter = targetList.iterator();
+			while (iter.hasNext()) {
+				Targetable target = iter.next();
+				if (target.hasCommand(command) && target.doCommand(command, value)) {
+					return true;
+				}
+			}
+		}
 
-        ActionEvent evt = null;
-        if (value instanceof ActionEvent) {
-            evt = (ActionEvent)value;
-        }
+		ActionEvent evt = null;
+		if (value instanceof ActionEvent) {
+			evt = (ActionEvent) value;
+		}
 
-        // Fall back behavior. Get the component which has focus and search the
-        // ActionMaps in the containment hierarchy for matching action.
-        Component comp = KeyboardFocusManager.getCurrentKeyboardFocusManager().getPermanentFocusOwner();
-        while (comp != null) {
-            if (comp instanceof JComponent) {
-                ActionMap map = ((JComponent)comp).getActionMap();
-                Action action = map.get(command);
-                if (action != null) {
-                    if (evt == null) {
-                        evt = new ActionEvent(comp, 0, command.toString());
-                    }
-                    action.actionPerformed(evt);
+		// Fall back behavior. Get the component which has focus and search the
+		// ActionMaps in the containment hierarchy for matching action.
+		Component comp = KeyboardFocusManager.getCurrentKeyboardFocusManager().getPermanentFocusOwner();
+		while (comp != null) {
+			if (comp instanceof JComponent) {
+				ActionMap map = ((JComponent) comp).getActionMap();
+				Action action = map.get(command);
+				if (action != null) {
+					if (evt == null) {
+						evt = new ActionEvent(comp, 0, command.toString());
+					}
+					action.actionPerformed(evt);
 
-                    return true;
-                }
-            }
-            comp = comp.getParent();
-        }
+					return true;
+				}
+			}
+			comp = comp.getParent();
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    /**
-     * Resets the TargetManager.
-     * This method is package private and for testing purposes only.
-     */
-    void reset() {
-        if (targetList != null) {
-            targetList.clear();
-            targetList = null;
-        }
-        target = null;
+	/**
+	 * Resets the TargetManager.
+	 * This method is package private and for testing purposes only.
+	 */
+	void reset() {
+		if (targetList != null) {
+			targetList.clear();
+			targetList = null;
+		}
+		target = null;
 
-        PropertyChangeListener[] listeners = propertySupport.getPropertyChangeListeners();
-        for (PropertyChangeListener listener : listeners) {
-            propertySupport.removePropertyChangeListener(listener);
-        }
-        INSTANCE = null;
-    }
-
+		PropertyChangeListener[] listeners = propertySupport.getPropertyChangeListeners();
+		for (PropertyChangeListener listener : listeners) {
+			propertySupport.removePropertyChangeListener(listener);
+		}
+		INSTANCE = null;
+	}
 }

@@ -26,7 +26,6 @@ import java.awt.Insets;
 import java.awt.Paint;
 import java.awt.Rectangle;
 import java.awt.Shape;
-
 import org.jdesktop.beans.JavaBean;
 
 /**
@@ -36,7 +35,7 @@ import org.jdesktop.beans.JavaBean;
  *  MattePainter p = new MattePainter(Color.GREEN);
  *  panel.setBackgroundPainter(p);
  * </code></pre></p>
- * 
+ *
  * <p>Since it accepts a Paint, it is also possible to paint a texture or use other
  * more exotic Paint implementations. To paint a BufferedImage texture as the
  * background:
@@ -46,73 +45,71 @@ import org.jdesktop.beans.JavaBean;
  *  MattePainter p = new MattePainter(paint);
  *  panel.setBackgroundPainter(p);
  * </code></pre></p>
- * 
+ *
  * <p>If no paint is specified, then nothing is painted</p>
  * @author rbair
  */
 @JavaBean
 public class MattePainter extends AbstractAreaPainter<Object> {
-    
-    /**
-     * Creates a new MattePainter with "null" as the paint used
-     */
-    public MattePainter() {
-    }
-    
-    /**
-     * Create a new MattePainter for the given Paint. This can be a GradientPaint
-     * (the gradient will not grow when the component becomes larger unless
-     * you use the paintStretched boolean property), 
-     * TexturePaint, Color, or other Paint instance.
-     *
-     * @param paint Paint to fill with
-     */
-    public MattePainter(Paint paint) {
-        super(paint);
-    }
-    
-    /**
-     * Create a new MattePainter for the given Paint. This can be a GradientPaint
-     * (the gradient will not grow when the component becomes larger unless
-     * you use the paintStretched boolean property), 
-     * TexturePaint, Color, or other Paint instance.
-     *
-     * @param paint Paint to fill with
-     * @param paintStretched indicates if the paint should be stretched
-     */
-    public MattePainter(Paint paint, boolean paintStretched) {
-        super(paint);
-        this.setPaintStretched(paintStretched);
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void doPaint(Graphics2D g, Object component, int width, int height) {
-        Paint p = getFillPaint();
-        
-        if (p != null) {
-            Insets insets = getInsets();
-            int w = width - insets.left - insets.right;
-            int h = height - insets.top - insets.bottom;
 
-            if (isPaintStretched()) {
-                p = calculateSnappedPaint(p, w, h);
-            }
+	/**
+	 * Creates a new MattePainter with "null" as the paint used
+	 */
+	public MattePainter() {}
 
-            g.translate(insets.left, insets.top);
-            g.setPaint(p);
-            g.fill(provideShape(g, component, w, h));
-        }
-    }
+	/**
+	 * Create a new MattePainter for the given Paint. This can be a GradientPaint
+	 * (the gradient will not grow when the component becomes larger unless
+	 * you use the paintStretched boolean property),
+	 * TexturePaint, Color, or other Paint instance.
+	 *
+	 * @param paint Paint to fill with
+	 */
+	public MattePainter(Paint paint) {
+		super(paint);
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected Shape provideShape(Graphics2D g, Object comp, int width, int height) {
-        return new Rectangle(0,0,width,height);
-    }
-    
+	/**
+	 * Create a new MattePainter for the given Paint. This can be a GradientPaint
+	 * (the gradient will not grow when the component becomes larger unless
+	 * you use the paintStretched boolean property),
+	 * TexturePaint, Color, or other Paint instance.
+	 *
+	 * @param paint Paint to fill with
+	 * @param paintStretched indicates if the paint should be stretched
+	 */
+	public MattePainter(Paint paint, boolean paintStretched) {
+		super(paint);
+		this.setPaintStretched(paintStretched);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void doPaint(Graphics2D g, Object component, int width, int height) {
+		Paint p = getFillPaint();
+
+		if (p != null) {
+			Insets insets = getInsets();
+			int w = width - insets.left - insets.right;
+			int h = height - insets.top - insets.bottom;
+
+			if (isPaintStretched()) {
+				p = calculateSnappedPaint(p, w, h);
+			}
+
+			g.translate(insets.left, insets.top);
+			g.setPaint(p);
+			g.fill(provideShape(g, component, w, h));
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected Shape provideShape(Graphics2D g, Object comp, int width, int height) {
+		return new Rectangle(0, 0, width, height);
+	}
 }

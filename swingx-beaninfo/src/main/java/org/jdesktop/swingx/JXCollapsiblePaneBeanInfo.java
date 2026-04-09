@@ -21,37 +21,36 @@
 package org.jdesktop.swingx;
 
 import java.beans.BeanDescriptor;
-
 import org.jdesktop.beans.BeanInfoSupport;
 import org.jdesktop.beans.editors.EnumPropertyEditor;
 
 /**
  * BeanInfo class for JXCollapsiblePane.
- * 
+ *
  * @author Jan Stola
  */
 public class JXCollapsiblePaneBeanInfo extends BeanInfoSupport {
-    /** Constructor for the JXCollapsiblePaneBeanInfo object */
-    public JXCollapsiblePaneBeanInfo() {
-        super(JXCollapsiblePane.class);        
-    }
+	/** Constructor for the JXCollapsiblePaneBeanInfo object */
+	public JXCollapsiblePaneBeanInfo() {
+		super(JXCollapsiblePane.class);
+	}
 
-    @Override
-    protected void initialize() {
-        BeanDescriptor bd = getBeanDescriptor();
-        bd.setName("JXCollapsiblePane");
-        bd.setShortDescription("A pane which hides its content with an animation.");
-        bd.setValue("isContainer", Boolean.TRUE);
-        bd.setValue("containerDelegate", "getContentPane");
-        
-        setPreferred(true, "animated", "collapsed", "direction");
-        setBound(true, "animated", "collapsed", "direction");
-        setPropertyEditor(DirectionPropertyEditor.class, "direction");
-    }
+	@Override
+	protected void initialize() {
+		BeanDescriptor bd = getBeanDescriptor();
+		bd.setName("JXCollapsiblePane");
+		bd.setShortDescription("A pane which hides its content with an animation.");
+		bd.setValue("isContainer", Boolean.TRUE);
+		bd.setValue("containerDelegate", "getContentPane");
 
-    public static final class DirectionPropertyEditor extends EnumPropertyEditor<JXCollapsiblePane.Direction> {
-    	public DirectionPropertyEditor() {
-    		super(JXCollapsiblePane.Direction.class);
-    	}
-    }
+		setPreferred(true, "animated", "collapsed", "direction");
+		setBound(true, "animated", "collapsed", "direction");
+		setPropertyEditor(DirectionPropertyEditor.class, "direction");
+	}
+
+	public static final class DirectionPropertyEditor extends EnumPropertyEditor<JXCollapsiblePane.Direction> {
+		public DirectionPropertyEditor() {
+			super(JXCollapsiblePane.Direction.class);
+		}
+	}
 }

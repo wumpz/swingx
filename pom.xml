@@ -1,90 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<parent>
-		<groupId>net.java</groupId>
-		<artifactId>jvnet-parent</artifactId>
-		<version>5</version>
-	</parent>
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.swinglabs.swingx</groupId>
-	<artifactId>swingx-project</artifactId>
-	<packaging>pom</packaging>
-	<name>SwingX</name>
-	<version>2.0-SNAPSHOT</version>
-	<url>https://github.com/wumpz/swingx</url>
-	<licenses>
-		<license>
-			<name>Lesser General Public License (LGPL)</name>
-			<url>http://www.gnu.org/copyleft/lesser.html</url>
-		</license>
-	</licenses>
-	<issueManagement>
-		<system>github</system>
-		<url>https://github.com/wumpz/swingx/issues</url>
-	</issueManagement>
-	<description>Contains extensions to the Swing GUI toolkit, including new and enhanced components that provide functionality commonly required by rich client applications.</description>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.12.0</version>
-				<configuration>
-					<tags>
-						<tag>
-							<!-- implementation tag for methods -->
-							<name>impl</name>
-							<placement>m</placement>
-							<head>This implementation:</head>
-						</tag>
-						<tag>
-							<!-- status tag for types -->
-							<name>status</name>
-							<placement>t</placement>
-							<head>API Status:</head>
-						</tag>
-					</tags>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.15.0</version>
-				<configuration>
-					<source>17</source>
-					<target>17</target>
-					<generatedSourcesDirectory>${project.generatedAnnotations}</generatedSourcesDirectory>
-					<showWarnings>true</showWarnings>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.5.5</version>
-				<configuration>
-					<reuseForks>false</reuseForks>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.5.0</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<!-- version inherited from parent (2.1) -->
-				<configuration>
-					<autoVersionSubmodules>true</autoVersionSubmodules>
-				</configuration>
-			</plugin>
-			<!--plugin>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>net.java</groupId>
+    <artifactId>jvnet-parent</artifactId>
+    <version>5</version>
+  </parent>
+  <groupId>org.swinglabs.swingx</groupId>
+  <artifactId>swingx-project</artifactId>
+  <version>2.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>SwingX</name>
+  <description>Contains extensions to the Swing GUI toolkit, including new and enhanced components that provide functionality commonly required by rich client applications.</description>
+  <url>https://github.com/wumpz/swingx</url>
+  <licenses>
+    <license>
+      <name>Lesser General Public License (LGPL)</name>
+      <url>http://www.gnu.org/copyleft/lesser.html</url>
+    </license>
+  </licenses>
+  <modules>
+    <module>swingx-mavensupport</module>
+    <module>swingx-testsupport</module>
+    <module>swingx-common</module>
+    <module>swingx-autocomplete</module>
+    <module>swingx-action</module>
+    <module>swingx-painters</module>
+    <module>swingx-graphics</module>
+    <module>swingx-plaf</module>
+    <module>swingx-core</module>
+    <module>swingx-all</module>
+    <module>swingx-beaninfo</module>
+    <!-- <module>swingx-maps</module > 
+		<module>swingx-experimental</module> -->
+    <module>swingx-demos</module>
+  </modules>
+  <issueManagement>
+    <system>github</system>
+    <url>https://github.com/wumpz/swingx/issues</url>
+  </issueManagement>
+  <properties>
+    <project.generatedSourcesDirectory>${project.build.directory}/generated-sources</project.generatedSourcesDirectory>
+    <project.generatedAnnotations>${project.generatedSourcesDirectory}/annotations</project.generatedAnnotations>
+  </properties>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>5.14.3</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-junit</artifactId>
+        <version>2.0.0.0</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.20.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.jhlabs</groupId>
+        <artifactId>filters</artifactId>
+        <version>2.0.235</version>
+        <type>jar</type>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>5.23.0</version>
+        <type>jar</type>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <!-- this is an external source dependency for building ServiceLoader service files marking optional 
+			so we do not export this source only dependency to our consumers specify here to ensure that file movement 
+			maintains correct services across all modules -->
+      <groupId>org.kohsuke.metainf-services</groupId>
+      <artifactId>metainf-services</artifactId>
+      <version>1.8</version>
+      <type>jar</type>
+      <scope>compile</scope>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.12.0</version>
+        <configuration>
+          <tags>
+            <tag>
+              <!-- implementation tag for methods -->
+              <name>impl</name>
+              <placement>m</placement>
+              <head>This implementation:</head>
+            </tag>
+            <tag>
+              <!-- status tag for types -->
+              <name>status</name>
+              <placement>t</placement>
+              <head>API Status:</head>
+            </tag>
+          </tags>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.15.0</version>
+        <configuration>
+          <source>17</source>
+          <target>17</target>
+          <generatedSourcesDirectory>${project.generatedAnnotations}</generatedSourcesDirectory>
+          <showWarnings>true</showWarnings>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.5.5</version>
+        <configuration>
+          <reuseForks>false</reuseForks>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.5.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <!-- version inherited from parent (2.1) -->
+        <configuration>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+        </configuration>
+      </plugin>
+      <!--plugin>
 				<groupId>org.openrewrite.maven</groupId>
 				<artifactId>rewrite-maven-plugin</artifactId>
 				<version>6.35.0</version>
@@ -101,7 +170,7 @@
           </dependency>
         </dependencies>
 			</plugin-->
-			<plugin>
+      <plugin>
         <groupId>com.diffplug.spotless</groupId>
         <artifactId>spotless-maven-plugin</artifactId>
         <version>3.4.0</version>
@@ -128,78 +197,10 @@
             <goals>
               <goal>apply</goal>
             </goals>
-						<phase>verify</phase>
+            <phase>verify</phase>
           </execution>
         </executions>
       </plugin>
-		</plugins>
-	</build>
-	<dependencies>
-		<dependency>
-			<!-- this is an external source dependency for building ServiceLoader service files marking optional 
-			so we do not export this source only dependency to our consumers specify here to ensure that file movement 
-			maintains correct services across all modules -->
-			<groupId>org.kohsuke.metainf-services</groupId>
-			<artifactId>metainf-services</artifactId>
-			<version>1.8</version>
-			<type>jar</type>
-			<scope>compile</scope>
-			<optional>true</optional>
-		</dependency>
-	</dependencies>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.junit.jupiter</groupId>
-				<artifactId>junit-jupiter</artifactId>
-				<version>5.14.3</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.hamcrest</groupId>
-				<artifactId>hamcrest-junit</artifactId>
-				<version>2.0.0.0</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-lang3</artifactId>
-				<version>3.20.0</version>
-			</dependency>
-			<dependency>
-				<groupId>com.jhlabs</groupId>
-				<artifactId>filters</artifactId>
-				<version>2.0.235</version>
-				<type>jar</type>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.mockito</groupId>
-				<artifactId>mockito-core</artifactId>
-				<version>5.23.0</version>
-				<type>jar</type>
-				<scope>test</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-	<properties>
-		<project.generatedSourcesDirectory>${project.build.directory}/generated-sources</project.generatedSourcesDirectory>
-		<project.generatedAnnotations>${project.generatedSourcesDirectory}/annotations</project.generatedAnnotations>
-	</properties>
-	<modules>
-		<module>swingx-mavensupport</module>
-		<module>swingx-testsupport</module>
-		<module>swingx-common</module>
-		<module>swingx-autocomplete</module>
-		<module>swingx-action</module>
-		<module>swingx-painters</module>
-		<module>swingx-graphics</module>
-		<module>swingx-plaf</module>
-		<module>swingx-core</module>
-		<module>swingx-all</module>
-		<module>swingx-beaninfo</module>
-		<!-- <module>swingx-maps</module > 
-		<module>swingx-experimental</module> -->
-		<module>swingx-demos</module>
-	</modules>
+    </plugins>
+  </build>
 </project>

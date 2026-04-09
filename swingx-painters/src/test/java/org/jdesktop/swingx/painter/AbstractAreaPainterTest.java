@@ -26,35 +26,33 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.awt.Color;
 import java.awt.Paint;
-
 import org.hamcrest.CoreMatchers;
 import org.jdesktop.swingx.painter.effects.AreaEffect;
 import org.junit.jupiter.api.Test;
-
 
 /**
  * Test for AbstractAreaPainter.
  */
 @SuppressWarnings({"rawtypes"})
 public class AbstractAreaPainterTest extends AbstractLayoutPainterTest {
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected AbstractAreaPainter createTestingPainter() {
-        return new DummyAreaPainter();
-    }
-    
-    @Test
-    @Override
-    public void testDefaults() {
-        super.testDefaults();
-        
-        AbstractAreaPainter aap = (AbstractAreaPainter) p;
-        assertThat(aap.getAreaEffects(), is(new AreaEffect[0]));
-        assertThat(aap.getBorderPaint(), is(nullValue()));
-        assertThat(aap.getBorderWidth(), is(0f));
-        assertThat(aap.getFillPaint(), CoreMatchers.<Paint>is(Color.RED));
-        assertThat(aap.getStyle(), is(AbstractAreaPainter.Style.BOTH));
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected AbstractAreaPainter createTestingPainter() {
+		return new DummyAreaPainter();
+	}
+
+	@Test
+	@Override
+	public void testDefaults() {
+		super.testDefaults();
+
+		AbstractAreaPainter aap = (AbstractAreaPainter) p;
+		assertThat(aap.getAreaEffects(), is(new AreaEffect[0]));
+		assertThat(aap.getBorderPaint(), is(nullValue()));
+		assertThat(aap.getBorderWidth(), is(0f));
+		assertThat(aap.getFillPaint(), CoreMatchers.<Paint>is(Color.RED));
+		assertThat(aap.getStyle(), is(AbstractAreaPainter.Style.BOTH));
+	}
 }

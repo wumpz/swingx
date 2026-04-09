@@ -21,34 +21,33 @@
 package org.jdesktop.swingx;
 
 import java.beans.BeanDescriptor;
-
 import org.jdesktop.beans.BeanInfoSupport;
 
 /**
  * BeanInfo class for JXTaskPane.
- * 
+ *
  * @author rbair, Jan Stola
  */
 public class JXTaskPaneBeanInfo extends BeanInfoSupport {
-    
-    /** Constructor for the JXTaskPaneBeanInfo object */
-    public JXTaskPaneBeanInfo() {
-        super(JXTaskPane.class);
-    }
-    
-    @Override
-    protected void initialize() {
-        BeanDescriptor bd = getBeanDescriptor();
-        
-        // setup bean descriptor in constructor.
-        bd.setName("JXTaskPane");
-        bd.setShortDescription("JXTaskPane is a container for tasks and other arbitrary components.");
-        bd.setValue("isContainer", Boolean.TRUE);
-        bd.setValue("containerDelegate", "getContentPane");
-        
-        setPreferred(true, "title", "icon", "special");
-        setPreferred(true, "animated", "scrollOnExpand", "collapsed", "font");
-        setBound(true, "title", "icon", "special", "scrollOnExpand", "collapsed");
-        setPreferred(false, "border");
-    }
+
+	/** Constructor for the JXTaskPaneBeanInfo object */
+	public JXTaskPaneBeanInfo() {
+		super(JXTaskPane.class);
+	}
+
+	@Override
+	protected void initialize() {
+		BeanDescriptor bd = getBeanDescriptor();
+
+		// setup bean descriptor in constructor.
+		bd.setName("JXTaskPane");
+		bd.setShortDescription("JXTaskPane is a container for tasks and other arbitrary components.");
+		bd.setValue("isContainer", Boolean.TRUE);
+		bd.setValue("containerDelegate", "getContentPane");
+
+		setPreferred(true, "title", "icon", "special");
+		setPreferred(true, "animated", "scrollOnExpand", "collapsed", "font");
+		setBound(true, "title", "icon", "special", "scrollOnExpand", "collapsed");
+		setPreferred(false, "border");
+	}
 }

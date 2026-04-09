@@ -11,7 +11,6 @@ import java.awt.KeyboardFocusManager;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.Icon;
@@ -22,7 +21,6 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.table.AbstractTableModel;
-
 import org.jdesktop.swingx.JXCollapsiblePane;
 import org.jdesktop.swingx.JXFindBar;
 import org.jdesktop.swingx.JXTable;
@@ -46,7 +44,7 @@ import org.jdesktop.swingx.util.DecoratorFactory;
  * <li>Stable moving of the Highlighter while dragging the Column-width</li>
  * <li>One row with different rowHeight</li>
  * </ul>
- * 
+ *
  * @author Thorsten Klimpel
  */
 public class JXTableFindBarMatchHighlighterDemo {
@@ -55,17 +53,26 @@ public class JXTableFindBarMatchHighlighterDemo {
 	private static JXFindBar findBar;
 
 	private static String[] data = {
-			"Some Strings to show the searching, matching and highlighting capabilities of the JXFindBar and the MatchingTextHighlighter",
-			"Who cut thi", "Nearly every sea is blue",
-			"You're right, I will stop" };
+		"Some Strings to show the searching, matching and highlighting capabilities of the JXFindBar and the MatchingTextHighlighter",
+		"Who cut thi",
+		"Nearly every sea is blue",
+		"You're right, I will stop"
+	};
 
-	private static String[] columns = { "align left", "align right", "center",
-			"align left + icon", "align right + icon", "center + icon",
-			"Length", "Upper-case" };
+	private static String[] columns = {
+		"align left",
+		"align right",
+		"center",
+		"align left + icon",
+		"align right + icon",
+		"center + icon",
+		"Length",
+		"Upper-case"
+	};
 
 	/**
 	 * It will all be done here.
-	 * 
+	 *
 	 * @param args will be ignored
 	 */
 	public static void main(String[] args) {
@@ -90,18 +97,12 @@ public class JXTableFindBarMatchHighlighterDemo {
 	}
 
 	private static void setColumnAlignments() {
-		table.getColumnExt(0).setCellRenderer(
-				new DefaultTableRenderer(null, SwingConstants.LEADING));
-		table.getColumnExt(1).setCellRenderer(
-				new DefaultTableRenderer(null, SwingConstants.TRAILING));
-		table.getColumnExt(2).setCellRenderer(
-				new DefaultTableRenderer(null, SwingConstants.CENTER));
-		table.getColumnExt(3).setCellRenderer(
-				new DefaultTableRenderer(null, SwingConstants.LEADING));
-		table.getColumnExt(4).setCellRenderer(
-				new DefaultTableRenderer(null, SwingConstants.TRAILING));
-		table.getColumnExt(5).setCellRenderer(
-				new DefaultTableRenderer(null, SwingConstants.CENTER));
+		table.getColumnExt(0).setCellRenderer(new DefaultTableRenderer(null, SwingConstants.LEADING));
+		table.getColumnExt(1).setCellRenderer(new DefaultTableRenderer(null, SwingConstants.TRAILING));
+		table.getColumnExt(2).setCellRenderer(new DefaultTableRenderer(null, SwingConstants.CENTER));
+		table.getColumnExt(3).setCellRenderer(new DefaultTableRenderer(null, SwingConstants.LEADING));
+		table.getColumnExt(4).setCellRenderer(new DefaultTableRenderer(null, SwingConstants.TRAILING));
+		table.getColumnExt(5).setCellRenderer(new DefaultTableRenderer(null, SwingConstants.CENTER));
 	}
 
 	private static void addIconsToSomeColumns() {
@@ -123,16 +124,15 @@ public class JXTableFindBarMatchHighlighterDemo {
 			}
 		};
 
-		IconHighlighter iconHighlighter = new IconHighlighter(
-				new HighlightPredicate.ColumnHighlightPredicate(3, 4, 5), icon);
+		IconHighlighter iconHighlighter =
+				new IconHighlighter(new HighlightPredicate.ColumnHighlightPredicate(3, 4, 5), icon);
 		table.addHighlighter(iconHighlighter);
 	}
 
 	private static JXCollapsiblePane connectCollapsibleFindBarWithTable() {
 		final JXCollapsiblePane collapsible = new JXCollapsiblePane();
 		findBar = SearchFactory.getInstance().createFindBar();
-		table.putClientProperty(AbstractSearchable.MATCH_HIGHLIGHTER,
-				Boolean.TRUE);
+		table.putClientProperty(AbstractSearchable.MATCH_HIGHLIGHTER, Boolean.TRUE);
 		findBar.setSearchable(table.getSearchable());
 		collapsible.add(findBar);
 		collapsible.setCollapsed(false);
@@ -141,8 +141,7 @@ public class JXTableFindBarMatchHighlighterDemo {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				collapsible.setCollapsed(false);
-				KeyboardFocusManager.getCurrentKeyboardFocusManager()
-						.focusNextComponent(findBar);
+				KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent(findBar);
 			}
 		};
 
@@ -152,7 +151,6 @@ public class JXTableFindBarMatchHighlighterDemo {
 				collapsible.setCollapsed(true);
 				table.requestFocusInWindow();
 			}
-
 		};
 
 		table.getActionMap().put("find", openFindBar);
@@ -164,8 +162,7 @@ public class JXTableFindBarMatchHighlighterDemo {
 	private static void installTheMatchingTextHighlighter() {
 		MatchingTextHighlighter matchingTextMarker = new XMatchingTextHighlighter();
 		matchingTextMarker.setPainter(DecoratorFactory.createPlainPainter());
-		((AbstractSearchable) table.getSearchable())
-				.setMatchHighlighter(matchingTextMarker);
+		((AbstractSearchable) table.getSearchable()).setMatchHighlighter(matchingTextMarker);
 	}
 
 	private static JCheckBox createComponentOrientationSwitch() {
@@ -175,8 +172,7 @@ public class JXTableFindBarMatchHighlighterDemo {
 			public void actionPerformed(ActionEvent e) {
 				if (frame.getComponentOrientation().isLeftToRight())
 					frame.applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-				else
-					frame.applyComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+				else frame.applyComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 
 				frame.repaint();
 			}
@@ -184,8 +180,7 @@ public class JXTableFindBarMatchHighlighterDemo {
 		return rightToLeftSwitch;
 	}
 
-	private static void buildGui(final JXCollapsiblePane collapsible,
-			JCheckBox rightToLeftSwitch) {
+	private static void buildGui(final JXCollapsiblePane collapsible, JCheckBox rightToLeftSwitch) {
 		frame = new JFrame();
 		frame.getContentPane().add(collapsible, BorderLayout.NORTH);
 
@@ -234,21 +229,19 @@ public class JXTableFindBarMatchHighlighterDemo {
 			String theData = data[rowIndex];
 			Object result = null;
 			switch (columnIndex) {
-			case 6:
-				result = theData.length();
-				break;
+				case 6:
+					result = theData.length();
+					break;
 
-			case 7:
-				result = theData.toUpperCase();
-				break;
+				case 7:
+					result = theData.toUpperCase();
+					break;
 
-			default:
-				result = theData;
+				default:
+					result = theData;
 			}
 
 			return result;
 		}
-
-	}// private static class SampleTableModel extends AbstractTableModel
-
+	} // private static class SampleTableModel extends AbstractTableModel
 }

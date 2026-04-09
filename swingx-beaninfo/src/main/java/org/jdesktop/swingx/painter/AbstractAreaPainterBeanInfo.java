@@ -9,26 +9,25 @@ import org.jdesktop.beans.editors.Paint2PropertyEditor;
  *
  * @author Jan Stola
  */
-public class AbstractAreaPainterBeanInfo extends BeanInfoSupport {    
+public class AbstractAreaPainterBeanInfo extends BeanInfoSupport {
 
-    public AbstractAreaPainterBeanInfo() {
-        super(AbstractAreaPainter.class);
-    }
-    
-    public AbstractAreaPainterBeanInfo(Class clazz) {
-        super(clazz);
-    }
+	public AbstractAreaPainterBeanInfo() {
+		super(AbstractAreaPainter.class);
+	}
 
-    @Override
-    protected void initialize() {
-        setPropertyEditor(StylePropertyEditor.class, "style");
-        setPropertyEditor(Paint2PropertyEditor.class, "fillPaint", "borderPaint");
-    }
+	public AbstractAreaPainterBeanInfo(Class clazz) {
+		super(clazz);
+	}
 
-    public static final class StylePropertyEditor extends EnumPropertyEditor<AbstractAreaPainter.Style> {
-        public StylePropertyEditor() {
-            super(AbstractAreaPainter.Style.class);
-        }
-    }
+	@Override
+	protected void initialize() {
+		setPropertyEditor(StylePropertyEditor.class, "style");
+		setPropertyEditor(Paint2PropertyEditor.class, "fillPaint", "borderPaint");
+	}
 
+	public static final class StylePropertyEditor extends EnumPropertyEditor<AbstractAreaPainter.Style> {
+		public StylePropertyEditor() {
+			super(AbstractAreaPainter.Style.class);
+		}
+	}
 }

@@ -3,7 +3,6 @@ package org.jdesktop.swingx.plaf;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Insets;
-
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -13,9 +12,9 @@ import javax.swing.plaf.TextUI;
  * <p>
  * TODO: queries the text components layout manager for the preferred size.
  * </p>
- * 
+ *
  * @author Peter Weishapl <petw@gmx.net>
- * 
+ *
  */
 public class BuddyTextFieldUI extends PromptTextFieldUI {
 	protected BuddyLayoutAndBorder layoutAndBorder;
@@ -49,7 +48,7 @@ public class BuddyTextFieldUI extends PromptTextFieldUI {
 	/**
 	 * Creates a new {@link BuddyTextFieldUI} which delegates most work to
 	 * another {@link TextUI}.
-	 * 
+	 *
 	 * @param delegate
 	 */
 	public BuddyTextFieldUI(TextUI delegate) {
@@ -75,11 +74,11 @@ public class BuddyTextFieldUI extends PromptTextFieldUI {
 
 	/**
 	 * TODO: comment
-	 * 
+	 *
 	 * @see javax.swing.plaf.ComponentUI#getPreferredSize(javax.swing.JComponent)
 	 */
 	@Override
-    public Dimension getPreferredSize(JComponent c) {
+	public Dimension getPreferredSize(JComponent c) {
 		Dimension d = new Dimension();
 		Dimension cd = super.getPreferredSize(c);
 		Dimension ld = c.getLayout().preferredLayoutSize(c);

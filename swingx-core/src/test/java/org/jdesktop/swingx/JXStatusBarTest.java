@@ -10,44 +10,41 @@ package org.jdesktop.swingx;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.awt.Dimension;
-
 import javax.swing.JLabel;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
-
 import org.junit.jupiter.api.Test;
-
 
 /**
  *
  * @author rbair
  */
 public class JXStatusBarTest {
-    
-    /**
-     * This test ensures that after the LAF is switched, the Border and
-     * LayoutManager are still in valid states.
-     */
-    @Test
-    public void testLAFSwitch() throws Exception {
-        //create a status bar with a single child, a label.
-        //ensure that after switching look and feels, the layout manager
-        //on the status bar still references the label
-        JXStatusBar bar = new JXStatusBar();
-        JLabel label = new JLabel("Hello");
-        bar.add(label);
-        Dimension dim = bar.getLayout().preferredLayoutSize(bar);
-        toggleLAF();
-        toggleLAF();
-        assertEquals(dim, bar.getLayout().preferredLayoutSize(bar));
-    }
 
-    private void toggleLAF() throws Exception {
-        LookAndFeel laf = UIManager.getLookAndFeel();
-        if (laf == null || laf.getName().equals(UIManager.getSystemLookAndFeelClassName())) {
-            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-        } else {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        }
-    }
+	/**
+	 * This test ensures that after the LAF is switched, the Border and
+	 * LayoutManager are still in valid states.
+	 */
+	@Test
+	public void testLAFSwitch() throws Exception {
+		// create a status bar with a single child, a label.
+		// ensure that after switching look and feels, the layout manager
+		// on the status bar still references the label
+		JXStatusBar bar = new JXStatusBar();
+		JLabel label = new JLabel("Hello");
+		bar.add(label);
+		Dimension dim = bar.getLayout().preferredLayoutSize(bar);
+		toggleLAF();
+		toggleLAF();
+		assertEquals(dim, bar.getLayout().preferredLayoutSize(bar));
+	}
+
+	private void toggleLAF() throws Exception {
+		LookAndFeel laf = UIManager.getLookAndFeel();
+		if (laf == null || laf.getName().equals(UIManager.getSystemLookAndFeelClassName())) {
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		} else {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}
+	}
 }

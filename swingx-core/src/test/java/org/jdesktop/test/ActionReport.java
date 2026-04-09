@@ -5,7 +5,6 @@
  * Santa Clara, California 95054, U.S.A. All rights reserved.
  */
 
-
 package org.jdesktop.test;
 
 import java.awt.event.ActionEvent;
@@ -18,54 +17,53 @@ import java.util.Map;
 
 /**
  * A ChangeListener that stores the received ChangeEvents.
- * 
+ *
  */
 public class ActionReport implements ActionListener {
-    
-    /**
-     * Holds a list of all received PropertyChangeEvents.
-     */
-    protected List<ActionEvent> events = Collections.synchronizedList(new LinkedList<>());
-    protected Map<Object, ActionEvent> eventMap = Collections.synchronizedMap(new HashMap<>());
-    
-//------------------------ implement PropertyChangeListener
-    
-    @Override
-    public void actionPerformed(ActionEvent evt) {
-        events.add(0, evt);
-        if (evt != null && evt.getSource() != null) {
-            eventMap.put(evt.getSource(), evt);
-        }
-    }
-    
-    public int getEventCount() {
-        return events.size();
-    }
- 
-    public void clear() {
-        events.clear();
-        eventMap.clear();
-    }
-    
-    public boolean hasEvents() {
-        return !events.isEmpty();
-    }
- 
-     public ActionEvent getLastEvent() {
-        return hasEvents() ?  events.get(0) : null;
-    }
 
-     public ActionEvent getEvent(Object source) {
-         return eventMap.get(source);
-     }
+	/**
+	 * Holds a list of all received PropertyChangeEvents.
+	 */
+	protected List<ActionEvent> events = Collections.synchronizedList(new LinkedList<>());
 
-    /**
-     * @return the action command of the last event or null 
-     *   if no events received.
-     */
-    public Object getLastActionCommand() {
-        return hasEvents() ?  events.get(0).getActionCommand() : null;
-    }
+	protected Map<Object, ActionEvent> eventMap = Collections.synchronizedMap(new HashMap<>());
 
+	// ------------------------ implement PropertyChangeListener
 
+	@Override
+	public void actionPerformed(ActionEvent evt) {
+		events.add(0, evt);
+		if (evt != null && evt.getSource() != null) {
+			eventMap.put(evt.getSource(), evt);
+		}
+	}
+
+	public int getEventCount() {
+		return events.size();
+	}
+
+	public void clear() {
+		events.clear();
+		eventMap.clear();
+	}
+
+	public boolean hasEvents() {
+		return !events.isEmpty();
+	}
+
+	public ActionEvent getLastEvent() {
+		return hasEvents() ? events.get(0) : null;
+	}
+
+	public ActionEvent getEvent(Object source) {
+		return eventMap.get(source);
+	}
+
+	/**
+	 * @return the action command of the last event or null
+	 *   if no events received.
+	 */
+	public Object getLastActionCommand() {
+		return hasEvents() ? events.get(0).getActionCommand() : null;
+	}
 }

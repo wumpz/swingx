@@ -26,6 +26,4 @@ import javax.swing.plaf.ComponentUI;
  *
  * @author Joshua Marinacci
  */
-public abstract class MultiThumbSliderUI extends ComponentUI {
-        
-}
+public abstract class MultiThumbSliderUI extends ComponentUI {}
