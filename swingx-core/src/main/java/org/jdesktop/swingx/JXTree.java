@@ -21,7 +21,6 @@
 
 package org.jdesktop.swingx;
 
-import java.applet.Applet;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.KeyboardFocusManager;
@@ -1576,8 +1575,7 @@ public class JXTree extends JTree {
                     if (c == tree) {
                         // focus remains inside the table
                         return;
-                    } else if ((c instanceof Window) ||
-                            (c instanceof Applet && c.getParent() == null)) {
+                    } else if (c instanceof Window) {
                         if (c == SwingUtilities.getRoot(tree)) {
                             if (tree.getInvokesStopCellEditing()) {
                                 tree.stopEditing();

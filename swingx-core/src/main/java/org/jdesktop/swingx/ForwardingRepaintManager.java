@@ -20,7 +20,6 @@
  */
 package org.jdesktop.swingx;
 
-import java.applet.Applet;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -64,14 +63,6 @@ public class ForwardingRepaintManager extends RepaintManager {
         this.delegate = Contract.asNotNull(delegate, "delegate is null");
     }
     
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void addDirtyRegion(Applet applet, int x, int y, int w, int h) {
-        delegate.addDirtyRegion(applet, x, y, w, h);
-    }
-
     /**
      * {@inheritDoc}
      */

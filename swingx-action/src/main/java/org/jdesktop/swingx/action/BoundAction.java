@@ -104,8 +104,6 @@ public class BoundAction extends AbstractActionExt {
             try {
                 Class<?> clz = Class.forName(elems[0]);
 
-                // May throw a security exception in an Applet
-                // context.
                 Object obj = clz.newInstance();
 
                 registerCallback(obj, elems[1]);

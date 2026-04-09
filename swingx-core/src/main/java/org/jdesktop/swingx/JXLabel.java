@@ -21,7 +21,6 @@
 
 package org.jdesktop.swingx;
 
-import java.applet.Applet;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -572,7 +571,7 @@ public class JXLabel extends JLabel implements BackgroundPaintable {
 
     private Container getViewport() {
         for(Container p = this; p != null; p = p.getParent()) {
-            if(p instanceof Window || p instanceof Applet || p instanceof JViewport) {
+            if(p instanceof Window || p instanceof JViewport) {
                 return p;
             }
         }
