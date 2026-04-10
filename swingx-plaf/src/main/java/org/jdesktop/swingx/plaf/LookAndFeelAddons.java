@@ -71,7 +71,7 @@ public abstract class LookAndFeelAddons {
 	@SuppressWarnings("unused")
 	private static final Logger LOG = Logger.getLogger(LookAndFeelAddons.class.getName());
 
-	private static List<ComponentAddon> contributedComponents = new ArrayList<ComponentAddon>();
+	private static List<ComponentAddon> contributedComponents = new ArrayList<>();
 
 	/**
 	 * Key used to ensure the current UIManager has been populated by the LookAndFeelAddons.

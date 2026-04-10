@@ -178,14 +178,14 @@ public class TextPainter extends AbstractAreaPainter<Object> {
 		if (t != null && !t.trim().equals("")) {
 			return t;
 		}
-		if (component instanceof JTextComponent) {
-			t = ((JTextComponent) component).getText();
+		if (component instanceof JTextComponent jTextComponent) {
+			t = jTextComponent.getText();
 		}
-		if (component instanceof JLabel) {
-			t = ((JLabel) component).getText();
+		if (component instanceof JLabel jLabel) {
+			t = jLabel.getText();
 		}
-		if (component instanceof AbstractButton) {
-			t = ((AbstractButton) component).getText();
+		if (component instanceof AbstractButton abstractButton) {
+			t = abstractButton.getText();
 		}
 		return t;
 	}

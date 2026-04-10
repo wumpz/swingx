@@ -218,8 +218,7 @@ public class CompoundPainter<T> extends AbstractPainter<T> {
 	protected void validate(T object) {
 		boolean dirty = false;
 		for (Painter<?> p : painters) {
-			if (p instanceof AbstractPainter) {
-				AbstractPainter ap = (AbstractPainter) p;
+			if (p instanceof AbstractPainter ap) {
 				ap.validate(object);
 				if (ap.isDirty()) {
 					dirty = true;

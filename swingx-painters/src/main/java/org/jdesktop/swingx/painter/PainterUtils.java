@@ -11,8 +11,8 @@ final class PainterUtils {
 
 	static Paint getForegroundPaint(Paint current, Object o) {
 		if (current == null) {
-			if (o instanceof Component) {
-				return ((Component) o).getForeground();
+			if (o instanceof Component component) {
+				return component.getForeground();
 			}
 		}
 
@@ -21,8 +21,8 @@ final class PainterUtils {
 
 	static Paint getBackgroundPaint(Paint current, Object o) {
 		if (current == null) {
-			if (o instanceof Component) {
-				return ((Component) o).getBackground();
+			if (o instanceof Component component) {
+				return component.getBackground();
 			}
 		}
 
@@ -31,8 +31,8 @@ final class PainterUtils {
 
 	static Font getComponentFont(Font current, Object o) {
 		if (current == null) {
-			if (o instanceof Component) {
-				return ((Component) o).getFont();
+			if (o instanceof Component component) {
+				return component.getFont();
 			}
 		}
 

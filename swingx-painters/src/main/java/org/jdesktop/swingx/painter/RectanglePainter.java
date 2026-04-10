@@ -261,12 +261,10 @@ public class RectanglePainter extends AbstractAreaPainter<Object> {
 		g.setStroke(new BasicStroke(getBorderWidth()));
 
 		// shrink the border by 1 px
-		if (shape instanceof Rectangle2D) {
-			Rectangle2D rect = (Rectangle2D) shape;
+		if (shape instanceof Rectangle2D rect) {
 
 			g.draw(new Rectangle2D.Double(rect.getX(), rect.getY(), rect.getWidth() - 1, rect.getHeight() - 1));
-		} else if (shape instanceof RoundRectangle2D) {
-			RoundRectangle2D rect = (RoundRectangle2D) shape;
+		} else if (shape instanceof RoundRectangle2D rect) {
 
 			g.draw(new RoundRectangle2D.Double(
 					rect.getX(),

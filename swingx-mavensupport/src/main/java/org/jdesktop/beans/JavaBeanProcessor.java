@@ -39,7 +39,7 @@ public class JavaBeanProcessor extends AbstractProcessor {
 			return false;
 		}
 
-		Set<String> beans = new TreeSet<String>();
+		Set<String> beans = new TreeSet<>();
 
 		// JavaBean is a type only annotation, so cast to TypeElement is safe
 		for (TypeElement type : (Set<TypeElement>) roundEnv.getElementsAnnotatedWith(JavaBean.class)) {

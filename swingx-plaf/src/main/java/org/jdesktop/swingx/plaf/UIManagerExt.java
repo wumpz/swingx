@@ -261,16 +261,16 @@ public class UIManagerExt {
 	public static String getString(Object key, Locale l) {
 		Object value = UIManager.get(key, l);
 
-		if (value instanceof String) {
-			return (String) value;
+		if (value instanceof String string) {
+			return string;
 		}
 
 		// only return resource bundle if not in UIDefaults
 		if (value == null) {
 			value = uiDefaultsExt.getFromResourceBundle(key, l);
 
-			if (value instanceof String) {
-				return (String) value;
+			if (value instanceof String string) {
+				return string;
 			}
 		}
 
@@ -308,20 +308,19 @@ public class UIManagerExt {
 	public static int getInt(Object key, Locale l) {
 		Object value = UIManager.get(key, l);
 
-		if (value instanceof Integer) {
-			return (Integer) value;
+		if (value instanceof Integer integer) {
+			return integer;
 		}
 
 		if (value == null) {
 			value = uiDefaultsExt.getFromResourceBundle(key, l);
 
-			if (value instanceof Integer) {
-				return (Integer) value;
+			if (value instanceof Integer integer) {
+				return integer;
 			}
-
-			if (value instanceof String) {
+			if (value instanceof String string) {
 				try {
-					return Integer.decode((String) value);
+					return Integer.decode(string);
 				} catch (NumberFormatException e) {
 					// ignore - the entry was not parseable, can't do anything
 					// JW: should we log it?
@@ -363,20 +362,19 @@ public class UIManagerExt {
 	public static boolean getBoolean(Object key, Locale l) {
 		Object value = UIManager.get(key, l);
 
-		if (value instanceof Boolean) {
-			return (Boolean) value;
+		if (value instanceof Boolean aBoolean) {
+			return aBoolean;
 		}
 
 		// only return resource bundle if not in UIDefaults
 		if (value == null) {
 			value = uiDefaultsExt.getFromResourceBundle(key, l);
 
-			if (value instanceof Boolean) {
-				return (Boolean) value;
+			if (value instanceof Boolean aBoolean) {
+				return aBoolean;
 			}
-
-			if (value instanceof String) {
-				return Boolean.valueOf((String) value);
+			if (value instanceof String string) {
+				return Boolean.valueOf(string);
 			}
 		}
 
@@ -414,21 +412,20 @@ public class UIManagerExt {
 	public static Color getColor(Object key, Locale l) {
 		Object value = UIManager.get(key, l);
 
-		if (value instanceof Color) {
-			return (Color) value;
+		if (value instanceof Color color) {
+			return color;
 		}
 
 		// only return resource bundle if not in UIDefaults
 		if (value == null) {
 			value = uiDefaultsExt.getFromResourceBundle(key, l);
 
-			if (value instanceof Color) {
-				return (Color) value;
+			if (value instanceof Color color) {
+				return color;
 			}
-
-			if (value instanceof String) {
+			if (value instanceof String string) {
 				try {
-					return Color.decode((String) value);
+					return Color.decode(string);
 				} catch (NumberFormatException e) {
 					// incorrect format; does nothing
 				}
