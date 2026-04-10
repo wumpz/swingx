@@ -497,10 +497,10 @@ public class BasicStatusBarUI extends StatusBarUI {
 			@Override
 			public void addLayoutComponent(Component comp, Object constraint) {
 				// we accept an Insets, a ResizeBehavior, or a Constraint.
-				if (constraint instanceof Insets) {
-					constraint = new Constraint((Insets) constraint);
-				} else if (constraint instanceof Constraint.ResizeBehavior) {
-					constraint = new Constraint((Constraint.ResizeBehavior) constraint);
+				if (constraint instanceof Insets insets) {
+					constraint = new Constraint(insets);
+				} else if (constraint instanceof Constraint.ResizeBehavior resizeBehavior) {
+					constraint = new Constraint(resizeBehavior);
 				}
 
 				constraints.put(comp, (Constraint) constraint);

@@ -43,7 +43,7 @@ import org.jdesktop.beans.AbstractBean;
  */
 public abstract class LoginService extends AbstractBean {
 	@SuppressWarnings("unused")
-	private Logger LOG = Logger.getLogger(LoginService.class.getName());
+	private static final Logger LOG = Logger.getLogger(LoginService.class.getName());
 
 	private EventListenerList listenerList = new EventListenerList();
 

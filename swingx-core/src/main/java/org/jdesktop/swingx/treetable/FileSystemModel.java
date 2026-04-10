@@ -70,8 +70,7 @@ public class FileSystemModel extends AbstractTreeTableModel {
 	private boolean isValidFileNode(Object file) {
 		boolean result = false;
 
-		if (file instanceof File) {
-			File f = (File) file;
+		if (file instanceof File f) {
 
 			while (!result && f != null) {
 				result = f.equals(root);
@@ -107,8 +106,8 @@ public class FileSystemModel extends AbstractTreeTableModel {
 	 */
 	@Override
 	public int getChildCount(Object parent) {
-		if (parent instanceof File) {
-			String[] children = ((File) parent).list();
+		if (parent instanceof File file) {
+			String[] children = file.list();
 
 			if (children != null) {
 				return children.length;
@@ -160,8 +159,7 @@ public class FileSystemModel extends AbstractTreeTableModel {
 
 	@Override
 	public Object getValueAt(Object node, int column) {
-		if (node instanceof File) {
-			File file = (File) node;
+		if (node instanceof File file) {
 			switch (column) {
 				case 0:
 					return file.getName();
@@ -224,9 +222,9 @@ public class FileSystemModel extends AbstractTreeTableModel {
 	 */
 	@Override
 	public boolean isLeaf(Object node) {
-		if (node instanceof File) {
+		if (node instanceof File file) {
 			// do not use isFile(); some system files return false
-			return ((File) node).list() == null;
+			return file.list() == null;
 		}
 
 		return true;

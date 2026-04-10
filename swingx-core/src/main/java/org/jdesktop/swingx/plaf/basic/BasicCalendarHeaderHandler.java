@@ -104,9 +104,9 @@ public class BasicCalendarHeaderHandler extends CalendarHeaderHandler {
 
 				@Override
 				public String getString(Object value) {
-					if (value instanceof Calendar) {
-						String month = monthNames[((Calendar) value).get(Calendar.MONTH)];
-						return month + " " + ((Calendar) value).get(Calendar.YEAR);
+					if (value instanceof Calendar calendar) {
+						String month = monthNames[calendar.get(Calendar.MONTH)];
+						return month + " " + calendar.get(Calendar.YEAR);
 					}
 					return StringValues.TO_STRING.getString(value);
 				}

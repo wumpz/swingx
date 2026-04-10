@@ -290,11 +290,11 @@ public class JXDialog extends JDialog {
 	protected void updateLocaleState(Locale locale) {
 		setTitleFromContent();
 		for (Object key : getRootPane().getActionMap().allKeys()) {
-			if (key instanceof String) {
+			if (key instanceof String string) {
 				Action contentAction = content.getActionMap().get(key);
 				Action rootPaneAction = getAction(key);
 				if ((!rootPaneAction.equals(contentAction))) {
-					String keyString = getUIString((String) key, locale);
+					String keyString = getUIString(string, locale);
 					if (!key.equals(keyString)) {
 						rootPaneAction.putValue(Action.NAME, keyString);
 					}

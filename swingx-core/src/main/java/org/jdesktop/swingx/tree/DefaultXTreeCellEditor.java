@@ -158,10 +158,10 @@ public class DefaultXTreeCellEditor extends DefaultTreeCellEditor implements UID
 		if (getRenderer() != null) {
 			SwingUtilities.updateComponentTreeUI(getRenderer());
 		}
-		if (realEditor instanceof JComponent) {
-			SwingUtilities.updateComponentTreeUI((JComponent) realEditor);
-		} else if (realEditor instanceof UIDependent) {
-			((UIDependent) realEditor).updateUI();
+		if (realEditor instanceof JComponent jComponent) {
+			SwingUtilities.updateComponentTreeUI(jComponent);
+		} else if (realEditor instanceof UIDependent uIDependent) {
+			uIDependent.updateUI();
 		}
 	}
 }

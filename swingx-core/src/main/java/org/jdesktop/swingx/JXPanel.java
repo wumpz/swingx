@@ -323,8 +323,8 @@ public class JXPanel extends JPanel implements AlphaPaintable, BackgroundPaintab
 
 		if (isInheritAlpha()) {
 			for (Component c = getParent(); c != null; c = c.getParent()) {
-				if (c instanceof AlphaPaintable) {
-					a = Math.min(((AlphaPaintable) c).getEffectiveAlpha(), a);
+				if (c instanceof AlphaPaintable alphaPaintable) {
+					a = Math.min(alphaPaintable.getEffectiveAlpha(), a);
 					break;
 				}
 			}

@@ -109,6 +109,7 @@ public class JXMultiThumbSlider<E> extends JComponent {
 		return uiClassID;
 	}
 
+	@Override
 	public MultiThumbSliderUI getUI() {
 		return (MultiThumbSliderUI) ui;
 	}

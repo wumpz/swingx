@@ -2205,8 +2205,8 @@ public class BasicMonthViewUI extends MonthViewUI {
 	 */
 	protected CalendarHeaderHandler getHeaderFromUIManager() {
 		Object handlerClass = UIManager.get(CalendarHeaderHandler.uiControllerID);
-		if (handlerClass instanceof String) {
-			return instantiateClass((String) handlerClass);
+		if (handlerClass instanceof String string) {
+			return instantiateClass(string);
 		}
 		return null;
 	}

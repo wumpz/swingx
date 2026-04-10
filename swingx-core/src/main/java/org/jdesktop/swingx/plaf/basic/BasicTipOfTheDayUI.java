@@ -108,8 +108,8 @@ public class BasicTipOfTheDayUI extends TipOfTheDayUI {
 					: SwingUtilities.getWindowAncestor(parentComponent);
 		}
 
-		if (window instanceof Frame) {
-			dialog = new JDialog((Frame) window, title, true);
+		if (window instanceof Frame frame) {
+			dialog = new JDialog(frame, title, true);
 		} else {
 			dialog = new JDialog((Dialog) window, title, true);
 		}
@@ -271,10 +271,10 @@ public class BasicTipOfTheDayUI extends TipOfTheDayUI {
 			Tip tip = tipPane.getModel().getTipAt(currentTip);
 
 			Object tipObject = tip.getTip();
-			if (tipObject instanceof Component) {
-				currentTipComponent = (Component) tipObject;
-			} else if (tipObject instanceof Icon) {
-				currentTipComponent = new JLabel((Icon) tipObject);
+			if (tipObject instanceof Component component) {
+				currentTipComponent = component;
+			} else if (tipObject instanceof Icon icon) {
+				currentTipComponent = new JLabel(icon);
 			} else {
 				JScrollPane tipScroll = new JScrollPane();
 				tipScroll.setBorder(null);

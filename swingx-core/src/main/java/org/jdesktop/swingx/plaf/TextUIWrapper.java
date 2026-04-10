@@ -135,8 +135,8 @@ public abstract class TextUIWrapper<UI extends TextUI> {
 		public PromptTextUI wrapUI(JTextComponent textComponent) {
 			TextUI textUI = textComponent.getUI();
 
-			if (textUI instanceof PromptTextUI) {
-				return (PromptTextUI) textUI;
+			if (textUI instanceof PromptTextUI promptTextUI) {
+				return promptTextUI;
 			} else if (textComponent instanceof JXSearchField) {
 				return new SearchFieldUI(textUI);
 			} else if (textComponent instanceof JTextField) {

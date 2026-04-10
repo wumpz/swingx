@@ -49,7 +49,7 @@ import org.jdesktop.swingx.action.AbstractActionExt;
  */
 public class PainterIssues extends InteractiveTestCase {
 
-	static Logger log = Logger.getAnonymousLogger();
+	static final Logger log = Logger.getAnonymousLogger();
 
 	public static void main(String args[]) {
 		//      setSystemLF(true);

@@ -744,6 +744,7 @@ public class JXMonthView extends JComponent {
 	/**
 	 * @inheritDoc
 	 */
+	@Override
 	public MonthViewUI getUI() {
 		return (MonthViewUI) ui;
 	}

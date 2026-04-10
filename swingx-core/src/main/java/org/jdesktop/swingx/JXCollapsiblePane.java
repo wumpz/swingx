@@ -647,8 +647,8 @@ public class JXCollapsiblePane extends JXPanel {
 	 */
 	@Override
 	public Border getBorder() {
-		if (getContentPane() instanceof JComponent) {
-			return ((JComponent) getContentPane()).getBorder();
+		if (getContentPane() instanceof JComponent jComponent) {
+			return jComponent.getBorder();
 		}
 
 		return null;
@@ -659,8 +659,8 @@ public class JXCollapsiblePane extends JXPanel {
 	 */
 	@Override
 	public void setBorder(Border border) {
-		if (getContentPane() instanceof JComponent) {
-			((JComponent) getContentPane()).setBorder(border);
+		if (getContentPane() instanceof JComponent jComponent) {
+			jComponent.setBorder(border);
 		}
 	}
 
@@ -967,8 +967,8 @@ public class JXCollapsiblePane extends JXPanel {
 			}
 
 			if (parent != null) {
-				if (parent instanceof JComponent) {
-					((JComponent) parent).revalidate();
+				if (parent instanceof JComponent jComponent) {
+					jComponent.revalidate();
 				} else {
 					parent.invalidate();
 				}

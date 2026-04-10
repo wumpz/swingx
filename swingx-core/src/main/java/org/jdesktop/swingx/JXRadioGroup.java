@@ -152,9 +152,9 @@ public class JXRadioGroup<T> extends JPanel {
 		if (values.contains(radioValue)) {
 			throw new IllegalArgumentException("cannot add the same value twice " + radioValue);
 		}
-		if (radioValue instanceof AbstractButton) {
+		if (radioValue instanceof AbstractButton abstractButton) {
 			values.add(radioValue);
-			addButton((AbstractButton) radioValue);
+			addButton(abstractButton);
 		} else {
 			values.add(radioValue);
 			// Note: the "quote + object" trick here allows null values
@@ -205,8 +205,8 @@ public class JXRadioGroup<T> extends JPanel {
 		final Component[] children = getComponents();
 		final List<AbstractButton> buttons = new ArrayList<>();
 		for (Component children1 : children) {
-			if (children1 instanceof AbstractButton) {
-				buttons.add((AbstractButton) children1);
+			if (children1 instanceof AbstractButton abstractButton) {
+				buttons.add(abstractButton);
 			}
 		}
 		return buttons.toArray(new AbstractButton[buttons.size()]);

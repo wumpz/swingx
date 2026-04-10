@@ -76,8 +76,7 @@ public class SimpleFileSystemModel implements TreeTableModel {
 	 */
 	@Override
 	public File getChild(Object parent, int index) {
-		if (parent instanceof File) {
-			File parentFile = (File) parent;
+		if (parent instanceof File parentFile) {
 			File[] files = parentFile.listFiles();
 
 			if (files != null) {
@@ -93,8 +92,8 @@ public class SimpleFileSystemModel implements TreeTableModel {
 	 */
 	@Override
 	public int getChildCount(Object parent) {
-		if (parent instanceof File) {
-			String[] children = ((File) parent).list();
+		if (parent instanceof File file) {
+			String[] children = file.list();
 
 			if (children != null) {
 				return children.length;
@@ -155,8 +154,7 @@ public class SimpleFileSystemModel implements TreeTableModel {
 	 */
 	@Override
 	public Object getValueAt(Object node, int column) {
-		if (node instanceof File) {
-			File file = (File) node;
+		if (node instanceof File file) {
 			switch (column) {
 				case 0:
 					return file.getName();
@@ -236,9 +234,9 @@ public class SimpleFileSystemModel implements TreeTableModel {
 	 */
 	@Override
 	public boolean isLeaf(Object node) {
-		if (node instanceof File) {
+		if (node instanceof File file) {
 			// do not use isFile(); some system files return false
-			return ((File) node).list() == null;
+			return file.list() == null;
 		}
 
 		return true;

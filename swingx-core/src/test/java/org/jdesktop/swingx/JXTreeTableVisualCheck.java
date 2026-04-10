@@ -245,8 +245,8 @@ public class JXTreeTableVisualCheck extends JXTreeTableUnitTest {
 			@Override
 			public void configureTableColumn(TableModel model, TableColumnExt columnExt) {
 				super.configureTableColumn(model, columnExt);
-				if (model instanceof TreeTableModelProvider) {
-					TreeTableModel treeTableModel = ((TreeTableModelProvider) model).getTreeTableModel();
+				if (model instanceof TreeTableModelProvider treeTableModelProvider) {
+					TreeTableModel treeTableModel = treeTableModelProvider.getTreeTableModel();
 					if (treeTableModel.getHierarchicalColumn() == columnExt.getModelIndex()) {
 						columnExt.setTitle("Hierarchical: " + columnExt.getTitle());
 					}
@@ -795,8 +795,8 @@ public class JXTreeTableVisualCheck extends JXTreeTableUnitTest {
 			@Override
 			public String convertValueToText(
 					Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
-				if (value instanceof Component) {
-					return ((Component) value).getName();
+				if (value instanceof Component component) {
+					return component.getName();
 				}
 				return super.convertValueToText(value, selected, expanded, leaf, row, hasFocus);
 			}

@@ -61,8 +61,8 @@ public class EditorPaneLinkVisitor implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() instanceof LinkModel) {
-			final LinkModel link = (LinkModel) e.getSource();
+		if (e.getSource() instanceof LinkModel linkModel) {
+			final LinkModel link = linkModel;
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {

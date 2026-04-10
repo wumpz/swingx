@@ -158,11 +158,11 @@ public class BasicTitledPanelUI extends TitledPanelUI {
 						getCaptionInsets(),
 						0,
 						0));
-		if (titledPanel.getClientProperty(JXTitledPanel.RIGHT_DECORATION) instanceof JComponent) {
-			setRightDecoration((JComponent) titledPanel.getClientProperty(JXTitledPanel.RIGHT_DECORATION));
+		if (titledPanel.getClientProperty(JXTitledPanel.RIGHT_DECORATION) instanceof JComponent jComponent) {
+			setRightDecoration(jComponent);
 		}
-		if (titledPanel.getClientProperty(JXTitledPanel.LEFT_DECORATION) instanceof JComponent) {
-			setLeftDecoration((JComponent) titledPanel.getClientProperty(JXTitledPanel.LEFT_DECORATION));
+		if (titledPanel.getClientProperty(JXTitledPanel.LEFT_DECORATION) instanceof JComponent jComponent) {
+			setLeftDecoration(jComponent);
 		}
 		// swingx#500
 		if (!(titledPanel.getLayout() instanceof BorderLayout)) {

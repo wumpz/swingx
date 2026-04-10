@@ -399,6 +399,7 @@ public class JXDatePicker extends JComponent {
 	 *
 	 * @return the DatePickerUI object that renders this component
 	 */
+	@Override
 	public DatePickerUI getUI() {
 		return (DatePickerUI) ui;
 	}
@@ -496,8 +497,8 @@ public class JXDatePicker extends JComponent {
 		AbstractFormatterFactory factory = _dateField.getFormatterFactory();
 		if (factory != null) {
 			AbstractFormatter formatter = factory.getFormatter(_dateField);
-			if (formatter instanceof DatePickerFormatter) {
-				return ((DatePickerFormatter) formatter).getFormats();
+			if (formatter instanceof DatePickerFormatter datePickerFormatter) {
+				return datePickerFormatter.getFormats();
 			}
 		}
 		return EMPTY_DATE_FORMATS;
@@ -602,8 +603,8 @@ public class JXDatePicker extends JComponent {
 		this.linkDate = linkDay;
 		Format[] formats = getLinkFormat().getFormatsByArgumentIndex();
 		for (Format format : formats) {
-			if (format instanceof DateFormat) {
-				((DateFormat) format).setTimeZone(getTimeZone());
+			if (format instanceof DateFormat dateFormat) {
+				dateFormat.setTimeZone(getTimeZone());
 			}
 		}
 		setLinkPanel(new TodayPanel());

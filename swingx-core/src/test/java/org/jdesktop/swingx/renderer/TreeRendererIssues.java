@@ -97,8 +97,8 @@ public class TreeRendererIssues extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Component) {
-					return ((Component) value).getName();
+				if (value instanceof Component component) {
+					return component.getName();
 				}
 				return " - no component - ";
 			}

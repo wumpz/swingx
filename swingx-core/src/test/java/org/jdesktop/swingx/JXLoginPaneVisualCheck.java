@@ -243,8 +243,8 @@ public class JXLoginPaneVisualCheck extends InteractiveTestCase {
 				((JButton) c).doClick();
 
 				return true;
-			} else if (c instanceof Container) {
-				if (evaluateChildren(((Container) c).getComponents())) {
+			} else if (c instanceof Container container) {
+				if (evaluateChildren(container.getComponents())) {
 					return true;
 				}
 			}

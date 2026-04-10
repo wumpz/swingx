@@ -180,7 +180,7 @@ public class DefaultDateSelectionModel extends AbstractDateSelectionModel {
 	 */
 	@Override
 	public SortedSet<Date> getSelection() {
-		return new TreeSet<Date>(selectedDates);
+		return new TreeSet<>(selectedDates);
 	}
 
 	/**
@@ -229,7 +229,7 @@ public class DefaultDateSelectionModel extends AbstractDateSelectionModel {
 	 */
 	@Override
 	public SortedSet<Date> getUnselectableDates() {
-		return new TreeSet<Date>(unselectableDates);
+		return new TreeSet<>(unselectableDates);
 	}
 
 	/**

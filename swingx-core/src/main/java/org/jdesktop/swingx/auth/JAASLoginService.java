@@ -137,11 +137,9 @@ public class JAASLoginService extends LoginService {
 		@Override
 		public void handle(Callback[] callbacks) throws java.io.IOException {
 			for (Callback callback : callbacks) {
-				if (callback instanceof NameCallback) {
-					NameCallback cb = (NameCallback) callback;
+				if (callback instanceof NameCallback cb) {
 					cb.setName(name);
-				} else if (callback instanceof PasswordCallback) {
-					PasswordCallback cb = (PasswordCallback) callback;
+				} else if (callback instanceof PasswordCallback cb) {
 					cb.setPassword(password);
 				}
 			}

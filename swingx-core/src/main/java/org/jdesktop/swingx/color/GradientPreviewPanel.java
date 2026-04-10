@@ -73,8 +73,7 @@ public class GradientPreviewPanel extends JXPanel {
 
 	public void setGradient(MultipleGradientPaint grad) {
 		MultipleGradientPaint old = getGradient();
-		if (grad instanceof LinearGradientPaint) {
-			LinearGradientPaint paint = (LinearGradientPaint) grad;
+		if (grad instanceof LinearGradientPaint paint) {
 			this.start = paint.getStartPoint();
 			this.end = paint.getEndPoint();
 		} else {
@@ -111,7 +110,7 @@ public class GradientPreviewPanel extends JXPanel {
 	}
 
 	private MultiThumbModel model;
-	private Logger log = Logger.getLogger(GradientPreviewPanel.class.getName());
+	private static final Logger log = Logger.getLogger(GradientPreviewPanel.class.getName());
 
 	private List<Thumb<Color>> getStops() {
 		// calculate the color stops

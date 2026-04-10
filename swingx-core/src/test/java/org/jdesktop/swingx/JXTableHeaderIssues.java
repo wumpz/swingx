@@ -146,8 +146,8 @@ public class JXTableHeaderIssues extends JXTableHeaderTest {
 			}
 
 			private boolean isDocked(TableColumn column) {
-				if (column instanceof TableColumnExt) {
-					return Boolean.TRUE.equals(((TableColumnExt) column).getClientProperty("docked"));
+				if (column instanceof TableColumnExt tableColumnExt) {
+					return Boolean.TRUE.equals(tableColumnExt.getClientProperty("docked"));
 				}
 				return false;
 			}

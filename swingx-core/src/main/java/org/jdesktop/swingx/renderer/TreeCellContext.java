@@ -137,8 +137,8 @@ public class TreeCellContext extends CellContext {
 			selection = getDropCellBackground();
 			if (selection != null) return selection;
 		}
-		if (getComponent() instanceof JXTree) {
-			return ((JXTree) getComponent()).getSelectionBackground();
+		if (getComponent() instanceof JXTree jXTree) {
+			return jXTree.getSelectionBackground();
 		}
 		return UIManager.getColor("Tree.selectionBackground");
 	}
@@ -153,8 +153,8 @@ public class TreeCellContext extends CellContext {
 			selection = getDropCellForeground();
 			if (selection != null) return selection;
 		}
-		if (getComponent() instanceof JXTree) {
-			return ((JXTree) getComponent()).getSelectionForeground();
+		if (getComponent() instanceof JXTree jXTree) {
+			return jXTree.getSelectionForeground();
 		}
 		return UIManager.getColor("Tree.selectionForeground");
 	}

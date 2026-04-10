@@ -741,8 +741,7 @@ public class JXListTest extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Color) {
-					Color color = (Color) value;
+				if (value instanceof Color color) {
 					return "R/G/B: " + color.getRGB();
 				}
 				return StringValues.TO_STRING.getString(value);
@@ -908,8 +907,8 @@ public class JXListTest extends InteractiveTestCase {
 	private PropertyChangeListener getLinkControllerAsPropertyChangeListener(JXList table, String propertyName) {
 		PropertyChangeListener[] listeners = table.getPropertyChangeListeners(propertyName);
 		for (PropertyChangeListener listener : listeners) {
-			if (listener instanceof ListRolloverController<?>) {
-				return (ListRolloverController<?>) listener;
+			if (listener instanceof ListRolloverController<?> listRolloverController) {
+				return listRolloverController;
 			}
 		}
 		return null;
@@ -959,8 +958,7 @@ public class JXListTest extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Color) {
-					Color color = (Color) value;
+				if (value instanceof Color color) {
 					return "R/G/B: " + color.getRGB();
 				}
 				return StringValues.TO_STRING.getString(value);

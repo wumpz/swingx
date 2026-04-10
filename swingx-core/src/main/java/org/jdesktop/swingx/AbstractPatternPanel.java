@@ -233,8 +233,8 @@ public abstract class AbstractPatternPanel extends JXPanel {
 	 */
 	protected void updateLocaleState(Locale locale) {
 		for (Object key : getActionMap().allKeys()) {
-			if (key instanceof String) {
-				String keyString = getUIString((String) key, locale);
+			if (key instanceof String string) {
+				String keyString = getUIString(string, locale);
 				if (!key.equals(keyString)) {
 					getActionMap().get(key).putValue(Action.NAME, keyString);
 				}

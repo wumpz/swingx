@@ -124,8 +124,7 @@ public class BasicTaskPaneUI extends TaskPaneUI {
 			group.setBorder(createPaneBorder());
 		}
 
-		if (group.getContentPane() instanceof JComponent) {
-			JComponent content = (JComponent) group.getContentPane();
+		if (group.getContentPane() instanceof JComponent content) {
 
 			LookAndFeel.installColorsAndFont(content, "TaskPane.background", "TaskPane.foreground", "TaskPane.font");
 
@@ -217,8 +216,7 @@ public class BasicTaskPaneUI extends TaskPaneUI {
 	 * @return Current title height.
 	 */
 	protected int getTitleHeight(Component c) {
-		if (c instanceof JXTaskPane) {
-			JXTaskPane taskPane = (JXTaskPane) c;
+		if (c instanceof JXTaskPane taskPane) {
 			Font font = taskPane.getFont();
 			int height = titleHeight;
 
@@ -258,9 +256,9 @@ public class BasicTaskPaneUI extends TaskPaneUI {
 		Dimension dim = collapsible.getPreferredSize();
 
 		Border groupBorder = group.getBorder();
-		if (groupBorder instanceof PaneBorder) {
-			((PaneBorder) groupBorder).label.setDisplayedMnemonic(group.getMnemonic());
-			Dimension border = ((PaneBorder) groupBorder).getPreferredSize(group);
+		if (groupBorder instanceof PaneBorder paneBorder) {
+			paneBorder.label.setDisplayedMnemonic(group.getMnemonic());
+			Dimension border = paneBorder.getPreferredSize(group);
 			dim.width = Math.max(dim.width, border.width);
 			dim.height += border.height;
 		} else {
@@ -361,9 +359,9 @@ public class BasicTaskPaneUI extends TaskPaneUI {
 
 				Border b = group.getBorder();
 
-				if (b instanceof PaneBorder) {
+				if (b instanceof PaneBorder paneBorder) {
 					int key = (Integer) evt.getNewValue();
-					((PaneBorder) b).label.setDisplayedMnemonic(key);
+					paneBorder.label.setDisplayedMnemonic(key);
 				}
 			}
 		}

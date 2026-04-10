@@ -232,8 +232,8 @@ public class SearchFactory implements UIDependent {
 			releaseFindBar();
 		}
 		Window topLevel = SwingUtilities.getWindowAncestor(target);
-		if (topLevel instanceof JXFrame) {
-			JXRootPane rootPane = ((JXFrame) topLevel).getRootPaneExt();
+		if (topLevel instanceof JXFrame jXFrame) {
+			JXRootPane rootPane = jXFrame.getRootPaneExt();
 			JToolBar toolBar = rootPane.getToolBar();
 			if (toolBar == null) {
 				toolBar = new JToolBar();
@@ -295,8 +295,8 @@ public class SearchFactory implements UIDependent {
 		Container oldParent = component.getParent();
 		if (oldParent != null) {
 			oldParent.remove(component);
-			if (oldParent instanceof JComponent) {
-				((JComponent) oldParent).revalidate();
+			if (oldParent instanceof JComponent jComponent) {
+				jComponent.revalidate();
 			} else {
 				// not sure... never have non-j comps
 				oldParent.invalidate();
@@ -383,11 +383,11 @@ public class SearchFactory implements UIDependent {
 			KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent(findDialog);
 		} else {
 			Point location = hideSharedFindPanel(true);
-			if (frame instanceof Frame) {
-				findDialog = new JXDialog((Frame) frame, getSharedFindPanel());
-			} else if (frame instanceof Dialog) {
+			if (frame instanceof Frame frame1) {
+				findDialog = new JXDialog(frame1, getSharedFindPanel());
+			} else if (frame instanceof Dialog dialog) {
 				// fix #215-swingx: had problems with secondary modal dialogs.
-				findDialog = new JXDialog((Dialog) frame, getSharedFindPanel());
+				findDialog = new JXDialog(dialog, getSharedFindPanel());
 			} else {
 				findDialog = new JXDialog(JOptionPane.getRootFrame(), getSharedFindPanel());
 			}

@@ -130,10 +130,10 @@ public class AlignmentHighlighter extends AbstractHighlighter {
 	 */
 	@Override
 	protected Component doHighlight(Component renderer, ComponentAdapter adapter) {
-		if (renderer instanceof JLabel) {
-			((JLabel) renderer).setHorizontalAlignment(getHorizontalAlignment());
-		} else if (renderer instanceof AbstractButton) {
-			((AbstractButton) renderer).setHorizontalAlignment(getHorizontalAlignment());
+		if (renderer instanceof JLabel jLabel) {
+			jLabel.setHorizontalAlignment(getHorizontalAlignment());
+		} else if (renderer instanceof AbstractButton abstractButton) {
+			abstractButton.setHorizontalAlignment(getHorizontalAlignment());
 		} else {
 			((JTextField) renderer).setHorizontalAlignment(getHorizontalAlignment());
 		}

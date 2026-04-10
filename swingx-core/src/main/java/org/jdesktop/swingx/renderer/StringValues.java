@@ -68,10 +68,10 @@ public final class StringValues {
 	public static final StringValue FILE_NAME = new StringValue() {
 		@Override
 		public String getString(Object value) {
-			if (value instanceof File) {
+			if (value instanceof File file) {
 				FileSystemView fsv = FileSystemView.getFileSystemView();
 
-				return fsv.getSystemDisplayName((File) value);
+				return fsv.getSystemDisplayName(file);
 			}
 
 			return StringValues.TO_STRING.getString(value);
@@ -87,10 +87,10 @@ public final class StringValues {
 	public static final StringValue FILE_TYPE = new StringValue() {
 		@Override
 		public String getString(Object value) {
-			if (value instanceof File) {
+			if (value instanceof File file) {
 				FileSystemView fsv = FileSystemView.getFileSystemView();
 
-				return fsv.getSystemTypeDescription((File) value);
+				return fsv.getSystemTypeDescription(file);
 			}
 
 			return StringValues.TO_STRING.getString(value);

@@ -270,8 +270,8 @@ public class RenderingTest extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Point) {
-					return "x of Point: " + ((Point) value).x;
+				if (value instanceof Point point) {
+					return "x of Point: " + point.x;
 				}
 				return StringValues.TO_STRING.getString(value);
 			}
@@ -297,8 +297,8 @@ public class RenderingTest extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Point) {
-					return "x of Point: " + ((Point) value).x;
+				if (value instanceof Point point) {
+					return "x of Point: " + point.x;
 				}
 				return StringValues.TO_STRING.getString(value);
 			}
@@ -541,8 +541,8 @@ public class RenderingTest extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Point) {
-					return "x of Point: " + ((Point) value).x;
+				if (value instanceof Point point) {
+					return "x of Point: " + point.x;
 				}
 				return StringValues.TO_STRING.getString(value);
 			}

@@ -193,6 +193,7 @@ public class DaySelectionModelTest extends AbstractTestDateSelectionModel {
 	}
 
 	@BeforeEach
+	@Override
 	public void setUp() throws Exception {
 		setUpCalendar();
 		model = new DaySelectionModel();

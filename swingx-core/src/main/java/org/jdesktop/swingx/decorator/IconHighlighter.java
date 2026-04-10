@@ -121,10 +121,10 @@ public class IconHighlighter extends AbstractHighlighter {
 	@Override
 	protected Component doHighlight(Component component, ComponentAdapter adapter) {
 		if (getIcon() != null) {
-			if (component instanceof IconAware) {
-				((IconAware) component).setIcon(getIcon());
-			} else if (component instanceof JLabel) {
-				((JLabel) component).setIcon(getIcon());
+			if (component instanceof IconAware iconAware) {
+				iconAware.setIcon(getIcon());
+			} else if (component instanceof JLabel jLabel) {
+				jLabel.setIcon(getIcon());
 			}
 		}
 		return component;

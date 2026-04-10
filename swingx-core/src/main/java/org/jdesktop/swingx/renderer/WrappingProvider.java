@@ -257,10 +257,9 @@ public class WrappingProvider extends ComponentProvider<WrappingIconPanel> imple
 	 */
 	protected Object getUnwrappedValue(Object value) {
 		if (!getUnwrapUserObject()) return value;
-		if (value instanceof DefaultMutableTreeNode) {
-			value = ((DefaultMutableTreeNode) value).getUserObject();
-		} else if (value instanceof TreeTableNode) {
-			TreeTableNode node = (TreeTableNode) value;
+		if (value instanceof DefaultMutableTreeNode defaultMutableTreeNode) {
+			value = defaultMutableTreeNode.getUserObject();
+		} else if (value instanceof TreeTableNode node) {
 			value = node.getUserObject();
 		}
 		return value;

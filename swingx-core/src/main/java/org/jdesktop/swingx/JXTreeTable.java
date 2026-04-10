@@ -680,8 +680,7 @@ public class JXTreeTable extends JXTable {
 		 * @return the width of the tree handle if it can be determined, else -1
 		 */
 		protected int getTreeHandleWidth() {
-			if (renderer.getUI() instanceof BasicTreeUI) {
-				BasicTreeUI ui = (BasicTreeUI) renderer.getUI();
+			if (renderer.getUI() instanceof BasicTreeUI ui) {
 				return ui.getLeftChildIndent() + ui.getRightChildIndent();
 			} else {
 				return -1;
@@ -1303,14 +1302,14 @@ public class JXTreeTable extends JXTable {
 	 */
 	@Override
 	public final void setModel(TableModel tableModel) { // note final keyword
-		if (tableModel instanceof TreeTableModelAdapter) {
-			if (((TreeTableModelAdapter) tableModel).getTreeTable() == null) {
+		if (tableModel instanceof TreeTableModelAdapter treeTableModelAdapter) {
+			if (treeTableModelAdapter.getTreeTable() == null) {
 				// Passing the above test ensures that this method is being
 				// invoked either from JXTreeTable/JTable constructor or from
 				// setTreeTableModel(TreeTableModel)
 				super.setModel(tableModel); // invoke superclass version
 
-				((TreeTableModelAdapter) tableModel).bind(this); // permanently bound
+				treeTableModelAdapter.bind(this); // permanently bound
 				// Once a TreeTableModelAdapter is bound to any JXTreeTable instance,
 				// invoking JXTreeTable.setModel() with that adapter will throw an
 				// IllegalArgumentException, because we really want to make sure
@@ -1490,12 +1489,12 @@ public class JXTreeTable extends JXTable {
 			// attributes of the table cell renderer are applied to the
 			// tree cell renderer before the hierarchical column is rendered!
 			TreeCellRenderer tcr = renderer.getCellRenderer();
-			if (tcr instanceof JXTree.DelegatingRenderer) {
-				tcr = ((JXTree.DelegatingRenderer) tcr).getDelegateRenderer();
+			if (tcr instanceof JXTree.DelegatingRenderer delegatingRenderer) {
+				tcr = delegatingRenderer.getDelegateRenderer();
 			}
-			if (tcr instanceof DefaultTreeCellRenderer) {
+			if (tcr instanceof DefaultTreeCellRenderer defaultTreeCellRenderer) {
 
-				DefaultTreeCellRenderer dtcr = ((DefaultTreeCellRenderer) tcr);
+				DefaultTreeCellRenderer dtcr = defaultTreeCellRenderer;
 				// this effectively overwrites the dtcr settings
 				if (adapter.isSelected()) {
 					dtcr.setTextSelectionColor(component.getForeground());
@@ -2731,7 +2730,7 @@ public class JXTreeTable extends JXTable {
 					row,
 					true);
 
-			if (rComponent instanceof JComponent) {
+			if (rComponent instanceof JComponent jComponent) {
 				Rectangle pathBounds = getPathBounds(path);
 				Rectangle cellRect = treeTable.getCellRect(row, column, false);
 				// JW: what we are after
@@ -2756,7 +2755,7 @@ public class JXTreeTable extends JXTable {
 						event.getClickCount(),
 						event.isPopupTrigger());
 
-				toolTip = ((JComponent) rComponent).getToolTipText(newEvent);
+				toolTip = jComponent.getToolTipText(newEvent);
 			}
 			if (toolTip != null) {
 				return toolTip;
@@ -2950,8 +2949,8 @@ public class JXTreeTable extends JXTable {
 			// unconditionally overwrite custom selection colors.
 			// Check for UIResources instead.
 			TreeCellRenderer tcr = getCellRenderer();
-			if (tcr instanceof DefaultTreeCellRenderer) {
-				DefaultTreeCellRenderer dtcr = ((DefaultTreeCellRenderer) tcr);
+			if (tcr instanceof DefaultTreeCellRenderer defaultTreeCellRenderer) {
+				DefaultTreeCellRenderer dtcr = defaultTreeCellRenderer;
 				// For 1.1 uncomment this, 1.2 has a bug that will cause an
 				// exception to be thrown if the border selection color is null.
 				dtcr.setBorderSelectionColor(null);

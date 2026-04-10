@@ -156,8 +156,8 @@ public class JXTableHeaderVisualCheck extends InteractiveTestCase {
 			@Override
 			protected String getColumnToolTipText(TableColumnExt column) {
 				TableModel model = getTable().getModel();
-				if (model instanceof ModelWithToolTip) {
-					return ((ModelWithToolTip) model).getColumnToolTip(column.getModelIndex());
+				if (model instanceof ModelWithToolTip modelWithToolTip) {
+					return modelWithToolTip.getColumnToolTip(column.getModelIndex());
 				}
 				return model.getColumnName(column.getModelIndex());
 			}

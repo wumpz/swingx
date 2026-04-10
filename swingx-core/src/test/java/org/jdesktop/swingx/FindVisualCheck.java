@@ -222,8 +222,8 @@ public class FindVisualCheck extends InteractiveTestCase {
 						LOG.info("my action");
 						// this is nasty ...
 						Window window = SwingUtilities.getWindowAncestor(panel);
-						if (window instanceof JXDialog) {
-							((JXDialog) window).doClose();
+						if (window instanceof JXDialog jXDialog) {
+							jXDialog.doClose();
 						}
 					}
 				};

@@ -916,8 +916,8 @@ public class JXTableUnitTest extends InteractiveTestCase {
 						i % 2 == 0,
 						getSortController(table).isSortable(i),
 						"odd/even columns must be not/-sortable: " + i);
-				if (tableColumn instanceof TableColumnExt) {
-					Comparator<?> comparator = ((TableColumnExt) tableColumn).getComparator();
+				if (tableColumn instanceof TableColumnExt tableColumnExt) {
+					Comparator<?> comparator = tableColumnExt.getComparator();
 					// JW: need to check against null because sorter might have its own
 					// ideas about default comparators
 					if (comparator != null) {
@@ -1700,8 +1700,7 @@ public class JXTableUnitTest extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Color) {
-					Color color = (Color) value;
+				if (value instanceof Color color) {
 					return "R/G/B: " + color.getRGB();
 				}
 				return StringValues.TO_STRING.getString(value);
@@ -3278,8 +3277,8 @@ public class JXTableUnitTest extends InteractiveTestCase {
 	private PropertyChangeListener getLinkControllerAsPropertyChangeListener(JXTable table, String propertyName) {
 		PropertyChangeListener[] listeners = table.getPropertyChangeListeners(propertyName);
 		for (PropertyChangeListener listener : listeners) {
-			if (listener instanceof TableRolloverController<?>) {
-				return (TableRolloverController<?>) listener;
+			if (listener instanceof TableRolloverController<?> tableRolloverController) {
+				return tableRolloverController;
 			}
 		}
 		return null;
@@ -3685,8 +3684,7 @@ public class JXTableUnitTest extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Color) {
-					Color color = (Color) value;
+				if (value instanceof Color color) {
 					return "R/G/B: " + color.getRGB();
 				}
 				return StringValues.TO_STRING.getString(value);

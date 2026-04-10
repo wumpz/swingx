@@ -222,10 +222,10 @@ public class RendererIssues extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof File) {
-					return FileSystemView.getFileSystemView().getSystemDisplayName((File) value)
+				if (value instanceof File file) {
+					return FileSystemView.getFileSystemView().getSystemDisplayName(file)
 							+ " Type: "
-							+ FileSystemView.getFileSystemView().getSystemTypeDescription((File) value);
+							+ FileSystemView.getFileSystemView().getSystemTypeDescription(file);
 				}
 				return StringValues.TO_STRING.getString(value);
 			}
@@ -234,8 +234,8 @@ public class RendererIssues extends InteractiveTestCase {
 
 			@Override
 			public Icon getIcon(Object value) {
-				if (value instanceof File) {
-					return FileSystemView.getFileSystemView().getSystemIcon((File) value);
+				if (value instanceof File file) {
+					return FileSystemView.getFileSystemView().getSystemIcon(file);
 				}
 				return null;
 			}
@@ -388,8 +388,8 @@ public class RendererIssues extends InteractiveTestCase {
 						this, getElementAt(row), row, isSelectedIndex(row), false);
 				if (comp.getPreferredSize().width <= getVisibleRect().width) return null;
 				renderer = ((DelegatingRenderer) renderer).getDelegateRenderer();
-				if (renderer instanceof StringValue) {
-					return ((StringValue) renderer).getString(getElementAt(row));
+				if (renderer instanceof StringValue stringValue) {
+					return stringValue.getString(getElementAt(row));
 				}
 				return null;
 			}
@@ -423,8 +423,8 @@ public class RendererIssues extends InteractiveTestCase {
 				TableCellRenderer renderer = getCellRenderer(row, column);
 				Component comp = prepareRenderer(renderer, row, column);
 				if (comp.getPreferredSize().width <= getColumn(column).getWidth()) return null;
-				if (renderer instanceof StringValue) {
-					return ((StringValue) renderer).getString(getValueAt(row, column));
+				if (renderer instanceof StringValue stringValue) {
+					return stringValue.getString(getValueAt(row, column));
 				}
 				return null;
 			}
@@ -474,10 +474,10 @@ public class RendererIssues extends InteractiveTestCase {
 						false);
 				int width = getVisibleRect().width;
 				if (comp.getPreferredSize().width <= width) return null;
-				if (renderer instanceof JXTree.DelegatingRenderer) {
-					renderer = ((JXTree.DelegatingRenderer) renderer).getDelegateRenderer();
-					if (renderer instanceof StringValue) {
-						return ((StringValue) renderer).getString(lastPath);
+				if (renderer instanceof JXTree.DelegatingRenderer delegatingRenderer) {
+					renderer = delegatingRenderer.getDelegateRenderer();
+					if (renderer instanceof StringValue stringValue) {
+						return stringValue.getString(lastPath);
 					}
 				}
 				return null;

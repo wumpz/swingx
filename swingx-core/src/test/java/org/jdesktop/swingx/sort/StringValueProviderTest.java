@@ -161,8 +161,7 @@ public class StringValueProviderTest extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Color) {
-					Color color = (Color) value;
+				if (value instanceof Color color) {
 					return "R/G/B: " + color.getRGB();
 				}
 				return StringValues.TO_STRING.getString(value);

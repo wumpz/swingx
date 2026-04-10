@@ -127,6 +127,7 @@ public class JXTreeIssues extends JXTreeUnitTest {
 	ComponentProvider<?> provider;
 
 	@BeforeEach
+	@Override
 	public void setUp() throws Exception {
 		super.setUp();
 		provider = new CheckBoxProvider(StringValues.TO_STRING);
@@ -388,8 +389,8 @@ public class JXTreeIssues extends JXTreeUnitTest {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof File) {
-					return ((File) value).getName();
+				if (value instanceof File file) {
+					return file.getName();
 				}
 				return StringValues.TO_STRING.getString(value);
 			}

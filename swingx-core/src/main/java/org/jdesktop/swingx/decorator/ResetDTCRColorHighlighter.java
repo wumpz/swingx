@@ -77,8 +77,8 @@ public class ResetDTCRColorHighlighter extends ColorHighlighter {
 	protected void applyBackground(Component renderer, ComponentAdapter adapter) {
 		if (!adapter.isSelected()) {
 			Object colorMemory = ((JComponent) renderer).getClientProperty("rendererColorMemory.background");
-			if (colorMemory instanceof ColorMemory) {
-				renderer.setBackground(((ColorMemory) colorMemory).color);
+			if (colorMemory instanceof ColorMemory colorMemory1) {
+				renderer.setBackground(colorMemory1.color);
 			} else {
 				((JComponent) renderer)
 						.putClientProperty("rendererColorMemory.background", new ColorMemory(renderer.getBackground()));
@@ -90,8 +90,8 @@ public class ResetDTCRColorHighlighter extends ColorHighlighter {
 	protected void applyForeground(Component renderer, ComponentAdapter adapter) {
 		if (!adapter.isSelected()) {
 			Object colorMemory = ((JComponent) renderer).getClientProperty("rendererColorMemory.foreground");
-			if (colorMemory instanceof ColorMemory) {
-				renderer.setForeground(((ColorMemory) colorMemory).color);
+			if (colorMemory instanceof ColorMemory colorMemory1) {
+				renderer.setForeground(colorMemory1.color);
 			} else {
 				((JComponent) renderer)
 						.putClientProperty("rendererColorMemory.foreground", new ColorMemory(renderer.getForeground()));

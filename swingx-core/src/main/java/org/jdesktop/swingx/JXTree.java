@@ -372,8 +372,8 @@ public class JXTree extends JTree {
 		// setup.
 		// JW PENDING need to mimic ui-delegate default re-set?
 		// JW PENDING alternatively, cleanup and use DefaultXXTreeCellEditor in incubator
-		if (getWrappedCellRenderer() instanceof DefaultTreeCellRenderer) {
-			setCellEditor(new DefaultXTreeCellEditor(this, (DefaultTreeCellRenderer) getWrappedCellRenderer()));
+		if (getWrappedCellRenderer() instanceof DefaultTreeCellRenderer defaultTreeCellRenderer) {
+			setCellEditor(new DefaultXTreeCellEditor(this, defaultTreeCellRenderer));
 		}
 		// Register the actions that this class can handle.
 		ActionMap map = getActionMap();
@@ -514,8 +514,8 @@ public class JXTree extends JTree {
 	public String getStringAt(TreePath path) {
 		if (path == null) return null;
 		TreeCellRenderer renderer = getDelegatingRenderer().getDelegateRenderer();
-		if (renderer instanceof StringValue) {
-			return ((StringValue) renderer).getString(path.getLastPathComponent());
+		if (renderer instanceof StringValue stringValue) {
+			return stringValue.getString(path.getLastPathComponent());
 		}
 		return StringValues.TO_STRING.getString(path.getLastPathComponent());
 	}
@@ -699,8 +699,8 @@ public class JXTree extends JTree {
 	 * Quick fix for #1060-swingx: icons lost on toggling LAF
 	 */
 	protected void updateRendererEditorUI() {
-		if (getCellEditor() instanceof UIDependent) {
-			((UIDependent) getCellEditor()).updateUI();
+		if (getCellEditor() instanceof UIDependent uIDependent) {
+			uIDependent.updateUI();
 		}
 		// PENDING JW: here we get the DelegationRenderer which is not (yet) UIDependent
 		// need to think about how to handle the per-tree icons
@@ -1007,8 +1007,8 @@ public class JXTree extends JTree {
 	 * @param expandedIcon the Icon to use for the handle of an expanded node.
 	 */
 	public void setExpandedIcon(Icon expandedIcon) {
-		if (getUI() instanceof BasicTreeUI) {
-			((BasicTreeUI) getUI()).setExpandedIcon(expandedIcon);
+		if (getUI() instanceof BasicTreeUI basicTreeUI) {
+			basicTreeUI.setExpandedIcon(expandedIcon);
 		}
 	}
 
@@ -1023,8 +1023,8 @@ public class JXTree extends JTree {
 	 * @param collapsedIcon the Icon to use for the handle of a collapsed node.
 	 */
 	public void setCollapsedIcon(Icon collapsedIcon) {
-		if (getUI() instanceof BasicTreeUI) {
-			((BasicTreeUI) getUI()).setCollapsedIcon(collapsedIcon);
+		if (getUI() instanceof BasicTreeUI basicTreeUI) {
+			basicTreeUI.setCollapsedIcon(collapsedIcon);
 		}
 	}
 
@@ -1279,22 +1279,22 @@ public class JXTree extends JTree {
 		}
 
 		public void setClosedIcon(Icon closedIcon) {
-			if (delegate instanceof DefaultTreeCellRenderer) {
-				((DefaultTreeCellRenderer) delegate).setClosedIcon(closedIcon);
+			if (delegate instanceof DefaultTreeCellRenderer defaultTreeCellRenderer) {
+				defaultTreeCellRenderer.setClosedIcon(closedIcon);
 			}
 			this.closedIcon = closedIcon;
 		}
 
 		public void setOpenIcon(Icon openIcon) {
-			if (delegate instanceof DefaultTreeCellRenderer) {
-				((DefaultTreeCellRenderer) delegate).setOpenIcon(openIcon);
+			if (delegate instanceof DefaultTreeCellRenderer defaultTreeCellRenderer) {
+				defaultTreeCellRenderer.setOpenIcon(openIcon);
 			}
 			this.openIcon = openIcon;
 		}
 
 		public void setLeafIcon(Icon leafIcon) {
-			if (delegate instanceof DefaultTreeCellRenderer) {
-				((DefaultTreeCellRenderer) delegate).setLeafIcon(leafIcon);
+			if (delegate instanceof DefaultTreeCellRenderer defaultTreeCellRenderer) {
+				defaultTreeCellRenderer.setLeafIcon(leafIcon);
 			}
 			this.leafIcon = leafIcon;
 		}
@@ -1356,8 +1356,7 @@ public class JXTree extends JTree {
 	 *
 	 */
 	public void invalidateCellSizeCache() {
-		if (getUI() instanceof BasicTreeUI) {
-			BasicTreeUI ui = (BasicTreeUI) getUI();
+		if (getUI() instanceof BasicTreeUI ui) {
 			ui.setLeftChildIndent(ui.getLeftChildIndent());
 		}
 	}
@@ -1536,8 +1535,8 @@ public class JXTree extends JTree {
 			Component c = focusManager.getPermanentFocusOwner();
 			JXTree tree = JXTree.this;
 			while (c != null) {
-				if (c instanceof JPopupMenu) {
-					c = ((JPopupMenu) c).getInvoker();
+				if (c instanceof JPopupMenu jPopupMenu) {
+					c = jPopupMenu.getInvoker();
 				} else {
 
 					if (c == tree) {

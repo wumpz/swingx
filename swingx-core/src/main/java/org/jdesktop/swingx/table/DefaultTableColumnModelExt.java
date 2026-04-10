@@ -120,8 +120,8 @@ public class DefaultTableColumnModelExt extends DefaultTableColumnModel implemen
 	@Override
 	public TableColumnExt getColumnExt(int columnIndex) {
 		TableColumn column = getColumn(columnIndex);
-		if (column instanceof TableColumnExt) {
-			return (TableColumnExt) column;
+		if (column instanceof TableColumnExt tableColumnExt) {
+			return tableColumnExt;
 		}
 		return null;
 	}
@@ -163,17 +163,17 @@ public class DefaultTableColumnModelExt extends DefaultTableColumnModel implemen
 	public void removeColumn(TableColumn column) {
 		boolean oldVisible = true;
 		// remove the visibility listener if appropriate
-		if (column instanceof TableColumnExt) {
-			oldVisible = ((TableColumnExt) column).isVisible();
-			((TableColumnExt) column).setVisible(true);
-			((TableColumnExt) column).removePropertyChangeListener(visibilityListener);
+		if (column instanceof TableColumnExt tableColumnExt) {
+			oldVisible = tableColumnExt.isVisible();
+			tableColumnExt.setVisible(true);
+			tableColumnExt.removePropertyChangeListener(visibilityListener);
 		}
 		currentColumns.remove(column);
 		initialColumns.remove(column);
 		// let the superclass handle notification etc
 		super.removeColumn(column);
-		if (column instanceof TableColumnExt) {
-			((TableColumnExt) column).setVisible(oldVisible);
+		if (column instanceof TableColumnExt tableColumnExt) {
+			tableColumnExt.setVisible(oldVisible);
 		}
 	}
 
@@ -188,8 +188,7 @@ public class DefaultTableColumnModelExt extends DefaultTableColumnModel implemen
 		// two step: add as visible, setVisible
 		boolean oldVisible = true;
 		// add the visibility listener if appropriate
-		if (aColumn instanceof TableColumnExt) {
-			TableColumnExt xColumn = (TableColumnExt) aColumn;
+		if (aColumn instanceof TableColumnExt xColumn) {
 			oldVisible = xColumn.isVisible();
 			xColumn.setVisible(true);
 			xColumn.addPropertyChangeListener(visibilityListener);
@@ -199,9 +198,9 @@ public class DefaultTableColumnModelExt extends DefaultTableColumnModel implemen
 		initialColumns.add(aColumn);
 		// let super handle the event notification, super.book-keeping
 		super.addColumn(aColumn);
-		if (aColumn instanceof TableColumnExt) {
+		if (aColumn instanceof TableColumnExt tableColumnExt) {
 			// reset original visibility
-			((TableColumnExt) aColumn).setVisible(oldVisible);
+			tableColumnExt.setVisible(oldVisible);
 		}
 	}
 
@@ -346,8 +345,8 @@ public class DefaultTableColumnModelExt extends DefaultTableColumnModel implemen
 	@Override
 	public void addColumnModelListener(TableColumnModelListener x) {
 		super.addColumnModelListener(x);
-		if (x instanceof TableColumnModelExtListener) {
-			listenerList.add(TableColumnModelExtListener.class, (TableColumnModelExtListener) x);
+		if (x instanceof TableColumnModelExtListener tableColumnModelExtListener) {
+			listenerList.add(TableColumnModelExtListener.class, tableColumnModelExtListener);
 		}
 	}
 
@@ -360,8 +359,8 @@ public class DefaultTableColumnModelExt extends DefaultTableColumnModel implemen
 	@Override
 	public void removeColumnModelListener(TableColumnModelListener x) {
 		super.removeColumnModelListener(x);
-		if (x instanceof TableColumnModelExtListener) {
-			listenerList.remove(TableColumnModelExtListener.class, (TableColumnModelExtListener) x);
+		if (x instanceof TableColumnModelExtListener tableColumnModelExtListener) {
+			listenerList.remove(TableColumnModelExtListener.class, tableColumnModelExtListener);
 		}
 	}
 

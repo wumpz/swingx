@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
  */
 public class JXLabelTest extends InteractiveTestCase {
 
-	static Logger log = Logger.getAnonymousLogger();
+	static final Logger log = Logger.getAnonymousLogger();
 
 	/**
 	 * Issue #1164-swingx: do not interfere with core antialiased handling.

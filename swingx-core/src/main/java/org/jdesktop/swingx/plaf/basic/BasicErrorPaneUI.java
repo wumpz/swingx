@@ -403,10 +403,10 @@ public class BasicErrorPaneUI extends ErrorPaneUI {
 		collapsedHeight = 0;
 		Window w = WindowUtils.findWindow(owner);
 		JXErrorDialog dlg = null;
-		if (w instanceof Dialog) {
-			dlg = new JXErrorDialog((Dialog) w, pane);
-		} else if (w instanceof Frame) {
-			dlg = new JXErrorDialog((Frame) w, pane);
+		if (w instanceof Dialog dialog) {
+			dlg = new JXErrorDialog(dialog, pane);
+		} else if (w instanceof Frame frame) {
+			dlg = new JXErrorDialog(frame, pane);
 		} else {
 			// default fallback to null
 			dlg = new JXErrorDialog(JOptionPane.getRootFrame(), pane);
@@ -738,8 +738,8 @@ public class BasicErrorPaneUI extends ErrorPaneUI {
 		@Override
 		public void actionPerformed(ActionEvent ae) {
 			Dimension contentSize = null;
-			if (w instanceof JDialog) {
-				contentSize = ((JDialog) w).getContentPane().getSize();
+			if (w instanceof JDialog jDialog) {
+				contentSize = jDialog.getContentPane().getSize();
 			} else {
 				contentSize = ((JFrame) w).getContentPane().getSize();
 			}
@@ -920,15 +920,15 @@ public class BasicErrorPaneUI extends ErrorPaneUI {
 			detailButton.addActionListener(a);
 		}
 
-		if (w instanceof JFrame) {
-			final JFrame f = (JFrame) w;
+		if (w instanceof JFrame jFrame) {
+			final JFrame f = jFrame;
 			f.getRootPane().setDefaultButton(closeButton);
 			f.setResizable(true);
 			f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			KeyStroke ks = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
 			f.getRootPane().registerKeyboardAction(closeAction, ks, JComponent.WHEN_IN_FOCUSED_WINDOW);
-		} else if (w instanceof JDialog) {
-			final JDialog d = (JDialog) w;
+		} else if (w instanceof JDialog jDialog) {
+			final JDialog d = jDialog;
 			d.getRootPane().setDefaultButton(closeButton);
 			d.setResizable(true);
 			d.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

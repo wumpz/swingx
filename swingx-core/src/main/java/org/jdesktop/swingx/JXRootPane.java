@@ -245,15 +245,15 @@ public class JXRootPane extends JRootPane {
 	 */
 	@Override
 	public void setLayout(LayoutManager layout) {
-		if (layout instanceof XRootLayout) {
+		if (layout instanceof XRootLayout xRootLayout) {
 			// happens if decoration is uninstalled by ui
 			if ((layout != null) && (layout == getLayout())) {
-				((XRootLayout) layout).setLayoutManager(null);
+				xRootLayout.setLayoutManager(null);
 			}
 			super.setLayout(layout);
 		} else {
-			if (layout instanceof LayoutManager2) {
-				((XRootLayout) getLayout()).setLayoutManager((LayoutManager2) layout);
+			if (layout instanceof LayoutManager2 layoutManager2) {
+				((XRootLayout) getLayout()).setLayoutManager(layoutManager2);
 				if (!isValid()) {
 					invalidate();
 				}
@@ -304,8 +304,8 @@ public class JXRootPane extends JRootPane {
 			public boolean isEnabled() {
 				Component component =
 						KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
-				if (component instanceof JComponent) {
-					Action cancelPopup = ((JComponent) component).getActionMap().get("cancel");
+				if (component instanceof JComponent jComponent) {
+					Action cancelPopup = jComponent.getActionMap().get("cancel");
 					if (cancelPopup != null) return false;
 				}
 				return (cancelButton != null) && (cancelButton.isEnabled());
@@ -321,8 +321,8 @@ public class JXRootPane extends JRootPane {
 		if (statusBar == null || comp == null) {
 			return;
 		}
-		if (comp instanceof Container) {
-			Component[] comps = ((Container) comp).getComponents();
+		if (comp instanceof Container container) {
+			Component[] comps = container.getComponents();
 			for (Component comp1 : comps) {
 				registerStatusBar(comp1);
 			}
@@ -333,8 +333,8 @@ public class JXRootPane extends JRootPane {
 		if (statusBar == null || comp == null) {
 			return;
 		}
-		if (comp instanceof Container) {
-			Component[] comps = ((Container) comp).getComponents();
+		if (comp instanceof Container container) {
+			Component[] comps = container.getComponents();
 			for (Component comp1 : comps) {
 				unregisterStatusBar(comp1);
 			}

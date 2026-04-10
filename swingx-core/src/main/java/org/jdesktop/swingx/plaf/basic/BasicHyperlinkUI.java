@@ -437,8 +437,8 @@ public class BasicHyperlinkUI extends BasicButtonUI {
 			BasicEditorKit kit = getFactory();
 			Document doc = kit.createDefaultDocument(c.getFont(), c.getForeground());
 			Object base = c.getClientProperty(documentBaseKey);
-			if (base instanceof URL) {
-				((HTMLDocument) doc).setBase((URL) base);
+			if (base instanceof URL url) {
+				((HTMLDocument) doc).setBase(url);
 			}
 			Reader r = new StringReader(html);
 			try {
@@ -535,8 +535,8 @@ public class BasicHyperlinkUI extends BasicButtonUI {
 			public View create(Element elem) {
 				View view = super.create(elem);
 
-				if (view instanceof ImageView) {
-					((ImageView) view).setLoadsSynchronously(true);
+				if (view instanceof ImageView imageView) {
+					imageView.setLoadsSynchronously(true);
 				}
 				return view;
 			}

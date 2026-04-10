@@ -185,15 +185,15 @@ public final class SwingXUtilities {
 	private static Component[] getChildren(Component c) {
 		Component[] children = null;
 
-		if (c instanceof MenuElement) {
-			MenuElement[] elements = ((MenuElement) c).getSubElements();
+		if (c instanceof MenuElement menuElement) {
+			MenuElement[] elements = menuElement.getSubElements();
 			children = new Component[elements.length];
 
 			for (int i = 0; i < elements.length; i++) {
 				children[i] = elements[i].getComponent();
 			}
-		} else if (c instanceof Container) {
-			children = ((Container) c).getComponents();
+		} else if (c instanceof Container container) {
+			children = container.getComponents();
 		}
 
 		return children;
@@ -401,10 +401,10 @@ public final class SwingXUtilities {
 		} catch (ExecutionException e) {
 			Throwable t = e.getCause();
 
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException) t;
-			} else if (t instanceof InvocationTargetException) {
-				throw (InvocationTargetException) t;
+			if (t instanceof RuntimeException runtimeException) {
+				throw runtimeException;
+			} else if (t instanceof InvocationTargetException invocationTargetException) {
+				throw invocationTargetException;
 			} else {
 				throw new InvocationTargetException(t);
 			}
@@ -454,8 +454,8 @@ public final class SwingXUtilities {
 	 */
 	public static boolean isDescendingFrom(Component focusOwner, Component parent) {
 		while (focusOwner != null) {
-			if (focusOwner instanceof JPopupMenu) {
-				focusOwner = ((JPopupMenu) focusOwner).getInvoker();
+			if (focusOwner instanceof JPopupMenu jPopupMenu) {
+				focusOwner = jPopupMenu.getInvoker();
 				if (focusOwner == null) {
 					return false;
 				}
@@ -484,8 +484,8 @@ public final class SwingXUtilities {
 		RepaintManager manager = delegate;
 
 		while (manager != null && !manager.getClass().isAnnotationPresent(TranslucentRepaintManager.class)) {
-			if (manager instanceof ForwardingRepaintManager) {
-				manager = ((ForwardingRepaintManager) manager).getDelegateManager();
+			if (manager instanceof ForwardingRepaintManager forwardingRepaintManager) {
+				manager = forwardingRepaintManager.getDelegateManager();
 			} else {
 				manager = null;
 			}

@@ -506,8 +506,8 @@ public class JXHeaderTest {
 	 */
 	private JLabel getTitleLabel(JXHeader header) {
 		for (int i = 0; i < header.getComponentCount(); i++) {
-			if (header.getComponent(i) instanceof JLabel) {
-				return (JLabel) header.getComponent(i);
+			if (header.getComponent(i) instanceof JLabel jLabel) {
+				return jLabel;
 			}
 		}
 		return null;

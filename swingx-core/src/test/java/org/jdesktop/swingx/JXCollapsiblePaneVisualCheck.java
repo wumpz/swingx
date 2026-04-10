@@ -82,8 +82,8 @@ public class JXCollapsiblePaneVisualCheck extends InteractiveTestCase {
 					component.getParent().applyComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 				}
 
-				if (component.getParent() instanceof JComponent) {
-					((JComponent) component.getParent()).revalidate();
+				if (component.getParent() instanceof JComponent jComponent) {
+					jComponent.revalidate();
 				} else {
 					component.getParent().invalidate();
 				}

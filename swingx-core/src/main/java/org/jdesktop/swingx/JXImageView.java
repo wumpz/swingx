@@ -86,7 +86,7 @@ import org.jdesktop.swingx.util.PaintUtils;
 @JavaBean
 public class JXImageView extends JXPanel {
 
-	private Logger log = Logger.getLogger(JXImageView.class.getName());
+	private static final Logger log = Logger.getLogger(JXImageView.class.getName());
 	/* ======= instance variables ========= */
 	// the image this view will show
 	private Image image;
@@ -290,11 +290,11 @@ public class JXImageView extends JXPanel {
 
 	private static FileDialog getSafeFileDialog(Component comp) {
 		Window win = SwingUtilities.windowForComponent(comp);
-		if (win instanceof Dialog) {
-			return new FileDialog((Dialog) win);
+		if (win instanceof Dialog dialog) {
+			return new FileDialog(dialog);
 		}
-		if (win instanceof Frame) {
-			return new FileDialog((Frame) win);
+		if (win instanceof Frame frame) {
+			return new FileDialog(frame);
 		}
 		return null;
 	}
@@ -651,8 +651,8 @@ public class JXImageView extends JXPanel {
 					Object obj = t.getTransferData(urlFlavor);
 					// log.fine("obj = " + obj + " " + obj.getClass().getPackage() + " "
 					//        + obj.getClass().getName());
-					if (obj instanceof URL) {
-						setImageString(((URL) obj).toString());
+					if (obj instanceof URL url) {
+						setImageString(url.toString());
 					}
 					return true;
 				} catch (Exception ex) {

@@ -105,9 +105,9 @@ public class BasicMonthViewVisualCheck extends InteractiveTestCase {
 
 				@Override
 				public String getString(Object value) {
-					if (value instanceof Calendar) {
-						((DateFormat) getFormat()).setTimeZone(((Calendar) value).getTimeZone());
-						value = ((Calendar) value).getTime();
+					if (value instanceof Calendar calendar) {
+						((DateFormat) getFormat()).setTimeZone(calendar.getTimeZone());
+						value = calendar.getTime();
 					}
 					return super.getString(value);
 				}
@@ -139,8 +139,8 @@ public class BasicMonthViewVisualCheck extends InteractiveTestCase {
 
 				@Override
 				public String getString(Object value) {
-					if (value instanceof Calendar) {
-						value = ((Calendar) value).get(Calendar.WEEK_OF_YEAR);
+					if (value instanceof Calendar calendar) {
+						value = calendar.get(Calendar.WEEK_OF_YEAR);
 					}
 					return super.getString(value);
 				}

@@ -152,8 +152,8 @@ public class PainterHighlighter extends AbstractHighlighter {
 	 * the Painter is of type AbstractPainter.
 	 */
 	protected void installPainterListener() {
-		if (getPainter() instanceof AbstractPainter) {
-			((AbstractPainter) getPainter()).addPropertyChangeListener(getPainterListener());
+		if (getPainter() instanceof AbstractPainter abstractPainter) {
+			abstractPainter.addPropertyChangeListener(getPainterListener());
 		}
 	}
 
@@ -163,8 +163,8 @@ public class PainterHighlighter extends AbstractHighlighter {
 	 * the Painter is of type AbstractPainter.
 	 */
 	protected void uninstallPainterListener() {
-		if (getPainter() instanceof AbstractPainter) {
-			((AbstractPainter) getPainter()).removePropertyChangeListener(painterListener);
+		if (getPainter() instanceof AbstractPainter abstractPainter) {
+			abstractPainter.removePropertyChangeListener(painterListener);
 		}
 	}
 

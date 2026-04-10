@@ -78,8 +78,8 @@ public class JXTaskPaneContainerVisualCheck extends InteractiveTestCase {
 			@Override
 			protected void addImpl(Component comp, Object constraints, int index) {
 				super.addImpl(comp, constraints, index);
-				if (comp instanceof JXTaskPane) {
-					grabExpansionControl((JXTaskPane) comp);
+				if (comp instanceof JXTaskPane jXTaskPane) {
+					grabExpansionControl(jXTaskPane);
 				}
 			}
 

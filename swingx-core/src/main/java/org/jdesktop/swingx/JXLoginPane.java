@@ -332,8 +332,7 @@ public class JXLoginPane extends JXPanel {
 		progressMessageLabel.setText(UIManagerExt.getString(CLASS_NAME + ".pleaseWait", getLocale()));
 		recreateLoginPanel();
 		Window w = SwingUtilities.getWindowAncestor(this);
-		if (w instanceof JXLoginFrame) {
-			JXLoginFrame f = (JXLoginFrame) w;
+		if (w instanceof JXLoginFrame f) {
 			f.setTitle(UIManagerExt.getString(CLASS_NAME + ".titleString", getLocale()));
 			if (buttonPanel != null) {
 				buttonPanel.getOk().setText(UIManagerExt.getString(CLASS_NAME + ".loginString", getLocale()));
@@ -826,8 +825,8 @@ public class JXLoginPane extends JXPanel {
 				if (m.isVisible()) {
 					Dimension componentPreferredSize = m.getPreferredSize();
 					// swingx-917 - don't let jlabel to force width due to long text
-					if (m instanceof JLabel) {
-						View view = (View) ((JLabel) m).getClientProperty(BasicHTML.propertyKey);
+					if (m instanceof JLabel jLabel) {
+						View view = (View) jLabel.getClientProperty(BasicHTML.propertyKey);
 						if (view != null) {
 							view.setSize(pref.width, m.getHeight());
 							// get fresh preferred size since we have forced new size on label
@@ -1638,10 +1637,10 @@ public class JXLoginPane extends JXPanel {
 		JXLoginDialog dlg = null;
 		if (w == null) {
 			dlg = new JXLoginDialog((Frame) null, panel);
-		} else if (w instanceof Dialog) {
-			dlg = new JXLoginDialog((Dialog) w, panel);
-		} else if (w instanceof Frame) {
-			dlg = new JXLoginDialog((Frame) w, panel);
+		} else if (w instanceof Dialog dialog) {
+			dlg = new JXLoginDialog(dialog, panel);
+		} else if (w instanceof Frame frame) {
+			dlg = new JXLoginDialog(frame, panel);
 		} else {
 			throw new AssertionError("Shouldn't be able to happen");
 		}
@@ -1801,8 +1800,8 @@ public class JXLoginPane extends JXPanel {
 			}
 		});
 
-		if (w instanceof JFrame) {
-			final JFrame f = (JFrame) w;
+		if (w instanceof JFrame jFrame) {
+			final JFrame f = jFrame;
 			f.getRootPane().setDefaultButton(okButton);
 			f.setResizable(false);
 			f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -1815,8 +1814,8 @@ public class JXLoginPane extends JXPanel {
 				}
 			};
 			f.getRootPane().registerKeyboardAction(closeAction, ks, JComponent.WHEN_IN_FOCUSED_WINDOW);
-		} else if (w instanceof JDialog) {
-			final JDialog d = (JDialog) w;
+		} else if (w instanceof JDialog jDialog) {
+			final JDialog d = jDialog;
 			d.getRootPane().setDefaultButton(okButton);
 			d.setResizable(false);
 			KeyStroke ks = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);

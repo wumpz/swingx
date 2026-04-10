@@ -1015,8 +1015,7 @@ public class JXTable extends JTable implements TableColumnModelExtListener {
 		Container p = getParent();
 		if (p instanceof JViewport) {
 			Container gp = p.getParent();
-			if (gp instanceof JScrollPane) {
-				JScrollPane scrollPane = (JScrollPane) gp;
+			if (gp instanceof JScrollPane scrollPane) {
 				// Make certain we are the viewPort's view and not, for
 				// example, the rowHeaderView of the scrollPane -
 				// an implementor of fixed columns might do this.
@@ -1384,8 +1383,8 @@ public class JXTable extends JTable implements TableColumnModelExtListener {
 	 */
 	protected void updateHorizontalAction() {
 		Action showHorizontal = getActionMap().get(HORIZONTALSCROLL_ACTION_COMMAND);
-		if (showHorizontal instanceof BoundAction) {
-			((BoundAction) showHorizontal).setSelected(isHorizontalScrollEnabled());
+		if (showHorizontal instanceof BoundAction boundAction) {
+			boundAction.setSelected(isHorizontalScrollEnabled());
 		}
 	}
 
@@ -2321,8 +2320,8 @@ public class JXTable extends JTable implements TableColumnModelExtListener {
 	 * @see TableColumnModelExt#getColumnCount(boolean)
 	 */
 	public int getColumnCount(boolean includeHidden) {
-		if (getColumnModel() instanceof TableColumnModelExt) {
-			return ((TableColumnModelExt) getColumnModel()).getColumnCount(includeHidden);
+		if (getColumnModel() instanceof TableColumnModelExt tableColumnModelExt) {
+			return tableColumnModelExt.getColumnCount(includeHidden);
 		}
 		return getColumnCount();
 	}
@@ -2349,8 +2348,8 @@ public class JXTable extends JTable implements TableColumnModelExtListener {
 	 * @see TableColumnModelExt#getColumns(boolean)
 	 */
 	public List<TableColumn> getColumns(boolean includeHidden) {
-		if (getColumnModel() instanceof TableColumnModelExt) {
-			return ((TableColumnModelExt) getColumnModel()).getColumns(includeHidden);
+		if (getColumnModel() instanceof TableColumnModelExt tableColumnModelExt) {
+			return tableColumnModelExt.getColumns(includeHidden);
 		}
 		return getColumns();
 	}
@@ -2371,14 +2370,14 @@ public class JXTable extends JTable implements TableColumnModelExtListener {
 	 * @see TableColumnModelExt#getColumnExt(Object)
 	 */
 	public TableColumnExt getColumnExt(Object identifier) {
-		if (getColumnModel() instanceof TableColumnModelExt) {
-			return ((TableColumnModelExt) getColumnModel()).getColumnExt(identifier);
+		if (getColumnModel() instanceof TableColumnModelExt tableColumnModelExt) {
+			return tableColumnModelExt.getColumnExt(identifier);
 		} else {
 			// PENDING: not tested!
 			try {
 				TableColumn column = getColumn(identifier);
-				if (column instanceof TableColumnExt) {
-					return (TableColumnExt) column;
+				if (column instanceof TableColumnExt tableColumnExt) {
+					return tableColumnExt;
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -2407,8 +2406,8 @@ public class JXTable extends JTable implements TableColumnModelExtListener {
 	 */
 	public TableColumnExt getColumnExt(int viewColumnIndex) {
 		TableColumn column = getColumn(viewColumnIndex);
-		if (column instanceof TableColumnExt) {
-			return (TableColumnExt) column;
+		if (column instanceof TableColumnExt tableColumnExt) {
+			return tableColumnExt;
 		}
 		return null;
 	}
@@ -2907,8 +2906,8 @@ public class JXTable extends JTable implements TableColumnModelExtListener {
 	 * @see org.jdesktop.swingx.table.ColumnFactory#configureColumnWidths
 	 */
 	protected void initializeColumnPreferredWidth(TableColumn column) {
-		if (column instanceof TableColumnExt) {
-			getColumnFactory().configureColumnWidths(this, (TableColumnExt) column);
+		if (column instanceof TableColumnExt tableColumnExt) {
+			getColumnFactory().configureColumnWidths(this, tableColumnExt);
 		}
 	}
 
@@ -3434,8 +3433,8 @@ public class JXTable extends JTable implements TableColumnModelExtListener {
 	private void initDefaultStringValues() {
 		for (Object clazz : defaultRenderersByColumnClass.keySet()) {
 			Object renderer = defaultRenderersByColumnClass.get(clazz);
-			if (renderer instanceof StringValue) {
-				getStringValueRegistry().setStringValue((StringValue) renderer, (Class<?>) clazz);
+			if (renderer instanceof StringValue stringValue) {
+				getStringValueRegistry().setStringValue(stringValue, (Class<?>) clazz);
 			}
 		}
 	}
@@ -4107,8 +4106,8 @@ public class JXTable extends JTable implements TableColumnModelExtListener {
 			Component c = focusManager.getPermanentFocusOwner();
 			while (c != null) {
 				// PENDING JW: logic untested!
-				if (c instanceof JPopupMenu) {
-					c = ((JPopupMenu) c).getInvoker();
+				if (c instanceof JPopupMenu jPopupMenu) {
+					c = jPopupMenu.getInvoker();
 				} else {
 					if (c == JXTable.this) {
 						// focus remains inside the table
@@ -4203,8 +4202,8 @@ public class JXTable extends JTable implements TableColumnModelExtListener {
 		// super handled this
 		if (maybeRenderer instanceof JComponent) return;
 		Component comp = null;
-		if (maybeRenderer instanceof AbstractRenderer) {
-			comp = ((AbstractRenderer) maybeRenderer).getComponentProvider().getRendererComponent(null);
+		if (maybeRenderer instanceof AbstractRenderer abstractRenderer) {
+			comp = abstractRenderer.getComponentProvider().getRendererComponent(null);
 		} else {
 			try {
 				// custom editors might balk about fake rows/columns
@@ -4228,8 +4227,8 @@ public class JXTable extends JTable implements TableColumnModelExtListener {
 	 * @param column the tableColumn to update.
 	 */
 	protected void updateColumnUI(TableColumn column) {
-		if (column instanceof UIDependent) {
-			((UIDependent) column).updateUI();
+		if (column instanceof UIDependent uIDependent) {
+			uIDependent.updateUI();
 		} else {
 			updateEditorUI(column.getCellEditor());
 			updateRendererUI(column.getCellRenderer());

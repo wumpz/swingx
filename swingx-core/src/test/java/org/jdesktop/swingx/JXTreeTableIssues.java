@@ -920,8 +920,8 @@ public class JXTreeTableIssues extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Action) {
-					return ((Action) value).getValue(Action.NAME) + "xx";
+				if (value instanceof Action action) {
+					return action.getValue(Action.NAME) + "xx";
 				}
 				return StringValues.TO_STRING.getString(value);
 			}

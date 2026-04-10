@@ -40,7 +40,7 @@ import org.jdesktop.swingx.event.EventListenerMap;
  * @author Jeanette Winzenburg
  */
 public abstract class AbstractDateSelectionModel implements DateSelectionModel {
-	public static final SortedSet<Date> EMPTY_DATES = Collections.unmodifiableSortedSet(new TreeSet<Date>());
+	public static final SortedSet<Date> EMPTY_DATES = Collections.unmodifiableSortedSet(new TreeSet<>());
 
 	protected EventListenerMap listenerMap;
 	protected boolean adjusting;

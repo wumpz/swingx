@@ -404,8 +404,8 @@ public class JXTableIssues extends InteractiveTestCase {
 			protected Component doHighlight(Component renderer, ComponentAdapter adapter) {
 				Color color = (Color) adapter.getValue();
 
-				if (renderer instanceof JComponent) {
-					((JComponent) renderer).setBorder(BorderFactory.createLineBorder(color));
+				if (renderer instanceof JComponent jComponent) {
+					jComponent.setBorder(BorderFactory.createLineBorder(color));
 				}
 
 				return renderer;

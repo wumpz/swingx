@@ -51,8 +51,8 @@ public class BasicLoginPaneUI extends LoginPaneUI {
 		public void propertyChange(PropertyChangeEvent evt) {
 			Object src = evt.getSource();
 
-			if (src instanceof JComponent) {
-				((JComponent) src).updateUI();
+			if (src instanceof JComponent jComponent) {
+				jComponent.updateUI();
 			}
 		}
 	}

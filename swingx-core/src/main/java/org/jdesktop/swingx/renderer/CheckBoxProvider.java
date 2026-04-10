@@ -153,8 +153,8 @@ public class CheckBoxProvider extends ComponentProvider<AbstractButton> {
 	 *   or false if none if available.
 	 */
 	protected boolean getValueAsBoolean(CellContext context) {
-		if (formatter instanceof BooleanValue) {
-			return ((BooleanValue) formatter).getBoolean(context.getValue());
+		if (formatter instanceof BooleanValue booleanValue) {
+			return booleanValue.getBoolean(context.getValue());
 		}
 		return Boolean.TRUE.equals(context.getValue());
 	}

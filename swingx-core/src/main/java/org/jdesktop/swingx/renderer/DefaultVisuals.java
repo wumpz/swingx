@@ -115,8 +115,8 @@ public class DefaultVisuals<T extends JComponent> implements Serializable {
 	 * @param context the cell context to configure from, must not be null
 	 */
 	protected void configurePainter(T renderingComponent, CellContext context) {
-		if (renderingComponent instanceof PainterAware) {
-			((PainterAware) renderingComponent).setPainter(null);
+		if (renderingComponent instanceof PainterAware painterAware) {
+			painterAware.setPainter(null);
 		}
 	}
 

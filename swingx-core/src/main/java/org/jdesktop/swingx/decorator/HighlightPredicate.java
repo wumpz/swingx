@@ -255,12 +255,12 @@ public interface HighlightPredicate {
 			int horizontalTextPosition = SwingConstants.TRAILING;
 			int gap = 0;
 
-			if (renderer instanceof JLabel) {
-				icon = ((JLabel) renderer).getIcon();
-				gap = ((JLabel) renderer).getIconTextGap();
-			} else if (renderer instanceof AbstractButton) {
-				icon = ((AbstractButton) renderer).getIcon();
-				gap = ((AbstractButton) renderer).getIconTextGap();
+			if (renderer instanceof JLabel jLabel) {
+				icon = jLabel.getIcon();
+				gap = jLabel.getIconTextGap();
+			} else if (renderer instanceof AbstractButton abstractButton) {
+				icon = abstractButton.getIcon();
+				gap = abstractButton.getIconTextGap();
 			}
 
 			Rectangle cellBounds = adapter.getCellBounds();

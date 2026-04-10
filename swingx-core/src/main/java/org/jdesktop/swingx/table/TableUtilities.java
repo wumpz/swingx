@@ -158,8 +158,8 @@ public class TableUtilities {
 	 * Stand-in instead of fixing of issue http://java.net/jira/browse/SWINGX-1407
 	 */
 	public static void clear(TableColumnModel model, boolean includeHidden) {
-		if (model instanceof TableColumnModelExt) {
-			clear(model, ((TableColumnModelExt) model).getColumns(includeHidden));
+		if (model instanceof TableColumnModelExt tableColumnModelExt) {
+			clear(model, tableColumnModelExt.getColumns(includeHidden));
 		} else {
 			clear(model, Collections.list(model.getColumns()));
 		}

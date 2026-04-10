@@ -81,8 +81,8 @@ public class JXDialogVisualCheck extends InteractiveTestCase {
 			public void actionPerformed(ActionEvent e) {
 				LOG.info("got a close");
 				Window window = SwingUtilities.windowForComponent(content);
-				if (window instanceof JXDialog) {
-					((JXDialog) window).doClose();
+				if (window instanceof JXDialog jXDialog) {
+					jXDialog.doClose();
 				}
 			}
 		};

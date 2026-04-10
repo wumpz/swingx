@@ -52,7 +52,7 @@ public class MapComboBoxModel<K, V> extends ListComboBoxModel<K> {
 	 * Creates an empty model.
 	 */
 	public MapComboBoxModel() {
-		this(new LinkedHashMap<K, V>());
+		this(new LinkedHashMap<>());
 	}
 
 	/**

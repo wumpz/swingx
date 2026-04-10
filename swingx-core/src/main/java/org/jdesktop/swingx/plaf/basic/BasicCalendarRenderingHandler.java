@@ -86,8 +86,8 @@ class BasicCalendarRenderingHandler implements CalendarRenderingHandler {
 				Object value = context.getValue();
 				// PENDING JW: this is breaking provider's contract in its
 				// role as StringValue! Don't in the general case.
-				if (value instanceof Calendar) {
-					int day = ((Calendar) value).get(Calendar.DAY_OF_WEEK);
+				if (value instanceof Calendar calendar) {
+					int day = calendar.get(Calendar.DAY_OF_WEEK);
 					return ((JXMonthView) context.getComponent()).getDayOfTheWeek(day);
 				}
 				return super.getValueAsString(context);
@@ -118,9 +118,9 @@ class BasicCalendarRenderingHandler implements CalendarRenderingHandler {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Calendar) {
-					String month = monthNames[((Calendar) value).get(Calendar.MONTH)];
-					return month + " " + ((Calendar) value).get(Calendar.YEAR);
+				if (value instanceof Calendar calendar) {
+					String month = monthNames[calendar.get(Calendar.MONTH)];
+					return month + " " + calendar.get(Calendar.YEAR);
 				}
 				return StringValues.TO_STRING.getString(value);
 			}
@@ -142,8 +142,8 @@ class BasicCalendarRenderingHandler implements CalendarRenderingHandler {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Calendar) {
-					value = ((Calendar) value).get(Calendar.WEEK_OF_YEAR);
+				if (value instanceof Calendar calendar) {
+					value = calendar.get(Calendar.WEEK_OF_YEAR);
 				}
 				return StringValues.TO_STRING.getString(value);
 			}
@@ -167,9 +167,9 @@ class BasicCalendarRenderingHandler implements CalendarRenderingHandler {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Calendar) {
-					((DateFormat) getFormat()).setTimeZone(((Calendar) value).getTimeZone());
-					value = ((Calendar) value).getTime();
+				if (value instanceof Calendar calendar) {
+					((DateFormat) getFormat()).setTimeZone(calendar.getTimeZone());
+					value = calendar.getTime();
 				}
 				return super.getString(value);
 			}

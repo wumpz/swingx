@@ -146,6 +146,7 @@ public class JXStatusBar extends JComponent {
 	 *
 	 * @return the StatusBarUI object that renders this component
 	 */
+	@Override
 	public StatusBarUI getUI() {
 		return (StatusBarUI) ui;
 	}

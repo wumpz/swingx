@@ -235,8 +235,8 @@ public class WrappingIconPanel extends JXPanel implements PainterAware, IconAwar
 	 */
 	@Override
 	public Painter<?> getPainter() {
-		if (delegate instanceof PainterAware) {
-			return ((PainterAware) delegate).getPainter();
+		if (delegate instanceof PainterAware painterAware) {
+			return painterAware.getPainter();
 		}
 		return null;
 	}
@@ -248,8 +248,8 @@ public class WrappingIconPanel extends JXPanel implements PainterAware, IconAwar
 	 */
 	@Override
 	public void setPainter(Painter<?> painter) {
-		if (delegate instanceof PainterAware) {
-			((PainterAware) delegate).setPainter(painter);
+		if (delegate instanceof PainterAware painterAware) {
+			painterAware.setPainter(painter);
 		}
 	}
 

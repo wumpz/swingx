@@ -202,8 +202,8 @@ public class PainterVisualCheck extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof AbstractActionExt) {
-					return ((AbstractActionExt) value).getName();
+				if (value instanceof AbstractActionExt abstractActionExt) {
+					return abstractActionExt.getName();
 				}
 				return "";
 			}
@@ -212,8 +212,8 @@ public class PainterVisualCheck extends InteractiveTestCase {
 
 			@Override
 			public boolean getBoolean(Object value) {
-				if (value instanceof AbstractActionExt) {
-					return ((AbstractActionExt) value).isSelected();
+				if (value instanceof AbstractActionExt abstractActionExt) {
+					return abstractActionExt.isSelected();
 				}
 				return false;
 			}

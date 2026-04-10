@@ -711,8 +711,8 @@ public class TableColumnExt extends TableColumn implements UIDependent {
 			return;
 		}
 		Component comp = null;
-		if (renderer instanceof AbstractRenderer) {
-			comp = ((AbstractRenderer) renderer).getComponentProvider().getRendererComponent(null);
+		if (renderer instanceof AbstractRenderer abstractRenderer) {
+			comp = abstractRenderer.getComponentProvider().getRendererComponent(null);
 		} else {
 			try {
 				comp = renderer.getTableCellRendererComponent(null, null, false, false, -1, -1);

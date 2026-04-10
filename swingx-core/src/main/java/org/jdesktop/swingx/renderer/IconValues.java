@@ -52,8 +52,8 @@ public final class IconValues {
 
 		@Override
 		public Icon getIcon(Object value) {
-			if (value instanceof Icon) {
-				return (Icon) value;
+			if (value instanceof Icon icon) {
+				return icon;
 			}
 			return null;
 		}
@@ -68,10 +68,10 @@ public final class IconValues {
 	public static final IconValue FILE_ICON = new IconValue() {
 		@Override
 		public Icon getIcon(Object value) {
-			if (value instanceof File) {
+			if (value instanceof File file) {
 				FileSystemView fsv = FileSystemView.getFileSystemView();
 
-				return fsv.getSystemIcon((File) value);
+				return fsv.getSystemIcon(file);
 			}
 
 			return IconValues.NONE.getIcon(value);

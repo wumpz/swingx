@@ -133,8 +133,8 @@ public class TargetableActionTest {
 				//          System.out.println("FocusGained: " + evt);
 				JTabbedPane pane = (JTabbedPane) evt.getSource();
 				Component comp = pane.getSelectedComponent();
-				if (comp instanceof Targetable) {
-					TargetManager.getInstance().setTarget((Targetable) comp);
+				if (comp instanceof Targetable targetable) {
+					TargetManager.getInstance().setTarget(targetable);
 				}
 			}
 
@@ -152,8 +152,8 @@ public class TargetableActionTest {
 			public void stateChanged(ChangeEvent evt) {
 				JTabbedPane pane = (JTabbedPane) evt.getSource();
 				Component comp = pane.getSelectedComponent();
-				if (comp instanceof Targetable) {
-					TargetManager.getInstance().setTarget((Targetable) comp);
+				if (comp instanceof Targetable targetable) {
+					TargetManager.getInstance().setTarget(targetable);
 				}
 			}
 		});

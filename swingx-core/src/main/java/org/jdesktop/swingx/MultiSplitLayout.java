@@ -249,11 +249,10 @@ public class MultiSplitLayout implements LayoutManager, Serializable {
 	 * @return the node associated with the component
 	 */
 	public Node getNodeForName(String name) {
-		if (model instanceof Split) {
-			Split split = ((Split) model);
+		if (model instanceof Split split) {
 			return getNodeForName(split, name);
-		} else if (model instanceof Leaf) {
-			if (((Leaf) model).getName().equals(name)) {
+		} else if (model instanceof Leaf leaf) {
+			if (leaf.getName().equals(name)) {
 				return model;
 			} else {
 				return null;
@@ -298,10 +297,10 @@ public class MultiSplitLayout implements LayoutManager, Serializable {
 	 */
 	public Node getNodeForName(Split split, String name) {
 		for (Node n : split.getChildren()) {
-			if (n instanceof Leaf) {
-				if (((Leaf) n).getName().equals(name)) return n;
-			} else if (n instanceof Split) {
-				Node n1 = getNodeForName((Split) n, name);
+			if (n instanceof Leaf leaf) {
+				if (leaf.getName().equals(name)) return n;
+			} else if (n instanceof Split split1) {
+				Node n1 = getNodeForName(split1, name);
 				if (n1 != null) return n1;
 			}
 		}
@@ -565,8 +564,7 @@ public class MultiSplitLayout implements LayoutManager, Serializable {
 	}
 
 	private Component childForNode(Node node) {
-		if (node instanceof Leaf) {
-			Leaf leaf = (Leaf) node;
+		if (node instanceof Leaf leaf) {
 			String name = leaf.getName();
 			return (name != null) ? childMap.get(name) : null;
 		}
@@ -590,8 +588,8 @@ public class MultiSplitLayout implements LayoutManager, Serializable {
 	private Dimension preferredNodeSize(Node root) {
 		if (root instanceof Leaf) {
 			return preferredComponentSize(root);
-		} else if (root instanceof Divider) {
-			if (!((Divider) root).isVisible()) return new Dimension(0, 0);
+		} else if (root instanceof Divider divider) {
+			if (!divider.isVisible()) return new Dimension(0, 0);
 			int divSize = getDividerSize();
 			return new Dimension(divSize, divSize);
 		} else {
@@ -632,8 +630,8 @@ public class MultiSplitLayout implements LayoutManager, Serializable {
 
 			Component child = childForNode(root);
 			return ((child != null) && child.isVisible()) ? child.getMinimumSize() : new Dimension(0, 0);
-		} else if (root instanceof Divider) {
-			if (!((Divider) root).isVisible()) return new Dimension(0, 0);
+		} else if (root instanceof Divider divider) {
+			if (!divider.isVisible()) return new Dimension(0, 0);
 			int divSize = getDividerSize();
 			return new Dimension(divSize, divSize);
 		} else {
@@ -672,8 +670,8 @@ public class MultiSplitLayout implements LayoutManager, Serializable {
 		if (root instanceof Leaf) {
 			Component child = childForNode(root);
 			return ((child != null) && child.isVisible()) ? child.getMaximumSize() : new Dimension(0, 0);
-		} else if (root instanceof Divider) {
-			if (!((Divider) root).isVisible()) return new Dimension(0, 0);
+		} else if (root instanceof Divider divider) {
+			if (!divider.isVisible()) return new Dimension(0, 0);
 			int divSize = getDividerSize();
 			return new Dimension(divSize, divSize);
 		} else {
@@ -1033,8 +1031,7 @@ public class MultiSplitLayout implements LayoutManager, Serializable {
 			root.setBounds(bounds);
 		} else if (root instanceof Divider) {
 			root.setBounds(bounds);
-		} else if (root instanceof Split) {
-			Split split = (Split) root;
+		} else if (root instanceof Split split) {
 			boolean grow = split.isRowLayout()
 					? (split.getBounds().width <= bounds.width)
 					: (split.getBounds().height <= bounds.height);
@@ -1065,8 +1062,7 @@ public class MultiSplitLayout implements LayoutManager, Serializable {
 	private void layout1(Node root, Rectangle bounds) {
 		if (root instanceof Leaf) {
 			root.setBounds(bounds);
-		} else if (root instanceof Split) {
-			Split split = (Split) root;
+		} else if (root instanceof Split split) {
 			Iterator<Node> splitChildren = split.getChildren().iterator();
 			Rectangle childBounds = null;
 			int divSize = getDividerSize();
@@ -1254,8 +1250,7 @@ public class MultiSplitLayout implements LayoutManager, Serializable {
 	}
 
 	private void checkLayout(Node root) {
-		if (root instanceof Split) {
-			Split split = (Split) root;
+		if (root instanceof Split split) {
 			if (split.getChildren().size() <= 2) {
 				throwInvalidLayout("Split must have > 2 children", root);
 			}
@@ -1306,11 +1301,9 @@ public class MultiSplitLayout implements LayoutManager, Serializable {
 	}
 
 	private Divider dividerAt(Node root, int x, int y) {
-		if (root instanceof Divider) {
-			Divider divider = (Divider) root;
+		if (root instanceof Divider divider) {
 			return (divider.getBounds().contains(x, y)) ? divider : null;
-		} else if (root instanceof Split) {
-			Split split = (Split) root;
+		} else if (root instanceof Split split) {
 			for (Node child : split.getChildren()) {
 				if (!child.isVisible()) continue;
 				if (child.getBounds().contains(x, y)) {
@@ -1345,9 +1338,9 @@ public class MultiSplitLayout implements LayoutManager, Serializable {
 		if (nodeOverlapsRectangle(root, r) && (root instanceof Split)) {
 			List<Divider> dividers = new ArrayList<>();
 			for (Node child : ((Split) root).getChildren()) {
-				if (child instanceof Divider) {
+				if (child instanceof Divider divider) {
 					if (nodeOverlapsRectangle(child, r)) {
-						dividers.add((Divider) child);
+						dividers.add(divider);
 					}
 				} else if (child instanceof Split) {
 					dividers.addAll(dividersThatOverlap(child, r));
@@ -1947,10 +1940,10 @@ public class MultiSplitLayout implements LayoutManager, Serializable {
 			}
 		} else if (name.equalsIgnoreCase("NAME")) {
 			if (st.nextToken() == StreamTokenizer.TT_WORD) {
-				if (node instanceof Leaf) {
-					((Leaf) node).setName(st.sval);
-				} else if (node instanceof Split) {
-					((Split) node).setName(st.sval);
+				if (node instanceof Leaf leaf) {
+					leaf.setName(st.sval);
+				} else if (node instanceof Split split) {
+					split.setName(st.sval);
 				} else {
 					throwParseException(st, "can't specify name for " + node);
 				}
@@ -2089,8 +2082,7 @@ public class MultiSplitLayout implements LayoutManager, Serializable {
 	}
 
 	private static void printModel(String indent, Node root) {
-		if (root instanceof Split) {
-			Split split = (Split) root;
+		if (root instanceof Split split) {
 			System.out.println(indent + split);
 			for (Node child : split.getChildren()) {
 				printModel(indent + "  ", child);

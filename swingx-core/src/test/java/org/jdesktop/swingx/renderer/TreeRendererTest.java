@@ -255,8 +255,8 @@ public class TreeRendererTest extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Component) {
-					return "Name: " + ((Component) value).getName();
+				if (value instanceof Component component) {
+					return "Name: " + component.getName();
 				}
 				return StringValues.TO_STRING.getString(value);
 			}
@@ -337,8 +337,8 @@ public class TreeRendererTest extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Component) {
-					return ((Component) value).getName();
+				if (value instanceof Component component) {
+					return component.getName();
 				}
 				return StringValues.TO_STRING.getString(value);
 			}
@@ -350,8 +350,8 @@ public class TreeRendererTest extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof File) {
-					return ((File) value).getName();
+				if (value instanceof File file) {
+					return file.getName();
 				}
 				return StringValues.TO_STRING.getString(value);
 			}
@@ -389,8 +389,8 @@ public class TreeRendererTest extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Action) {
-					return (String) ((Action) value).getValue(Action.NAME);
+				if (value instanceof Action action) {
+					return (String) action.getValue(Action.NAME);
 				}
 				return "";
 			}
@@ -399,8 +399,8 @@ public class TreeRendererTest extends InteractiveTestCase {
 
 			@Override
 			public boolean getBoolean(Object value) {
-				if (value instanceof AbstractActionExt) {
-					return ((AbstractActionExt) value).isSelected();
+				if (value instanceof AbstractActionExt abstractActionExt) {
+					return abstractActionExt.isSelected();
 				}
 				return false;
 			}

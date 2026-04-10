@@ -215,8 +215,8 @@ public class CompoundHighlighter extends AbstractHighlighter implements UIDepend
 	 * @param hl the highlighter to update.
 	 */
 	private void updateUI(Highlighter hl) {
-		if (hl instanceof UIDependent) {
-			((UIDependent) hl).updateUI();
+		if (hl instanceof UIDependent uIDependent) {
+			uIDependent.updateUI();
 		}
 	}
 

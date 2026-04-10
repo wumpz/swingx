@@ -231,6 +231,7 @@ public class JXErrorPane extends JComponent {
 	 *
 	 * @return the {@link ErrorPaneUI} object that renders this component
 	 */
+	@Override
 	public ErrorPaneUI getUI() {
 		return (ErrorPaneUI) ui;
 	}

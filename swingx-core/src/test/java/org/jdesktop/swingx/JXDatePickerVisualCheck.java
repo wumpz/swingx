@@ -316,8 +316,8 @@ public class JXDatePickerVisualCheck extends InteractiveTestCase {
 
 			@Override
 			public Date getSelectionDate() {
-				if (getSelectionModel() instanceof AddingDaySelectionModel) {
-					return ((AddingDaySelectionModel) getSelectionModel()).getLastAddedDate();
+				if (getSelectionModel() instanceof AddingDaySelectionModel addingDaySelectionModel) {
+					return addingDaySelectionModel.getLastAddedDate();
 				}
 				return super.getSelectionDate();
 			}
@@ -1243,8 +1243,8 @@ public class JXDatePickerVisualCheck extends InteractiveTestCase {
 				for (Container p = c.getParent();
 						p != null;
 						p = p instanceof JPopupMenu ? (Container) ((JPopupMenu) p).getInvoker() : p.getParent()) {
-					if (p instanceof Window) {
-						w = (Window) p;
+					if (p instanceof Window window) {
+						w = window;
 					}
 				}
 

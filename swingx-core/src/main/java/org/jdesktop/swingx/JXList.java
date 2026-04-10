@@ -1502,10 +1502,10 @@ public class JXList extends JList {
 		private void updateRendererUI(ListCellRenderer renderer) {
 			if (renderer == null) return;
 			Component comp = null;
-			if (renderer instanceof AbstractRenderer) {
-				comp = ((AbstractRenderer) renderer).getComponentProvider().getRendererComponent(null);
-			} else if (renderer instanceof Component) {
-				comp = (Component) renderer;
+			if (renderer instanceof AbstractRenderer abstractRenderer) {
+				comp = abstractRenderer.getComponentProvider().getRendererComponent(null);
+			} else if (renderer instanceof Component component) {
+				comp = component;
 			} else {
 				try {
 					comp = renderer.getListCellRendererComponent(JXList.this, null, -1, false, false);
@@ -1567,8 +1567,8 @@ public class JXList extends JList {
 	 *
 	 */
 	public void invalidateCellSizeCache() {
-		if (getUI() instanceof BasicXListUI) {
-			((BasicXListUI) getUI()).invalidateCellSizeCache();
+		if (getUI() instanceof BasicXListUI basicXListUI) {
+			basicXListUI.invalidateCellSizeCache();
 		}
 	}
 
@@ -1603,8 +1603,8 @@ public class JXList extends JList {
 			delegatingRenderer.updateUI();
 		} else {
 			ListCellRenderer renderer = getCellRenderer();
-			if (renderer instanceof Component) {
-				SwingUtilities.updateComponentTreeUI((Component) renderer);
+			if (renderer instanceof Component component) {
+				SwingUtilities.updateComponentTreeUI(component);
 			}
 		}
 	}

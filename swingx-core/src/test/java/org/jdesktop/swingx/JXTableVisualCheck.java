@@ -353,14 +353,13 @@ public class JXTableVisualCheck extends JXTableUnitTest {
 					// remove primary
 					List<? extends SortKey> secondary = sortKeys.subList(1, sortKeys.size());
 					for (TableColumn tableColumn : list) {
-						if (tableColumn instanceof TableColumnExt) {
+						if (tableColumn instanceof TableColumnExt tableColumnExt) {
 							SortKey key = SortUtils.getFirstSortKeyForColumn(secondary, tableColumn.getModelIndex());
 							Object property = null;
 							if (key != null && SortUtils.isSorted(key.getSortOrder())) {
 								property = key.getSortOrder();
 							}
-							((TableColumnExt) tableColumn)
-									.putClientProperty(SortAwareTableColumnExt.SORT_ORDER_KEY, property);
+							tableColumnExt.putClientProperty(SortAwareTableColumnExt.SORT_ORDER_KEY, property);
 						}
 					}
 				}
@@ -825,8 +824,8 @@ public class JXTableVisualCheck extends JXTableUnitTest {
 
 			private boolean hasVisibleSortedColumn() {
 				TableColumn column = getSortedColumn();
-				if (column instanceof TableColumnExt) {
-					return ((TableColumnExt) column).isVisible();
+				if (column instanceof TableColumnExt tableColumnExt) {
+					return tableColumnExt.isVisible();
 				}
 				// JW: this path is not tested, don't really expect
 				// non-ext column types, though JXTable must
@@ -1410,8 +1409,8 @@ public class JXTableVisualCheck extends JXTableUnitTest {
 			protected Component doHighlight(Component renderer, ComponentAdapter adapter) {
 				Color color = (Color) adapter.getValue();
 
-				if (renderer instanceof JComponent) {
-					((JComponent) renderer).setBorder(BorderFactory.createLineBorder(color));
+				if (renderer instanceof JComponent jComponent) {
+					jComponent.setBorder(BorderFactory.createLineBorder(color));
 				}
 
 				return renderer;
@@ -1454,6 +1453,7 @@ public class JXTableVisualCheck extends JXTableUnitTest {
 	}
 
 	@BeforeEach
+	@Override
 	public void setUp() throws Exception {
 		super.setUp();
 		// super has LF specific tests...

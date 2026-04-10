@@ -577,10 +577,10 @@ public class RendererVisualCheck extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof File) {
-					return FileSystemView.getFileSystemView().getSystemDisplayName((File) value)
+				if (value instanceof File file) {
+					return FileSystemView.getFileSystemView().getSystemDisplayName(file)
 							+ " Type: "
-							+ FileSystemView.getFileSystemView().getSystemTypeDescription((File) value);
+							+ FileSystemView.getFileSystemView().getSystemTypeDescription(file);
 				}
 				return StringValues.TO_STRING.getString(value);
 			}
@@ -628,12 +628,12 @@ public class RendererVisualCheck extends InteractiveTestCase {
 			}
 
 			private File getUserObject(Object value) {
-				if (value instanceof File) return (File) value;
-				if (value instanceof DefaultMutableTreeNode) {
-					return getUserObject(((DefaultMutableTreeNode) value).getUserObject());
+				if (value instanceof File file) return file;
+				if (value instanceof DefaultMutableTreeNode defaultMutableTreeNode) {
+					return getUserObject(defaultMutableTreeNode.getUserObject());
 				}
-				if (value instanceof TreeTableNode) {
-					return getUserObject(((TreeTableNode) value).getUserObject());
+				if (value instanceof TreeTableNode treeTableNode) {
+					return getUserObject(treeTableNode.getUserObject());
 				}
 				return null;
 			}
@@ -726,10 +726,10 @@ public class RendererVisualCheck extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof File) {
-					return FileSystemView.getFileSystemView().getSystemDisplayName((File) value)
+				if (value instanceof File file) {
+					return FileSystemView.getFileSystemView().getSystemDisplayName(file)
 							+ " Type: "
-							+ FileSystemView.getFileSystemView().getSystemTypeDescription((File) value);
+							+ FileSystemView.getFileSystemView().getSystemTypeDescription(file);
 				}
 				return StringValues.TO_STRING.getString(value);
 			}
@@ -738,8 +738,8 @@ public class RendererVisualCheck extends InteractiveTestCase {
 
 			@Override
 			public Icon getIcon(Object value) {
-				if (value instanceof File) {
-					return FileSystemView.getFileSystemView().getSystemIcon((File) value);
+				if (value instanceof File file) {
+					return FileSystemView.getFileSystemView().getSystemIcon(file);
 				}
 				return null;
 			}
@@ -961,8 +961,7 @@ public class RendererVisualCheck extends InteractiveTestCase {
 		 * @return
 		 */
 		private int getPreferredAreaWidth(CellContext context) {
-			if (context.getComponent() instanceof JXTable) {
-				JXTable table = (JXTable) context.getComponent();
+			if (context.getComponent() instanceof JXTable table) {
 				return table.getColumn(context.getColumn()).getWidth();
 			}
 			if (context.getComponent() instanceof JTree) {
@@ -1348,11 +1347,9 @@ public class RendererVisualCheck extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Point) {
-					Point p = (Point) value;
+				if (value instanceof Point p) {
 					return createString(p.x, p.y);
-				} else if (value instanceof Dimension) {
-					Dimension dim = (Dimension) value;
+				} else if (value instanceof Dimension dim) {
 					return createString(dim.width, dim.height);
 				}
 				return "";
@@ -1457,8 +1454,8 @@ public class RendererVisualCheck extends InteractiveTestCase {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof AbstractActionExt) {
-					return ((AbstractActionExt) value).getName();
+				if (value instanceof AbstractActionExt abstractActionExt) {
+					return abstractActionExt.getName();
 				}
 				return StringValues.TO_STRING.getString(value);
 			}
@@ -1467,8 +1464,8 @@ public class RendererVisualCheck extends InteractiveTestCase {
 
 			@Override
 			public boolean getBoolean(Object value) {
-				if (value instanceof AbstractActionExt) {
-					return ((AbstractActionExt) value).isSelected();
+				if (value instanceof AbstractActionExt abstractActionExt) {
+					return abstractActionExt.isSelected();
 				}
 				return false;
 			}
@@ -1727,8 +1724,8 @@ public class RendererVisualCheck extends InteractiveTestCase {
 			protected void format(CellContext context) {
 				super.format(context);
 				Object value = context.getValue();
-				if (value instanceof Color) {
-					rendererComponent.setBackground((Color) value);
+				if (value instanceof Color color) {
+					rendererComponent.setBackground(color);
 					rendererComponent.putClientProperty("renderer-dont-touch", "color");
 				} else {
 					rendererComponent.putClientProperty("renderer-dont-touch", null);
@@ -1742,8 +1739,7 @@ public class RendererVisualCheck extends InteractiveTestCase {
 			@Override
 			protected void configureState(CellContext context) {
 				Object value = context.getValue();
-				if (value instanceof Color) {
-					Color newColor = (Color) value;
+				if (value instanceof Color newColor) {
 					rendererComponent.setToolTipText(
 							"RGB value: " + newColor.getRed() + ", " + newColor.getGreen() + ", " + newColor.getBlue());
 

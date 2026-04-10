@@ -2282,8 +2282,8 @@ public class BasicXListUI extends BasicListUI {
 				} else {
 					// casting should be safe since the action is only enabled
 					// for DefaultListSelectionModel
-					if (lsm instanceof DefaultListSelectionModel)
-						((DefaultListSelectionModel) lsm).moveLeadSelectionIndex(index);
+					if (lsm instanceof DefaultListSelectionModel defaultListSelectionModel)
+						defaultListSelectionModel.moveLeadSelectionIndex(index);
 				}
 			}
 		}
@@ -2915,8 +2915,7 @@ public class BasicXListUI extends BasicListUI {
 		 */
 		@Override
 		protected Transferable createTransferable(JComponent c) {
-			if (c instanceof JList) {
-				JList list = (JList) c;
+			if (c instanceof JList list) {
 				Object[] values = list.getSelectedValues();
 
 				if (values == null || values.length == 0) {

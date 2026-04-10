@@ -299,8 +299,8 @@ public abstract class ComponentProvider<T extends JComponent> implements Seriali
 	 */
 	protected Icon getValueAsIcon(CellContext context) {
 		Object value = context.getValue();
-		if (formatter instanceof IconValue) {
-			return ((IconValue) formatter).getIcon(value);
+		if (formatter instanceof IconValue iconValue) {
+			return iconValue.getIcon(value);
 		}
 		return null;
 	}

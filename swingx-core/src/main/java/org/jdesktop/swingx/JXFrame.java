@@ -194,8 +194,7 @@ public class JXFrame extends JFrame {
 		keyEventListener = new AWTEventListener() {
 			@Override
 			public void eventDispatched(AWTEvent aWTEvent) {
-				if (aWTEvent instanceof KeyEvent) {
-					KeyEvent evt = (KeyEvent) aWTEvent;
+				if (aWTEvent instanceof KeyEvent evt) {
 					for (KeyListener kl : getKeyListeners()) {
 						int id = aWTEvent.getID();
 						switch (id) {
@@ -641,8 +640,8 @@ public class JXFrame extends JFrame {
 	 * @return the extended root pane or null.
 	 */
 	public JXRootPane getRootPaneExt() {
-		if (rootPane instanceof JXRootPane) {
-			return (JXRootPane) rootPane;
+		if (rootPane instanceof JXRootPane jXRootPane) {
+			return jXRootPane;
 		}
 		return null;
 	}

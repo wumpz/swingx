@@ -190,8 +190,7 @@ public class DateSpan {
 		if (o == this) {
 			return true;
 		}
-		if (o instanceof DateSpan) {
-			DateSpan ds = (DateSpan) o;
+		if (o instanceof DateSpan ds) {
 			return (_start == ds.getStart() && _end == ds.getEnd());
 		}
 		return false;

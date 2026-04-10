@@ -119,10 +119,10 @@ public class JXDatePickerTest extends InteractiveTestCase {
 	private void assertInheritedPopup(JComponent box, JPopupMenu popup) {
 		assertSame(popup, box.getComponentPopupMenu(), "inherited popup expected on " + box.getClass());
 		for (int i = 0; i < box.getComponentCount(); i++) {
-			if (box.getComponent(i) instanceof JComponent)
+			if (box.getComponent(i) instanceof JComponent jComponent)
 				assertSame(
 						popup,
-						((JComponent) box.getComponent(i)).getComponentPopupMenu(),
+						jComponent.getComponentPopupMenu(),
 						"inherited popup expected on " + box.getComponent(i).getClass());
 		}
 	}
@@ -1322,8 +1322,8 @@ public class JXDatePickerTest extends InteractiveTestCase {
 		assertEquals(alternative, picker.getTimeZone(), "expected timezone in picker");
 		MessageFormat format = picker.getLinkFormat();
 		for (Format subFormat : format.getFormats()) {
-			if (subFormat instanceof DateFormat) {
-				assertEquals(picker.getTimeZone(), ((DateFormat) subFormat).getTimeZone());
+			if (subFormat instanceof DateFormat dateFormat) {
+				assertEquals(picker.getTimeZone(), dateFormat.getTimeZone());
 			}
 		}
 	}

@@ -74,8 +74,7 @@ public class DropShadowBorder implements Border, Serializable {
 		TOP_RIGHT
 	}
 
-	private static final Map<Double, Map<Position, BufferedImage>> CACHE =
-			new HashMap<Double, Map<Position, BufferedImage>>();
+	private static final Map<Double, Map<Position, BufferedImage>> CACHE = new HashMap<>();
 
 	private Color shadowColor;
 	private int shadowSize;

@@ -61,7 +61,7 @@ public class DatePickerCellEditor extends AbstractCellEditor implements TableCel
 
 	protected boolean ignoreAction;
 
-	private static Logger logger = Logger.getLogger(DatePickerCellEditor.class.getName());
+	private static final Logger logger = Logger.getLogger(DatePickerCellEditor.class.getName());
 
 	private static final long serialVersionUID = -1L;
 
@@ -111,8 +111,8 @@ public class DatePickerCellEditor extends AbstractCellEditor implements TableCel
 
 	@Override
 	public boolean isCellEditable(EventObject anEvent) {
-		if (anEvent instanceof MouseEvent) {
-			return ((MouseEvent) anEvent).getClickCount() >= getClickCountToStart();
+		if (anEvent instanceof MouseEvent mouseEvent) {
+			return mouseEvent.getClickCount() >= getClickCountToStart();
 		}
 		return super.isCellEditable(anEvent);
 	}
@@ -208,28 +208,28 @@ public class DatePickerCellEditor extends AbstractCellEditor implements TableCel
 	 */
 	protected Date getValueAsDate(Object value) {
 		if (isEmpty(value)) return null;
-		if (value instanceof Date) {
-			return (Date) value;
+		if (value instanceof Date date) {
+			return date;
 		}
-		if (value instanceof Long) {
-			return new Date((Long) value);
+		if (value instanceof Long aLong) {
+			return new Date(aLong);
 		}
-		if (value instanceof String) {
+		if (value instanceof String string) {
 			try {
 				// JW: why was the parsing synchronized?
 				//              synchronized (dateFormat) {
 				//              datePicker.setDate(dateFormat.parse((String) value));
 				//          }
-				return dateFormat.parse((String) value);
+				return dateFormat.parse(string);
 			} catch (ParseException e) {
 				handleParseException(e);
 			}
 		}
-		if (value instanceof DefaultMutableTreeNode) {
-			return getValueAsDate(((DefaultMutableTreeNode) value).getUserObject());
+		if (value instanceof DefaultMutableTreeNode defaultMutableTreeNode) {
+			return getValueAsDate(defaultMutableTreeNode.getUserObject());
 		}
-		if (value instanceof AbstractMutableTreeTableNode) {
-			return getValueAsDate(((AbstractMutableTreeTableNode) value).getUserObject());
+		if (value instanceof AbstractMutableTreeTableNode abstractMutableTreeTableNode) {
+			return getValueAsDate(abstractMutableTreeTableNode.getUserObject());
 		}
 		return null;
 	}

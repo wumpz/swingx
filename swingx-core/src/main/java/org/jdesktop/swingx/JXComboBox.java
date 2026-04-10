@@ -128,10 +128,10 @@ public class JXComboBox extends JComboBox {
 		public void updateUI() {
 			wrapper.updateUI();
 
-			if (delegateRenderer instanceof UIDependent) {
-				((UIDependent) delegateRenderer).updateUI();
-			} else if (delegateRenderer instanceof Component) {
-				SwingUtilities.updateComponentTreeUI((Component) delegateRenderer);
+			if (delegateRenderer instanceof UIDependent uIDependent) {
+				uIDependent.updateUI();
+			} else if (delegateRenderer instanceof Component component) {
+				SwingUtilities.updateComponentTreeUI(component);
 			} else if (delegateRenderer != null) {
 				try {
 					Component comp = delegateRenderer.getListCellRendererComponent(
@@ -486,8 +486,8 @@ public class JXComboBox extends JComboBox {
 		for (int i = 0; i < count; i++) {
 			Accessible a = comboBox.getUI().getAccessibleChild(comboBox, i);
 
-			if (a instanceof ComboPopup) {
-				return ((ComboPopup) a).getList();
+			if (a instanceof ComboPopup comboPopup) {
+				return comboPopup.getList();
 			}
 		}
 
@@ -869,16 +869,16 @@ public class JXComboBox extends JComboBox {
 		try {
 			super.updateUI();
 
-			if (keySelectionManager instanceof UIDependent) {
-				((UIDependent) keySelectionManager).updateUI();
+			if (keySelectionManager instanceof UIDependent uIDependent) {
+				uIDependent.updateUI();
 			}
 
 			ListCellRenderer renderer = getRenderer();
 
-			if (renderer instanceof UIDependent) {
-				((UIDependent) renderer).updateUI();
-			} else if (renderer instanceof Component) {
-				SwingUtilities.updateComponentTreeUI((Component) renderer);
+			if (renderer instanceof UIDependent uIDependent) {
+				uIDependent.updateUI();
+			} else if (renderer instanceof Component component) {
+				SwingUtilities.updateComponentTreeUI(component);
 			}
 
 			if (compoundHighlighter != null) {
