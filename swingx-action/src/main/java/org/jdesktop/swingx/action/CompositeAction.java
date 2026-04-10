@@ -23,7 +23,6 @@ package org.jdesktop.swingx.action;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.swing.Action;
 import javax.swing.Icon;
@@ -109,9 +108,7 @@ public class CompositeAction extends AbstractActionExt {
 	public void actionPerformed(ActionEvent evt) {
 		ActionManager manager = ActionManager.getInstance();
 
-		Iterator<String> iter = getActionIDs().iterator();
-		while (iter.hasNext()) {
-			String id = iter.next();
+		for (String id : getActionIDs()) {
 			Action action = manager.getAction(id);
 			if (action != null) {
 				action.actionPerformed(evt);
@@ -126,9 +123,7 @@ public class CompositeAction extends AbstractActionExt {
 	public void itemStateChanged(ItemEvent evt) {
 		ActionManager manager = ActionManager.getInstance();
 
-		Iterator<String> iter = getActionIDs().iterator();
-		while (iter.hasNext()) {
-			String id = iter.next();
+		for (String id : getActionIDs()) {
 			Action action = manager.getAction(id);
 			if (action != null && action instanceof AbstractActionExt) {
 				((AbstractActionExt) action).itemStateChanged(evt);

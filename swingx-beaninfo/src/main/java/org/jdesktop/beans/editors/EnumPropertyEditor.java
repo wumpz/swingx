@@ -30,7 +30,7 @@ public class EnumPropertyEditor<E extends Enum<E>> extends PropertyEditorSupport
 
 	@Override
 	public String[] getTags() {
-		List<String> strs = new ArrayList<String>();
+		List<String> strs = new ArrayList<>();
 		for (E e : set) {
 			strs.add(e.toString());
 		}

@@ -20,7 +20,7 @@ import org.jdesktop.beans.EnumerationValue;
  */
 public abstract class EnumerationValuePropertyEditor extends PropertyEditorSupport {
 	private String[] tags;
-	private Map<Object, EnumerationValue> values = new HashMap<Object, EnumerationValue>();
+	private Map<Object, EnumerationValue> values = new HashMap<>();
 	private EnumerationValue defaultValue;
 
 	/** Creates a new instance of EnumerationValuePropertyEditor */

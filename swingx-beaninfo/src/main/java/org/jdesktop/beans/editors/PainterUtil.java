@@ -110,6 +110,7 @@ public class PainterUtil {
 		//        p("creating a persistence owner with the base url: " + baseURL);
 		dec.setOwner(new PersistenceOwner(baseURL));
 		dec.setExceptionListener(new ExceptionListener() {
+			@Override
 			public void exceptionThrown(Exception ex) {
 				System.out.println(ex.getMessage());
 				ex.printStackTrace();
@@ -290,39 +291,39 @@ public class PainterUtil {
 	}
 
 	public static void setBGP(JComponent comp, Painter painter) {
-		if (comp instanceof JXPanel) {
-			((JXPanel) comp).setBackgroundPainter(painter);
+		if (comp instanceof JXPanel jXPanel) {
+			jXPanel.setBackgroundPainter(painter);
 		}
-		if (comp instanceof JXButton) {
-			((JXButton) comp).setBackgroundPainter(painter);
+		if (comp instanceof JXButton jXButton) {
+			jXButton.setBackgroundPainter(painter);
 		}
 	}
 
 	public static void setFGP(JComponent comp, Painter painter) {
-		if (comp instanceof JXLabel) {
-			((JXLabel) comp).setForegroundPainter(painter);
+		if (comp instanceof JXLabel jXLabel) {
+			jXLabel.setForegroundPainter(painter);
 		}
-		if (comp instanceof JXButton) {
-			((JXButton) comp).setForegroundPainter(painter);
+		if (comp instanceof JXButton jXButton) {
+			jXButton.setForegroundPainter(painter);
 		}
 	}
 
 	public static Painter getFGP(JComponent comp) {
-		if (comp instanceof JXLabel) {
-			return ((JXLabel) comp).getForegroundPainter();
+		if (comp instanceof JXLabel jXLabel) {
+			return jXLabel.getForegroundPainter();
 		}
-		if (comp instanceof JXButton) {
-			return ((JXButton) comp).getForegroundPainter();
+		if (comp instanceof JXButton jXButton) {
+			return jXButton.getForegroundPainter();
 		}
 		return null;
 	}
 
 	public static Painter getBGP(JComponent comp) {
-		if (comp instanceof JXPanel) {
-			return ((JXPanel) comp).getBackgroundPainter();
+		if (comp instanceof JXPanel jXPanel) {
+			return jXPanel.getBackgroundPainter();
 		}
-		if (comp instanceof JXButton) {
-			return ((JXButton) comp).getBackgroundPainter();
+		if (comp instanceof JXButton jXButton) {
+			return jXButton.getBackgroundPainter();
 		}
 		return null;
 	}

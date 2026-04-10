@@ -38,7 +38,9 @@ import org.mockito.exceptions.verification.NoInteractionsWanted;
 
 @SuppressWarnings("nls")
 public abstract class AbstractBeanInfoTest<T> {
-	protected Logger logger = Logger.getLogger(getClass().getName());
+	private static final Logger logger = Logger.getLogger(AbstractBeanInfoTest.class.getName());
+	
+	
 	protected T instance;
 	private BeanInfo beanInfo;
 	private Map<Class<?>, Object> listeners;
@@ -47,7 +49,7 @@ public abstract class AbstractBeanInfoTest<T> {
 	public void setUp() throws Exception {
 		instance = createInstance();
 		beanInfo = Introspector.getBeanInfo(instance.getClass());
-		listeners = new HashMap<Class<?>, Object>();
+		listeners = new HashMap<>();
 
 		for (EventSetDescriptor descriptor : beanInfo.getEventSetDescriptors()) {
 			Class<?> eventClass = descriptor.getListenerType();

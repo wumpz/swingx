@@ -71,8 +71,7 @@ public class ComboBoxCellEditor extends DefaultCellEditor {
 
 			@Override
 			public boolean shouldSelectCell(EventObject anEvent) {
-				if (anEvent instanceof MouseEvent) {
-					MouseEvent e = (MouseEvent) anEvent;
+				if (anEvent instanceof MouseEvent e) {
 					return e.getID() != MouseEvent.MOUSE_DRAGGED;
 				}
 				return true;
@@ -92,8 +91,7 @@ public class ComboBoxCellEditor extends DefaultCellEditor {
 				JTextComponent editorComponent =
 						(JTextComponent) comboBox.getEditor().getEditorComponent();
 
-				if (editorComponent.getDocument() instanceof AutoCompleteDocument) {
-					AutoCompleteDocument document = (AutoCompleteDocument) editorComponent.getDocument();
+				if (editorComponent.getDocument() instanceof AutoCompleteDocument document) {
 					// if auto completion is happening right now, cell editing should not be stopped
 					if (!document.selecting) {
 						ComboBoxCellEditor.this.stopCellEditing();

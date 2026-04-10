@@ -65,8 +65,8 @@ class ToggleActionPropertyChangeListener implements PropertyChangeListener {
 		if (!(action instanceof AbstractAction)) return false;
 		PropertyChangeListener[] listeners = ((AbstractAction) action).getPropertyChangeListeners();
 		for (int i = listeners.length - 1; i >= 0; i--) {
-			if (listeners[i] instanceof ToggleActionPropertyChangeListener) {
-				if (((ToggleActionPropertyChangeListener) listeners[i]).isToggling(button)) return true;
+			if (listeners[i] instanceof ToggleActionPropertyChangeListener toggleActionPropertyChangeListener) {
+				if (toggleActionPropertyChangeListener.isToggling(button)) return true;
 			}
 		}
 		return false;
@@ -82,8 +82,8 @@ class ToggleActionPropertyChangeListener implements PropertyChangeListener {
 		if (!(action instanceof AbstractAction)) return;
 		PropertyChangeListener[] listeners = ((AbstractAction) action).getPropertyChangeListeners();
 		for (int i = listeners.length - 1; i >= 0; i--) {
-			if (listeners[i] instanceof ToggleActionPropertyChangeListener) {
-				((ToggleActionPropertyChangeListener) listeners[i]).checkReferent(action);
+			if (listeners[i] instanceof ToggleActionPropertyChangeListener toggleActionPropertyChangeListener) {
+				toggleActionPropertyChangeListener.checkReferent(action);
 			}
 		}
 	}

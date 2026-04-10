@@ -26,7 +26,7 @@ import java.util.Map;
  * @author Richard
  */
 public class PaintPropertyEditor extends PropertyEditorSupport {
-	private static Map<Paint, String> DEFAULT_PAINTS = new HashMap<Paint, String>();
+	private static Map<Paint, String> DEFAULT_PAINTS = new HashMap<>();
 
 	static {
 		// add the default paints

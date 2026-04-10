@@ -38,7 +38,7 @@ import javax.swing.AbstractAction;
  * @author joshy (original version)
  */
 public class OpenBrowserAction extends AbstractAction {
-	private static Logger log = Logger.getLogger(OpenBrowserAction.class.getName());
+	private static final Logger log = Logger.getLogger(OpenBrowserAction.class.getName());
 
 	private URI uri;
 

@@ -187,8 +187,8 @@ public class ActionContainerFactory {
 
 			if (element == null) {
 				popup.addSeparator();
-			} else if (element instanceof List<?>) {
-				JMenu newMenu = createMenu((List<?>) element);
+			} else if (element instanceof List<?> list1) {
+				JMenu newMenu = createMenu(list1);
 				if (newMenu != null) {
 					popup.add(newMenu);
 				}
@@ -225,10 +225,10 @@ public class ActionContainerFactory {
 
 			JMenuItem menu;
 
-			if (element instanceof Object[]) {
-				menu = createMenu((Object[]) element);
-			} else if (element instanceof List<?>) {
-				menu = createMenu((List<?>) element);
+			if (element instanceof Object[] objects) {
+				menu = createMenu(objects);
+			} else if (element instanceof List<?> list1) {
+				menu = createMenu(list1);
 			} else {
 				menu = createMenuItem(element, menubar);
 			}
@@ -282,10 +282,10 @@ public class ActionContainerFactory {
 			} else {
 				JMenuItem newMenu;
 
-				if (element instanceof Object[]) {
-					newMenu = createMenu((Object[]) element);
-				} else if (element instanceof List<?>) {
-					newMenu = createMenu((List<?>) element);
+				if (element instanceof Object[] objects) {
+					newMenu = createMenu(objects);
+				} else if (element instanceof List<?> list1) {
+					newMenu = createMenu(list1);
 				} else {
 					newMenu = createMenuItem(element, menu);
 				}
@@ -352,8 +352,7 @@ public class ActionContainerFactory {
 	 */
 	private JMenuItem createMenuItem(Action action, JComponent container) {
 		JMenuItem menuItem = null;
-		if (action instanceof AbstractActionExt) {
-			AbstractActionExt ta = (AbstractActionExt) action;
+		if (action instanceof AbstractActionExt ta) {
 
 			if (ta.isStateAction()) {
 				String groupid = (String) ta.getGroup();
@@ -418,11 +417,10 @@ public class ActionContainerFactory {
 		}
 
 		AbstractButton button = null;
-		if (action instanceof AbstractActionExt) {
-			// Check to see if we should create a toggle button
-			AbstractActionExt ta = (AbstractActionExt) action;
+		if (action instanceof AbstractActionExt ta) {
 
-			if (ta.isStateAction()) {
+// Check to see if we should create a toggle button
+						if (ta.isStateAction()) {
 				// If this action has a groupid attribute then it's a
 				// GroupAction
 				String groupid = (String) ta.getGroup();
@@ -509,15 +507,13 @@ public class ActionContainerFactory {
 		// PENDING JW: automate unconfigure via a PCL that is listening to
 		// the button's action property? Think about memory leak implications!
 		Action oldAction = button.getAction();
-		if (oldAction instanceof AbstractActionExt) {
-			AbstractActionExt actionExt = (AbstractActionExt) oldAction;
+		if (oldAction instanceof AbstractActionExt actionExt) {
 			// remove as itemListener
 			button.removeItemListener(actionExt);
 			// remove the button related PCL from the old actionExt
 			PropertyChangeListener[] l = actionExt.getPropertyChangeListeners();
 			for (int i = l.length - 1; i >= 0; i--) {
-				if (l[i] instanceof ToggleActionPropertyChangeListener) {
-					ToggleActionPropertyChangeListener togglePCL = (ToggleActionPropertyChangeListener) l[i];
+				if (l[i] instanceof ToggleActionPropertyChangeListener togglePCL) {
 					if (togglePCL.isToggling(button)) {
 						actionExt.removePropertyChangeListener(togglePCL);
 					}

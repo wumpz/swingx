@@ -120,8 +120,7 @@ public class ActionFactory {
 	 */
 	public static void decorateAction(
 			AbstractAction action, String shortDesc, String longDesc, Icon smallIcon, Icon largeIcon, KeyStroke accel) {
-		if (action instanceof AbstractActionExt) {
-			AbstractActionExt a = (AbstractActionExt) action;
+		if (action instanceof AbstractActionExt a) {
 			a.setShortDescription(shortDesc);
 			a.setLongDescription(longDesc);
 			a.setSmallIcon(smallIcon);

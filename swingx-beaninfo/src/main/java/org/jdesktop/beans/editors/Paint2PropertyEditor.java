@@ -21,6 +21,7 @@ public class Paint2PropertyEditor extends PropertyEditorSupport {
 	/** Creates a new instance of Paint2PropertyEditor */
 	public Paint2PropertyEditor() {
 		picker.addPropertyChangeListener("paint", new PropertyChangeListener() {
+			@Override
 			public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
 				paint = picker.getPaint();
 				firePropertyChange();

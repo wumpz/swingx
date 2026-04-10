@@ -27,6 +27,7 @@ public class ImageEditor extends PropertyEditorSupport {
 	/** Creates a new instance of ImageEditor */
 	public ImageEditor() {
 		picker.imageView.addPropertyChangeListener("image", new PropertyChangeListener() {
+			@Override
 			public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
 				image = picker.imageView.getImage();
 				firePropertyChange();

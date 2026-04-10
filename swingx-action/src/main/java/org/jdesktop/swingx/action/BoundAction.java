@@ -273,8 +273,7 @@ public class BoundAction extends AbstractActionExt {
 						s.writeObject(eh.getTarget());
 						s.writeObject(eh.getAction());
 					}
-				} else if (list[i] instanceof BooleanInvocationHandler) {
-					BooleanInvocationHandler bih = (BooleanInvocationHandler) list[i];
+				} else if (list[i] instanceof BooleanInvocationHandler bih) {
 					Object target = bih.trueStatement.getTarget();
 
 					if (target instanceof Serializable) {

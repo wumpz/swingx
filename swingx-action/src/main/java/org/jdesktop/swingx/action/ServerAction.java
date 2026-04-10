@@ -233,8 +233,7 @@ public class ServerAction extends AbstractAction {
 			byteStream.writeTo(uc.getOutputStream());
 
 			BufferedReader buf = null;
-			if (uc instanceof HttpURLConnection) {
-				HttpURLConnection huc = (HttpURLConnection) uc;
+			if (uc instanceof HttpURLConnection huc) {
 				int code = huc.getResponseCode();
 				String message = huc.getResponseMessage();
 

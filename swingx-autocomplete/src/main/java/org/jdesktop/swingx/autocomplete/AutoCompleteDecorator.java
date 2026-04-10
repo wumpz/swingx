@@ -120,8 +120,8 @@ public class AutoCompleteDecorator {
 			boolean strictMatching,
 			ObjectToStringConverter stringConverter,
 			Document delegate) {
-		if (delegate instanceof StyledDocument) {
-			return new AutoCompleteStyledDocument(adaptor, strictMatching, stringConverter, (StyledDocument) delegate);
+		if (delegate instanceof StyledDocument styledDocument) {
+			return new AutoCompleteStyledDocument(adaptor, strictMatching, stringConverter, styledDocument);
 		}
 
 		return new AutoCompleteDocument(adaptor, strictMatching, stringConverter, delegate);
@@ -200,8 +200,7 @@ public class AutoCompleteDecorator {
 	static void undecorate(JComboBox comboBox) {
 		JTextComponent editorComponent = (JTextComponent) comboBox.getEditor().getEditorComponent();
 
-		if (editorComponent.getDocument() instanceof AutoCompleteDocument) {
-			AutoCompleteDocument doc = (AutoCompleteDocument) editorComponent.getDocument();
+		if (editorComponent.getDocument() instanceof AutoCompleteDocument doc) {
 
 			if (doc.strictMatching) {
 				ActionMap map = comboBox.getActionMap();
@@ -366,7 +365,7 @@ public class AutoCompleteDecorator {
 	static void undecorate(JTextComponent textComponent) {
 		Document doc = textComponent.getDocument();
 
-		if (doc instanceof AutoCompleteDocument) {
+		if (doc instanceof AutoCompleteDocument autoCompleteDocument) {
 			// remove autocomplete key/action mappings
 			InputMap map = textComponent.getInputMap();
 
@@ -391,7 +390,7 @@ public class AutoCompleteDecorator {
 			}
 
 			// reset to original document
-			textComponent.setDocument(((AutoCompleteDocument) doc).delegate);
+			textComponent.setDocument(autoCompleteDocument.delegate);
 		}
 	}
 

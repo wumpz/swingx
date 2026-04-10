@@ -8,6 +8,6 @@ public class AlphaPainterBeanInfoTest extends AbstractBeanInfoTest<AlphaPainter<
 	 */
 	@Override
 	protected AlphaPainter<Object> createInstance() {
-		return new AlphaPainter<Object>();
+		return new AlphaPainter<>();
 	}
 }

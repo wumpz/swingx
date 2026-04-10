@@ -27,7 +27,6 @@ import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.swing.Action;
 import javax.swing.ActionMap;
@@ -223,9 +222,7 @@ public class TargetManager {
 
 		// The target list has the next chance to handle the command.
 		if (targetList != null) {
-			Iterator<Targetable> iter = targetList.iterator();
-			while (iter.hasNext()) {
-				Targetable target = iter.next();
+			for (Targetable target : targetList) {
 				if (target.hasCommand(command) && target.doCommand(command, value)) {
 					return true;
 				}
@@ -233,16 +230,16 @@ public class TargetManager {
 		}
 
 		ActionEvent evt = null;
-		if (value instanceof ActionEvent) {
-			evt = (ActionEvent) value;
+		if (value instanceof ActionEvent actionEvent) {
+			evt = actionEvent;
 		}
 
 		// Fall back behavior. Get the component which has focus and search the
 		// ActionMaps in the containment hierarchy for matching action.
 		Component comp = KeyboardFocusManager.getCurrentKeyboardFocusManager().getPermanentFocusOwner();
 		while (comp != null) {
-			if (comp instanceof JComponent) {
-				ActionMap map = ((JComponent) comp).getActionMap();
+			if (comp instanceof JComponent jComponent) {
+				ActionMap map = jComponent.getActionMap();
 				Action action = map.get(command);
 				if (action != null) {
 					if (evt == null) {

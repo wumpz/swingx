@@ -44,8 +44,8 @@ public class TargetableSupport {
 		Action action = map.get(command);
 
 		if (action != null) {
-			if (value instanceof ActionEvent) {
-				action.actionPerformed((ActionEvent) value);
+			if (value instanceof ActionEvent actionEvent) {
+				action.actionPerformed(actionEvent);
 			} else {
 				// XXX should the value represent the event source?
 				action.actionPerformed(new ActionEvent(value, 0, command.toString()));

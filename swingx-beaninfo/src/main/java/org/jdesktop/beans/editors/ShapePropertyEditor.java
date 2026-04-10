@@ -27,6 +27,7 @@ public class ShapePropertyEditor extends PropertyEditorSupport {
 	public ShapePropertyEditor() {
 		chooser = new ShapeChooser();
 		chooser.shapeCombo.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent actionEvent) {
 				if (chooser.shapeCombo.getSelectedItem().equals("Square")) {
 					setValue(new Rectangle(0, 0, 100, 100));

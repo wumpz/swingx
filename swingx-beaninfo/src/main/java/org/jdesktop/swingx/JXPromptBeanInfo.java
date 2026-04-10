@@ -11,6 +11,7 @@ public abstract class JXPromptBeanInfo extends BeanInfoSupport {
 		super(beanClass);
 	}
 
+	@Override
 	protected void initialize() {
 		setPreferred(true, "prompt", "promptForeground", "promptBackground", "focusBehavior", "promptFontStyle");
 

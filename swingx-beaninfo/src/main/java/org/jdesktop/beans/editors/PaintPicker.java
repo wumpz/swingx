@@ -45,6 +45,7 @@ public class PaintPicker extends javax.swing.JPanel {
 		gradientPicker = new JXGradientChooser();
 		tabbedPane.addTab("Gradient", gradientPicker);
 		gradientPicker.addPropertyChangeListener("gradient", new PropertyChangeListener() {
+			@Override
 			public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
 				lastPickerUsed = gradientPicker;
 				setPaint(gradientPicker.getGradient());
@@ -53,6 +54,7 @@ public class PaintPicker extends javax.swing.JPanel {
 
 		// update when the tabs change
 		tabbedPane.getModel().addChangeListener(new ChangeListener() {
+			@Override
 			public void stateChanged(ChangeEvent changeEvent) {
 				lastPickerUsed = tabbedPane.getSelectedComponent();
 				Paint old = selectedPaint;
@@ -130,14 +132,14 @@ public class PaintPicker extends javax.swing.JPanel {
 		}
 		Paint old = selectedPaint;
 		selectedPaint = paint;
-		if (paint instanceof Color) {
+		if (paint instanceof Color color) {
 			tabbedPane.setSelectedComponent(colorPickerParent);
-			colorPicker.setColor((Color) paint);
-			alphaSlider.setValue(((Color) paint).getAlpha());
+			colorPicker.setColor(color);
+			alphaSlider.setValue(color.getAlpha());
 		}
-		if (paint instanceof MultipleGradientPaint) {
+		if (paint instanceof MultipleGradientPaint multipleGradientPaint) {
 			tabbedPane.setSelectedComponent(gradientPicker);
-			gradientPicker.setGradient((MultipleGradientPaint) paint);
+			gradientPicker.setGradient(multipleGradientPaint);
 		}
 		firePropertyChange("paint", old, selectedPaint);
 	}
@@ -182,6 +184,7 @@ public class PaintPicker extends javax.swing.JPanel {
 	// End of variables declaration//GEN-END:variables
 
 	private class ColorListener implements ChangeListener {
+		@Override
 		public void stateChanged(ChangeEvent e) {
 			lastPickerUsed = colorPicker;
 			Paint old = selectedPaint;

@@ -174,8 +174,8 @@ public class ActionManager extends ActionMap {
 	 */
 	public TargetableAction getTargetableAction(Object id) {
 		Action a = getAction(id);
-		if (a instanceof TargetableAction) {
-			return (TargetableAction) a;
+		if (a instanceof TargetableAction targetableAction) {
+			return targetableAction;
 		}
 		return null;
 	}
@@ -188,8 +188,8 @@ public class ActionManager extends ActionMap {
 	 */
 	public BoundAction getBoundAction(Object id) {
 		Action a = getAction(id);
-		if (a instanceof BoundAction) {
-			return (BoundAction) a;
+		if (a instanceof BoundAction boundAction) {
+			return boundAction;
 		}
 		return null;
 	}
@@ -202,8 +202,8 @@ public class ActionManager extends ActionMap {
 	 */
 	public ServerAction getServerAction(Object id) {
 		Action a = getAction(id);
-		if (a instanceof ServerAction) {
-			return (ServerAction) a;
+		if (a instanceof ServerAction serverAction) {
+			return serverAction;
 		}
 		return null;
 	}
@@ -216,8 +216,8 @@ public class ActionManager extends ActionMap {
 	 */
 	public CompositeAction getCompositeAction(Object id) {
 		Action a = getAction(id);
-		if (a instanceof CompositeAction) {
-			return (CompositeAction) a;
+		if (a instanceof CompositeAction compositeAction) {
+			return compositeAction;
 		}
 		return null;
 	}
@@ -309,8 +309,8 @@ public class ActionManager extends ActionMap {
 	static void printAction(PrintStream stream, Action action) {
 		stream.println("Attributes for " + action.getValue(Action.ACTION_COMMAND_KEY));
 
-		if (action instanceof AbstractAction) {
-			Object[] keys = ((AbstractAction) action).getKeys();
+		if (action instanceof AbstractAction abstractAction) {
+			Object[] keys = abstractAction.getKeys();
 
 			for (Object key : keys) {
 				stream.println("\tkey: " + key + "\tvalue: " + action.getValue((String) key));
