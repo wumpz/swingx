@@ -419,8 +419,8 @@ public class ActionContainerFactory {
 		AbstractButton button = null;
 		if (action instanceof AbstractActionExt ta) {
 
-// Check to see if we should create a toggle button
-						if (ta.isStateAction()) {
+			// Check to see if we should create a toggle button
+			if (ta.isStateAction()) {
 				// If this action has a groupid attribute then it's a
 				// GroupAction
 				String groupid = (String) ta.getGroup();

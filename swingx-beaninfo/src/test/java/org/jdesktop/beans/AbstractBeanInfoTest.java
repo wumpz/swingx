@@ -39,8 +39,7 @@ import org.mockito.exceptions.verification.NoInteractionsWanted;
 @SuppressWarnings("nls")
 public abstract class AbstractBeanInfoTest<T> {
 	private static final Logger logger = Logger.getLogger(AbstractBeanInfoTest.class.getName());
-	
-	
+
 	protected T instance;
 	private BeanInfo beanInfo;
 	private Map<Class<?>, Object> listeners;

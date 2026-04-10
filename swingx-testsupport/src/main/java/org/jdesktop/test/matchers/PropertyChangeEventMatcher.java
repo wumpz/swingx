@@ -19,15 +19,11 @@ class PropertyChangeEventMatcher implements ArgumentMatcher<PropertyChangeEvent>
 
 	@Override
 	public boolean matches(PropertyChangeEvent pce) {
-			boolean result = propertyName.equals(pce.getPropertyName());
-			result &= oldValue == null
-					|| pce.getOldValue() == null
-					|| is(oldValue).matches(pce.getOldValue());
-			result &= newValue == null
-					|| pce.getNewValue() == null
-					|| is(newValue).matches(pce.getNewValue());
+		boolean result = propertyName.equals(pce.getPropertyName());
+		result &= oldValue == null || pce.getOldValue() == null || is(oldValue).matches(pce.getOldValue());
+		result &= newValue == null || pce.getNewValue() == null || is(newValue).matches(pce.getNewValue());
 
-			return result;
+		return result;
 	}
 
 	/**

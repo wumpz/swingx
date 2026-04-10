@@ -12,7 +12,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -31,8 +30,7 @@ public class PropertyChangeReport implements PropertyChangeListener {
 	 */
 	protected List<PropertyChangeEvent> events = Collections.synchronizedList(new LinkedList<>());
 
-	protected Map<String, PropertyChangeEvent> eventMap =
-			Collections.synchronizedMap(new HashMap<>());
+	protected Map<String, PropertyChangeEvent> eventMap = Collections.synchronizedMap(new HashMap<>());
 
 	/**
 	 * Instantiates a PropertyChangeReport.
