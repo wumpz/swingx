@@ -9,7 +9,6 @@ import javax.swing.SwingUtilities;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.InvocationInterceptor;
 import org.junit.jupiter.api.extension.ReflectiveInvocationContext;
-import org.mockito.invocation.Invocation;
 
 /**
  * A test runner for JUnit that ensures that all tests are run on the EDT.

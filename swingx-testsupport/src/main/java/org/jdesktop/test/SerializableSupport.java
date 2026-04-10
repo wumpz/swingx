@@ -29,9 +29,7 @@ public final class SerializableSupport {
 	public static <T> T serialize(T object) {
 		try {
 			return (T) fromBytes(toBytes(object));
-		} catch (ClassNotFoundException shouldNeverHappen) {
-			throw new Error(shouldNeverHappen);
-		} catch (IOException shouldNeverHappen) {
+		} catch (ClassNotFoundException | IOException shouldNeverHappen) {
 			throw new Error(shouldNeverHappen);
 		}
 	}

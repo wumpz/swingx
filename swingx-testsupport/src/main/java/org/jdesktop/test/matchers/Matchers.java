@@ -63,6 +63,6 @@ public final class Matchers {
 	 * @return {@code true} if the object is equivalent; {@code false} otherwise
 	 */
 	public static <T> ArgumentMatcher<T> equivalentTo(T object) {
-		return new EquivalentMatcher<T>(object);
+		return new EquivalentMatcher<>(object);
 	}
 }

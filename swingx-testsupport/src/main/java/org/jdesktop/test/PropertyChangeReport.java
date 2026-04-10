@@ -29,10 +29,10 @@ public class PropertyChangeReport implements PropertyChangeListener {
 	/**
 	 * Holds a list of all received PropertyChangeEvents.
 	 */
-	protected List<PropertyChangeEvent> events = Collections.synchronizedList(new LinkedList<PropertyChangeEvent>());
+	protected List<PropertyChangeEvent> events = Collections.synchronizedList(new LinkedList<>());
 
 	protected Map<String, PropertyChangeEvent> eventMap =
-			Collections.synchronizedMap(new HashMap<String, PropertyChangeEvent>());
+			Collections.synchronizedMap(new HashMap<>());
 
 	/**
 	 * Instantiates a PropertyChangeReport.
@@ -78,8 +78,7 @@ public class PropertyChangeReport implements PropertyChangeListener {
 	public int getEventCount(String property) {
 		if (property == null) return getMultiCastEventCount();
 		int count = 0;
-		for (Iterator<PropertyChangeEvent> iter = events.iterator(); iter.hasNext(); ) {
-			PropertyChangeEvent event = iter.next();
+		for (PropertyChangeEvent event : events) {
 			if (property.equals(event.getPropertyName())) {
 				count++;
 			}
@@ -93,8 +92,7 @@ public class PropertyChangeReport implements PropertyChangeListener {
 
 	public int getMultiCastEventCount() {
 		int count = 0;
-		for (Iterator<PropertyChangeEvent> i = events.iterator(); i.hasNext(); ) {
-			PropertyChangeEvent event = i.next();
+		for (PropertyChangeEvent event : events) {
 			if (event.getPropertyName() == null) count++;
 		}
 		return count;
@@ -153,7 +151,7 @@ public class PropertyChangeReport implements PropertyChangeListener {
 	 * @return the last old value as a boolean
 	 */
 	public boolean getLastOldBooleanValue() {
-		return ((Boolean) getLastOldValue()).booleanValue();
+		return ((Boolean) getLastOldValue());
 	}
 
 	/**
@@ -161,7 +159,7 @@ public class PropertyChangeReport implements PropertyChangeListener {
 	 * @return the last new value as a boolean
 	 */
 	public boolean getLastNewBooleanValue() {
-		return ((Boolean) getLastNewValue()).booleanValue();
+		return ((Boolean) getLastNewValue());
 	}
 
 	/**
