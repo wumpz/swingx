@@ -21,6 +21,7 @@
 package org.jdesktop.swingx.treetable;
 
 import java.util.Enumeration;
+import java.util.List;
 import javax.swing.tree.TreeNode;
 
 /**
@@ -37,6 +38,12 @@ public interface TreeTableNode extends TreeNode {
 	 */
 	@Override
 	Enumeration<? extends TreeTableNode> children();
+	
+	/**
+	 * Returns children as a modern List.
+	 * @return  a list of {@code TreeTableNode}s
+	 */
+	List<? extends TreeTableNode> childrenList();
 
 	/**
 	 * Gets the value for this node that corresponds to a particular tabular

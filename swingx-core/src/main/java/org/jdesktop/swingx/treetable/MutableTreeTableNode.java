@@ -21,6 +21,7 @@
 package org.jdesktop.swingx.treetable;
 
 import java.util.Enumeration;
+import java.util.List;
 
 /**
  * Defines the requirements for a tree table node object that can change -- by
@@ -42,6 +43,13 @@ public interface MutableTreeTableNode extends TreeTableNode {
 	 */
 	@Override
 	Enumeration<MutableTreeTableNode> children();
+	
+	/**
+	 * Returns children as a modern List.
+	 * @return  a list of {@code TreeTableNode}s
+	 */
+	@Override
+	List<MutableTreeTableNode> childrenList();
 
 	/**
 	 * Adds the {@code child} to this node at the specified {@code index}. This
