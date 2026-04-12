@@ -11,6 +11,7 @@ This is a fork of the great SwingX library. Its a pity it was not developed any 
 * spotless / palantir source code formatting 
 * introduced more modern language constructs (instanceof pattern, ..)
 * added missing generics types 
+* upgraded to JUnit 5
 
 ## Modifications version 1.6.6
 
