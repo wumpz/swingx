@@ -112,6 +112,7 @@
               <head>API Status:</head>
             </tag>
           </tags>
+          <doclint>none</doclint>
         </configuration>
       </plugin>
       <plugin>

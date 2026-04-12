@@ -14,10 +14,6 @@
     <module>swingx-demos-content</module>
     <module>swingx-demos-run</module>
   </modules>
-  <properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -61,7 +57,6 @@
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-junit</artifactId>
-      <version>2.0.0.0</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
