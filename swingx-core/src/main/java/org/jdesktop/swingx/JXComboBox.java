@@ -65,9 +65,10 @@ import org.jdesktop.swingx.util.Contract;
  *
  * @author Karl Schaefer
  * @author Jeanette Winzenburg
+ * @param <E>
  */
 @SuppressWarnings({"nls", "serial"})
-public class JXComboBox extends JComboBox {
+public class JXComboBox<E> extends JComboBox<E> {
 	/**
 	 * A decorator for the original ListCellRenderer. Needed to hook highlighters
 	 * after messaging the delegate.<p>
@@ -454,7 +455,7 @@ public class JXComboBox extends JComboBox {
 	 *            an array of objects to insert into the combo box
 	 * @see DefaultComboBoxModel
 	 */
-	public JXComboBox(Object[] items) {
+	public JXComboBox(E[] items) {
 		super(items);
 		init();
 	}
@@ -467,7 +468,7 @@ public class JXComboBox extends JComboBox {
 	 *            an array of vectors to insert into the combo box
 	 * @see DefaultComboBoxModel
 	 */
-	public JXComboBox(Vector<?> items) {
+	public JXComboBox(Vector<E> items) {
 		super(items);
 		init();
 	}

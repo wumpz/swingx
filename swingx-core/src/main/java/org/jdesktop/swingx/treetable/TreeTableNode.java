@@ -38,7 +38,7 @@ public interface TreeTableNode extends TreeNode {
 	 */
 	@Override
 	Enumeration<? extends TreeTableNode> children();
-	
+
 	/**
 	 * Returns children as a modern List.
 	 * @return  a list of {@code TreeTableNode}s

@@ -193,7 +193,7 @@ public abstract class AbstractMutableTreeTableNode implements MutableTreeTableNo
 	public Enumeration<MutableTreeTableNode> children() {
 		return Collections.enumeration(children);
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */

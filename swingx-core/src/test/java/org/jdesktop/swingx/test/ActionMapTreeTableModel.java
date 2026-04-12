@@ -203,5 +203,10 @@ public class ActionMapTreeTableModel extends DefaultTreeTableModel {
 			// TODO Auto-generated method stub
 
 		}
+
+		@Override
+		public List<? extends TreeTableNode> childrenList() {
+			return Collections.unmodifiableList(children);
+		}
 	}
 }
