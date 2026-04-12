@@ -9,6 +9,8 @@ This is a fork of the great SwingX library. Its a pity it was not developed any 
 * upgrade Mockito to version 5
 * use of JApplet removed
 * spotless / palantir source code formatting 
+* introduced more modern language constructs (instanceof pattern, ..)
+* added missing generics types 
 
 ## Modifications version 1.6.6
 
