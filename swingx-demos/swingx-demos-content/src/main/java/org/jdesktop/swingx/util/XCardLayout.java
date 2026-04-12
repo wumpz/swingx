@@ -24,7 +24,7 @@ public class XCardLayout extends CardLayout {
 
 	public XCardLayout(Container parent) {
 		super();
-		constraints = new ArrayList<String>();
+		constraints = new ArrayList<>();
 		parent.setLayout(this);
 		this.parent = parent;
 	}

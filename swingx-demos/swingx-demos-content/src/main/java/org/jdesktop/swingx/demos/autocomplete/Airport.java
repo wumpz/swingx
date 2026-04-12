@@ -37,6 +37,7 @@ public class Airport {
 		this.iataCode = iataCode;
 	}
 
+	@Override
 	public String toString() {
 		return this.name + " (" + icaoCode + "/" + iataCode + ")";
 	}

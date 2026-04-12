@@ -94,8 +94,8 @@ public class CustomColumnFactory extends ColumnFactory {
 	 */
 	@Override
 	protected int getRowCount(JXTable table) {
-		if (table.getClientProperty("ColumnFactory.maxRowCount") instanceof Integer) {
-			return Math.min(table.getRowCount(), (Integer) table.getClientProperty("ColumnFactory.maxRowCount"));
+		if (table.getClientProperty("ColumnFactory.maxRowCount") instanceof Integer integer) {
+			return Math.min(table.getRowCount(), integer);
 		}
 		return super.getRowCount(table);
 	}
@@ -108,14 +108,14 @@ public class CustomColumnFactory extends ColumnFactory {
 
 	private List<Object> getExcludeNames() {
 		if (excludes == null) {
-			excludes = new ArrayList<Object>();
+			excludes = new ArrayList<>();
 		}
 		return excludes;
 	}
 
 	private List<Object> getHiddenNames() {
 		if (hidden == null) {
-			hidden = new ArrayList<Object>();
+			hidden = new ArrayList<>();
 		}
 		return hidden;
 	}

@@ -95,12 +95,8 @@ public abstract class OscarDataParser extends DefaultHandler {
 			sp.parse(is, this);
 			is.close();
 
-		} catch (SAXException se) {
+		} catch (SAXException | ParserConfigurationException | IOException se) {
 			se.printStackTrace();
-		} catch (ParserConfigurationException pce) {
-			pce.printStackTrace();
-		} catch (IOException ie) {
-			ie.printStackTrace();
 		}
 	}
 

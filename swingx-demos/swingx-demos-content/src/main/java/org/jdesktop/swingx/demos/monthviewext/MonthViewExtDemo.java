@@ -179,8 +179,8 @@ public class MonthViewExtDemo extends JPanel {
 		calendar.add(monthView);
 		calendarFrame.add(calendar);
 		Application application = Application.getInstance(Application.class);
-		if (application instanceof SingleFrameApplication) {
-			((SingleFrameApplication) application).show(calendarFrame);
+		if (application instanceof SingleFrameApplication singleFrameApplication) {
+			singleFrameApplication.show(calendarFrame);
 		} else {
 			calendarFrame.pack();
 			calendarFrame.setLocationRelativeTo(this);
@@ -436,6 +436,7 @@ public class MonthViewExtDemo extends JPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(MonthViewExtDemo.class
 						.getAnnotation(DemoProperties.class)

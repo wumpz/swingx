@@ -236,6 +236,7 @@ public class PainterDemo extends JPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(
 						PainterDemo.class.getAnnotation(DemoProperties.class).value());
@@ -278,7 +279,7 @@ public class PainterDemo extends JPanel {
 
 	@SuppressWarnings("unchecked")
 	private DefaultMutableTreeNode createInfoNode(String desc, Painter painter) {
-		DefaultMutableTreeNode pin = new DefaultMutableTreeNode(new DisplayInfo<Painter>(desc, painter));
+		DefaultMutableTreeNode pin = new DefaultMutableTreeNode(new DisplayInfo<>(desc, painter));
 		return pin;
 	}
 
@@ -411,27 +412,27 @@ public class PainterDemo extends JPanel {
 		Font font = new Font("SansSerif", Font.BOLD, 80);
 
 		TextPainter tp = new TextPainter("Text", font);
-		CompoundPainter<Object> cp = new CompoundPainter<Object>(tp);
+		CompoundPainter<Object> cp = new CompoundPainter<>(tp);
 		node.add(createInfoNode("Normal Text", cp));
 
 		tp = new TextPainter("Text", font);
-		cp = new CompoundPainter<Object>(tp);
+		cp = new CompoundPainter<>(tp);
 		cp.setTransform(AffineTransform.getRotateInstance(-Math.PI * 2 / 8, 100, 100));
 		node.add(createInfoNode("Rotated Text", cp));
 
 		tp = new TextPainter("Text", font);
-		cp = new CompoundPainter<Object>(tp);
+		cp = new CompoundPainter<>(tp);
 		cp.setTransform(AffineTransform.getShearInstance(-0.2, 0));
 		node.add(createInfoNode("Sheared Text", cp));
 
 		tp = new TextPainter("Text", font);
-		cp = new CompoundPainter<Object>(tp);
+		cp = new CompoundPainter<>(tp);
 		cp.setTransform(AffineTransform.getScaleInstance(2, 2));
 		node.add(createInfoNode("Scaled Text", cp));
 
 		RectanglePainter rp = new RectanglePainter(30, 30, 30, 30, 30, 30, true, Color.RED, 4f, Color.RED.darker());
 		tp = new TextPainter("Text", font);
-		cp = new CompoundPainter<Object>(rp, tp);
+		cp = new CompoundPainter<>(rp, tp);
 		cp.setTransform(AffineTransform.getRotateInstance(-Math.PI * 2 / 8, 100, 100));
 		node.add(createInfoNode("Rotated Text w/ effects on rect", cp));
 
@@ -447,12 +448,12 @@ public class PainterDemo extends JPanel {
 		rp.setStyle(RectanglePainter.Style.BOTH);
 		rp.setBorderWidth(5);
 		rp.setAntialiasing(true);
-		CompoundPainter<Object> cp = new CompoundPainter<Object>(rp, new GlossPainter());
+		CompoundPainter<Object> cp = new CompoundPainter<>(rp, new GlossPainter());
 		node.add(createInfoNode("Gloss on top of rectangle", cp));
 
 		rp = new RectanglePainter(20, 20, 20, 20, 20, 20, true, Color.RED, 5f, Color.RED.darker());
 		rp.setAntialiasing(true);
-		cp = new CompoundPainter<Object>(rp, new GlossPainter(GlossPosition.BOTTOM));
+		cp = new CompoundPainter<>(rp, new GlossPainter(GlossPosition.BOTTOM));
 		node.add(createInfoNode("Gloss on bottom of rectangle", cp));
 
 		return node;
@@ -463,39 +464,39 @@ public class PainterDemo extends JPanel {
 		MattePainter black = new MattePainter(Color.BLACK);
 
 		PinstripePainter pp = new PinstripePainter(Color.WHITE, 45, 1, 10);
-		CompoundPainter<Object> cp = new CompoundPainter<Object>(black, pp);
+		CompoundPainter<Object> cp = new CompoundPainter<>(black, pp);
 		node.add(createInfoNode("45deg white pinstripe on black", cp));
 
 		pp = new PinstripePainter(Color.WHITE, 0, 1, 10);
 		pp.setAntialiasing(true);
-		cp = new CompoundPainter<Object>(black, pp);
+		cp = new CompoundPainter<>(black, pp);
 		node.add(createInfoNode("vertical white pinstripe on black", cp));
 
 		pp = new PinstripePainter(Color.WHITE, 90, 1, 10);
 		pp.setAntialiasing(true);
-		cp = new CompoundPainter<Object>(black, pp);
+		cp = new CompoundPainter<>(black, pp);
 		node.add(createInfoNode("horizontal white pinstripe on black", cp));
 
 		pp = new PinstripePainter(Color.WHITE, 45, 3, 10);
 		pp.setAntialiasing(true);
-		cp = new CompoundPainter<Object>(black, pp);
+		cp = new CompoundPainter<>(black, pp);
 		node.add(createInfoNode("3px wide white pinstripe on black", cp));
 
 		pp = new PinstripePainter(Color.WHITE, 45, 10, 2);
 		pp.setAntialiasing(true);
-		cp = new CompoundPainter<Object>(black, pp);
+		cp = new CompoundPainter<>(black, pp);
 		node.add(createInfoNode("10px wide pinstripe w/ 2px spacing on black", cp));
 
 		pp = new PinstripePainter(Color.WHITE, 45, 3, 15);
 		pp.setAntialiasing(true);
 		pp.setPaint(new GradientPaint(new Point(0, 0), Color.WHITE, new Point(10, 10), Color.BLACK));
-		cp = new CompoundPainter<Object>(black, pp);
+		cp = new CompoundPainter<>(black, pp);
 		node.add(createInfoNode("pinstripe w/ 10px gradient", cp));
 
 		pp = new PinstripePainter(Color.WHITE, 45, 3, 15);
 		pp.setAntialiasing(true);
 		pp.setPaint(new GradientPaint(new Point(0, 0), Color.WHITE, new Point(200, 200), Color.BLACK));
-		cp = new CompoundPainter<Object>(black, pp);
+		cp = new CompoundPainter<>(black, pp);
 		node.add(createInfoNode("pinstripe w/ 200px gradient", cp));
 
 		return node;
@@ -540,19 +541,19 @@ public class PainterDemo extends JPanel {
 
 		MattePainter mp = new MattePainter(Color.GREEN);
 		PinstripePainter pp = new PinstripePainter(Color.BLUE);
-		CompoundPainter<Object> cp = new CompoundPainter<Object>(mp, pp);
+		CompoundPainter<Object> cp = new CompoundPainter<>(mp, pp);
 		node.add(createInfoNode("panel w/ blue pinstripe fg, green matte bg", cp));
 
 		mp = new MattePainter(Color.GREEN);
 		RectanglePainter rp = new RectanglePainter(
 				new Insets(20, 20, 20, 20), 50, 50, 10, 10, true, Color.RED, 5, Color.RED.darker());
 		pp = new PinstripePainter(Color.BLUE);
-		cp = new CompoundPainter<Object>(mp, rp, pp);
+		cp = new CompoundPainter<>(mp, rp, pp);
 		node.add(createInfoNode("panel, blue stripe fg, green bg, red rect comp", cp));
 
 		rp = new RectanglePainter(20, 20, 5, Color.BLUE);
 		TextPainter tp = new TextPainter("Some Text");
-		cp = new CompoundPainter<Object>(rp, tp);
+		cp = new CompoundPainter<>(rp, tp);
 		node.add(createInfoNode("text on blue", cp));
 
 		mp = new MattePainter(Color.BLACK);
@@ -562,7 +563,7 @@ public class PainterDemo extends JPanel {
 		NeonBorderEffect effect = new NeonBorderEffect(Color.BLACK, Color.RED.brighter(), 10);
 		effect.setBorderPosition(NeonBorderEffect.BorderPosition.Centered);
 		tp.setAreaEffects(effect);
-		cp = new CompoundPainter<Object>(mp, tp);
+		cp = new CompoundPainter<>(mp, tp);
 		node.add(createInfoNode("A Cool Logo", cp));
 
 		mp = new MattePainter(Color.GRAY);
@@ -574,7 +575,7 @@ public class PainterDemo extends JPanel {
 		starShadow.setEffectWidth(5);
 		sp.setAreaEffects(starShadow);
 		tp = new TextPainter("Coming Soon!", new Font("SansSerif", Font.PLAIN, 12), Color.WHITE);
-		cp = new CompoundPainter<Object>(mp, sp, tp);
+		cp = new CompoundPainter<>(mp, sp, tp);
 		node.add(createInfoNode("Coming Soon badge", cp));
 
 		return node;
@@ -754,16 +755,16 @@ public class PainterDemo extends JPanel {
 			// effects
 			effectBox.setRenderer(new DefaultListRenderer(effectInfo));
 			effectBox.setModel(createAreaEffectsList());
-			styleBox.setModel(new EnumComboBoxModel<Style>(Style.class));
+			styleBox.setModel(new EnumComboBoxModel<>(Style.class));
 
 			// base
-			interpolationBox.setModel(new EnumComboBoxModel<Interpolation>(Interpolation.class));
+			interpolationBox.setModel(new EnumComboBoxModel<>(Interpolation.class));
 			filterBox.setModel(createFilterList());
 			filterBox.setRenderer(new DefaultListRenderer(effectInfo));
 
 			// layout data
-			horizontalAlignmentBox.setModel(new EnumComboBoxModel<HorizontalAlignment>(HorizontalAlignment.class));
-			verticalAlignmentBox.setModel(new EnumComboBoxModel<VerticalAlignment>(VerticalAlignment.class));
+			horizontalAlignmentBox.setModel(new EnumComboBoxModel<>(HorizontalAlignment.class));
+			verticalAlignmentBox.setModel(new EnumComboBoxModel<>(VerticalAlignment.class));
 		}
 
 		/**

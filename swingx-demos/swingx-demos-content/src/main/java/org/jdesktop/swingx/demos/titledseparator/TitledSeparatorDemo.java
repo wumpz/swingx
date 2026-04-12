@@ -58,6 +58,7 @@ public class TitledSeparatorDemo extends JPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(TitledSeparatorDemo.class
 						.getAnnotation(DemoProperties.class)

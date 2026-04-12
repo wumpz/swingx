@@ -59,6 +59,7 @@ public class ErrorPaneDemo extends DefaultDemoPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(
 						ErrorPaneDemo.class.getAnnotation(DemoProperties.class).value());
@@ -76,6 +77,7 @@ public class ErrorPaneDemo extends DefaultDemoPanel {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected void createDemo() {
 		setLayout(new VerticalLayout(5));
 
@@ -92,6 +94,7 @@ public class ErrorPaneDemo extends DefaultDemoPanel {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected void bind() {
 		basic.setAction(map.get("generateBasicDialog"));
 		owner.setAction(map.get("generateDialogWithOwner"));

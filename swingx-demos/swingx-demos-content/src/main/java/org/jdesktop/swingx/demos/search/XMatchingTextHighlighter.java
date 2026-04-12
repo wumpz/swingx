@@ -56,7 +56,7 @@ public class XMatchingTextHighlighter extends MatchingTextHighlighter {
 			while (matcher.find()) matchesInClippedText++;
 
 			if (matchesInFullText > matchesInClippedText) { // happens if at least one match is under the ellipsis
-				if (areas.isEmpty()) areas = new ArrayList<Rectangle>();
+				if (areas.isEmpty()) areas = new ArrayList<>();
 
 				// here we rely on the given text to not contain the ellipsis
 				// PENDING JW: should be supported in super

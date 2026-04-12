@@ -94,8 +94,8 @@ public class CustomColumnFactory extends ColumnFactory {
 	 */
 	@Override
 	protected int getRowCount(JXTable table) {
-		if (table.getClientProperty("ColumnFactory.maxRowCount") instanceof Integer) {
-			return Math.min(table.getRowCount(), (Integer) table.getClientProperty("ColumnFactory.maxRowCount"));
+		if (table.getClientProperty("ColumnFactory.maxRowCount") instanceof Integer integer) {
+			return Math.min(table.getRowCount(), integer);
 		}
 		return super.getRowCount(table);
 	}
@@ -152,21 +152,21 @@ public class CustomColumnFactory extends ColumnFactory {
 
 	private List<Object> getExcludeNames() {
 		if (excludes == null) {
-			excludes = new ArrayList<Object>();
+			excludes = new ArrayList<>();
 		}
 		return excludes;
 	}
 
 	private List<Object> getHiddenNames() {
 		if (hidden == null) {
-			hidden = new ArrayList<Object>();
+			hidden = new ArrayList<>();
 		}
 		return hidden;
 	}
 
 	private Map<Object, ComponentProvider<?>> getComponentProviders() {
 		if (componentProviders == null) {
-			componentProviders = new HashMap<Object, ComponentProvider<?>>();
+			componentProviders = new HashMap<>();
 		}
 		return componentProviders;
 	}
@@ -177,7 +177,7 @@ public class CustomColumnFactory extends ColumnFactory {
 
 	private Map<Object, Object> getPrototypeValues() {
 		if (prototypes == null) {
-			prototypes = new HashMap<Object, Object>();
+			prototypes = new HashMap<>();
 		}
 		return prototypes;
 	}
@@ -188,7 +188,7 @@ public class CustomColumnFactory extends ColumnFactory {
 
 	private Map<Object, Highlighter> getHighlighters() {
 		if (highlighters == null) {
-			highlighters = new HashMap<Object, Highlighter>();
+			highlighters = new HashMap<>();
 		}
 		return highlighters;
 	}
@@ -199,7 +199,7 @@ public class CustomColumnFactory extends ColumnFactory {
 
 	private Map<Object, Comparator<?>> getComparators() {
 		if (comparators == null) {
-			comparators = new HashMap<Object, Comparator<?>>();
+			comparators = new HashMap<>();
 		}
 		return comparators;
 	}

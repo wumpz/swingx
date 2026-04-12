@@ -37,14 +37,17 @@ public class ComponentTreeTableModel extends AbstractTreeTableModel {
 
 	//  ------------------TreeModel
 
+	@Override
 	public Object getChild(Object parent, int index) {
 		return ((Container) parent).getComponent(index);
 	}
 
+	@Override
 	public int getChildCount(Object parent) {
 		return parent instanceof Container ? ((Container) parent).getComponentCount() : 0;
 	}
 
+	@Override
 	public int getIndexOfChild(Object parent, Object child) {
 		Component[] children = ((Container) parent).getComponents();
 		for (int i = 0; i < children.length; i++) {
@@ -82,6 +85,7 @@ public class ComponentTreeTableModel extends AbstractTreeTableModel {
 		}
 	}
 
+	@Override
 	public int getColumnCount() {
 		return 3;
 	}
@@ -100,6 +104,7 @@ public class ComponentTreeTableModel extends AbstractTreeTableModel {
 		}
 	}
 
+	@Override
 	public Object getValueAt(Object node, int column) {
 		Component comp = (Component) node;
 		switch (column) {

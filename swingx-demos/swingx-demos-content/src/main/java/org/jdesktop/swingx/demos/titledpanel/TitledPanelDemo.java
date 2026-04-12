@@ -189,11 +189,11 @@ public class TitledPanelDemo extends JXPanel {
 		// <snip> JXTitledPanel configure title properties
 		// Font options (based on default)
 		Font baseFont = UIManager.getFont("JXTitledPanel.titleFont");
-		model.addElement(new DisplayInfo<Font>("Default ", baseFont));
+		model.addElement(new DisplayInfo<>("Default ", baseFont));
 		Font italicFont = new FontUIResource(baseFont.deriveFont(Font.ITALIC));
-		model.addElement(new DisplayInfo<Font>("Derived (Italic)", italicFont));
+		model.addElement(new DisplayInfo<>("Derived (Italic)", italicFont));
 		Font bigFont = new FontUIResource(baseFont.deriveFont(baseFont.getSize2D() * 2));
-		model.addElement(new DisplayInfo<Font>("Derived (Doubled Size) ", bigFont));
+		model.addElement(new DisplayInfo<>("Derived (Doubled Size) ", bigFont));
 		// </snip>
 		return model;
 	}
@@ -204,8 +204,8 @@ public class TitledPanelDemo extends JXPanel {
 		// Background Painter options
 		Painter<?> baseFont = (Painter<?>) UIManager.get("JXTitledPanel.titlePainter");
 		model.addElement(new DisplayInfo<Painter<?>>("Default ", baseFont));
-		model.addElement(new DisplayInfo<Painter<?>>(
-				"Checkerboard", new PainterUIResource<JComponent>(new CheckerboardPainter())));
+		model.addElement(
+				new DisplayInfo<Painter<?>>("Checkerboard", new PainterUIResource<>(new CheckerboardPainter())));
 		// PENDING JW: add more options - image, gradient, animated...
 		// </snip>
 		return model;
@@ -339,7 +339,7 @@ public class TitledPanelDemo extends JXPanel {
 		JComponent thirdCard = createThirdCard();
 		thirdCard.setName("thirdCard");
 
-		cards = new ArrayList<JComponent>();
+		cards = new ArrayList<>();
 		cards.add(firstCard);
 		cards.add(secondCard);
 		cards.add(thirdCard);
@@ -454,6 +454,7 @@ public class TitledPanelDemo extends JXPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(TitledPanelDemo.class
 						.getAnnotation(DemoProperties.class)

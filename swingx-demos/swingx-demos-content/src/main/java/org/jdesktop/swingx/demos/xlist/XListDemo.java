@@ -152,8 +152,7 @@ public class XListDemo extends JXPanel {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Contributor) {
-					Contributor c = (Contributor) value;
+				if (value instanceof Contributor c) {
 					return c.getFirstName() + " " + c.getLastName() + " (" + c.getMerits() + ")";
 				}
 				return StringValues.TO_STRING.getString(value);
@@ -223,7 +222,7 @@ public class XListDemo extends JXPanel {
 		model.addElement(new DisplayInfo<Highlighter>(
 				"Foreground Color", new ColorHighlighter(HighlightPredicate.ROLLOVER_ROW, null, Color.MAGENTA)));
 		// </snip>
-		model.addElement(new DisplayInfo<Highlighter>("Related Merit", createExtendedRolloverDecoration()));
+		model.addElement(new DisplayInfo<>("Related Merit", createExtendedRolloverDecoration()));
 		return model;
 	}
 

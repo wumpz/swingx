@@ -20,6 +20,7 @@ public interface NodeChangedMediator {
 	 */
 	public static final NodeChangedMediator DEFAULT = new NodeChangedMediator() {
 
+		@Override
 		public void nodeChanged(TreeModel model, Object node) {
 			Contract.asNotNull(node, "tree node must not be null");
 			Contract.asNotNull(model, "model must not be null");

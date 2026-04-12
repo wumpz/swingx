@@ -67,6 +67,7 @@ public class LoginPaneDemo extends JPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(
 						LoginPaneDemo.class.getAnnotation(DemoProperties.class).value());
@@ -109,6 +110,7 @@ public class LoginPaneDemo extends JPanel {
 
 	private void bind() {
 		loginLauncher.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				JXLoginPane.showLoginDialog(LoginPaneDemo.this, loginPane);
 			}

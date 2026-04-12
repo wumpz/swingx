@@ -37,7 +37,7 @@ public class TreeDemoIconValues {
 
 		public LazyLoadingIconValue(Class<?> baseClass, StringValue sv, String fallbackName) {
 			this.baseClass = baseClass;
-			iconCache = new HashMap<Object, Icon>();
+			iconCache = new HashMap<>();
 			this.keyToFileName = sv;
 			fallbackIcon = loadFromResource(fallbackName);
 		}
@@ -99,7 +99,7 @@ public class TreeDemoIconValues {
 		private Map<Object, Icon> iconCache;
 
 		public FilteredIconValue(IconValue delegate) {
-			iconCache = new HashMap<Object, Icon>();
+			iconCache = new HashMap<>();
 			this.delegate = delegate;
 		}
 

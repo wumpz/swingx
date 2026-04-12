@@ -78,10 +78,10 @@ public class ActionMapTreeTableModel extends DefaultTreeTableModel {
 			this.parent = parent;
 			this.key = key;
 			this.actionMap = map;
-			children = new ArrayList<ActionEntryNode>();
+			children = new ArrayList<>();
 			Object[] keys = map.keys();
-			for (int i = 0; i < keys.length; i++) {
-				children.add(new ActionEntryNode(keys[i], (Action) map.get(keys[i]), this));
+			for (Object key1 : keys) {
+				children.add(new ActionEntryNode(key1, (Action) map.get(key1), this));
 			}
 		}
 
@@ -109,47 +109,57 @@ public class ActionMapTreeTableModel extends DefaultTreeTableModel {
 			return action;
 		}
 
+		@Override
 		public String toString() {
 			return key.toString();
 		}
 
 		// --------------- implement TreeNode
+		@Override
 		public boolean isLeaf() {
 			return action != null;
 		}
 
+		@Override
 		public boolean getAllowsChildren() {
 			return !isLeaf();
 		}
 
+		@Override
 		public int getChildCount() {
 			return children.size();
 		}
 
+		@Override
 		public int getIndex(TreeNode node) {
 			return children.indexOf(node);
 		}
 
 		// ------------- implement re-defined methods of TreeNode
 
+		@Override
 		public Enumeration<? extends TreeTableNode> children() {
 			return Collections.enumeration(children);
 		}
 
+		@Override
 		public TreeTableNode getChildAt(int childIndex) {
 			return children.get(childIndex);
 		}
 
+		@Override
 		public TreeTableNode getParent() {
 			return parent;
 		}
 
 		// ---------------- implement TreeTableNode
 
+		@Override
 		public int getColumnCount() {
 			return 2;
 		}
 
+		@Override
 		public Object getValueAt(int column) {
 			ActionEntryNode actionNode = this;
 
@@ -168,22 +178,31 @@ public class ActionMapTreeTableModel extends DefaultTreeTableModel {
 			}
 		}
 
+		@Override
 		public boolean isEditable(int column) {
 			return false;
 		}
 
+		@Override
 		public void setValueAt(Object aValue, int column) {
 			// do nothing
 
 		}
 
+		@Override
 		public Object getUserObject() {
 			return getAction();
 		}
 
+		@Override
 		public void setUserObject(Object userObject) {
 			// TODO Auto-generated method stub
 
+		}
+
+		@Override
+		public List<? extends TreeTableNode> childrenList() {
+			return Collections.unmodifiableList(children);
 		}
 	}
 }

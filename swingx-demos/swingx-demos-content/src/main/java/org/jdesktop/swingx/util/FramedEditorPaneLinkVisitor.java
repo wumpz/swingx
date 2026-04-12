@@ -20,6 +20,7 @@ import org.jdesktop.swingx.hyperlink.LinkModel;
 public class FramedEditorPaneLinkVisitor extends EditorPaneLinkVisitor {
 	JFrame frame;
 
+	@Override
 	public void visit(LinkModel model) {
 		showFrame(model);
 		super.visit(model);

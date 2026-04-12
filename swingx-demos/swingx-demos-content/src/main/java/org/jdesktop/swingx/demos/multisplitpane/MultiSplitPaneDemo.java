@@ -55,6 +55,7 @@ public class MultiSplitPaneDemo extends JPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(MultiSplitPaneDemo.class
 						.getAnnotation(DemoProperties.class)

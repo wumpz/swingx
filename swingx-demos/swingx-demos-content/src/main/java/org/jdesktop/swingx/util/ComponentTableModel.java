@@ -26,10 +26,12 @@ import javax.swing.tree.TreeModel;
  */
 public class ComponentTableModel extends AbstractTableModel {
 
+	@Override
 	public int getRowCount() {
 		return components.size();
 	}
 
+	@Override
 	public Class getColumnClass(int column) {
 		switch (column) {
 			case 0:
@@ -43,10 +45,12 @@ public class ComponentTableModel extends AbstractTableModel {
 		}
 	}
 
+	@Override
 	public int getColumnCount() {
 		return 3;
 	}
 
+	@Override
 	public String getColumnName(int column) {
 		switch (column) {
 			case 0:
@@ -60,6 +64,7 @@ public class ComponentTableModel extends AbstractTableModel {
 		}
 	}
 
+	@Override
 	public Object getValueAt(int row, int column) {
 		Component comp = (Component) components.get(row);
 		switch (column) {
@@ -74,10 +79,12 @@ public class ComponentTableModel extends AbstractTableModel {
 		}
 	}
 
+	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
 		return false;
 	}
 
+	@Override
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {}
 
 	private List components = new ArrayList();
@@ -112,10 +119,12 @@ public class ComponentTableModel extends AbstractTableModel {
 			this.node = node;
 		}
 
+		@Override
 		public boolean hasMoreElements() {
 			return index < treeModel.getChildCount(node) - 1;
 		}
 
+		@Override
 		public Object nextElement() {
 			return treeModel.getChild(node, ++index);
 		}
@@ -133,10 +142,12 @@ public class ComponentTableModel extends AbstractTableModel {
 			stack.push(v.elements());
 		}
 
+		@Override
 		public boolean hasMoreElements() {
 			return (!stack.empty() && ((Enumeration) stack.peek()).hasMoreElements());
 		}
 
+		@Override
 		public Object nextElement() {
 			Enumeration enumer = (Enumeration) stack.peek();
 			Object node = enumer.nextElement();

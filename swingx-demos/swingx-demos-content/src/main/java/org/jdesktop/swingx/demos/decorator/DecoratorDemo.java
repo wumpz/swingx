@@ -469,6 +469,7 @@ public class DecoratorDemo extends JPanel {
 	}
 
 	// --------------- super overrides
+	@Override
 	public String getName() {
 		return "Decorators";
 	}

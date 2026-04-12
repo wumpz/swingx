@@ -323,7 +323,7 @@ public class MatchingTextHighlighter extends AbstractHighlighter {
 		int startFrom = 0;
 		while (startFrom < clippedText.length() && matcher.find(startFrom)) {
 			if (highlightAreas == null) {
-				highlightAreas = new ArrayList<Rectangle>();
+				highlightAreas = new ArrayList<>();
 			}
 
 			int start = matcher.start();

@@ -151,8 +151,7 @@ public class TreeTableDemo extends JPanel {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Component) {
-					Component component = (Component) value;
+				if (value instanceof Component component) {
 					String simpleName = component.getClass().getSimpleName();
 					if (simpleName.length() == 0) {
 						// anonymous class
@@ -191,12 +190,12 @@ public class TreeTableDemo extends JPanel {
 			public String getString(Object value) {
 				int x;
 				int y;
-				if (value instanceof Dimension) {
-					x = ((Dimension) value).width;
-					y = ((Dimension) value).height;
-				} else if (value instanceof Point) {
-					x = ((Point) value).x;
-					y = ((Point) value).y;
+				if (value instanceof Dimension dimension) {
+					x = dimension.width;
+					y = dimension.height;
+				} else if (value instanceof Point point) {
+					x = point.x;
+					y = point.y;
 				} else {
 					return StringValues.TO_STRING.getString(value);
 				}
@@ -229,7 +228,7 @@ public class TreeTableDemo extends JPanel {
 		mouseOverHighlighter.setHighlightPredicate(HighlightPredicate.NEVER);
 		if (component != null) {
 
-			List<Component> pathList = new ArrayList<Component>();
+			List<Component> pathList = new ArrayList<>();
 			while (component != null) {
 				pathList.add(0, component);
 				component = component.getParent();

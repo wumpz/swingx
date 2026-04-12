@@ -141,6 +141,7 @@ public class BlendCompositeDemo extends JXPanel {
 
 		combo = new JComboBox(BlendComposite.BlendingMode.values());
 		combo.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				compositeTestPanel.setComposite(
 						BlendComposite.getInstance((BlendingMode) combo.getSelectedItem(), slider.getValue() / 100.0f));
@@ -149,13 +150,14 @@ public class BlendCompositeDemo extends JXPanel {
 
 		slider = new JSlider(0, 100, 100);
 		slider.addChangeListener(new ChangeListener() {
+			@Override
 			public void stateChanged(ChangeEvent e) {
 				BlendComposite blend = (BlendComposite) compositeTestPanel.getComposite();
 				blend = blend.derive(slider.getValue() / 100.0f);
 				compositeTestPanel.setComposite(blend);
 			}
 		});
-		Dictionary<Integer, JComponent> labels = new Hashtable<Integer, JComponent>();
+		Dictionary<Integer, JComponent> labels = new Hashtable<>();
 		// TODO can we fill these labels from the properties file?
 		labels.put(0, new JLabel("0%"));
 		labels.put(100, new JLabel("100%"));
@@ -173,6 +175,7 @@ public class BlendCompositeDemo extends JXPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(BlendCompositeDemo.class
 						.getAnnotation(DemoProperties.class)

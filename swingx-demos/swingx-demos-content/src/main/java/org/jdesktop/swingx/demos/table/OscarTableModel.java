@@ -57,7 +57,7 @@ public class OscarTableModel extends AbstractTableModel {
 		return columnIds[column];
 	}
 
-	private final List<OscarCandidate> candidates = new ArrayList<OscarCandidate>();
+	private final List<OscarCandidate> candidates = new ArrayList<>();
 
 	public void add(List<OscarCandidate> newCandidates) {
 		int first = candidates.size();
@@ -72,10 +72,12 @@ public class OscarTableModel extends AbstractTableModel {
 		fireTableRowsInserted(index, index);
 	}
 
+	@Override
 	public int getRowCount() {
 		return candidates.size();
 	}
 
+	@Override
 	public int getColumnCount() {
 		return COLUMN_COUNT;
 	}
@@ -89,6 +91,7 @@ public class OscarTableModel extends AbstractTableModel {
 		return candidates.get(row);
 	}
 
+	@Override
 	public Object getValueAt(int row, int column) {
 		// PENDING JW: solve in getColumnClass instead of hacking here
 		if (row >= getRowCount()) {

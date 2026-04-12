@@ -50,6 +50,7 @@ public class MultiThumbSliderDemo extends DefaultDemoPanel {
 		runDemo(MultiThumbSliderDemo.class);
 	}
 
+	@Override
 	protected void createDemo() {
 		add(new JLabel("Not Implemented"));
 	}

@@ -67,6 +67,7 @@ public class XPanelDemo extends JPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(
 						XPanelDemo.class.getAnnotation(DemoProperties.class).value());
@@ -101,7 +102,7 @@ public class XPanelDemo extends JPanel {
 
 		alphaSlider = new JSlider();
 		alphaSlider.setName("alphaSlider");
-		Dictionary<Integer, JComponent> labels = new Hashtable<Integer, JComponent>();
+		Dictionary<Integer, JComponent> labels = new Hashtable<>();
 		// TODO can we fill these labels from the properties file?
 		labels.put(0, new JLabel("Transparent"));
 		labels.put(100, new JLabel("Opaque"));

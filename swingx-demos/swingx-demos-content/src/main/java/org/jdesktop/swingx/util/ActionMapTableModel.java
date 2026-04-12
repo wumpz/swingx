@@ -23,14 +23,17 @@ public class ActionMapTableModel extends AbstractTableModel {
 		this.actionMap = actionMap;
 	}
 
+	@Override
 	public int getRowCount() {
 		return actionMap.allKeys().length;
 	}
 
+	@Override
 	public int getColumnCount() {
 		return 2;
 	}
 
+	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Object key = actionMap.allKeys()[rowIndex];
 		Action action = actionMap.get(key);
@@ -46,6 +49,7 @@ public class ActionMapTableModel extends AbstractTableModel {
 		}
 	}
 
+	@Override
 	public String getColumnName(int column) {
 		switch (column) {
 			case 0:

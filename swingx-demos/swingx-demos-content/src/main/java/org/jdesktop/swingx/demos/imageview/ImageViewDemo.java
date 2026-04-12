@@ -71,6 +71,7 @@ public class ImageViewDemo extends DefaultDemoPanel {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected void createDemo() {
 		setLayout(new BorderLayout());
 
@@ -113,6 +114,7 @@ public class ImageViewDemo extends DefaultDemoPanel {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected void bind() {
 		openButton.addActionListener(imageView.getOpenAction());
 		saveButton.addActionListener(imageView.getSaveAction());

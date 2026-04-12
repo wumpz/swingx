@@ -60,7 +60,7 @@ public class IMDBLink {
 	 * @return String containing URI for movie's IMDB entry or null if URI could not be found
 	 */
 	public static String getMovieURIString(String movieTitle, int year) throws IOException {
-		ArrayList<String> matches = new ArrayList<String>();
+		ArrayList<String> matches = new ArrayList<>();
 		URL url;
 		BufferedReader reader;
 

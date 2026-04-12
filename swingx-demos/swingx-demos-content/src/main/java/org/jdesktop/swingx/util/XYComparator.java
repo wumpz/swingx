@@ -15,6 +15,7 @@ import java.util.Comparator;
  */
 public class XYComparator implements Comparator {
 
+	@Override
 	public int compare(Object o1, Object o2) {
 		if ((o1 instanceof Point) && (o2 instanceof Point)) {
 			return comparePoint((Point) o1, (Point) o2);

@@ -46,7 +46,7 @@ public class OscarCandidate {
 	private boolean winner = false;
 	private String movie;
 	private URI imdbURI;
-	private final ArrayList<String> persons = new ArrayList<String>();
+	private final ArrayList<String> persons = new ArrayList<>();
 
 	/**
 	 * Creates a new instance of OscarCandidate

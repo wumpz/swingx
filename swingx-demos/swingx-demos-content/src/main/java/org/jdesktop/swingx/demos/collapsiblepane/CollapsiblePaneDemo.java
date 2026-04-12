@@ -67,6 +67,7 @@ public class CollapsiblePaneDemo extends JPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(CollapsiblePaneDemo.class
 						.getAnnotation(DemoProperties.class)
@@ -127,12 +128,14 @@ public class CollapsiblePaneDemo extends JPanel {
 		collapsingButton.addActionListener(collapsiblePane.getActionMap().get(JXCollapsiblePane.TOGGLE_ACTION));
 
 		nextButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				containerStack.next(collapsiblePane.getContentPane());
 			}
 		});
 
 		previousButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				containerStack.previous(collapsiblePane.getContentPane());
 			}

@@ -279,13 +279,12 @@ public class HighlighterExtDemo extends JPanel {
 	 * Prepare different String representations.
 	 */
 	private void initStringRepresentation() {
-		stringValues = new HashMap<String, StringValue>();
+		stringValues = new HashMap<>();
 		StringValue nameValue = new StringValue() {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Contributor) {
-					Contributor c = (Contributor) value;
+				if (value instanceof Contributor c) {
 					return c.getLastName() + ", " + c.getFirstName();
 				}
 				return StringValues.TO_STRING.getString(value);
@@ -298,8 +297,8 @@ public class HighlighterExtDemo extends JPanel {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Contributor) {
-					return StringValues.DATE_TO_STRING.getString(((Contributor) value).getJoinedDate());
+				if (value instanceof Contributor contributor) {
+					return StringValues.DATE_TO_STRING.getString(contributor.getJoinedDate());
 				}
 				return StringValues.TO_STRING.getString(value);
 			}
@@ -311,8 +310,8 @@ public class HighlighterExtDemo extends JPanel {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Contributor) {
-					return StringValues.NUMBER_TO_STRING.getString(((Contributor) value).getMerits());
+				if (value instanceof Contributor contributor) {
+					return StringValues.NUMBER_TO_STRING.getString(contributor.getMerits());
 				}
 				return StringValues.TO_STRING.getString(value);
 			}
@@ -324,8 +323,8 @@ public class HighlighterExtDemo extends JPanel {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Contributor) {
-					URI mail = ((Contributor) value).getEmail();
+				if (value instanceof Contributor contributor) {
+					URI mail = contributor.getEmail();
 					// strip mailto:
 					String path = mail.toString();
 					return path.replace("mailto:", "");

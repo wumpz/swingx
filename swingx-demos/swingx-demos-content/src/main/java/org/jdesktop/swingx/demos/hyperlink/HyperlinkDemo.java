@@ -246,6 +246,7 @@ public class HyperlinkDemo extends JPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(
 						HyperlinkDemo.class.getAnnotation(DemoProperties.class).value());

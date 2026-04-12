@@ -191,6 +191,7 @@ public class XTableDemo extends JPanel {
 		filterGroup.bind();
 		//        </snip>
 		oscarModel.addTableModelListener(new TableModelListener() {
+			@Override
 			public void tableChanged(TableModelEvent e) {
 				updateStatusBar();
 			}
@@ -267,7 +268,7 @@ public class XTableDemo extends JPanel {
 	private class OscarDataLoader extends SwingWorker<List<OscarCandidate>, OscarCandidate> {
 		private final URL oscarData;
 		private final OscarTableModel oscarModel;
-		private final List<OscarCandidate> candidates = new ArrayList<OscarCandidate>();
+		private final List<OscarCandidate> candidates = new ArrayList<>();
 		//        </snip>
 		private JLabel credits;
 
@@ -354,8 +355,8 @@ public class XTableDemo extends JPanel {
 					public void updateUI() {
 						super.updateUI();
 						// need to do in updateUI to survive toggling of LAF
-						if (getDefaultRenderer() instanceof JLabel) {
-							((JLabel) getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
+						if (getDefaultRenderer() instanceof JLabel jLabel) {
+							jLabel.setHorizontalAlignment(JLabel.CENTER);
 						}
 					}
 					//                    </snip>
@@ -456,6 +457,7 @@ public class XTableDemo extends JPanel {
 	public static void main(String args[]) {
 
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JXFrame frame = new JXFrame("JXTable Demo", true);
 				XTableDemo demo = new XTableDemo();

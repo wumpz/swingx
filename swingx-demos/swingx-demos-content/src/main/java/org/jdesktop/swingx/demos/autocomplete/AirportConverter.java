@@ -30,6 +30,7 @@ import org.jdesktop.swingx.autocomplete.ObjectToStringConverter;
  */
 public class AirportConverter extends ObjectToStringConverter {
 
+	@Override
 	public String[] getPossibleStringsForItem(Object item) {
 		if (item == null) return null;
 		if (!(item instanceof Airport)) return new String[0];
@@ -37,6 +38,7 @@ public class AirportConverter extends ObjectToStringConverter {
 		return new String[] {airport.toString(), airport.icaoCode, airport.iataCode};
 	}
 
+	@Override
 	public String getPreferredStringForItem(Object item) {
 		String[] possible = getPossibleStringsForItem(item);
 		String preferred = null;

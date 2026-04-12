@@ -167,7 +167,7 @@ public class MonthViewDemo extends JPanel {
 
 		@SuppressWarnings("unchecked")
 		public MonthViewDemoControl() {
-			selectionModes.setModel(new EnumComboBoxModel<SelectionMode>(SelectionMode.class));
+			selectionModes.setModel(new EnumComboBoxModel<>(SelectionMode.class));
 			selectionModes.setRenderer(new DefaultListRenderer(DisplayValues.TITLE_WORDS_UNDERSCORE));
 
 			// PENDING JW: this does not survive a change in Locale -
@@ -291,7 +291,7 @@ public class MonthViewDemo extends JPanel {
 				return;
 			}
 			Set<Date> old = monthView.getSelectionModel().getUnselectableDates();
-			SortedSet<Date> result = new TreeSet<Date>(old);
+			SortedSet<Date> result = new TreeSet<>(old);
 			result.add(getLastUnselectable());
 			monthView.getSelectionModel().setUnselectableDates(result);
 		}
@@ -489,6 +489,7 @@ public class MonthViewDemo extends JPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(
 						MonthViewDemo.class.getAnnotation(DemoProperties.class).value());

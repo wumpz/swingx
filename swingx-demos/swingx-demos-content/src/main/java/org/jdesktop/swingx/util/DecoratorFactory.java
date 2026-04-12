@@ -33,6 +33,7 @@ public class DecoratorFactory {
 		ActionListener l = new ActionListener() {
 			boolean add;
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				float a = add ? (alpha.getAlpha() + 0.1f) : (alpha.getAlpha() - 0.1f);
 				if (a > 1.0) {

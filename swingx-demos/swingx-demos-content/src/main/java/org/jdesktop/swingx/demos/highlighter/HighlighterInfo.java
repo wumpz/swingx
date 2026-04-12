@@ -33,6 +33,7 @@ import org.jdesktop.swingx.util.Contract;
  */
 public final class HighlighterInfo {
 	private static class EmptyHighlighter extends AbstractHighlighter {
+		@Override
 		protected Component doHighlight(Component component, ComponentAdapter adapter) {
 			return component;
 		}

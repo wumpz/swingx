@@ -65,6 +65,7 @@ public class XEditorPaneDemo extends JPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				StyledTextActions.install(Application.getInstance().getContext());
 

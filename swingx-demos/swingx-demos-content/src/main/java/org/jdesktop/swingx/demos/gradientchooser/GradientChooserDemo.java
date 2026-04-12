@@ -60,6 +60,7 @@ public class GradientChooserDemo extends JXPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(GradientChooserDemo.class
 						.getAnnotation(DemoProperties.class)
@@ -97,6 +98,7 @@ public class GradientChooserDemo extends JXPanel {
 
 	private void bind() {
 		showChooser.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				gradient = JXGradientChooser.showDialog(GradientChooserDemo.this, "Pick a Gradient", gradient);
 				setBackgroundPainter(new MattePainter(gradient, true));

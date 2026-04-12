@@ -129,8 +129,7 @@ public class XTreeDemo extends JPanel {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Component) {
-					Component component = (Component) value;
+				if (value instanceof Component component) {
 					String simpleName = component.getClass().getSimpleName();
 					if (simpleName.length() == 0) {
 						// anonymous class

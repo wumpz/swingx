@@ -69,6 +69,7 @@ public class TipOfTheDayDemo extends JPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(TipOfTheDayDemo.class
 						.getAnnotation(DemoProperties.class)

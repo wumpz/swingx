@@ -22,9 +22,10 @@ public class XDemoUtilities {
 	// PENDING JW: formulate with HyperlinkAction
 	public static class LinkBrowser implements ActionListener {
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() instanceof LinkModel) {
-				final LinkModel link = (LinkModel) e.getSource();
+			if (e.getSource() instanceof LinkModel linkModel) {
+				final LinkModel link = linkModel;
 				try {
 					Desktop desktop = Desktop.getDesktop();
 					desktop.browse(link.getURL().toURI());

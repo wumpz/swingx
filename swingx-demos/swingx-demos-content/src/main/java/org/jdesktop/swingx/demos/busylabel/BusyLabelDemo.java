@@ -78,6 +78,7 @@ public class BusyLabelDemo extends JXPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(
 						BusyLabelDemo.class.getAnnotation(DemoProperties.class).value());
@@ -119,7 +120,7 @@ public class BusyLabelDemo extends JXPanel {
 
 		speedSlider = new JSlider();
 		speedSlider.setName("speedSlider");
-		Dictionary<Integer, JComponent> labels = new Hashtable<Integer, JComponent>();
+		Dictionary<Integer, JComponent> labels = new Hashtable<>();
 		// TODO can we fill these labels from the properties file?
 		labels.put(1, new JLabel("Faster"));
 		labels.put(50, new JLabel("Slower"));
@@ -128,7 +129,7 @@ public class BusyLabelDemo extends JXPanel {
 
 		pointsSlider = new JSlider();
 		pointsSlider.setName("pointsSlider");
-		labels = new Hashtable<Integer, JComponent>();
+		labels = new Hashtable<>();
 		// TODO can we fill these labels from the properties file?
 		labels.put(1, new JLabel("Fewer Points"));
 		labels.put(50, new JLabel("More Points"));
@@ -137,7 +138,7 @@ public class BusyLabelDemo extends JXPanel {
 
 		trailSlider = new JSlider();
 		trailSlider.setName("trailSlider");
-		labels = new Hashtable<Integer, JComponent>();
+		labels = new Hashtable<>();
 		// TODO can we fill these labels from the properties file?
 		labels.put(1, new JLabel("Short Trail"));
 		labels.put(20, new JLabel("Long Trail"));
@@ -151,7 +152,7 @@ public class BusyLabelDemo extends JXPanel {
 	private void bind() {
 		Binding b = Bindings.createAutoBinding(
 				READ, speedSlider, BeanProperty.create("value"), label, BeanProperty.create("delay"));
-		b.setConverter(new FactorConverter<Integer>(10));
+		b.setConverter(new FactorConverter<>(10));
 		b.bind();
 
 		Bindings.createAutoBinding(

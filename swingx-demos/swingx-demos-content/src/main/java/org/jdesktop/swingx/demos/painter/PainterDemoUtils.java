@@ -37,7 +37,7 @@ public class PainterDemoUtils {
 	private static class InsetsConverter extends Converter<Integer, Insets> {
 		@Override
 		public Insets convertForward(Integer arg0) {
-			int inset = arg0.intValue();
+			int inset = arg0;
 			return new Insets(inset, 2 * inset, inset, 2 * inset);
 		}
 
@@ -51,12 +51,12 @@ public class PainterDemoUtils {
 
 		@Override
 		public Float convertForward(Integer value) {
-			return Float.valueOf(value.floatValue());
+			return value.floatValue();
 		}
 
 		@Override
 		public Integer convertReverse(Float value) {
-			return Integer.valueOf(value.intValue());
+			return value.intValue();
 		}
 	}
 

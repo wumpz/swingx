@@ -69,6 +69,7 @@ public class TaskPaneDemo extends JPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(
 						TaskPaneDemo.class.getAnnotation(DemoProperties.class).value());
@@ -133,8 +134,7 @@ public class TaskPaneDemo extends JPanel {
 				+ "; font-size: "
 				+ defaultFont.getSize()
 				+ "pt;  }";
-		if (area.getDocument() instanceof HTMLDocument) {
-			HTMLDocument doc = (HTMLDocument) area.getDocument();
+		if (area.getDocument() instanceof HTMLDocument doc) {
 			try {
 				doc.getStyleSheet().loadRules(new java.io.StringReader(stylesheet), null);
 			} catch (Exception e) {

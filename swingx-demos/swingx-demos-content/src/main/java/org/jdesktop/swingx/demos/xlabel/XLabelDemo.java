@@ -74,6 +74,7 @@ public class XLabelDemo extends DefaultDemoPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(
 						XLabelDemo.class.getAnnotation(DemoProperties.class).value());
@@ -91,6 +92,7 @@ public class XLabelDemo extends DefaultDemoPanel {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected void createDemo() {
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
@@ -106,8 +108,9 @@ public class XLabelDemo extends DefaultDemoPanel {
 		lineWrap.setName("lineWrap");
 		p.add(lineWrap);
 
-		alignments = new JComboBox(new EnumComboBoxModel<TextAlignment>(TextAlignment.class));
+		alignments = new JComboBox(new EnumComboBoxModel<>(TextAlignment.class));
 		alignments.setRenderer(new DefaultListRenderer(new StringValue() {
+			@Override
 			public String getString(Object value) {
 				String s = StringValues.TO_STRING.getString(value);
 
@@ -129,6 +132,7 @@ public class XLabelDemo extends DefaultDemoPanel {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected void bind() {
 		Bindings.createAutoBinding(
 						READ, lineWrap, BeanProperty.create("selected"), label, BeanProperty.create("lineWrap"))
@@ -142,6 +146,7 @@ public class XLabelDemo extends DefaultDemoPanel {
 				.bind();
 		// TODO build a converter to handle this via BeanBinding
 		rotate.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				label.setTextRotation((label.getTextRotation() + Math.PI / 16) % (2 * Math.PI));
 			}

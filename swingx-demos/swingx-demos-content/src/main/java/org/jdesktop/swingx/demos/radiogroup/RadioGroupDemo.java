@@ -50,6 +50,7 @@ public class RadioGroupDemo extends DefaultDemoPanel {
 		runDemo(RadioGroupDemo.class);
 	}
 
+	@Override
 	protected void createDemo() {
 		JXRadioGroup<String> rg = JXRadioGroup.create(new String[] {"a", "b", "c"});
 		//        rg.setText("Title");

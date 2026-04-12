@@ -47,6 +47,7 @@ public class OscarRendering {
 		// register a custom comparator
 		Comparator<OscarCandidate> comparator = new Comparator<OscarCandidate>() {
 
+			@Override
 			public int compare(OscarCandidate o1, OscarCandidate o2) {
 				String movie1 = o1.getMovieTitle();
 				String movie2 = o2.getMovieTitle();
@@ -81,9 +82,10 @@ public class OscarRendering {
 		// ToolTip for movie column
 		StringValue toolTip = new StringValue() {
 
+			@Override
 			public String getString(Object value) {
-				if (value instanceof OscarCandidate) {
-					return getURIText((OscarCandidate) value);
+				if (value instanceof OscarCandidate oscarCandidate) {
+					return getURIText(oscarCandidate);
 				}
 				return "";
 			}
@@ -116,9 +118,10 @@ public class OscarRendering {
 		// the predicate to decide which to use
 		HighlightPredicate winnerPredicate = new HighlightPredicate() {
 
+			@Override
 			public boolean isHighlighted(Component renderer, ComponentAdapter adapter) {
 				int modelColumn = adapter.getColumnIndex("winnerColumn");
-				return ((Boolean) adapter.getValue(modelColumn)).booleanValue();
+				return ((Boolean) adapter.getValue(modelColumn));
 			}
 		};
 		// compound per-predicate and add as column highlighter to the factory
@@ -159,6 +162,7 @@ public class OscarRendering {
 			setVisited(target != null ? target.getIMDBMovieURI() != null : false);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (target == null) return;
 			try {
@@ -228,8 +232,8 @@ public class OscarRendering {
 		 */
 		public void addStringValue(StringValue sv, Object sourceColumn) {
 			if (stringValues == null) {
-				stringValues = new ArrayList<StringValue>();
-				sourceColumns = new ArrayList<Object>();
+				stringValues = new ArrayList<>();
+				sourceColumns = new ArrayList<>();
 			}
 			stringValues.add(sv);
 			sourceColumns.add(sourceColumn);
@@ -299,6 +303,7 @@ public class OscarRendering {
 		}
 
 		@SuppressWarnings("unchecked")
+		@Override
 		public String getString(Object value) {
 			if (value instanceof List) {
 				List<String> persons = (List<String>) value;

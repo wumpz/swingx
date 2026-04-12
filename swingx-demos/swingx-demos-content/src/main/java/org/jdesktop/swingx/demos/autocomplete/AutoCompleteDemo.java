@@ -77,6 +77,7 @@ public class AutoCompleteDemo extends DefaultDemoPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(AutoCompleteDemo.class
 						.getAnnotation(DemoProperties.class)
@@ -99,6 +100,7 @@ public class AutoCompleteDemo extends DefaultDemoPanel {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected void createDemo() {
 		setLayout(new GridBagLayout());
 
@@ -226,6 +228,7 @@ public class AutoCompleteDemo extends DefaultDemoPanel {
 		add(airportComboBox, gridBagConstraints);
 	}
 
+	@Override
 	protected void injectResources() {
 		super.injectResources();
 
@@ -240,12 +243,13 @@ public class AutoCompleteDemo extends DefaultDemoPanel {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected void bind() {
-		strictComboBox.setModel(new ListComboBoxModel<String>(names));
-		nonStrictComboBox.setModel(new ListComboBoxModel<String>(names));
-		airportComboBox.setModel(new ListComboBoxModel<Airport>(Airports.ALL_AIRPORTS));
+		strictComboBox.setModel(new ListComboBoxModel<>(names));
+		nonStrictComboBox.setModel(new ListComboBoxModel<>(names));
+		airportComboBox.setModel(new ListComboBoxModel<>(Airports.ALL_AIRPORTS));
 		// use the combo box model because it's SwingX
-		list.setModel(new ListComboBoxModel<String>(names));
+		list.setModel(new ListComboBoxModel<>(names));
 	}
 
 	private void decorate() {

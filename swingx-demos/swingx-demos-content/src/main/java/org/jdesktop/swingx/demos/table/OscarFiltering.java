@@ -88,7 +88,7 @@ public class OscarFiltering extends AbstractBean {
 		// <snip> Filter control
 		// set the filters to the table
 		if ((searchFilter != null) && (winnerFilter != null)) {
-			List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>(2);
+			List<RowFilter<Object, Object>> filters = new ArrayList<>(2);
 			filters.add(winnerFilter);
 			filters.add(searchFilter);
 			RowFilter<Object, Object> comboFilter = RowFilter.andFilter(filters);
@@ -106,7 +106,7 @@ public class OscarFiltering extends AbstractBean {
 			@Override
 			public boolean include(Entry<? extends Object, ? extends Object> entry) {
 				OscarTableModel oscarModel = (OscarTableModel) entry.getModel();
-				OscarCandidate candidate = oscarModel.getCandidate(((Integer) entry.getIdentifier()).intValue());
+				OscarCandidate candidate = oscarModel.getCandidate(((Integer) entry.getIdentifier()));
 				if (candidate.isWinner()) {
 					// Returning true indicates this row should be shown.
 					return true;
@@ -124,7 +124,7 @@ public class OscarFiltering extends AbstractBean {
 			@Override
 			public boolean include(Entry<? extends Object, ? extends Object> entry) {
 				OscarTableModel oscarModel = (OscarTableModel) entry.getModel();
-				OscarCandidate candidate = oscarModel.getCandidate(((Integer) entry.getIdentifier()).intValue());
+				OscarCandidate candidate = oscarModel.getCandidate(((Integer) entry.getIdentifier()));
 				boolean matches = false;
 				Pattern p = Pattern.compile(filterString + ".*", Pattern.CASE_INSENSITIVE);
 				// match against movie title

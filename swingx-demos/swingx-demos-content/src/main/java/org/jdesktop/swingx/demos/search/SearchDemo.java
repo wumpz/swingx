@@ -121,6 +121,7 @@ public class SearchDemo extends JPanel {
 			@Override
 			public void stateChanged(final ChangeEvent e) {
 				SwingUtilities.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						updateSearchable((JTabbedPane) e.getSource());
 					}
@@ -141,6 +142,7 @@ public class SearchDemo extends JPanel {
 	protected void updateSearchPanel(Object searchableProvider) {
 		final Searchable s = getSearchable(searchableProvider);
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				searchPanel.setSearchable(s);
 				KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent(searchPanel);
@@ -156,8 +158,8 @@ public class SearchDemo extends JPanel {
 	 */
 	protected void updateSearchable(JTabbedPane tabbed) {
 		Component comp = tabbed.getSelectedComponent();
-		if (comp instanceof JScrollPane) {
-			comp = (JComponent) ((JScrollPane) comp).getViewport().getView();
+		if (comp instanceof JScrollPane jScrollPane) {
+			comp = (JComponent) jScrollPane.getViewport().getView();
 		}
 		updateSearchPanel(comp);
 	}
@@ -184,7 +186,7 @@ public class SearchDemo extends JPanel {
 	 * Prepare different String representations.
 	 */
 	private void initStringRepresentation() {
-		stringValues = new HashMap<String, StringValue>();
+		stringValues = new HashMap<>();
 
 		// <snip> Custom String Representation
 		// Note: the content of each cell is always of type Contributor
@@ -192,9 +194,9 @@ public class SearchDemo extends JPanel {
 		// default: show contributor's first and last name
 		StringValue nameValue = new StringValue() {
 
+			@Override
 			public String getString(Object value) {
-				if (value instanceof Contributor) {
-					Contributor c = (Contributor) value;
+				if (value instanceof Contributor c) {
 					return c.getLastName() + ", " + c.getFirstName();
 				}
 				return StringValues.TO_STRING.getString(value);
@@ -207,8 +209,8 @@ public class SearchDemo extends JPanel {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Contributor) {
-					return StringValues.DATE_TO_STRING.getString(((Contributor) value).getJoinedDate());
+				if (value instanceof Contributor contributor) {
+					return StringValues.DATE_TO_STRING.getString(contributor.getJoinedDate());
 				}
 				return StringValues.TO_STRING.getString(value);
 			}
@@ -221,8 +223,8 @@ public class SearchDemo extends JPanel {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Contributor) {
-					return StringValues.NUMBER_TO_STRING.getString(((Contributor) value).getMerits());
+				if (value instanceof Contributor contributor) {
+					return StringValues.NUMBER_TO_STRING.getString(contributor.getMerits());
 				}
 				return StringValues.TO_STRING.getString(value);
 			}
@@ -234,8 +236,8 @@ public class SearchDemo extends JPanel {
 
 			@Override
 			public String getString(Object value) {
-				if (value instanceof Contributor) {
-					URI mail = ((Contributor) value).getEmail();
+				if (value instanceof Contributor contributor) {
+					URI mail = contributor.getEmail();
 					// strip mailto:
 					String path = mail.toString();
 					return path.replace("mailto:", "");
@@ -375,7 +377,7 @@ public class SearchDemo extends JPanel {
 		}
 
 		private void createColorCellMarkers() {
-			colorCellMarkers = new HashMap<String, ColorHighlighter>();
+			colorCellMarkers = new HashMap<>();
 			Color matchColor = HighlighterFactory.LINE_PRINTER;
 			for (String string : tabs) {
 				colorCellMarkers.put(string, new ColorHighlighter(matchColor, null, matchColor, Color.BLACK));
@@ -383,7 +385,7 @@ public class SearchDemo extends JPanel {
 		}
 
 		private void createMatchingTextMarkers() {
-			matchingTextMarkers = new HashMap<String, MatchingTextHighlighter>();
+			matchingTextMarkers = new HashMap<>();
 			for (String string : tabs) {
 				matchingTextMarkers.put(
 						string, new XMatchingTextHighlighter()); // DecoratorFactory.createMatchingTextHighlighter());
@@ -454,6 +456,7 @@ public class SearchDemo extends JPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(
 						SearchDemo.class.getAnnotation(DemoProperties.class).value());

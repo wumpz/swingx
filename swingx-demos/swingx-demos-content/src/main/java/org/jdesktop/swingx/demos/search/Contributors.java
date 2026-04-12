@@ -75,12 +75,13 @@ public class Contributors {
 	 *
 	 */
 	private void initData() throws IOException {
-		contributors = new ArrayList<Contributor>();
+		contributors = new ArrayList<>();
 		// fill the list from the resources
 		readDataSource(contributors);
 		// wrap a listModel around
 		listModel = new AbstractListModel() {
 
+			@Override
 			public Object getElementAt(int index) {
 				if (index == 0) {
 					return "-- Contributors --";
@@ -88,6 +89,7 @@ public class Contributors {
 				return contributors.get(index - 1);
 			}
 
+			@Override
 			public int getSize() {
 				return contributors.size() + 1;
 			}
@@ -95,40 +97,47 @@ public class Contributors {
 
 		// create NodeModel: returns a Contributor for each column
 		contributorNodeModel = new NodeModel() {
+			@Override
 			public int getColumnCount() {
 				// defined on init
 				return columnCount;
 			}
 
+			@Override
 			public Class<?> getColumnClass(int columnIndex) {
 				return Contributor.class;
 			}
 
+			@Override
 			public String getColumnName(int column) {
 				return "Display " + column;
 			}
 
+			@Override
 			public boolean isCellEditable(Object node, int columnIndex) {
 				return false;
 			}
 
+			@Override
 			public Object getValueAt(Object node, int columnIndex) {
 				return getContributor(node);
 			}
 
 			private Contributor getContributor(Object node) {
-				if (node instanceof DefaultMutableTreeNode) {
-					node = ((DefaultMutableTreeNode) node).getUserObject();
-				} else if (node instanceof TreeTableNode) {
-					node = ((TreeTableNode) node).getUserObject();
+				if (node instanceof DefaultMutableTreeNode defaultMutableTreeNode) {
+					node = defaultMutableTreeNode.getUserObject();
+				} else if (node instanceof TreeTableNode treeTableNode) {
+					node = treeTableNode.getUserObject();
 				}
 				return (node instanceof Contributor) ? (Contributor) node : null;
 			}
 
+			@Override
 			public int getHierarchicalColumn() {
 				return 0;
 			}
 
+			@Override
 			public void setValueAt(Object value, Object node, int column) {
 				// noop - not editable
 			}
@@ -136,14 +145,17 @@ public class Contributors {
 		// wrap a TableModel around
 		tableModel = new AbstractTableModel() {
 
+			@Override
 			public int getColumnCount() {
 				return contributorNodeModel.getColumnCount();
 			}
 
+			@Override
 			public int getRowCount() {
 				return contributors.size();
 			}
 
+			@Override
 			public Object getValueAt(int rowIndex, int columnIndex) {
 				return contributorNodeModel.getValueAt(contributors.get(rowIndex), columnIndex);
 			}

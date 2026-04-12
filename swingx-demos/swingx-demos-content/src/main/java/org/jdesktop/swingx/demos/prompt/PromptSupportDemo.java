@@ -186,7 +186,7 @@ public class PromptSupportDemo extends JPanel {
 		JLabel label = new JLabel("Focus Behavior:");
 		panel.add(label, cc.rc(1, 2));
 
-		focusCombo = new JComboBox(new EnumComboBoxModel<FocusBehavior>(FocusBehavior.class));
+		focusCombo = new JComboBox(new EnumComboBoxModel<>(FocusBehavior.class));
 		focusCombo.setRenderer(new DefaultListRenderer(DisplayValues.TITLE_WORDS_UNDERSCORE));
 		panel.add(focusCombo, cc.rc(1, 4));
 
@@ -226,14 +226,14 @@ public class PromptSupportDemo extends JPanel {
 		label = new JLabel("Painter:");
 		panel.add(label, cc.rc(7, 2));
 
-		backgroundPainter = new JComboBox(new ListComboBoxModel<DisplayInfo<Painter<?>>>(getPainters()));
+		backgroundPainter = new JComboBox(new ListComboBoxModel<>(getPainters()));
 		backgroundPainter.setRenderer(new DefaultListRenderer(DisplayValues.DISPLAY_INFO_DESCRIPTION));
 		panel.add(backgroundPainter, cc.rc(7, 4));
 
 		label = new JLabel("Font Style:");
 		panel.add(label, cc.rc(9, 2));
 
-		fontStyle = new JComboBox(new ListComboBoxModel<DisplayInfo<Integer>>(getFontStyles()));
+		fontStyle = new JComboBox(new ListComboBoxModel<>(getFontStyles()));
 		fontStyle.setRenderer(new DefaultListRenderer(DisplayValues.DISPLAY_INFO_DESCRIPTION));
 		panel.add(fontStyle, cc.rc(9, 4));
 
@@ -241,26 +241,26 @@ public class PromptSupportDemo extends JPanel {
 	}
 
 	private List<DisplayInfo<Painter<?>>> getPainters() {
-		List<DisplayInfo<Painter<?>>> painters = new ArrayList<DisplayInfo<Painter<?>>>();
+		List<DisplayInfo<Painter<?>>> painters = new ArrayList<>();
 
-		painters.add(new DisplayInfo<Painter<?>>("None", null));
-		painters.add(new DisplayInfo<Painter<?>>(
+		painters.add(new DisplayInfo<>("None", null));
+		painters.add(new DisplayInfo<>(
 				"Checkered",
 				new MattePainter(PaintUtils.getCheckerPaint(new Color(0, 0, 0, 0), new Color(33, 33, 128), 20))));
-		painters.add(new DisplayInfo<Painter<?>>("Gradient", new MattePainter(PaintUtils.AERITH, true)));
-		painters.add(new DisplayInfo<Painter<?>>(
+		painters.add(new DisplayInfo<>("Gradient", new MattePainter(PaintUtils.AERITH, true)));
+		painters.add(new DisplayInfo<>(
 				"Star Shape", new ShapePainter(ShapeUtils.generatePolygon(5, 10, 5, true), Color.GREEN)));
 
 		return painters;
 	}
 
 	private List<DisplayInfo<Integer>> getFontStyles() {
-		List<DisplayInfo<Integer>> fontStyles = new ArrayList<DisplayInfo<Integer>>();
+		List<DisplayInfo<Integer>> fontStyles = new ArrayList<>();
 
-		fontStyles.add(new DisplayInfo<Integer>("Normal", Font.PLAIN));
-		fontStyles.add(new DisplayInfo<Integer>("Bold", Font.BOLD));
-		fontStyles.add(new DisplayInfo<Integer>("Italic", Font.ITALIC));
-		fontStyles.add(new DisplayInfo<Integer>("Bold Italic", Font.BOLD | Font.ITALIC));
+		fontStyles.add(new DisplayInfo<>("Normal", Font.PLAIN));
+		fontStyles.add(new DisplayInfo<>("Bold", Font.BOLD));
+		fontStyles.add(new DisplayInfo<>("Italic", Font.ITALIC));
+		fontStyles.add(new DisplayInfo<>("Bold Italic", Font.BOLD | Font.ITALIC));
 
 		return fontStyles;
 	}

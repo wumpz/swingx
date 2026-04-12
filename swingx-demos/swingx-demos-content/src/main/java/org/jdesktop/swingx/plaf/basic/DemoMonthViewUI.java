@@ -56,8 +56,8 @@ public class DemoMonthViewUI extends BasicMonthViewUI {
 		if (monthView != null) {
 			// lookup per-monthView handler instance
 			Object handler = monthView.getClientProperty(RENDERING_HANDLER_KEY);
-			if (handler instanceof CalendarRenderingHandler) {
-				return (CalendarRenderingHandler) handler;
+			if (handler instanceof CalendarRenderingHandler calendarRenderingHandler) {
+				return calendarRenderingHandler;
 			}
 		}
 		// look per-application handler class name
@@ -90,8 +90,8 @@ public class DemoMonthViewUI extends BasicMonthViewUI {
 		if (monthView != null) {
 			// lookup per-instance handler
 			Object handler = monthView.getClientProperty(CalendarHeaderHandler.uiControllerID);
-			if (handler instanceof CalendarHeaderHandler) {
-				return (CalendarHeaderHandler) handler;
+			if (handler instanceof CalendarHeaderHandler calendarHeaderHandler) {
+				return calendarHeaderHandler;
 			}
 		}
 		// </snip>

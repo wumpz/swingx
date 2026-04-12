@@ -120,6 +120,7 @@ public class HighlighterDemo extends DefaultDemoPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame frame = new JFrame(HighlighterDemo.class
 						.getAnnotation(DemoProperties.class)
@@ -154,9 +155,10 @@ public class HighlighterDemo extends DefaultDemoPanel {
 		list = new JXList();
 		list.setName("list");
 		list.setCellRenderer(new DefaultListRenderer(new StringValue() {
+			@Override
 			public String getString(Object value) {
-				if (value instanceof Component) {
-					return value.getClass().getSimpleName() + " (" + ((Component) value).getName() + ")";
+				if (value instanceof Component component) {
+					return value.getClass().getSimpleName() + " (" + component.getName() + ")";
 				}
 
 				return StringValues.TO_STRING.getString(value);
@@ -172,9 +174,10 @@ public class HighlighterDemo extends DefaultDemoPanel {
 		tree = new JXTree();
 		tree.setName("tree");
 		tree.setCellRenderer(new DefaultTreeRenderer(new StringValue() {
+			@Override
 			public String getString(Object value) {
-				if (value instanceof Component) {
-					return value.getClass().getSimpleName() + " (" + ((Component) value).getName() + ")";
+				if (value instanceof Component component) {
+					return value.getClass().getSimpleName() + " (" + component.getName() + ")";
 				}
 
 				return StringValues.TO_STRING.getString(value);
@@ -187,9 +190,10 @@ public class HighlighterDemo extends DefaultDemoPanel {
 		treeTable.setName("treeTable");
 		treeTable.setShowGrid(true, true);
 		treeTable.setTreeCellRenderer(new DefaultTreeRenderer(new StringValue() {
+			@Override
 			public String getString(Object value) {
-				if (value instanceof Component) {
-					return value.getClass().getSimpleName() + " (" + ((Component) value).getName() + ")";
+				if (value instanceof Component component) {
+					return value.getClass().getSimpleName() + " (" + component.getName() + ")";
 				}
 
 				return StringValues.TO_STRING.getString(value);
@@ -201,9 +205,10 @@ public class HighlighterDemo extends DefaultDemoPanel {
 		comboBox = new JXComboBox();
 		comboBox.setName("comboBox");
 		comboBox.setRenderer(new DefaultListRenderer(new StringValue() {
+			@Override
 			public String getString(Object value) {
-				if (value instanceof Component) {
-					return value.getClass().getSimpleName() + " (" + ((Component) value).getName() + ")";
+				if (value instanceof Component component) {
+					return value.getClass().getSimpleName() + " (" + component.getName() + ")";
 				}
 
 				return StringValues.TO_STRING.getString(value);
@@ -221,9 +226,10 @@ public class HighlighterDemo extends DefaultDemoPanel {
 
 		stripingOptions = new JComboBox(getStripingOptionsModel());
 		stripingOptions.setRenderer(new DefaultListRenderer(new StringValue() {
+			@Override
 			public String getString(Object value) {
-				if (value instanceof HighlighterInfo) {
-					return ((HighlighterInfo) value).getDescription();
+				if (value instanceof HighlighterInfo highlighterInfo) {
+					return highlighterInfo.getDescription();
 				}
 
 				return StringValues.TO_STRING.getString(value);
@@ -233,9 +239,10 @@ public class HighlighterDemo extends DefaultDemoPanel {
 
 		highlighters = new JComboBox(getHighlighterOptionsModel());
 		highlighters.setRenderer(new DefaultListRenderer(new StringValue() {
+			@Override
 			public String getString(Object value) {
-				if (value instanceof HighlighterInfo) {
-					return ((HighlighterInfo) value).getDescription();
+				if (value instanceof HighlighterInfo highlighterInfo) {
+					return highlighterInfo.getDescription();
 				}
 
 				return StringValues.TO_STRING.getString(value);
@@ -245,9 +252,10 @@ public class HighlighterDemo extends DefaultDemoPanel {
 
 		predicates = new JComboBox(getPredicateOptionsModel());
 		predicates.setRenderer(new DefaultListRenderer(new StringValue() {
+			@Override
 			public String getString(Object value) {
-				if (value instanceof HighlightPredicateInfo) {
-					return ((HighlightPredicateInfo) value).getDescription();
+				if (value instanceof HighlightPredicateInfo highlightPredicateInfo) {
+					return highlightPredicateInfo.getDescription();
 				}
 
 				return StringValues.TO_STRING.getString(value);
@@ -258,7 +266,7 @@ public class HighlighterDemo extends DefaultDemoPanel {
 	}
 
 	private ComboBoxModel getStripingOptionsModel() {
-		List<HighlighterInfo> info = new ArrayList<HighlighterInfo>();
+		List<HighlighterInfo> info = new ArrayList<>();
 		info.add(new HighlighterInfo("No Striping", null));
 		info.add(new HighlighterInfo("Alternating UI-Dependent", HighlighterFactory.createAlternateStriping()));
 		info.add(new HighlighterInfo(
@@ -275,11 +283,11 @@ public class HighlighterDemo extends DefaultDemoPanel {
 		info.add(new HighlighterInfo(
 				"Alternating Groups (3) Blue-Gold", HighlighterFactory.createAlternateStriping(lightBlue, gold, 3)));
 
-		return new ListComboBoxModel<HighlighterInfo>(info);
+		return new ListComboBoxModel<>(info);
 	}
 
 	private ComboBoxModel getHighlighterOptionsModel() {
-		List<HighlighterInfo> info = new ArrayList<HighlighterInfo>();
+		List<HighlighterInfo> info = new ArrayList<>();
 		info.add(new HighlighterInfo("No Additional Highlighter", null));
 		info.add(new HighlighterInfo(
 				"Green Border", new BorderHighlighter(BorderFactory.createLineBorder(Color.GREEN, 1))));
@@ -306,11 +314,11 @@ public class HighlighterDemo extends DefaultDemoPanel {
 		info.add(new HighlighterInfo("Trailing Alignment", new AlignmentHighlighter(SwingConstants.TRAILING)));
 		info.add(new HighlighterInfo("Show As Disabled", new EnabledHighlighter(false)));
 
-		return new ListComboBoxModel<HighlighterInfo>(info);
+		return new ListComboBoxModel<>(info);
 	}
 
 	private ComboBoxModel getPredicateOptionsModel() {
-		List<HighlightPredicateInfo> info = new ArrayList<HighlightPredicateInfo>();
+		List<HighlightPredicateInfo> info = new ArrayList<>();
 		info.add(new HighlightPredicateInfo("Always Off", HighlightPredicate.NEVER));
 		info.add(new HighlightPredicateInfo("Always On", HighlightPredicate.ALWAYS));
 		info.add(new HighlightPredicateInfo("Focused Cell", HighlightPredicate.HAS_FOCUS));
@@ -323,7 +331,7 @@ public class HighlighterDemo extends DefaultDemoPanel {
 		info.add(new HighlightPredicateInfo(
 				"JButton Type", new HighlightPredicate.TypeHighlightPredicate(JButton.class)));
 
-		return new ListComboBoxModel<HighlightPredicateInfo>(info);
+		return new ListComboBoxModel<>(info);
 	}
 
 	/**
@@ -348,13 +356,14 @@ public class HighlighterDemo extends DefaultDemoPanel {
 				highlighters,
 				ELProperty.create("${selectedItem.highlighter.highlightPredicate}"));
 		b.addBindingListener(new BindingAdapter() {
+			@Override
 			public void targetChanged(Binding binding, PropertyStateEvent event) {
 				binding.refresh();
 			}
 		});
 		b.bind();
 
-		ArrayAggregator<Highlighter> activeHighlighters = new ArrayAggregator<Highlighter>(Highlighter.class);
+		ArrayAggregator<Highlighter> activeHighlighters = new ArrayAggregator<>(Highlighter.class);
 		activeHighlighters.addSource(
 				new HighlighterInfo(
 						"Tooltip for truncated text",
