@@ -85,7 +85,7 @@
 			maintains correct services across all modules -->
       <groupId>org.kohsuke.metainf-services</groupId>
       <artifactId>metainf-services</artifactId>
-      <version>1.8</version>
+      <version>1.11</version>
       <type>jar</type>
       <scope>compile</scope>
       <optional>true</optional>
@@ -124,6 +124,7 @@
           <target>17</target>
           <generatedSourcesDirectory>${project.generatedAnnotations}</generatedSourcesDirectory>
           <showWarnings>true</showWarnings>
+          <proc>full</proc>
         </configuration>
       </plugin>
       <plugin>
