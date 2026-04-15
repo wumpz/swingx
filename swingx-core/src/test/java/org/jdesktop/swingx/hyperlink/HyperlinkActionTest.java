@@ -51,7 +51,7 @@ public class HyperlinkActionTest {
 		URI uri = new URI("http://someserver.de");
 		HyperlinkAction action = HyperlinkAction.createHyperlinkAction(uri);
 		// no external browser will be called
-		//action.actionPerformed(null);
+		// action.actionPerformed(null);
 		assertEquals(true, action.isEnabled());
 		assertEquals(Desktop.Action.BROWSE, action.getDesktopAction());
 	}
