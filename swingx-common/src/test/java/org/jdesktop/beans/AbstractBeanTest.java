@@ -21,8 +21,7 @@
  */
 package org.jdesktop.beans;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -69,13 +68,13 @@ public class AbstractBeanTest {
 
 		ArgumentCaptor<PropertyChangeEvent> captor = ArgumentCaptor.forClass(PropertyChangeEvent.class);
 		verify(pcl).propertyChange(captor.capture());
-		assertThat(bean, is(captor.getValue().getSource()));
-		assertThat("property", is(captor.getValue().getPropertyName()));
+		assertThat(bean).isEqualTo(captor.getValue().getSource());
+		assertThat("property").isEqualTo(captor.getValue().getPropertyName());
 
 		CloneableBean clone = bean.clone();
 		clone.setProperty("other");
 
-		assertThat(0, is(clone.getPropertyChangeListeners().length));
+		assertThat(0).isEqualTo(clone.getPropertyChangeListeners().length);
 		verifyNoMoreInteractions(pcl);
 	}
 }

@@ -20,8 +20,7 @@
  */
 package org.jdesktop.swingx.painter;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -61,15 +60,15 @@ public class AbstractPainterTest {
 
 	@Test
 	public void testDefaults() {
-		assertThat(p.getFilters().length, is(0));
-		assertThat(p.getInterpolation(), is(AbstractPainter.Interpolation.NearestNeighbor));
-		assertThat(p.isAntialiasing(), is(true));
-		assertThat(p.isCacheable(), is(false));
-		assertThat(p.isCacheCleared(), is(true));
-		assertThat(p.isDirty(), is(false));
-		assertThat(p.isInPaintContext(), is(false));
-		assertThat(p.isVisible(), is(true));
-		assertThat(p.shouldUseCache(), is(p.isCacheable()));
+		assertThat(p.getFilters().length).isEqualTo(0);
+		assertThat(p.getInterpolation()).isEqualTo(AbstractPainter.Interpolation.NearestNeighbor);
+		assertThat(p.isAntialiasing()).isEqualTo(true);
+		assertThat(p.isCacheable()).isEqualTo(false);
+		assertThat(p.isCacheCleared()).isEqualTo(true);
+		assertThat(p.isDirty()).isEqualTo(false);
+		assertThat(p.isInPaintContext()).isEqualTo(false);
+		assertThat(p.isVisible()).isEqualTo(true);
+		assertThat(p.shouldUseCache()).isEqualTo(p.isCacheable());
 	}
 
 	/**
@@ -189,13 +188,13 @@ public class AbstractPainterTest {
 		// sanity
 		// when caching we get a different graphics object
 		verify(p).doPaint(any(Graphics2D.class), isNull(), eq(10), eq(10));
-		assertThat("clean after paint", false, is(p.isDirty()));
-		assertThat("cacheable is enabled", true, is(p.isCacheable()));
-		assertThat("has a cached image", false, is(p.isCacheCleared()));
+		assertThat(false).as("clean after paint").isEqualTo(p.isDirty());
+		assertThat(true).as("cacheable is enabled").isEqualTo(p.isCacheable());
+		assertThat(false).as("has a cached image").isEqualTo(p.isCacheCleared());
 
 		p.clearCache();
 
-		assertThat("has a cached image", true, is(p.isCacheCleared()));
+		assertThat(true).as("has a cached image").isEqualTo(p.isCacheCleared());
 	}
 
 	/**
@@ -205,7 +204,7 @@ public class AbstractPainterTest {
 	public void testSetCacheableEnablesCache() {
 		p.setCacheable(true);
 
-		assertThat(p.shouldUseCache(), is(true));
+		assertThat(p.shouldUseCache()).isEqualTo(true);
 	}
 
 	/**
@@ -215,7 +214,7 @@ public class AbstractPainterTest {
 	public void testFiltersEnableCache() {
 		p.setFilters(mock(BufferedImageOp.class));
 
-		assertThat(p.shouldUseCache(), is(true));
+		assertThat(p.shouldUseCache()).isEqualTo(true);
 	}
 
 	/**

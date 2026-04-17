@@ -1,7 +1,6 @@
 package org.jdesktop.swingx.action;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.jdesktop.test.SerializableSupport.serialize;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -33,7 +32,7 @@ public class BoundActionTest {
 		BoundAction serialized = serialize(action);
 
 		assertTrue(Matchers.equivalentTo(action).matches(serialized));
-		assertThat(serialized.getActionListeners().length, is(1));
+		assertThat(serialized.getActionListeners().length).isEqualTo(1);
 	}
 
 	@Test
@@ -43,7 +42,7 @@ public class BoundActionTest {
 		BoundAction serialized = serialize(action);
 
 		assertTrue(Matchers.equivalentTo(action).matches(serialized));
-		assertThat(serialized.getItemListeners().length, is(1));
+		assertThat(serialized.getItemListeners().length).isEqualTo(1);
 	}
 
 	@Test

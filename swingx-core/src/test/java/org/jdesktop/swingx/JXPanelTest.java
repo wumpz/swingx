@@ -21,13 +21,9 @@
  */
 package org.jdesktop.swingx;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.junit.MatcherAssume.assumeThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.awt.Color;
 import java.util.logging.Logger;
@@ -138,7 +134,7 @@ public class JXPanelTest {
 	public void testBackgroundPainterIsNull() {
 		Painter<?> painter = new JXPanel().getBackgroundPainter();
 
-		assertThat(painter, is(nullValue()));
+		assertThat(painter).isNull();
 	}
 
 	/**
@@ -153,7 +149,7 @@ public class JXPanelTest {
 
 		panel.setBackground(Color.BLACK);
 
-		assertThat(panel.getBackgroundPainter(), is(nullValue()));
+		assertThat(panel.getBackgroundPainter()).isNull();
 	}
 
 	/**
@@ -168,7 +164,7 @@ public class JXPanelTest {
 
 		panel.setBackground(Color.BLACK);
 
-		assertThat(panel.getBackgroundPainter(), is(notNullValue()));
+		assertThat(panel.getBackgroundPainter()).isNotNull();
 	}
 
 	/**
@@ -185,7 +181,7 @@ public class JXPanelTest {
 
 		panel.setBackground(new ColorUIResource(Color.BLACK));
 
-		assertThat(panel.getBackgroundPainter(), is(myResource));
+		assertThat(panel.getBackgroundPainter()).isEqualTo(myResource);
 	}
 
 	/**
@@ -202,7 +198,7 @@ public class JXPanelTest {
 
 		panel.setBackground(new ColorUIResource(Color.BLACK));
 
-		assertThat(panel.getBackgroundPainter(), is(sameInstance(painter)));
+		assertThat(panel.getBackgroundPainter()).isSameAs(painter);
 	}
 
 	@Test
@@ -220,34 +216,34 @@ public class JXPanelTest {
 	@Test
 	public void testSetAlphaLessThanOneMakesPanelNonOpaque() {
 		JXPanel panel = new JXPanel();
-		assumeThat(panel.isOpaque(), is(true));
+		assumeTrue(panel.isOpaque());
 
 		panel.setAlpha(.99f);
-		assertThat(panel.isOpaque(), is(false));
+		assertThat(panel.isOpaque()).isEqualTo(false);
 	}
 
 	@Test
 	public void testRestoreOpacityWhenAlphaSetToOne() {
 		JXPanel panel = new JXPanel();
-		assumeThat(panel.isOpaque(), is(true));
+		assumeTrue(panel.isOpaque());
 
 		panel.setAlpha(.99f);
 		panel.setAlpha(1f);
-		assertThat(panel.isOpaque(), is(true));
+		assertThat(panel.isOpaque()).isEqualTo(true);
 
 		panel.setOpaque(false);
 		panel.setAlpha(.99f);
 		panel.setAlpha(1f);
-		assertThat(panel.isOpaque(), is(false));
+		assertThat(panel.isOpaque()).isEqualTo(false);
 	}
 
 	@Test
 	public void testGetEffectiveAlphaWithoutInherit() {
 		JXPanel panel = new JXPanel();
-		assertThat(panel.getEffectiveAlpha(), is(panel.getAlpha()));
+		assertThat(panel.getEffectiveAlpha()).isEqualTo(panel.getAlpha());
 
 		panel.setAlpha(.5f);
-		assertThat(panel.getEffectiveAlpha(), is(panel.getAlpha()));
+		assertThat(panel.getEffectiveAlpha()).isEqualTo(panel.getAlpha());
 	}
 
 	@Test
@@ -260,10 +256,10 @@ public class JXPanelTest {
 		p2.setInheritAlpha(true);
 
 		p1.add(p2);
-		assertThat(p2.getEffectiveAlpha(), is(p1.getAlpha()));
+		assertThat(p2.getEffectiveAlpha()).isEqualTo(p1.getAlpha());
 
 		p1.removeAll();
 		p2.add(p1);
-		assertThat(p1.getEffectiveAlpha(), is(p1.getAlpha()));
+		assertThat(p1.getEffectiveAlpha()).isEqualTo(p1.getAlpha());
 	}
 }

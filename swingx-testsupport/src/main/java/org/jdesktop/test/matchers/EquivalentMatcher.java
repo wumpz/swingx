@@ -1,11 +1,11 @@
 package org.jdesktop.test.matchers;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.util.Arrays;
+import java.util.Objects;
 import org.mockito.ArgumentMatcher;
 
 class EquivalentMatcher<T> implements ArgumentMatcher<T> {
@@ -15,9 +15,18 @@ class EquivalentMatcher<T> implements ArgumentMatcher<T> {
 		this.object = object;
 	}
 
+	static boolean isEqual(Object o1, Object o2) {
+		if (o1 == null && o2 == null) return true;
+		if (o1 == o2) return true;
+
+		if ((o1 != null && o1.getClass().isArray())
+				&& (o2 != null & o2.getClass().isArray())) return Arrays.equals((Object[]) o1, (Object[]) o2);
+		return Objects.equals(o2, o2);
+	}
+
 	@Override
 	public boolean matches(T argument) {
-		if (equalTo(object).matches(argument)) {
+		if (isEqual(object, argument)) {
 			// short circuit: equal is always equivalent
 			return true;
 		}
@@ -57,7 +66,7 @@ class EquivalentMatcher<T> implements ArgumentMatcher<T> {
 					new Error(shouldNeverHappen);
 				}
 
-				if (!equalTo(value1).matches(value2)) {
+				if (!isEqual(value1, value2)) {
 					return false;
 				}
 			}

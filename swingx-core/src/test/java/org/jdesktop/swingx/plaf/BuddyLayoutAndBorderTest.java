@@ -1,7 +1,6 @@
 package org.jdesktop.swingx.plaf;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -81,6 +80,6 @@ public class BuddyLayoutAndBorderTest {
 	public void testGetBorderInsetsWithNullDelegate() {
 		textField.setBorder(null);
 		blab.install(textField);
-		assertThat(blab.getRealBorderInsets(), is(new Insets(0, 0, 0, 0)));
+		assertThat(blab.getRealBorderInsets()).isEqualTo(new Insets(0, 0, 0, 0));
 	}
 }

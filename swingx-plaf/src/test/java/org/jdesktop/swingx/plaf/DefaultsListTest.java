@@ -20,8 +20,7 @@
  */
 package org.jdesktop.swingx.plaf;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
@@ -42,11 +41,11 @@ public class DefaultsListTest {
 		kvList.add("a", "b");
 
 		Object[] arr = kvList.toArray();
-		assertThat(arr.length, is(2));
-		assertThat((String) arr[0], is("a"));
-		assertThat((String) arr[1], is("b"));
+		assertThat(arr.length).isEqualTo(2);
+		assertThat((String) arr[0]).isEqualTo("a");
+		assertThat((String) arr[1]).isEqualTo("b");
 
 		kvList.add("a", null);
-		assertThat(kvList.toArray().length, is(0));
+		assertThat(kvList.toArray().length).isEqualTo(0);
 	}
 }

@@ -21,11 +21,9 @@
  */
 package org.jdesktop.swingx;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.junit.MatcherAssume.assumeThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -52,7 +50,7 @@ public class JXButtonTest {
 
 	@BeforeEach
 	public void setUp() {
-		assumeThat(GraphicsEnvironment.isHeadless(), is(false));
+		assumeTrue(GraphicsEnvironment.isHeadless());
 		button = new JXButton();
 	}
 
@@ -61,8 +59,8 @@ public class JXButtonTest {
 	 */
 	@Test
 	public void testDefaultIsNoPainters() {
-		assertThat(button.getForegroundPainter(), is(nullValue()));
-		assertThat(button.getBackgroundPainter(), is(nullValue()));
+		assertThat(button.getForegroundPainter()).isNull();
+		assertThat(button.getBackgroundPainter()).isNull();
 	}
 
 	/**
@@ -71,12 +69,12 @@ public class JXButtonTest {
 	@Test
 	public void ensureFontIsMaintainedAfterBackgroundSet() {
 		Font font = Font.decode("Arial-BOLDITALIC-14");
-		assumeThat(button.getFont(), is(not(font)));
+		assumeFalse(button.getFont().equals(font));
 
 		button.setFont(font);
 		button.setBackground(Color.RED);
 
-		assertThat(button.getFont(), is(font));
+		assertThat(button.getFont()).isEqualTo(font);
 	}
 
 	/**
@@ -85,11 +83,11 @@ public class JXButtonTest {
 	@Test
 	public void ensureFontIsMaintainedAfterBackgroundPainterSet() {
 		Font font = Font.decode("Arial-BOLDITALIC-14");
-		assumeThat(button.getFont(), is(not(font)));
+		assumeFalse(button.getFont().equals(font));
 
 		button.setFont(font);
 		button.setBackgroundPainter(new MattePainter(Color.RED));
 
-		assertThat(button.getFont(), is(font));
+		assertThat(button.getFont()).isEqualTo(font);
 	}
 }

@@ -53,11 +53,4 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-  <dependencies>
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
 </project>

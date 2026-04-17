@@ -1,7 +1,6 @@
 package org.jdesktop.test;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import javax.swing.SwingUtilities;
 import org.junit.jupiter.api.Test;
@@ -14,6 +13,6 @@ public class EDTRunnerTest {
 	 */
 	@Test
 	public void testForSwingThread() {
-		assertThat(SwingUtilities.isEventDispatchThread(), is(true));
+		assertThat(SwingUtilities.isEventDispatchThread()).isEqualTo(true);
 	}
 }

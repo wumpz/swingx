@@ -20,8 +20,7 @@
  */
 package org.jdesktop.swingx;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Color;
@@ -2628,8 +2627,8 @@ public class JXMonthViewTest extends InteractiveTestCase {
 
 		Date date = new Date();
 		monthView.setSelectionInterval(date, date);
-		assertThat(listener.getEventCount(), is(1));
-		assertThat(listener.getLastEvent().getEventType(), is(EventType.DATES_SET));
+		assertThat(listener.getEventCount()).isEqualTo(1);
+		assertThat(listener.getLastEvent().getEventType()).isEqualTo(EventType.DATES_SET);
 	}
 
 	/**

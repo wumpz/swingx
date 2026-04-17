@@ -29,14 +29,10 @@ import static java.awt.event.KeyEvent.VK_PAGE_DOWN;
 import static java.awt.event.KeyEvent.VK_PAGE_UP;
 import static java.awt.event.KeyEvent.VK_UP;
 import static java.lang.System.currentTimeMillis;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.junit.MatcherAssume.assumeThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 import java.awt.Component;
 import java.awt.GraphicsEnvironment;
@@ -154,31 +150,31 @@ public class AutoCompleteDecoratorTest {
 		AutoCompleteDecorator.undecorate(combo);
 
 		for (PropertyChangeListener l : combo.getPropertyChangeListeners("editor")) {
-			assertThat(l, is(not(instanceOf(AutoComplete.PropertyChangeListener.class))));
+			assertThat(l).isNotInstanceOf(AutoComplete.PropertyChangeListener.class);
 		}
 
-		assertThat(combo.getEditor(), is(not(instanceOf(AutoCompleteComboBoxEditor.class))));
+		assertThat(combo.getEditor()).isNotInstanceOf(AutoCompleteComboBoxEditor.class);
 
 		JTextComponent editorComponent = (JTextComponent) combo.getEditor().getEditorComponent();
 
 		for (KeyListener l : editorComponent.getKeyListeners()) {
-			assertThat(l, is(not(instanceOf(AutoComplete.KeyAdapter.class))));
+			assertThat(l).isNotInstanceOf(AutoComplete.KeyAdapter.class);
 		}
 
 		for (InputMap map = editorComponent.getInputMap(); map != null; map = map.getParent()) {
-			assertThat(map, is(not(instanceOf(AutoComplete.InputMap.class))));
+			assertThat(map).isNotInstanceOf(AutoComplete.InputMap.class);
 		}
 
-		assertThat(editorComponent.getActionMap().get("nonstrict-backspace"), is(nullValue()));
+		assertThat(editorComponent.getActionMap().get("nonstrict-backspace")).isNull();
 
 		for (FocusListener l : editorComponent.getFocusListeners()) {
-			assertThat(l, is(not(instanceOf(AutoComplete.FocusAdapter.class))));
+			assertThat(l).isNotInstanceOf(AutoComplete.FocusAdapter.class);
 		}
 
-		assertThat(editorComponent.getDocument(), is(not(instanceOf(AutoCompleteDocument.class))));
+		assertThat(editorComponent.getDocument()).isNotInstanceOf(AutoCompleteDocument.class);
 
 		for (ActionListener l : combo.getActionListeners()) {
-			assertThat(l, is(not(instanceOf(ComboBoxAdaptor.class))));
+			assertThat(l).isNotInstanceOf(ComboBoxAdaptor.class);
 		}
 	}
 
@@ -198,10 +194,10 @@ public class AutoCompleteDecoratorTest {
 		AutoCompleteDecorator.decorate(combo);
 		editor = combo.getEditor().getEditorComponent();
 
-		assertThat(editor.getFocusListeners().length, is(expectedFocusListenerCount));
-		assertThat(editor.getKeyListeners().length, is(expectedKeyListenerCount));
-		assertThat(combo.getPropertyChangeListeners("editor").length, is(expectedPropListenerCount));
-		assertThat(combo.getActionListeners().length, is(expectedActionListenerCount));
+		assertThat(editor.getFocusListeners().length).isEqualTo(expectedFocusListenerCount);
+		assertThat(editor.getKeyListeners().length).isEqualTo(expectedKeyListenerCount);
+		assertThat(combo.getPropertyChangeListeners("editor").length).isEqualTo(expectedPropListenerCount);
+		assertThat(combo.getActionListeners().length).isEqualTo(expectedActionListenerCount);
 	}
 
 	/**
@@ -215,7 +211,7 @@ public class AutoCompleteDecoratorTest {
 		AutoCompleteDecorator.undecorate(list);
 
 		for (ListSelectionListener l : list.getListSelectionListeners()) {
-			assertThat(l, is(not(instanceOf(ListAdaptor.class))));
+			assertThat(l).isNotInstanceOf(ListAdaptor.class);
 		}
 	}
 
@@ -232,7 +228,7 @@ public class AutoCompleteDecoratorTest {
 
 		AutoCompleteDecorator.decorate(list, textField);
 
-		assertThat(list.getListSelectionListeners().length, is(expectedListSelectionListenerCount));
+		assertThat(list.getListSelectionListeners().length).isEqualTo(expectedListSelectionListenerCount);
 	}
 
 	/**
@@ -246,12 +242,12 @@ public class AutoCompleteDecoratorTest {
 
 		AutoCompleteDecorator.undecorate(textField);
 
-		assertThat(textField.getInputMap(), is(not(instanceOf(AutoComplete.InputMap.class))));
-		assertThat(textField.getActionMap().get("nonstrict-backspace"), is(nullValue()));
+		assertThat(textField.getInputMap()).isNotInstanceOf(AutoComplete.InputMap.class);
+		assertThat(textField.getActionMap().get("nonstrict-backspace")).isNull();
 		for (FocusListener l : textField.getFocusListeners()) {
-			assertThat(l, is(not(instanceOf(AutoComplete.FocusAdapter.class))));
+			assertThat(l).isNotInstanceOf(AutoComplete.FocusAdapter.class);
 		}
-		assertThat(textField.getDocument(), is(not(instanceOf(AutoCompleteDocument.class))));
+		assertThat(textField.getDocument()).isNotInstanceOf(AutoCompleteDocument.class);
 	}
 
 	/**
@@ -266,7 +262,7 @@ public class AutoCompleteDecoratorTest {
 
 		AutoCompleteDecorator.decorate(textField, Collections.emptyList(), true);
 
-		assertThat(textField.getFocusListeners().length, is(expectedFocusListenerLength));
+		assertThat(textField.getFocusListeners().length).isEqualTo(expectedFocusListenerLength);
 	}
 
 	@Test
@@ -300,7 +296,7 @@ public class AutoCompleteDecoratorTest {
 	@Test
 	@Tag("Visual")
 	public void testNonStrictCompletionWithKeyMovement() {
-		assumeThat(GraphicsEnvironment.isHeadless(), is(false));
+		assumeFalse(GraphicsEnvironment.isHeadless());
 
 		combo.setEditable(true);
 		AutoCompleteDecorator.decorate(combo);
@@ -318,28 +314,28 @@ public class AutoCompleteDecoratorTest {
 		frame.pack();
 		frame.setVisible(true);
 
-		assertThat((String) combo.getSelectedItem(), is("Alpha"));
-		assumeThat(combo.isPopupVisible(), is(false));
+		assertThat((String) combo.getSelectedItem()).isEqualTo("Alpha");
+		assumeFalse(combo.isPopupVisible());
 
 		combo.processKeyEvent(new KeyEvent(combo, KEY_PRESSED, currentTimeMillis(), 0, VK_DOWN, CHAR_UNDEFINED));
-		assertThat(combo.isPopupVisible(), is(true));
+		assertThat(combo.isPopupVisible()).isEqualTo(true);
 
 		combo.processKeyEvent(new KeyEvent(combo, KEY_PRESSED, currentTimeMillis(), 0, VK_DOWN, CHAR_UNDEFINED));
-		assertThat((String) combo.getSelectedItem(), is("Bravo"));
+		assertThat((String) combo.getSelectedItem()).isEqualTo("Bravo");
 
 		combo.processKeyEvent(new KeyEvent(combo, KEY_PRESSED, currentTimeMillis(), 0, VK_PAGE_DOWN, CHAR_UNDEFINED));
-		assertThat((String) combo.getSelectedItem(), is("Delta"));
+		assertThat((String) combo.getSelectedItem()).isEqualTo("Delta");
 
 		combo.processKeyEvent(new KeyEvent(combo, KEY_PRESSED, currentTimeMillis(), 0, VK_UP, CHAR_UNDEFINED));
-		assertThat((String) combo.getSelectedItem(), is("Charlie"));
+		assertThat((String) combo.getSelectedItem()).isEqualTo("Charlie");
 
 		combo.processKeyEvent(new KeyEvent(combo, KEY_PRESSED, currentTimeMillis(), 0, VK_PAGE_UP, CHAR_UNDEFINED));
-		assertThat((String) combo.getSelectedItem(), is("Alpha"));
+		assertThat((String) combo.getSelectedItem()).isEqualTo("Alpha");
 
 		combo.processKeyEvent(new KeyEvent(combo, KEY_PRESSED, currentTimeMillis(), 0, VK_END, CHAR_UNDEFINED));
-		assertThat((String) combo.getSelectedItem(), is("Delta"));
+		assertThat((String) combo.getSelectedItem()).isEqualTo("Delta");
 
 		combo.processKeyEvent(new KeyEvent(combo, KEY_PRESSED, currentTimeMillis(), 0, VK_HOME, CHAR_UNDEFINED));
-		assertThat((String) combo.getSelectedItem(), is("Alpha"));
+		assertThat((String) combo.getSelectedItem()).isEqualTo("Alpha");
 	}
 }

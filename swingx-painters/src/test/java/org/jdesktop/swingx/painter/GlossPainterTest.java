@@ -20,12 +20,9 @@
  */
 package org.jdesktop.swingx.painter;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.awt.Color;
-import java.awt.Paint;
-import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -44,16 +41,16 @@ public class GlossPainterTest extends AbstractPainterTest {
 	 * TODO remove when the compound painter does not start dirty
 	 */
 	private void copyOfSuper_testDefaultsWithCorrectedValues() {
-		assertThat(p.getFilters().length, is(0));
-		assertThat(p.getInterpolation(), is(AbstractPainter.Interpolation.NearestNeighbor));
-		assertThat(p.isAntialiasing(), is(true));
-		assertThat(p.isCacheable(), is(false));
-		assertThat(p.isCacheCleared(), is(true));
+		assertThat(p.getFilters().length).isEqualTo(0);
+		assertThat(p.getInterpolation()).isEqualTo(AbstractPainter.Interpolation.NearestNeighbor);
+		assertThat(p.isAntialiasing()).isEqualTo(true);
+		assertThat(p.isCacheable()).isEqualTo(false);
+		assertThat(p.isCacheCleared()).isEqualTo(true);
 		// TODO this is because the constructor calls the setters
-		assertThat(p.isDirty(), is(true));
-		assertThat(p.isInPaintContext(), is(false));
-		assertThat(p.isVisible(), is(true));
-		assertThat(p.shouldUseCache(), is(false));
+		assertThat(p.isDirty()).isEqualTo(true);
+		assertThat(p.isInPaintContext()).isEqualTo(false);
+		assertThat(p.isVisible()).isEqualTo(true);
+		assertThat(p.shouldUseCache()).isEqualTo(false);
 	}
 
 	/**
@@ -69,7 +66,7 @@ public class GlossPainterTest extends AbstractPainterTest {
 		//        super.testDefaults();
 
 		GlossPainter gp = (GlossPainter) p;
-		assertThat(gp.getPaint(), CoreMatchers.<Paint>is(new Color(1f, 1f, 1f, .2f)));
-		assertThat(gp.getPosition(), is(GlossPainter.GlossPosition.TOP));
+		assertThat(gp.getPaint()).isEqualTo(new Color(1f, 1f, 1f, .2f));
+		assertThat(gp.getPosition()).isEqualTo(GlossPainter.GlossPosition.TOP);
 	}
 }

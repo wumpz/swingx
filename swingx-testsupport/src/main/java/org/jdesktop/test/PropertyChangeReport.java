@@ -164,7 +164,7 @@ public class PropertyChangeReport implements PropertyChangeListener {
 	 * @return a list of all of the event names captured by this reporter
 	 */
 	public String getEventNames() {
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		for (PropertyChangeEvent event : events) {
 			buffer.append(event.getPropertyName());
 			buffer.append(" :: ");

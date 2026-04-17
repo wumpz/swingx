@@ -6,9 +6,7 @@
  */
 package org.jdesktop.swingx.plaf;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Color;
@@ -92,14 +90,14 @@ public class LookAndFeelAddonsTest {
 		// overwrite null painter
 		LookAndFeelAddons.installBackgroundPainter(panel, "test.painter");
 
-		assertThat(panel.getBackgroundPainter(), is(sameInstance(plafPainter)));
+		assertThat(panel.getBackgroundPainter()).isSameAs(plafPainter);
 
 		panel.setBackgroundPainter(new PainterUIResource(null));
 
 		// overwrite uiresource painter
 		LookAndFeelAddons.installBackgroundPainter(panel, "test.painter");
 
-		assertThat(panel.getBackgroundPainter(), is(sameInstance(plafPainter)));
+		assertThat(panel.getBackgroundPainter()).isSameAs(plafPainter);
 
 		Painter userPainter = new MattePainter();
 		panel.setBackgroundPainter(userPainter);
@@ -107,7 +105,7 @@ public class LookAndFeelAddonsTest {
 		// do not overwrite user painter
 		LookAndFeelAddons.installBackgroundPainter(panel, "test.painter");
 
-		assertThat(panel.getBackgroundPainter(), is(sameInstance(userPainter)));
+		assertThat(panel.getBackgroundPainter()).isSameAs(userPainter);
 	}
 
 	/**
@@ -245,11 +243,11 @@ public class LookAndFeelAddonsTest {
 		LookAndFeelAddons.contribute(new Addon());
 
 		Color panelBackground = UIManager.getColor("Panel.background");
-		assertThat(UIManager.getColor("Addon.panelBackground"), is(panelBackground));
+		assertThat(UIManager.getColor("Addon.panelBackground")).isEqualTo(panelBackground);
 
 		UIManager.put("Panel.background", new ColorUIResource(panelBackground.darker()));
 
-		assertThat(UIManager.getColor("Addon.panelBackground"), is(panelBackground));
+		assertThat(UIManager.getColor("Addon.panelBackground")).isEqualTo(panelBackground);
 	}
 }
 

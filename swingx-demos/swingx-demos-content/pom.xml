@@ -37,11 +37,6 @@
       <type>jar</type>
       <scope>compile</scope>
     </dependency>
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-junit</artifactId>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
 
   <build>

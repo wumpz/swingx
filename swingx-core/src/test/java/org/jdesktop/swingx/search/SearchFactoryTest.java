@@ -20,9 +20,7 @@
  */
 package org.jdesktop.swingx.search;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import javax.swing.UIManager;
 import org.jdesktop.swingx.JXFindBar;
@@ -84,9 +82,9 @@ public class SearchFactoryTest {
 
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-		assertThat(bar, is(sameInstance(SearchFactory.getInstance().getSharedFindBar())));
-		assertThat(updated[0], is(true));
-		assertThat(panel, is(sameInstance(SearchFactory.getInstance().getSharedFindPanel())));
-		assertThat(updated[1], is(true));
+		assertThat(bar).isSameAs(SearchFactory.getInstance().getSharedFindBar());
+		assertThat(updated[0]).isEqualTo(true);
+		assertThat(panel).isSameAs(SearchFactory.getInstance().getSharedFindPanel());
+		assertThat(updated[1]).isEqualTo(true);
 	}
 }

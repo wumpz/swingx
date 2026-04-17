@@ -1,7 +1,6 @@
 package org.jdesktop.swingx.util;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +26,7 @@ public class SeparatorTest {
 			sb.append(sep.get()).append(s);
 		}
 
-		assertThat(sb.toString(), is("1"));
+		assertThat(sb.toString()).isEqualTo("1");
 	}
 
 	@Test
@@ -38,7 +37,7 @@ public class SeparatorTest {
 			sb.append(sep.get()).append(s);
 		}
 
-		assertThat(sb.toString(), is("1,2"));
+		assertThat(sb.toString()).isEqualTo("1,2");
 	}
 
 	@Test
@@ -49,6 +48,6 @@ public class SeparatorTest {
 			sb.append(sep.get()).append(s);
 		}
 
-		assertThat(sb.toString(), is("1,2,3"));
+		assertThat(sb.toString()).isEqualTo("1,2,3");
 	}
 }

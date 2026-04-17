@@ -1,7 +1,5 @@
 package org.jdesktop.test.matchers;
 
-import static org.hamcrest.CoreMatchers.is;
-
 import java.beans.PropertyChangeEvent;
 import org.mockito.ArgumentMatcher;
 
@@ -20,9 +18,10 @@ class PropertyChangeEventMatcher implements ArgumentMatcher<PropertyChangeEvent>
 	@Override
 	public boolean matches(PropertyChangeEvent pce) {
 		boolean result = propertyName.equals(pce.getPropertyName());
-		result &= oldValue == null || pce.getOldValue() == null || is(oldValue).matches(pce.getOldValue());
-		result &= newValue == null || pce.getNewValue() == null || is(newValue).matches(pce.getNewValue());
-
+		result &=
+				oldValue == null || pce.getOldValue() == null || EquivalentMatcher.isEqual(oldValue, pce.getOldValue());
+		result &=
+				newValue == null || pce.getNewValue() == null || EquivalentMatcher.isEqual(newValue, pce.getNewValue());
 		return result;
 	}
 

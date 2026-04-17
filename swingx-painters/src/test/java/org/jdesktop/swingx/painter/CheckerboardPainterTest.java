@@ -20,12 +20,9 @@
  */
 package org.jdesktop.swingx.painter;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.awt.Color;
-import java.awt.Paint;
-import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -46,8 +43,8 @@ public class CheckerboardPainterTest extends AbstractPainterTest {
 		super.testDefaults();
 
 		CheckerboardPainter cp = (CheckerboardPainter) p;
-		assertThat(cp.getDarkPaint(), CoreMatchers.<Paint>is(new Color(204, 204, 204)));
-		assertThat(cp.getLightPaint(), CoreMatchers.<Paint>is(Color.WHITE));
-		assertThat(cp.getSquareSize(), is(8d));
+		assertThat(cp.getDarkPaint()).isEqualTo(new Color(204, 204, 204));
+		assertThat(cp.getLightPaint()).isEqualTo(Color.WHITE);
+		assertThat(cp.getSquareSize()).isEqualTo(8d);
 	}
 }

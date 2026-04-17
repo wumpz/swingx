@@ -20,13 +20,9 @@
  */
 package org.jdesktop.swingx.painter;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.awt.Color;
-import java.awt.Paint;
-import org.hamcrest.CoreMatchers;
 import org.jdesktop.swingx.painter.effects.AreaEffect;
 import org.junit.jupiter.api.Test;
 
@@ -49,10 +45,10 @@ public class AbstractAreaPainterTest extends AbstractLayoutPainterTest {
 		super.testDefaults();
 
 		AbstractAreaPainter aap = (AbstractAreaPainter) p;
-		assertThat(aap.getAreaEffects(), is(new AreaEffect[0]));
-		assertThat(aap.getBorderPaint(), is(nullValue()));
-		assertThat(aap.getBorderWidth(), is(0f));
-		assertThat(aap.getFillPaint(), CoreMatchers.<Paint>is(Color.RED));
-		assertThat(aap.getStyle(), is(AbstractAreaPainter.Style.BOTH));
+		assertThat(aap.getAreaEffects()).containsExactly(new AreaEffect[0]);
+		assertThat(aap.getBorderPaint()).isNull();
+		assertThat(aap.getBorderWidth()).isEqualTo(0f);
+		assertThat(aap.getFillPaint()).isEqualTo(Color.RED);
+		assertThat(aap.getStyle()).isEqualTo(AbstractAreaPainter.Style.BOTH);
 	}
 }

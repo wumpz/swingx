@@ -1,8 +1,6 @@
 package org.jdesktop.swingx.graphics;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
@@ -21,6 +19,6 @@ public class FilterCompositeTest {
 	public void checkUnaryConstructorHasNoFilter() {
 		Composite composite = mock(Composite.class);
 		FilterComposite fc = new FilterComposite(composite);
-		assertThat(fc.getFilter(), is(nullValue()));
+		assertThat(fc.getFilter()).isNull();
 	}
 }

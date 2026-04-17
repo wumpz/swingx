@@ -27,11 +27,6 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>com.jhlabs</groupId>
       <artifactId>filters</artifactId>
       <type>jar</type>

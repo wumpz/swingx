@@ -20,9 +20,7 @@
  */
 package org.jdesktop.swingx.painter;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.awt.Insets;
 import org.jdesktop.swingx.painter.effects.AreaEffect;
@@ -44,36 +42,36 @@ public class ImagePainterTest extends AbstractAreaPainterTest {
 	@Test
 	@Override
 	public void testDefaults() {
-		assertThat(p.getFilters().length, is(0));
-		assertThat(p.getInterpolation(), is(AbstractPainter.Interpolation.NearestNeighbor));
-		assertThat(p.isAntialiasing(), is(true));
-		assertThat(p.isCacheable(), is(true));
-		assertThat(p.isCacheCleared(), is(true));
-		assertThat(p.isDirty(), is(false));
-		assertThat(p.isInPaintContext(), is(false));
-		assertThat(p.isVisible(), is(true));
-		assertThat(p.shouldUseCache(), is(p.isCacheable()));
+		assertThat(p.getFilters().length).isEqualTo(0);
+		assertThat(p.getInterpolation()).isEqualTo(AbstractPainter.Interpolation.NearestNeighbor);
+		assertThat(p.isAntialiasing()).isEqualTo(true);
+		assertThat(p.isCacheable()).isEqualTo(true);
+		assertThat(p.isCacheCleared()).isEqualTo(true);
+		assertThat(p.isDirty()).isEqualTo(false);
+		assertThat(p.isInPaintContext()).isEqualTo(false);
+		assertThat(p.isVisible()).isEqualTo(true);
+		assertThat(p.shouldUseCache()).isEqualTo(p.isCacheable());
 
 		AbstractLayoutPainter alp = (AbstractLayoutPainter) p;
-		assertThat(alp.getHorizontalAlignment(), is(AbstractLayoutPainter.HorizontalAlignment.CENTER));
-		assertThat(alp.getInsets(), is(new Insets(0, 0, 0, 0)));
-		assertThat(alp.getVerticalAlignment(), is(AbstractLayoutPainter.VerticalAlignment.CENTER));
-		assertThat(alp.isFillHorizontal(), is(false));
-		assertThat(alp.isFillVertical(), is(false));
+		assertThat(alp.getHorizontalAlignment()).isEqualTo(AbstractLayoutPainter.HorizontalAlignment.CENTER);
+		assertThat(alp.getInsets()).isEqualTo(new Insets(0, 0, 0, 0));
+		assertThat(alp.getVerticalAlignment()).isEqualTo(AbstractLayoutPainter.VerticalAlignment.CENTER);
+		assertThat(alp.isFillHorizontal()).isEqualTo(false);
+		assertThat(alp.isFillVertical()).isEqualTo(false);
 
 		AbstractAreaPainter aap = (AbstractAreaPainter) p;
-		assertThat(aap.getAreaEffects(), is(new AreaEffect[0]));
-		assertThat(aap.getBorderPaint(), is(nullValue()));
-		assertThat(aap.getBorderWidth(), is(0f));
-		assertThat(aap.getFillPaint(), is(nullValue()));
-		assertThat(aap.getStyle(), is(AbstractAreaPainter.Style.BOTH));
+		assertThat(aap.getAreaEffects()).containsExactly(new AreaEffect[0]);
+		assertThat(aap.getBorderPaint()).isNull();
+		assertThat(aap.getBorderWidth()).isEqualTo(0f);
+		assertThat(aap.getFillPaint()).isNull();
+		assertThat(aap.getStyle()).isEqualTo(AbstractAreaPainter.Style.BOTH);
 
 		ImagePainter ip = (ImagePainter) p;
-		assertThat(ip.getImage(), is(nullValue()));
-		assertThat(ip.getImageScale(), is(1d));
-		assertThat(ip.getScaleType(), is(ImagePainter.ScaleType.InsideFit));
-		assertThat(ip.isHorizontalRepeat(), is(false));
-		assertThat(ip.isScaleToFit(), is(false));
-		assertThat(ip.isVerticalRepeat(), is(false));
+		assertThat(ip.getImage()).isNull();
+		assertThat(ip.getImageScale()).isEqualTo(1d);
+		assertThat(ip.getScaleType()).isEqualTo(ImagePainter.ScaleType.InsideFit);
+		assertThat(ip.isHorizontalRepeat()).isEqualTo(false);
+		assertThat(ip.isScaleToFit()).isEqualTo(false);
+		assertThat(ip.isVerticalRepeat()).isEqualTo(false);
 	}
 }

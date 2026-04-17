@@ -20,8 +20,7 @@
  */
 package org.jdesktop.swingx.painter;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.awt.Color;
 import org.junit.jupiter.api.Test;
@@ -44,14 +43,14 @@ public class BusyPainterTest extends AbstractPainterTest {
 		super.testDefaults();
 
 		BusyPainter bp = (BusyPainter) p;
-		assertThat(bp.getBaseColor(), is(Color.LIGHT_GRAY));
-		assertThat(bp.getDirection(), is(BusyPainter.Direction.RIGHT));
-		assertThat(bp.getFrame(), is(-1));
-		assertThat(bp.getHighlightColor(), is(Color.BLACK));
-		assertThat(bp.getPoints(), is(8));
-		assertThat(bp.getPointShape(), is(BusyPainter.getScaledDefaultPoint(26)));
-		assertThat(bp.getTrailLength(), is(4));
-		assertThat(bp.getTrajectory(), is(BusyPainter.getScaledDefaultTrajectory(26)));
-		assertThat(bp.isPaintCentered(), is(false));
+		assertThat(bp.getBaseColor()).isEqualTo(Color.LIGHT_GRAY);
+		assertThat(bp.getDirection()).isEqualTo(BusyPainter.Direction.RIGHT);
+		assertThat(bp.getFrame()).isEqualTo(-1);
+		assertThat(bp.getHighlightColor()).isEqualTo(Color.BLACK);
+		assertThat(bp.getPoints()).isEqualTo(8);
+		assertThat(bp.getPointShape()).isEqualTo(BusyPainter.getScaledDefaultPoint(26));
+		assertThat(bp.getTrailLength()).isEqualTo(4);
+		assertThat(bp.getTrajectory()).isEqualTo(BusyPainter.getScaledDefaultTrajectory(26));
+		assertThat(bp.isPaintCentered()).isEqualTo(false);
 	}
 }

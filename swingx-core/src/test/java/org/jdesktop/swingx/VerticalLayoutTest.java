@@ -3,8 +3,7 @@
  */
 package org.jdesktop.swingx;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -44,7 +43,7 @@ public class VerticalLayoutTest {
 		p.setPreferredSize(new Dimension(30, 30));
 		panel.add(p);
 
-		assertThat(new Dimension(125, 70), is(panel.getPreferredSize()));
+		assertThat(new Dimension(125, 70)).isEqualTo(panel.getPreferredSize());
 	}
 	/**
 	 * SwingX Issue #1443: incorrect calculation of preferred size with gaps.
@@ -71,6 +70,6 @@ public class VerticalLayoutTest {
 		p.setPreferredSize(new Dimension(30, 30));
 		panel.add(p);
 
-		assertThat(new Dimension(125, 80), is(panel.getPreferredSize()));
+		assertThat(new Dimension(125, 80)).isEqualTo(panel.getPreferredSize());
 	}
 }

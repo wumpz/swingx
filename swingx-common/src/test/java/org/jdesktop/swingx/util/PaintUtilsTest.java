@@ -20,8 +20,7 @@
  */
 package org.jdesktop.swingx.util;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.awt.Color;
 import org.junit.jupiter.api.Test;
@@ -34,40 +33,40 @@ import org.junit.jupiter.api.Test;
 public class PaintUtilsTest {
 	@Test
 	public void testToHexString() {
-		assertThat(PaintUtils.toHexString(Color.BLACK), is("#000000"));
-		assertThat(PaintUtils.toHexString(Color.WHITE), is("#ffffff"));
+		assertThat(PaintUtils.toHexString(Color.BLACK)).isEqualTo("#000000");
+		assertThat(PaintUtils.toHexString(Color.WHITE)).isEqualTo("#ffffff");
 	}
 
 	@Test
 	public void testToHexStringWithTransparentColors() {
-		assertThat(PaintUtils.toHexString(PaintUtils.setAlpha(Color.BLACK, 0)), is("#000000"));
-		assertThat(PaintUtils.toHexString(PaintUtils.setAlpha(Color.WHITE, 0)), is("#ffffff"));
+		assertThat(PaintUtils.toHexString(PaintUtils.setAlpha(Color.BLACK, 0))).isEqualTo("#000000");
+		assertThat(PaintUtils.toHexString(PaintUtils.setAlpha(Color.WHITE, 0))).isEqualTo("#ffffff");
 	}
 
 	@Test
 	public void testBlendWith255() {
-		assertThat(PaintUtils.blend(Color.BLACK, Color.WHITE), is(Color.WHITE));
+		assertThat(PaintUtils.blend(Color.BLACK, Color.WHITE)).isEqualTo(Color.WHITE);
 	}
 
 	@Test
 	public void testBlendWithFiftyPercent() {
-		assertThat(
-				PaintUtils.blend(Color.BLACK, PaintUtils.setAlpha(Color.WHITE, 255 >> 1)),
-				is(new Color(255 >> 1, 255 >> 1, 255 >> 1)));
+		assertThat(PaintUtils.blend(Color.BLACK, PaintUtils.setAlpha(Color.WHITE, 255 >> 1)))
+				.isEqualTo(new Color(255 >> 1, 255 >> 1, 255 >> 1));
 	}
 
 	@Test
 	public void testBlendWithZero() {
-		assertThat(PaintUtils.blend(Color.BLACK, PaintUtils.setAlpha(Color.WHITE, 0)), is(Color.BLACK));
+		assertThat(PaintUtils.blend(Color.BLACK, PaintUtils.setAlpha(Color.WHITE, 0)))
+				.isEqualTo(Color.BLACK);
 	}
 
 	@Test
 	public void testBlendWithNullSrc() {
-		assertThat(PaintUtils.blend(null, Color.WHITE), is(Color.WHITE));
+		assertThat(PaintUtils.blend(null, Color.WHITE)).isEqualTo(Color.WHITE);
 	}
 
 	@Test
 	public void testBlendWithNullOver() {
-		assertThat(PaintUtils.blend(Color.BLACK, null), is(Color.BLACK));
+		assertThat(PaintUtils.blend(Color.BLACK, null)).isEqualTo(Color.BLACK);
 	}
 }

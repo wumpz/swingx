@@ -37,11 +37,6 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>it.tidalwave.betterbeansbinding</groupId>
       <artifactId>betterbeansbinding-swingbinding</artifactId>
       <type>jar</type>
