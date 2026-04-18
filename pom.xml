@@ -51,14 +51,6 @@
         <version>5.14.3</version>
         <scope>test</scope>
       </dependency>
-      <!-- 
-      <dependency>
-        <groupId>org.hamcrest</groupId>
-        <artifactId>hamcrest-junit</artifactId>
-        <version>2.0.0.0</version>
-        <scope>test</scope>
-      </dependency>
-			-->
       <dependency>
         <groupId>org.assertj</groupId>
         <artifactId>assertj-core</artifactId>
@@ -163,6 +155,7 @@
           <autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
       </plugin>
+      <!-- 
       <plugin>
         <groupId>org.openrewrite.maven</groupId>
         <artifactId>rewrite-maven-plugin</artifactId>
@@ -180,6 +173,7 @@
           </dependency>
         </dependencies>
       </plugin>
+			-->
       <plugin>
         <groupId>com.diffplug.spotless</groupId>
         <artifactId>spotless-maven-plugin</artifactId>
