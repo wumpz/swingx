@@ -13,6 +13,7 @@ This is a fork of the great SwingX library. Its a pity it was not developed any 
 * added missing generics types 
 * upgraded to JUnit 5
 * allow build up to JDK 26 (however, demo does not run here)
+* replace Hamcrest with assertj
 
 ## Modifications version 1.6.6
 
