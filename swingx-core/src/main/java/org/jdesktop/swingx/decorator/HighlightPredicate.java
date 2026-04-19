@@ -55,6 +55,7 @@ import org.jdesktop.swingx.util.Contract;
  *
  * @see AbstractHighlighter
  */
+@FunctionalInterface
 public interface HighlightPredicate {
 
 	/**
@@ -75,167 +76,76 @@ public interface HighlightPredicate {
 	/**
 	 * Unconditional true.
 	 */
-	public static final HighlightPredicate ALWAYS = new HighlightPredicate() {
-
-		/**
-		 * {@inheritDoc} <p>
-		 *
-		 * Implemented to return true always.
-		 */
-		@Override
-		public boolean isHighlighted(Component renderer, ComponentAdapter adapter) {
-			return true;
-		}
-	};
+	public static final HighlightPredicate ALWAYS = (Component renderer, ComponentAdapter adapter) -> true;
 
 	/**
 	 * Unconditional false.
 	 */
-	public static final HighlightPredicate NEVER = new HighlightPredicate() {
+	public static final HighlightPredicate NEVER = (Component renderer, ComponentAdapter adapter) -> false;
 
-		/**
-		 * {@inheritDoc} <p>
-		 *
-		 * Implemented to return false always.
-		 */
-		@Override
-		public boolean isHighlighted(Component renderer, ComponentAdapter adapter) {
-			return false;
-		}
+	/**
+	 * Implemented to return true if the adapter's component is enabled and
+	 * the row of its rollover property equals the adapter's row, returns
+	 * false otherwise.
+	 */
+	public static final HighlightPredicate ROLLOVER_ROW = (Component renderer, ComponentAdapter adapter) -> {
+		if (!adapter.getComponent().isEnabled()) return false;
+		Point p = (Point) adapter.getComponent().getClientProperty(RolloverProducer.ROLLOVER_KEY);
+		return p != null && p.y == adapter.row;
 	};
 
 	/**
-	 * Rollover  Row.
+	 * Implemented to return true if the adapter's component is enabled and
+	 * the column of its rollover property equals the adapter's columns, returns
+	 * false otherwise.
 	 */
-	public static final HighlightPredicate ROLLOVER_ROW = new HighlightPredicate() {
-
-		/**
-		 * @inheritDoc
-		 * Implemented to return true if the adapter's component is enabled and
-		 * the row of its rollover property equals the adapter's row, returns
-		 * false otherwise.
-		 *
-		 * @see org.jdesktop.swingx.rollover.RolloverProducer
-		 */
-		@Override
-		public boolean isHighlighted(Component renderer, ComponentAdapter adapter) {
-			if (!adapter.getComponent().isEnabled()) return false;
-			Point p = (Point) adapter.getComponent().getClientProperty(RolloverProducer.ROLLOVER_KEY);
-			return p != null && p.y == adapter.row;
-		}
+	public static final HighlightPredicate ROLLOVER_COLUMN = (Component renderer, ComponentAdapter adapter) -> {
+		if (!adapter.getComponent().isEnabled()) return false;
+		Point p = (Point) adapter.getComponent().getClientProperty(RolloverProducer.ROLLOVER_KEY);
+		return p != null && p.x == adapter.column;
+	};
+		
+	/**
+	 * Implemented to return true if the adapter's component is enabled and
+	 * the column of its rollover property equals the adapter's columns, returns
+	 * false otherwise.
+	 */
+	public static final HighlightPredicate ROLLOVER_CELL = (Component renderer, ComponentAdapter adapter) -> {
+		if (!adapter.getComponent().isEnabled()) return false;
+		Point p = (Point) adapter.getComponent().getClientProperty(RolloverProducer.ROLLOVER_KEY);
+		return p != null && p.y == adapter.row && p.x == adapter.column;
 	};
 
 	/**
-	 * Rollover  Column.
+	 * Implemented to return true is the given adapter isEditable, false otherwise.
 	 */
-	public static final HighlightPredicate ROLLOVER_COLUMN = new HighlightPredicate() {
-
-		/**
-		 * @inheritDoc
-		 * Implemented to return true if the adapter's component is enabled and
-		 * the column of its rollover property equals the adapter's columns, returns
-		 * false otherwise.
-		 *
-		 * @see org.jdesktop.swingx.rollover.RolloverProducer
-		 */
-		@Override
-		public boolean isHighlighted(Component renderer, ComponentAdapter adapter) {
-			if (!adapter.getComponent().isEnabled()) return false;
-			Point p = (Point) adapter.getComponent().getClientProperty(RolloverProducer.ROLLOVER_KEY);
-			return p != null && p.x == adapter.column;
-		}
-	};
-	/**
-	 * Rollover  Cell.
-	 */
-	public static final HighlightPredicate ROLLOVER_CELL = new HighlightPredicate() {
-
-		/**
-		 * @inheritDoc
-		 * Implemented to return true if the adapter's component is enabled and
-		 * the column of its rollover property equals the adapter's columns, returns
-		 * false otherwise.
-		 *
-		 * @see org.jdesktop.swingx.rollover.RolloverProducer
-		 */
-		@Override
-		public boolean isHighlighted(Component renderer, ComponentAdapter adapter) {
-			if (!adapter.getComponent().isEnabled()) return false;
-			Point p = (Point) adapter.getComponent().getClientProperty(RolloverProducer.ROLLOVER_KEY);
-			return p != null && p.y == adapter.row && p.x == adapter.column;
-		}
-	};
-
-	/**
-	 * Is editable.
-	 */
-	public static final HighlightPredicate EDITABLE = new HighlightPredicate() {
-		/**
-		 * {@inheritDoc} <p>
-		 *
-		 * Implemented to return true is the given adapter isEditable, false otherwise.
-		 */
-		@Override
-		public boolean isHighlighted(Component renderer, ComponentAdapter adapter) {
-			return adapter.isEditable();
-		}
-	};
+	public static final HighlightPredicate EDITABLE = (Component renderer, ComponentAdapter adapter) -> adapter.isEditable();
 
 	/**
 	 * Convenience for read-only (same as !editable).
+	 * 
+	 * Implemented to return false is the given adapter isEditable, true otherwise.
 	 */
-	public static final HighlightPredicate READ_ONLY = new HighlightPredicate() {
-		/**
-		 * {@inheritDoc} <p>
-		 *
-		 * Implemented to return false is the given adapter isEditable, true otherwise.
-		 */
-		@Override
-		public boolean isHighlighted(Component renderer, ComponentAdapter adapter) {
-			return !adapter.isEditable();
-		}
-	};
+	public static final HighlightPredicate READ_ONLY = (Component renderer, ComponentAdapter adapter) -> !adapter.isEditable();
 
 	/**
 	 * Leaf predicate.
+	 * 
+	 * Implemented to return true if the given adapter isLeaf, false otherwise.
 	 */
-	public static final HighlightPredicate IS_LEAF = new HighlightPredicate() {
-		/**
-		 * {@inheritDoc} <p>
-		 *
-		 * Implemented to return true if the given adapter isLeaf, false otherwise.
-		 */
-		@Override
-		public boolean isHighlighted(Component renderer, ComponentAdapter adapter) {
-			return adapter.isLeaf();
-		}
-	};
+	public static final HighlightPredicate IS_LEAF = (Component renderer, ComponentAdapter adapter) -> adapter.isLeaf();
 
 	/**
 	 * Folder predicate - convenience: same as !IS_LEAF.
+	 * 
+	 * Implemented to return false if the given adapter isLeaf, true otherwise.
 	 */
-	public static final HighlightPredicate IS_FOLDER = new HighlightPredicate() {
-		/**
-		 * {@inheritDoc} <p>
-		 *
-		 * Implemented to return false if the given adapter isLeaf, true otherwise.
-		 */
-		@Override
-		public boolean isHighlighted(Component renderer, ComponentAdapter adapter) {
-			return !adapter.isLeaf();
-		}
-	};
+	public static final HighlightPredicate IS_FOLDER = (Component renderer, ComponentAdapter adapter) -> !adapter.isLeaf();
 
 	/**
 	 * Selected predicate.
 	 */
-	public static final HighlightPredicate IS_SELECTED = new HighlightPredicate() {
-
-		@Override
-		public boolean isHighlighted(Component renderer, ComponentAdapter adapter) {
-			return adapter.isSelected();
-		}
-	};
+	public static final HighlightPredicate IS_SELECTED = (Component renderer, ComponentAdapter adapter) -> adapter.isSelected();
 
 	/**
 	 * Determines if the displayed text is truncated.
@@ -290,32 +200,18 @@ public interface HighlightPredicate {
 
 	/**
 	 * Focus predicate.
+	 * 
+	 * Implemented to return truw if the given adapter hasFocus, false otherwise.
 	 */
-	public static final HighlightPredicate HAS_FOCUS = new HighlightPredicate() {
-		/**
-		 * {@inheritDoc} <p>
-		 *
-		 * Implemented to return truw if the given adapter hasFocus, false otherwise.
-		 */
-		@Override
-		public boolean isHighlighted(Component renderer, ComponentAdapter adapter) {
-			return adapter.hasFocus();
-		}
-	};
+	public static final HighlightPredicate HAS_FOCUS = (Component renderer, ComponentAdapter adapter) -> adapter.hasFocus();
+	
 	/**
 	 * Even rows.
 	 *
 	 * PENDING: this is zero based (that is "really" even 0, 2, 4 ..), differing
 	 * from the old AlternateRowHighlighter.
-	 *
 	 */
-	public static final HighlightPredicate EVEN = new HighlightPredicate() {
-
-		@Override
-		public boolean isHighlighted(Component renderer, ComponentAdapter adapter) {
-			return adapter.row % 2 == 0;
-		}
-	};
+	public static final HighlightPredicate EVEN = (Component renderer, ComponentAdapter adapter) -> adapter.row % 2 == 0;
 
 	/**
 	 * Odd rows.
@@ -324,36 +220,18 @@ public interface HighlightPredicate {
 	 * the old implementation which was one based?
 	 *
 	 */
-	public static final HighlightPredicate ODD = new HighlightPredicate() {
-
-		@Override
-		public boolean isHighlighted(Component renderer, ComponentAdapter adapter) {
-			return !EVEN.isHighlighted(renderer, adapter);
-		}
-	};
+	public static final HighlightPredicate ODD = (Component renderer, ComponentAdapter adapter) -> !EVEN.isHighlighted(renderer, adapter);
 
 	/**
 	 * Negative BigDecimals.
 	 */
-	public static final HighlightPredicate BIG_DECIMAL_NEGATIVE = new HighlightPredicate() {
-
-		@Override
-		public boolean isHighlighted(Component renderer, ComponentAdapter adapter) {
-			return (adapter.getValue() instanceof BigDecimal)
+	public static final HighlightPredicate BIG_DECIMAL_NEGATIVE = (Component renderer, ComponentAdapter adapter) -> (adapter.getValue() instanceof BigDecimal)
 					&& ((BigDecimal) adapter.getValue()).compareTo(BigDecimal.ZERO) < 0;
-		}
-	};
 
 	/**
 	 * Negative Number.
 	 */
-	public static final HighlightPredicate INTEGER_NEGATIVE = new HighlightPredicate() {
-
-		@Override
-		public boolean isHighlighted(Component renderer, ComponentAdapter adapter) {
-			return (adapter.getValue() instanceof Number) && ((Number) adapter.getValue()).intValue() < 0;
-		}
-	};
+	public static final HighlightPredicate INTEGER_NEGATIVE = (Component renderer, ComponentAdapter adapter) -> (adapter.getValue() instanceof Number) && ((Number) adapter.getValue()).intValue() < 0;
 
 	// PENDING: these general type empty arrays don't really belong here?
 	public static final HighlightPredicate[] EMPTY_PREDICATE_ARRAY = new HighlightPredicate[0];
