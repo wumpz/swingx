@@ -55,14 +55,14 @@ public interface DateSelectionModel {
 	 *
 	 * @return return the current selection mode
 	 */
-	public SelectionMode getSelectionMode();
+	SelectionMode getSelectionMode();
 
 	/**
 	 * Set the selection mode.
 	 *
 	 * @param mode new selection mode
 	 */
-	public void setSelectionMode(final SelectionMode mode);
+	void setSelectionMode(final SelectionMode mode);
 
 	// -------------------- calendar
 	/**
@@ -70,7 +70,7 @@ public interface DateSelectionModel {
 	 *
 	 * @return a clone of the calendar used by this model.
 	 */
-	public Calendar getCalendar();
+	Calendar getCalendar();
 
 	/**
 	 * Gets what the first day of the week is; e.g.,
@@ -83,7 +83,7 @@ public interface DateSelectionModel {
 	 * @return int The first day of the week.
 	 * @see #setFirstDayOfWeek(int)
 	 */
-	public int getFirstDayOfWeek();
+	int getFirstDayOfWeek();
 
 	/**
 	 * Sets what the first day of the week is. E.g.,
@@ -99,14 +99,14 @@ public interface DateSelectionModel {
 	 * @see #getFirstDayOfWeek()
 	 * @see java.util.Calendar
 	 */
-	public void setFirstDayOfWeek(final int firstDayOfWeek);
+	void setFirstDayOfWeek(final int firstDayOfWeek);
 
 	/**
 	 * Gets the minimal number of days in the first week of the year.
 	 *
 	 * @return int the minimal number of days in the first week of the year.
 	 */
-	public int getMinimalDaysInFirstWeek();
+	int getMinimalDaysInFirstWeek();
 
 	/**
 	 * Sets the minimal number of days in the first week of the year.
@@ -121,7 +121,7 @@ public interface DateSelectionModel {
 	 * @see #getMinimalDaysInFirstWeek()
 	 * @see java.util.Calendar
 	 */
-	public void setMinimalDaysInFirstWeek(final int minimalDays);
+	void setMinimalDaysInFirstWeek(final int minimalDays);
 
 	/**
 	 * Returns the TimeZone of this model.
@@ -129,7 +129,7 @@ public interface DateSelectionModel {
 	 * @return the TimeZone of this model.
 	 * @see #setTimeZone(TimeZone)
 	 */
-	public TimeZone getTimeZone();
+	TimeZone getTimeZone();
 
 	/**
 	 * Sets the TimeZone of this model. Fires a DateSelectionEvent of type
@@ -142,13 +142,13 @@ public interface DateSelectionModel {
 	 * @param timeZone the TimeZone to use in this model, must not be null.
 	 * @see #getTimeZone()
 	 */
-	public void setTimeZone(TimeZone timeZone);
+	void setTimeZone(TimeZone timeZone);
 
 	/**
 	 * Returns the Locale of this model's calendar.
 	 * @return the Locale of this model's calendar.
 	 */
-	public Locale getLocale();
+	Locale getLocale();
 
 	/**
 	 * Sets the Locale of this model's calendar. Fires a DateSelectionEvent of type
@@ -162,7 +162,7 @@ public interface DateSelectionModel {
 	 *
 	 * @param locale the Locale to use. If null, the default Locale is used.
 	 */
-	public void setLocale(Locale locale);
+	void setLocale(Locale locale);
 
 	// -------------------- selection
 
@@ -173,7 +173,7 @@ public interface DateSelectionModel {
 	 * @param endDate   interval end date >= start date, must not be null
 	 * @throws NullPointerException if any of the dates is null
 	 */
-	public void addSelectionInterval(Date startDate, Date endDate);
+	void addSelectionInterval(Date startDate, Date endDate);
 
 	/**
 	 * Sest the specified selection interval to the selection model.
@@ -182,7 +182,7 @@ public interface DateSelectionModel {
 	 * @param endDate   interval end date >= start date, must not be null
 	 * @throws NullPointerException if any of the dates is null
 	 */
-	public void setSelectionInterval(Date startDate, Date endDate);
+	void setSelectionInterval(Date startDate, Date endDate);
 
 	/**
 	 * Removes the specifed selection interval from the selection model. If
@@ -193,21 +193,21 @@ public interface DateSelectionModel {
 	 * @param endDate   interval end date >= start date, must not be null
 	 * @throws NullPointerException if any of the dates is null
 	 */
-	public void removeSelectionInterval(Date startDate, Date endDate);
+	void removeSelectionInterval(Date startDate, Date endDate);
 
 	/**
 	 * Clears any selection from the selection model. Fires an Event of
 	 * type SELECTION_CLEARED if there had been a selection, does nothing
 	 * otherwise.
 	 */
-	public void clearSelection();
+	void clearSelection();
 
 	/**
 	 * Returns the current selection.
 	 *
 	 * @return sorted set of selected dates, guaranteed to be never null.
 	 */
-	public SortedSet<Date> getSelection();
+	SortedSet<Date> getSelection();
 
 	/**
 	 * Returns the earliest date in the selection or null if the selection is empty.
@@ -218,7 +218,7 @@ public interface DateSelectionModel {
 	 * @see #getSelection()
 	 * @see #isSelectionEmpty()
 	 */
-	public Date getFirstSelectionDate();
+	Date getFirstSelectionDate();
 
 	/**
 	 * Returns the latest date in the selection or null if the selection is empty.
@@ -229,7 +229,7 @@ public interface DateSelectionModel {
 	 * @see #getSelection()
 	 * @see #isSelectionEmpty()
 	 */
-	public Date getLastSelectionDate();
+	Date getLastSelectionDate();
 
 	/**
 	 * Returns true if the date specified is selected, false otherwise. <p>
@@ -242,7 +242,7 @@ public interface DateSelectionModel {
 	 * @return true if the date is selected, false otherwise
 	 * @throws NullPointerException if the date is null
 	 */
-	public boolean isSelected(final Date date);
+	boolean isSelected(final Date date);
 
 	/**
 	 * Returns a normalized Date as used by the implementation, if any. F.i.
@@ -265,21 +265,21 @@ public interface DateSelectionModel {
 	 *    must not be null.
 	 * @throws NullPointerException if given date is null.
 	 */
-	public Date getNormalizedDate(Date date);
+	Date getNormalizedDate(Date date);
 
 	/**
 	 * Returns true if the selection is empty, false otherwise.
 	 *
 	 * @return true if the selection is empty, false otherwise
 	 */
-	public boolean isSelectionEmpty();
+	boolean isSelectionEmpty();
 
 	/**
 	 * Returns a <code>SortedSet</code> of <code>Date</codes>s that are unselectable.
 	 *
 	 * @return sorted set of dates
 	 */
-	public SortedSet<Date> getUnselectableDates();
+	SortedSet<Date> getUnselectableDates();
 
 	/**
 	 * Sets a collection of dates which are not selectable.<p>
@@ -293,7 +293,7 @@ public interface DateSelectionModel {
 	 * @param unselectableDates dates that are unselectable, must not be null and
 	 *   must not contain null dates.
 	 */
-	public void setUnselectableDates(SortedSet<Date> unselectableDates);
+	void setUnselectableDates(SortedSet<Date> unselectableDates);
 
 	/**
 	 * Returns true is the specified date is unselectable.
@@ -301,7 +301,7 @@ public interface DateSelectionModel {
 	 * @param unselectableDate the date to check for unselectability, must not be null.
 	 * @return true is the date is unselectable, false otherwise
 	 */
-	public boolean isUnselectableDate(Date unselectableDate);
+	boolean isUnselectableDate(Date unselectableDate);
 
 	/**
 	 * Return the upper bound date that is allowed to be selected for this
@@ -309,14 +309,14 @@ public interface DateSelectionModel {
 	 *
 	 * @return upper bound date or null if not set
 	 */
-	public Date getUpperBound();
+	Date getUpperBound();
 
 	/**
 	 * Set the upper bound date that is allowed to be selected for this model.
 	 *
 	 * @param upperBound upper bound
 	 */
-	public void setUpperBound(final Date upperBound);
+	void setUpperBound(final Date upperBound);
 
 	/**
 	 * Return the lower bound date that is allowed to be selected for this
@@ -324,14 +324,14 @@ public interface DateSelectionModel {
 	 *
 	 * @return lower bound date or null if not set
 	 */
-	public Date getLowerBound();
+	Date getLowerBound();
 
 	/**
 	 * Set the lower bound date that is allowed to be selected for this model.
 	 *
 	 * @param lowerBound lower bound date or null if not set
 	 */
-	public void setLowerBound(final Date lowerBound);
+	void setLowerBound(final Date lowerBound);
 
 	/**
 	 * Set the property to mark upcoming selections as intermediate/
@@ -344,7 +344,7 @@ public interface DateSelectionModel {
 	 *
 	 * @param adjusting a flag to turn the adjusting property on/off.
 	 */
-	public void setAdjusting(boolean adjusting);
+	void setAdjusting(boolean adjusting);
 
 	/**
 	 * Returns the property to decide whether the selection is
@@ -352,19 +352,19 @@ public interface DateSelectionModel {
 	 *
 	 * @return the adjusting property.
 	 */
-	public boolean isAdjusting();
+	boolean isAdjusting();
 
 	/**
 	 * Add the specified listener to this model.
 	 *
 	 * @param listener listener to add to this model
 	 */
-	public void addDateSelectionListener(DateSelectionListener listener);
+	void addDateSelectionListener(DateSelectionListener listener);
 
 	/**
 	 * Remove the specified listener to this model.
 	 *
 	 * @param listener listener to remove from this model
 	 */
-	public void removeDateSelectionListener(DateSelectionListener listener);
+	void removeDateSelectionListener(DateSelectionListener listener);
 }
