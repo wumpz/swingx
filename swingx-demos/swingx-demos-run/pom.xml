@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.swinglabs.swingx</groupId>
     <artifactId>swingx-demos</artifactId>
-    <version>2.0-SNAPSHOT</version>
+    <version>2.0</version>
   </parent>
   <artifactId>swingx-demos-run</artifactId>
   <packaging>jar</packaging>
