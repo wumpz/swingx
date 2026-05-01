@@ -14,6 +14,17 @@ This is a fork of the great SwingX library. Its a pity it was not developed any 
 * upgraded to JUnit 5
 * allow build up to JDK 26 (however, demo does not run here)
 * replace Hamcrest with assertj
+* deployed at github packages
+
+```xml
+<repositories>
+    <repository>
+        <id>github-swingx</id>
+        <name>GitHub SwingX Apache Maven Packages</name>
+        <url>https://github.com/wumpz/swingx/packages</url>
+    </repository>
+</repositories>
+```
 
 ## Modifications version 1.6.6
 
