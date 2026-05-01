@@ -39,6 +39,13 @@
     <system>github</system>
     <url>https://github.com/wumpz/swingx/issues</url>
   </issueManagement>
+  <distributionManagement>
+    <repository>
+      <id>github-packages</id>
+      <name>wumpz/swingx</name>
+      <url>https://maven.pkg.github.com/wumpz/swingx</url>
+    </repository>
+  </distributionManagement>
   <properties>
     <project.generatedSourcesDirectory>${project.build.directory}/generated-sources</project.generatedSourcesDirectory>
     <project.generatedAnnotations>${project.generatedSourcesDirectory}/annotations</project.generatedAnnotations>
