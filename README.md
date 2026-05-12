@@ -1,5 +1,7 @@
 # SwingX - Library
 
+[![Java CI with Maven](https://github.com/wumpz/swingx/actions/workflows/maven.yml/badge.svg)](https://github.com/wumpz/swingx/actions/workflows/maven.yml)
+
 This is a fork of the great SwingX library. Its a pity it was not developed any further. 
 
 ## Modifications version 2.0.0
