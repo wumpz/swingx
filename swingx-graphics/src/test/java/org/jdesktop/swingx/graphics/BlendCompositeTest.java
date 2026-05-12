@@ -5,6 +5,7 @@ import static org.jdesktop.swingx.util.GraphicsUtilities.createCompatibleImage;
 import static org.jdesktop.swingx.util.GraphicsUtilities.getPixels;
 import static org.jdesktop.swingx.util.GraphicsUtilities.loadCompatibleImage;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -13,7 +14,6 @@ import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.awt.image.DirectColorModel;
-import java.awt.image.IndexColorModel;
 import org.jdesktop.swingx.util.GraphicsUtilities;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,19 +33,17 @@ public class BlendCompositeTest {
 
 	@BeforeAll
 	public static void initialize() throws Exception {
+		// in headless mode there are different incompatible color models in place.
+		assumeFalse(GraphicsEnvironment.isHeadless(), "This test is incompatible with headless environment");
+
 		VERTICAL_IMAGE = loadCompatibleImage(BlendCompositeTest.class.getResourceAsStream("vertical.gif"));
 		HORIZONTAL_IMAGE = loadCompatibleImage(BlendCompositeTest.class.getResourceAsStream("horizontal.gif"));
 
 		assertThat(VERTICAL_IMAGE.getWidth()).isEqualTo(HORIZONTAL_IMAGE.getWidth());
 		assertThat(VERTICAL_IMAGE.getHeight()).isEqualTo(HORIZONTAL_IMAGE.getHeight());
 
-		if (!GraphicsEnvironment.isHeadless()) {
-			assertThat(VERTICAL_IMAGE.getColorModel()).isInstanceOf(DirectColorModel.class);
-			assertThat(HORIZONTAL_IMAGE.getColorModel()).isInstanceOf(DirectColorModel.class);
-		} else {
-			assertThat(VERTICAL_IMAGE.getColorModel()).isInstanceOf(IndexColorModel.class);
-			assertThat(HORIZONTAL_IMAGE.getColorModel()).isInstanceOf(IndexColorModel.class);
-		}
+		assertThat(VERTICAL_IMAGE.getColorModel()).isInstanceOf(DirectColorModel.class);
+		assertThat(HORIZONTAL_IMAGE.getColorModel()).isInstanceOf(DirectColorModel.class);
 	}
 
 	private BufferedImage actual;
