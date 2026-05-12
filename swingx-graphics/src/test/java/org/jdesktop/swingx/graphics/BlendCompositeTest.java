@@ -9,9 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.awt.image.DirectColorModel;
+import java.awt.image.IndexColorModel;
 import org.jdesktop.swingx.util.GraphicsUtilities;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,8 +39,13 @@ public class BlendCompositeTest {
 		assertThat(VERTICAL_IMAGE.getWidth()).isEqualTo(HORIZONTAL_IMAGE.getWidth());
 		assertThat(VERTICAL_IMAGE.getHeight()).isEqualTo(HORIZONTAL_IMAGE.getHeight());
 
-		assertThat(VERTICAL_IMAGE.getColorModel()).isInstanceOf(DirectColorModel.class);
-		assertThat(HORIZONTAL_IMAGE.getColorModel()).isInstanceOf(DirectColorModel.class);
+		if (!GraphicsEnvironment.isHeadless()) {
+			assertThat(VERTICAL_IMAGE.getColorModel()).isInstanceOf(DirectColorModel.class);
+			assertThat(HORIZONTAL_IMAGE.getColorModel()).isInstanceOf(DirectColorModel.class);
+		} else {
+			assertThat(VERTICAL_IMAGE.getColorModel()).isInstanceOf(IndexColorModel.class);
+			assertThat(HORIZONTAL_IMAGE.getColorModel()).isInstanceOf(IndexColorModel.class);
+		}
 	}
 
 	private BufferedImage actual;

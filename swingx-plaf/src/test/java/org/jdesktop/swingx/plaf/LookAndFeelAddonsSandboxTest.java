@@ -4,12 +4,14 @@
  */
 package org.jdesktop.swingx.plaf;
 
+import java.awt.GraphicsEnvironment;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.logging.Logger;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -55,6 +57,7 @@ public class LookAndFeelAddonsSandboxTest {
 	 */
 	@Test
 	public void testSystemAddon() {
+		assumeFalse(GraphicsEnvironment.isHeadless());
 		LookAndFeelAddons addon = LookAndFeelAddons.getAddon();
 		assertTrue(addon.isSystemAddon(), "addon must be system addon, but was: " + addon);
 	}

@@ -1535,7 +1535,8 @@ public class JXDatePickerTest extends InteractiveTestCase {
 			return;
 		}
 		// sanity ...
-		assertFalse(date.equals(picker.getDate()), "");
+		if ( !GraphicsEnvironment.isHeadless() )
+			assertFalse(date.equals(picker.getDate()), "");
 		PropertyChangeReport report = new PropertyChangeReport();
 		picker.addPropertyChangeListener("date", report);
 		picker.commitEdit();
@@ -1564,7 +1565,8 @@ public class JXDatePickerTest extends InteractiveTestCase {
 			return;
 		}
 		// sanity ...
-		assertFalse(date.equals(picker.getDate()), "");
+		if ( !GraphicsEnvironment.isHeadless() )
+			assertFalse(date.equals(picker.getDate()), "");
 		picker.commitEdit();
 		assertSynchAll(picker, date);
 	}
