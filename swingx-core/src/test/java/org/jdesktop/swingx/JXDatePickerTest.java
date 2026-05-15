@@ -1537,7 +1537,7 @@ public class JXDatePickerTest extends InteractiveTestCase {
 		// sanity ...
 		if (!GraphicsEnvironment.isHeadless()) {
 			assertFalse(date.equals(picker.getDate()), "");
-		
+
 			PropertyChangeReport report = new PropertyChangeReport();
 			picker.addPropertyChangeListener("date", report);
 			picker.commitEdit();
