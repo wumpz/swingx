@@ -14,17 +14,6 @@
     <module>swingx-demos-content</module>
     <module>swingx-demos-run</module>
   </modules>
-	<build>
-		<plugins>
-			<plugin>
-        <groupId>org.sonatype.central</groupId>
-        <artifactId>central-publishing-maven-plugin</artifactId>
-        <configuration>
-					<skipPublishing>true</skipPublishing>
-        </configuration>
-      </plugin>
-		</plugins>
-	</build>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -64,4 +53,15 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <configuration>
+          <skipPublishing>true</skipPublishing>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

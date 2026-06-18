@@ -19,12 +19,12 @@
       <url>http://www.gnu.org/copyleft/lesser.html</url>
     </license>
   </licenses>
-	<developers>
+  <developers>
     <developer>
       <name>Tobias Warneke</name>
       <email>t.warneke@gmx.net</email>
     </developer>
-	</developers>
+  </developers>
   <modules>
     <module>swingx-mavensupport</module>
     <module>swingx-testsupport</module>
@@ -41,7 +41,7 @@
 		<module>swingx-experimental</module> -->
     <module>swingx-demos</module>
   </modules>
-	<scm>
+  <scm>
     <connection>scm:git:https://github.com/wumpz/swingx.git</connection>
     <developerConnection>scm:git:ssh://git@github.com:wumpz/swingx.git</developerConnection>
     <tag>HEAD</tag>
@@ -51,7 +51,7 @@
     <system>github</system>
     <url>https://github.com/wumpz/swingx/issues</url>
   </issueManagement>
-	<!-- 
+  <!-- 
   <distributionManagement>
     <repository>
       <id>github-packages</id>
@@ -177,7 +177,7 @@
           <pushChanges>false</pushChanges>
           <mavenExecutorId>forked-path</mavenExecutorId>
           <releaseProfiles>sign-release-artifacts</releaseProfiles>
-					<autoVersionSubmodules>true</autoVersionSubmodules>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
       </plugin>
       <!-- 
@@ -230,7 +230,7 @@
           </execution>
         </executions>
       </plugin>
-			<plugin>
+      <plugin>
         <groupId>org.sonatype.central</groupId>
         <artifactId>central-publishing-maven-plugin</artifactId>
         <version>0.11.0</version>
@@ -241,7 +241,7 @@
       </plugin>
     </plugins>
   </build>
-	 <profiles>
+  <profiles>
     <profile>
       <id>sign-release-artifacts</id>
       <activation>
@@ -272,5 +272,5 @@
         </plugins>
       </build>
     </profile>
-	 </profiles>
+  </profiles>
 </project>

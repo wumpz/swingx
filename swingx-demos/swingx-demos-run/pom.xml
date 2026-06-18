@@ -8,6 +8,7 @@
   </parent>
   <artifactId>swingx-demos-run</artifactId>
   <packaging>jar</packaging>
+  <name>SwingX Demos Runner</name>
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
@@ -33,5 +34,4 @@
       <scope>compile</scope>
     </dependency>
   </dependencies>
-    <name>SwingX Demos Runner</name>
 </project>
