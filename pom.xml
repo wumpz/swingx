@@ -19,6 +19,12 @@
       <url>http://www.gnu.org/copyleft/lesser.html</url>
     </license>
   </licenses>
+	<developers>
+    <developer>
+      <name>Tobias Warneke</name>
+      <email>t.warneke@gmx.net</email>
+    </developer>
+	</developers>
   <modules>
     <module>swingx-mavensupport</module>
     <module>swingx-testsupport</module>

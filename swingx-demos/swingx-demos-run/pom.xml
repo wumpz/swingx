@@ -33,4 +33,5 @@
       <scope>compile</scope>
     </dependency>
   </dependencies>
+    <name>SwingX Demos Runner</name>
 </project>
