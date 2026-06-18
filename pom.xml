@@ -35,10 +35,17 @@
 		<module>swingx-experimental</module> -->
     <module>swingx-demos</module>
   </modules>
+	<scm>
+    <connection>scm:git:https://github.com/wumpz/swingx.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com:wumpz/swingx.git</developerConnection>
+    <tag>HEAD</tag>
+    <url>https://github.com/wumpz/swingx.git</url>
+  </scm>
   <issueManagement>
     <system>github</system>
     <url>https://github.com/wumpz/swingx/issues</url>
   </issueManagement>
+	<!-- 
   <distributionManagement>
     <repository>
       <id>github-packages</id>
@@ -46,6 +53,7 @@
       <url>https://maven.pkg.github.com/wumpz/swingx</url>
     </repository>
   </distributionManagement>
+    -->
   <properties>
     <project.generatedSourcesDirectory>${project.build.directory}/generated-sources</project.generatedSourcesDirectory>
     <project.generatedAnnotations>${project.generatedSourcesDirectory}/annotations</project.generatedAnnotations>
