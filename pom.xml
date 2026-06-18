@@ -165,9 +165,13 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
-        <!-- version inherited from parent (2.1) -->
+        <version>3.3.1</version>
         <configuration>
-          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <localCheckout>true</localCheckout>
+          <pushChanges>false</pushChanges>
+          <mavenExecutorId>forked-path</mavenExecutorId>
+          <releaseProfiles>sign-release-artifacts</releaseProfiles>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
       </plugin>
       <!-- 
