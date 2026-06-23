@@ -7,6 +7,14 @@ This is a fork of the great SwingX library. Its a pity it was not developed any 
 ## Modifications version 2.1
 
 * published to maven central (**com.github.wumpz.swingx**)
+```xml
+<dependency>
+    <groupId>com.github.wumpz.swingx</groupId>
+    <artifactId>swingx-core</artifactId>
+    <version>2.1</version>
+</dependency>
+```
+
 
 ## Modifications version 2.0.0
 
