@@ -2,7 +2,7 @@
 
 [![Java CI with Maven](https://github.com/wumpz/swingx/actions/workflows/maven.yml/badge.svg)](https://github.com/wumpz/swingx/actions/workflows/maven.yml)  [![CodeQL](https://github.com/wumpz/swingx/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/wumpz/swingx/actions/workflows/github-code-scanning/codeql)
 
-This is a fork of the great SwingX library. Its a pity it was not developed any further. 
+This is a fork of the great SwingX library. Its a pity it was not developed any further. BTW PRs are welcome.
 
 ## Modifications version 2.2
 
