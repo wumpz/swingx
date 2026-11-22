@@ -404,7 +404,7 @@ public abstract class AbstractActionExt extends AbstractAction implements ItemLi
 
 	@Override
 	public String toString() {
-		StringBuffer buffer = new StringBuffer("[");
+		StringBuilder buffer = new StringBuilder("[");
 		// RG: Fix for J2SE 5.0; Can't cascade append() calls because
 		// return type in StringBuffer and AbstractStringBuilder are different
 		buffer.append(this.getClass().toString());

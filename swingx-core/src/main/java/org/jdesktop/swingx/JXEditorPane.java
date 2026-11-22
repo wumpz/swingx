@@ -850,7 +850,7 @@ public class JXEditorPane extends JEditorPane implements /*Searchable, */ Target
 		@Override
 		public void read(Reader in, Document doc, int pos) throws IOException, BadLocationException {
 			// read the reader into a String
-			StringBuffer buffer = new StringBuffer();
+			StringBuilder buffer = new StringBuilder();
 			int length;
 			char[] data = new char[1024];
 			while ((length = in.read(data)) != -1) {

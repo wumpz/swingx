@@ -226,40 +226,6 @@ public final class PaintUtils {
 		}
 		return angle;
 	}
-	/*
-	public static void main(String ... args) {
-		LinearGradientPaint in = new LinearGradientPaint(
-				new Point(0,0), new Point(10,0),
-				new float[] {0f, 0.5f, 1f},
-				new Color[] {Color.RED, Color.GREEN, Color.BLUE});
-		log.fine("in  = " + toString(in));
-		Paint out = resizeGradient(in,100,100);
-		log.fine(("out = " + toString((MultipleGradientPaint) out));
-	}*/
-	/*
-	private static String toString(MultipleGradientPaint paint) {
-		StringBuffer buffer = new StringBuffer();
-		buffer.append(paint.getClass().getName());
-		Color[] colors = paint.getColors();
-		float[] values = paint.getFractions();
-		buffer.append("[");
-		for(int i=0; i<colors.length; i++) {
-			buffer.append("#").append(Integer.toHexString(colors[i].getRGB()));
-			buffer.append(":");
-			buffer.append(values[i]);
-			buffer.append(", ");
-		}
-		buffer.append("]");
-		if(paint instanceof LinearGradientPaint) {
-			LinearGradientPaint lgp = (LinearGradientPaint) paint;
-			buffer.append(", ");
-			buffer.append(""+lgp.getStartPoint().getX() + ", " + lgp.getStartPoint().getY());
-			buffer.append("->");
-			buffer.append(""+lgp.getEndPoint().getX() + ", " + lgp.getEndPoint().getY());
-		}
-
-		return buffer.toString();
-	}*/
 
 	/**
 	 * Creates a new {@code Paint} that is a checkered effect using the colors {@link Color#GRAY

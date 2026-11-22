@@ -405,7 +405,7 @@ public class PatternModel {
 		@Override
 		public String createRegEx(String searchExp) {
 			if (isAutoDetect()) {
-				StringBuffer buf = new StringBuffer(searchExp.length() + 4);
+				StringBuilder buf = new StringBuilder(searchExp.length() + 4);
 				if (!hasStartAnchor(searchExp)) {
 					if (isStartAnchored()) {
 						buf.append("^");

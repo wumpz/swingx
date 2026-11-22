@@ -63,7 +63,7 @@ public class JXEditorPaneVisualCheck extends JXEditorPaneTest {
 		Action[] actions = editor.getActions();
 		ActionManager manager = ActionManager.getInstance();
 		List<Object> actionNames = new ArrayList<>();
-		StringBuffer buffer = new StringBuffer("No. of default actions: " + actions.length);
+		StringBuilder buffer = new StringBuilder("No. of default actions: " + actions.length);
 		ActionMap map = editor.getActionMap();
 		Object[] keys = map.keys();
 		int count = keys != null ? keys.length : 0;
@@ -137,7 +137,7 @@ public class JXEditorPaneVisualCheck extends JXEditorPaneTest {
 		Action[] actions = editor.getActions();
 		ActionManager manager = ActionManager.getInstance();
 		List<Object> actionNames = new ArrayList<>();
-		StringBuffer buffer = new StringBuffer("No. of default actions: " + actions.length);
+		StringBuilder buffer = new StringBuilder("No. of default actions: " + actions.length);
 		ActionMap map = editor.getActionMap();
 		Object[] keys = map.keys();
 		int count = keys != null ? keys.length : 0;
@@ -175,7 +175,7 @@ public class JXEditorPaneVisualCheck extends JXEditorPaneTest {
 		Action[] actions = editor.getActions();
 		ActionManager manager = ActionManager.getInstance();
 		List<Object> actionNames = new ArrayList<>();
-		StringBuffer buffer = new StringBuffer("No. of default actions: " + actions.length);
+		StringBuilder buffer = new StringBuilder("No. of default actions: " + actions.length);
 		ActionMap map = editor.getActionMap();
 		Object[] keys = map.keys();
 		int count = keys != null ? keys.length : 0;

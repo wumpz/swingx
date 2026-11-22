@@ -84,9 +84,6 @@ public class CellContext implements Serializable {
 	/** the default border for unfocused cells. */
 	protected static Border noFocusBorder = new EmptyBorder(1, 1, 1, 1);
 
-	/** ?? the default border for unfocused cells. ?? */
-	private static final Border SAFE_NO_FOCUS_BORDER = new EmptyBorder(1, 1, 1, 1);
-
 	/**
 	 * Returns the shared border for unfocused cells.
 	 * <p>
@@ -95,11 +92,7 @@ public class CellContext implements Serializable {
 	 * @return the border for unfocused cells.
 	 */
 	private static Border getNoFocusBorder() {
-		if (System.getSecurityManager() != null) {
-			return SAFE_NO_FOCUS_BORDER;
-		} else {
-			return noFocusBorder;
-		}
+		return noFocusBorder;
 	}
 
 	/** PENDING JW: maybe make this a WeakReference? Would be a more robust fix for Issue #1040-swingx. */

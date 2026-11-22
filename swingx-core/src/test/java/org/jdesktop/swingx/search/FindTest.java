@@ -755,7 +755,7 @@ public class FindTest extends InteractiveTestCase {
 		@Override
 		public Object getValueAt(int row, int column) {
 			checkCoordinates(row, column);
-			StringBuffer buffer = new StringBuffer(data[column]);
+			StringBuilder buffer = new StringBuilder(data[column]);
 			buffer.append(row);
 			return buffer.toString();
 		}

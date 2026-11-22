@@ -252,7 +252,7 @@ public class ServerAction extends AbstractAction {
 				}
 				String line;
 
-				StringBuffer buffer = new StringBuffer();
+				StringBuilder buffer = new StringBuilder();
 				while ((line = buf.readLine()) != null) {
 					// RG: Fix for J2SE 5.0; Can't cascade append() calls because
 					// return type in StringBuffer and AbstractStringBuilder are different
@@ -278,7 +278,7 @@ public class ServerAction extends AbstractAction {
 	 */
 	private String getPostData() {
 		// Write the data into local buffer
-		StringBuffer postData = new StringBuffer();
+		StringBuilder postData = new StringBuilder();
 
 		// TODO: the action should be configured to retrieve the data.
 
@@ -309,7 +309,7 @@ public class ServerAction extends AbstractAction {
 	 * @param msg server message
 	 */
 	private String createMessage(int code, String msg) {
-		StringBuffer buffer = new StringBuffer("The action \"");
+		StringBuilder buffer = new StringBuilder("The action \"");
 		buffer.append(getValue(NAME));
 
 		if (code < 400) {

@@ -202,7 +202,7 @@ public class TableModelReport implements TableModelListener {
 
 	public static String printEvent(TableModelEvent e) {
 		if (e == null) return "null";
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		buffer.append("Type: ");
 		buffer.append(typeStrings[e.getType() + 1]);
 		buffer.append(", firstRow: ");

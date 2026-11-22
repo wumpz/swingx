@@ -649,7 +649,7 @@ public class BasicErrorPaneUI extends ErrorPaneUI {
 	protected String getDetailsAsHTML(ErrorInfo errorInfo) {
 		if (errorInfo.getErrorException() != null) {
 			// convert the stacktrace into a more pleasent bit of HTML
-			StringBuffer html = new StringBuffer("<html>");
+			StringBuilder html = new StringBuilder("<html>");
 			html.append("<h2>" + escapeXml(errorInfo.getTitle()) + "</h2>");
 			html.append("<HR size='1' noshade>");
 			html.append("<div></div>");

@@ -786,7 +786,7 @@ public class JXGradientChooser extends JXPanel {
 	 * @return a string representing the supplied {@code paint}
 	 */
 	public static String toString(MultipleGradientPaint paint) {
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		buffer.append(paint.getClass().getName());
 		Color[] colors = paint.getColors();
 		float[] values = paint.getFractions();

@@ -60,7 +60,7 @@ public class JXErrorPaneVisualCheck extends InteractiveTestCase {
 	public void interactiveMinimalError() {
 		Exception e = new NullPointerException("something ...");
 
-		StringBuffer html = new StringBuffer("<html>");
+		StringBuilder html = new StringBuilder("<html>");
 		html.append("<h2>" + "Error" + "</h2>");
 		html.append("<HR size='1' noshade>");
 		html.append("<div></div>");

@@ -211,7 +211,7 @@ public class BasicStatusBarUI extends StatusBarUI {
 		}
 	}
 
-	public static final String AUTO_ADD_SEPARATOR = new StringBuffer("auto-add-separator").toString();
+	public static final String AUTO_ADD_SEPARATOR = "auto-add-separator";
 	/**
 	 * Used to help reduce the amount of trash being generated
 	 */
